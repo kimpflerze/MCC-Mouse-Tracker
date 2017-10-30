@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BDF828FD48CD5981E1FB881E /* Pods_MCC_Mouse_Reproduction_Tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94346DC2A98292DE00C7E8E /* Pods_MCC_Mouse_Reproduction_Tracker.framework */; };
+		EA62C62C1FA6DA070044C464 /* RackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA62C62B1FA6DA070044C464 /* RackViewController.swift */; };
+		EA62C62E1FA6DA420044C464 /* RackViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA62C62D1FA6DA420044C464 /* RackViewCell.swift */; };
+		EA62C6301FA6F16E0044C464 /* QRScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA62C62F1FA6F16E0044C464 /* QRScannerController.swift */; };
 		EA9E84B91FA6CB8400FDE9AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9E84B81FA6CB8400FDE9AB /* AppDelegate.swift */; };
 		EA9E84BB1FA6CB8400FDE9AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9E84BA1FA6CB8400FDE9AB /* ViewController.swift */; };
 		EA9E84BE1FA6CB8400FDE9AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA9E84BC1FA6CB8400FDE9AB /* Main.storyboard */; };
@@ -34,6 +38,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		079B346EE825F7DDFD3E639B /* Pods-MCC Mouse Reproduction Tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCC Mouse Reproduction Tracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-MCC Mouse Reproduction Tracker/Pods-MCC Mouse Reproduction Tracker.release.xcconfig"; sourceTree = "<group>"; };
+		ADC17CFBF0CE0D312BC0BF49 /* Pods-MCC Mouse Reproduction Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCC Mouse Reproduction Tracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MCC Mouse Reproduction Tracker/Pods-MCC Mouse Reproduction Tracker.debug.xcconfig"; sourceTree = "<group>"; };
+		D94346DC2A98292DE00C7E8E /* Pods_MCC_Mouse_Reproduction_Tracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MCC_Mouse_Reproduction_Tracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA62C62B1FA6DA070044C464 /* RackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RackViewController.swift; sourceTree = "<group>"; };
+		EA62C62D1FA6DA420044C464 /* RackViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RackViewCell.swift; sourceTree = "<group>"; };
+		EA62C62F1FA6F16E0044C464 /* QRScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScannerController.swift; sourceTree = "<group>"; };
 		EA9E84B51FA6CB8400FDE9AB /* MCC Mouse Reproduction Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MCC Mouse Reproduction Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA9E84B81FA6CB8400FDE9AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA9E84BA1FA6CB8400FDE9AB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -54,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDF828FD48CD5981E1FB881E /* Pods_MCC_Mouse_Reproduction_Tracker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +85,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5EA81D69680D262F5328F5F9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D94346DC2A98292DE00C7E8E /* Pods_MCC_Mouse_Reproduction_Tracker.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9E7A2E608AB92A7B320B6647 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ADC17CFBF0CE0D312BC0BF49 /* Pods-MCC Mouse Reproduction Tracker.debug.xcconfig */,
+				079B346EE825F7DDFD3E639B /* Pods-MCC Mouse Reproduction Tracker.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		EA9E84AC1FA6CB8400FDE9AB = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +109,8 @@
 				EA9E84CC1FA6CB8400FDE9AB /* MCC Mouse Reproduction TrackerTests */,
 				EA9E84D71FA6CB8400FDE9AB /* MCC Mouse Reproduction TrackerUITests */,
 				EA9E84B61FA6CB8400FDE9AB /* Products */,
+				9E7A2E608AB92A7B320B6647 /* Pods */,
+				5EA81D69680D262F5328F5F9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,7 +128,10 @@
 			isa = PBXGroup;
 			children = (
 				EA9E84B81FA6CB8400FDE9AB /* AppDelegate.swift */,
+				EA62C62F1FA6F16E0044C464 /* QRScannerController.swift */,
 				EA9E84BA1FA6CB8400FDE9AB /* ViewController.swift */,
+				EA62C62B1FA6DA070044C464 /* RackViewController.swift */,
+				EA62C62D1FA6DA420044C464 /* RackViewCell.swift */,
 				EA9E84BC1FA6CB8400FDE9AB /* Main.storyboard */,
 				EA9E84BF1FA6CB8400FDE9AB /* Assets.xcassets */,
 				EA9E84C11FA6CB8400FDE9AB /* LaunchScreen.storyboard */,
@@ -132,9 +165,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA9E84DD1FA6CB8400FDE9AB /* Build configuration list for PBXNativeTarget "MCC Mouse Reproduction Tracker" */;
 			buildPhases = (
+				939ABC692659EE4B5AB067A9 /* [CP] Check Pods Manifest.lock */,
 				EA9E84B11FA6CB8400FDE9AB /* Sources */,
 				EA9E84B21FA6CB8400FDE9AB /* Frameworks */,
 				EA9E84B31FA6CB8400FDE9AB /* Resources */,
+				5D1235A338071332FA2862B1 /* [CP] Embed Pods Frameworks */,
+				3B50B2EA9A5D34BD3CE3BE14 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -257,13 +293,70 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3B50B2EA9A5D34BD3CE3BE14 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MCC Mouse Reproduction Tracker/Pods-MCC Mouse Reproduction Tracker-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5D1235A338071332FA2862B1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MCC Mouse Reproduction Tracker/Pods-MCC Mouse Reproduction Tracker-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MCC Mouse Reproduction Tracker/Pods-MCC Mouse Reproduction Tracker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		939ABC692659EE4B5AB067A9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MCC Mouse Reproduction Tracker-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EA9E84B11FA6CB8400FDE9AB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA62C6301FA6F16E0044C464 /* QRScannerController.swift in Sources */,
 				EA9E84BB1FA6CB8400FDE9AB /* ViewController.swift in Sources */,
+				EA62C62E1FA6DA420044C464 /* RackViewCell.swift in Sources */,
 				EA9E84B91FA6CB8400FDE9AB /* AppDelegate.swift in Sources */,
+				EA62C62C1FA6DA070044C464 /* RackViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,27 +508,33 @@
 		};
 		EA9E84DE1FA6CB8400FDE9AB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADC17CFBF0CE0D312BC0BF49 /* Pods-MCC Mouse Reproduction Tracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = A5Q224W4VJ;
 				INFOPLIST_FILE = "MCC Mouse Reproduction Tracker/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KimpflerWilliamsNovak.MCC-Mouse-Reproduction-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		EA9E84DF1FA6CB8400FDE9AB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 079B346EE825F7DDFD3E639B /* Pods-MCC Mouse Reproduction Tracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = A5Q224W4VJ;
 				INFOPLIST_FILE = "MCC Mouse Reproduction Tracker/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KimpflerWilliamsNovak.MCC-Mouse-Reproduction-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -516,6 +615,7 @@
 				EA9E84DF1FA6CB8400FDE9AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EA9E84E01FA6CB8400FDE9AB /* Build configuration list for PBXNativeTarget "MCC Mouse Reproduction TrackerTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +624,7 @@
 				EA9E84E21FA6CB8400FDE9AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EA9E84E31FA6CB8400FDE9AB /* Build configuration list for PBXNativeTarget "MCC Mouse Reproduction TrackerUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +633,7 @@
 				EA9E84E51FA6CB8400FDE9AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
