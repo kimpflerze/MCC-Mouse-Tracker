@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ivm-cO-QbQ">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Login-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="sVz-vJ-vyl" userLabel="Username TextField">
+                                <rect key="frame" x="259" y="497" width="250" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="Uc4-oG-wHM"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="W3v-nA-x5c" userLabel="Password TextField">
+                                <rect key="frame" x="259" y="587" width="250" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="IwL-bI-tJk"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l57-7g-xi3" userLabel="Login Button">
+                                <rect key="frame" x="365" y="677" width="38" height="30"/>
+                                <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="loginButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yx1-Va-lAJ"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MasseyCancerCenterLogo-Cropped" translatesAutoresizingMaskIntoConstraints="NO" id="5Mw-GW-GUF" userLabel="Logo">
+                                <rect key="frame" x="28" y="124" width="712" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="3Le-28-KVa"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="W3v-nA-x5c" firstAttribute="top" secondItem="sVz-vJ-vyl" secondAttribute="bottom" constant="60" id="8xc-10-vCm"/>
+                            <constraint firstItem="l57-7g-xi3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FRC-lI-VuH"/>
+                            <constraint firstItem="W3v-nA-x5c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HlP-BE-JyP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5Mw-GW-GUF" secondAttribute="trailing" constant="8" id="LgM-Nf-00G"/>
+                            <constraint firstItem="sVz-vJ-vyl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ULE-l2-aOc"/>
+                            <constraint firstItem="5Mw-GW-GUF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="8" id="V6C-yP-6Kv"/>
+                            <constraint firstItem="sVz-vJ-vyl" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="YQP-ae-S53"/>
+                            <constraint firstItem="5Mw-GW-GUF" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="60" id="bHN-av-56I"/>
+                            <constraint firstItem="l57-7g-xi3" firstAttribute="top" secondItem="W3v-nA-x5c" secondAttribute="bottom" constant="60" id="lbt-Ce-zQF"/>
+                            <constraint firstItem="l57-7g-xi3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nmH-Hp-i7D"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Login" id="Q8S-Pt-tSU"/>
+                    <connections>
+                        <outlet property="loginButton" destination="l57-7g-xi3" id="7yn-sq-hd7"/>
+                        <outlet property="passwordTextField" destination="W3v-nA-x5c" id="nHy-sQ-RXS"/>
+                        <outlet property="usernameTextField" destination="sVz-vJ-vyl" id="n7O-3n-Uq7"/>
+                        <segue destination="06p-km-SgQ" kind="show" identifier="loginToRackView" id="TOt-86-ttC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1076" y="138.98050974512745"/>
+        </scene>
+        <!--Scanner Controller-->
+        <scene sceneID="huo-ry-X27">
+            <objects>
+                <viewController storyboardIdentifier="scanner" id="CS2-aQ-ZJ3" customClass="QRScannerController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="t2o-Mn-m8b"/>
+                        <viewControllerLayoutGuide type="bottom" id="JQV-ik-5Vv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Fj3-0E-oBz">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="tSI-zv-mbm"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JM4-bQ-jG4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1076" y="837"/>
+        </scene>
+        <!--Rack View-->
+        <scene sceneID="bmS-G8-3cR">
+            <objects>
+                <collectionViewController storyboardIdentifier="RackViewController" id="06p-km-SgQ" customClass="RackViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="2rQ-BW-YIU">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="99u-ol-tax">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="OSW-2e-SCX">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="06p-km-SgQ" id="Afl-I6-m4h"/>
+                            <outlet property="delegate" destination="06p-km-SgQ" id="Kn4-eJ-ap5"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="Rack View" id="Kac-ff-i1V"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wbn-D9-1CI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1961" y="139"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="axd-71-cWa">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ivm-cO-QbQ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="04D-Yx-Tif">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Bhv-jV-ItH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DeC-CE-oGW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="116" y="139"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="AJF-iT-zZX">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Aai-RE-zcF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="prb-ct-bKl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="CS2-aQ-ZJ3" kind="relationship" relationship="rootViewController" id="1Qk-eP-l26"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ecm-aY-YaT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="116" y="837"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="MasseyCancerCenterLogo-Cropped" width="976" height="400"/>
+    </resources>
+</document>
