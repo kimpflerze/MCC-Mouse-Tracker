@@ -16,5 +16,6 @@ namespace MouseApi.DataAccess
         public DbSet<ParentCageLookupEntity> ParentCageLookups { get; set; }
         public DbSet<BreedingMaleEntity> BreedingMales { get; set; }
         public DbSet<LitterLogEntity> LitterLogs { get; set; }
+        public DbSet<SellingCageEntity> SellingCages { get; set; }
     }
 }
