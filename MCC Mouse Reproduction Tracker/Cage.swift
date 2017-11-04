@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Rack: NSObject {
+class Cage: NSObject {
     
     var id: String?
     var createdAt: Date?
@@ -22,10 +22,14 @@ class Rack: NSObject {
         id = rackInfo["Id"] as? String
         let genericCage = rackInfo["GenericCage"] as? [String : Any]
     
+        //Most likely will have to update the date once we have the new server hosted by MCC.
         let formatter = DateFormatter()
         //"Created": "2017-10-26T15:50:24.5",
-        formatter.dateFormat = "yyyy-MM-ddThh:mm:ss.S"
-        if let dateString = genericCage?["Created"] as? String {
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        if var dateString = genericCage?["Created"] as? String {
+            let index = dateString.index(dateString.startIndex, offsetBy: 19)
+            dateString = dateString.substring(to: index)
+            dateString = dateString.replacingOccurrences(of: "T", with: " ")
             createdAt = formatter.date(from: dateString)
         }
         row = genericCage?["Row"] as? Int

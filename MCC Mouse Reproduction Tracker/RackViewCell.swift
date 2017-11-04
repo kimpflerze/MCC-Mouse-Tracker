@@ -10,4 +10,9 @@ import UIKit
 
 class RackViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var cageTypeIcon: UIImageView!
+    @IBOutlet weak var weanCageIcon: UIImageView!
+    @IBOutlet weak var maleInCageIcon: UIImageView!
+    @IBOutlet weak var oldAgeIcon: UIImageView!
+    
 }

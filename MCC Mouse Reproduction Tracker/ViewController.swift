@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController {
     
@@ -32,7 +33,30 @@ class ViewController: UIViewController {
         print("Login Button Pressed!")
         
         //Temporary segue just for testing purposes, should be a check for the login information here!
-//        performSegue(withIdentifier: "loginToRackView", sender: sender)
+        performSegue(withIdentifier: "loginToPageView", sender: sender)
+        
+        /*
+        if let url = URL(string: "http://jasmine.cs.vcu.edu:20038/~kimpflerze/login.php"), let email = usernameTextField.text, let password = passwordTextField.text {
+            let parameters: Parameters = ["email" : email, "password" : password]
+            Alamofire.request(url, parameters: parameters).responseJSON(completionHandler: { (response) in
+                if let result = response.value as? [String : String] {
+                    if let error = result["error"] {
+                        let alert = UIAlertController(title: "Error!", message: error, preferredStyle: .alert)
+                        let cancelAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
+                        alert.addAction(cancelAction)
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                    else {
+//                        User.shared.username = result["USERNAME"]
+//                        User.shared.email = result["EMAIL"]
+                        if let homeVC = self.storyboard?.instantiateViewController(withIdentifier: "Home") as? ViewController {
+                            self.navigationController?.pushViewController(homeVC, animated: true)
+                        }
+                    }
+                }
+            })
+        }
+        */
         
         
         

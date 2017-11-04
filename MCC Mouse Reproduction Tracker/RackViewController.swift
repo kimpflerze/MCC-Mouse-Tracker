@@ -8,11 +8,15 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "Cage"
 
 class RackViewController: UICollectionViewController {
-
-    @IBOutlet weak var logoutBarButtonItem: UIBarButtonItem!
+    
+    var numColumns = 6
+    var numRows = 10
+    
+    var cages = [Cage]()
+    var rackNumber = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,10 +25,31 @@ class RackViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+//        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
         print("Now viewing: RackViewController")
+        
+        let columnLayout = ColumnFlowLayout(
+            cellsPerRow: numColumns,
+            minimumInteritemSpacing: 20,
+            minimumLineSpacing: 10,
+            sectionInset: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        )
+        
+        self.collectionView?.collectionViewLayout = columnLayout
+        
+        QueryServer.shared.getAllBreedingCages { (downloadedCages, error) in
+            if let theCages = downloadedCages {
+                self.cages = theCages
+                DispatchQueue.main.async {
+                     self.collectionView?.reloadData()
+                }
+            }
+        }
+        
+        //Need to query settings table for number of rows and columns, or should it be saved to local data and only all settings checked at app launch?
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,21 +70,37 @@ class RackViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
+       
+        return numRows * numColumns
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
-        // Configure the cell
-    
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cage", for: indexPath) as! RackViewCell
+        
+        cell.cageTypeIcon.image = #imageLiteral(resourceName: "GenericIconBackground")
+        let row = indexPath.item / numColumns
+        let column = indexPath.item % numColumns
+        print("row: \(row), column: \(column), rack: \(rackNumber)")
+        if let index = cages.index(where: { (cage) -> Bool in
+            return cage.row == row && cage.column == column && cage.rack == self.rackNumber
+        }) {
+            //Add if statement for the selling cages here!
+            let cage = cages[index]
+            cell.cageTypeIcon.image = #imageLiteral(resourceName: "BreedingIconBackground")
+            
+        }
+        
+        //Stuff just to check spacing of icons
+        cell.maleInCageIcon.isHidden = false
+        cell.oldAgeIcon.isHidden = false
+        cell.weanCageIcon.isHidden = false
+        
         return cell
     }
 
