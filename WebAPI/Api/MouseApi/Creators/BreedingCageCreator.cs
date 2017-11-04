@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace MouseApi.Creators
+﻿namespace MouseApi.Creators
 {
     public class BreedingCageCreator
     {

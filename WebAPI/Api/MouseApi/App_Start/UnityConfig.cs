@@ -30,6 +30,7 @@ namespace MouseApi
             container.RegisterType<IBreedingMaleFilterProvider, BreedingMaleFilterProvider>();
             container.RegisterType<IParentCageLookupFilterProvider, ParentCageLookupFilterProvider>();
             container.RegisterType<ILitterLogFilterProvider, LitterLogFilterProvider>();
+            container.RegisterType<ISellingCageFilterProvider, SellingCageFilterProvider>();
 
             container.RegisterType<BreedingCageValidator, BreedingCageValidator>();
 
@@ -38,12 +39,14 @@ namespace MouseApi
             container.RegisterType<IBaseRepository<BreedingMaleEntity>, BaseRepository<BreedingMaleEntity>>();
             container.RegisterType<IBaseRepository<LitterLogEntity>, BaseRepository<LitterLogEntity>>();
             container.RegisterType<IBaseRepository<ParentCageLookupEntity>, BaseRepository<ParentCageLookupEntity>>();
+            container.RegisterType<IBaseRepository<SellingCageEntity>, BaseRepository<SellingCageEntity>>();
 
             container.RegisterType<IGenericCageService, GenericCageService>();
             container.RegisterType<IBreedingCageService, BreedingCageService>();
             container.RegisterType<IBreedingMaleService, BreedingMaleService>();
             container.RegisterType<ILitterLogService, LitterLogService>();
             container.RegisterType<IParentCageLookupService, ParentCageLookupService>();
+            container.RegisterType<ISellingCageService, SellingCageService>();
             container.RegisterType<IMapper, Mapper>(new InjectionConstructor(
                 new MapperConfiguration(cfg => 
                 {
@@ -52,6 +55,7 @@ namespace MouseApi
                     cfg.AddProfile<ParentCageLookupProfile>();
                     cfg.AddProfile<BreedingMaleProfile>();
                     cfg.AddProfile<LitterLogProfile>();
+                    cfg.AddProfile<SellingCageProfile>();
                 } )));
             
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);

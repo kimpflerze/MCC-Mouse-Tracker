@@ -89,19 +89,5 @@ namespace MouseApi.Service
         {
             await _repository.DeleteAsync(keyValues);
         }
-
-        private List<KeyValuePair<string,string>> GetValidQueryParams(IEnumerable<KeyValuePair<string, string>> queryParams)
-        {
-            List<KeyValuePair<string, string>> result = new List<KeyValuePair<string,string>>();
-            foreach(var param in queryParams)
-            {
-                if(_validParams.Contains(param.Key))
-                {
-                    result.Add(param);
-                }
-            }
-            return result;
-        }
-        protected List<string> _validParams = new List<string>() { "Active" };
     }
 }
