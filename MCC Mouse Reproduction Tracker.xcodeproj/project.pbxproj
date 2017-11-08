@@ -22,6 +22,9 @@
 		EAB8201D1FAD29A6002AB754 /* QueryServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB8201C1FAD29A6002AB754 /* QueryServer.swift */; };
 		EAB8201F1FAD29C6002AB754 /* Cage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB8201E1FAD29C6002AB754 /* Cage.swift */; };
 		EAE65E481FAD43BE00ADF0A3 /* RackPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE65E471FAD43BE00ADF0A3 /* RackPageViewController.swift */; };
+		F4B239E91FAD85C7001304FB /* breedingCageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B239E81FAD85C7001304FB /* breedingCageViewController.swift */; };
+		F4B239EB1FAD85DF001304FB /* stockCageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B239EA1FAD85DF001304FB /* stockCageViewController.swift */; };
+		F4B239ED1FAD85ED001304FB /* addMaleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B239EC1FAD85ED001304FB /* addMaleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +68,9 @@
 		EAB8201C1FAD29A6002AB754 /* QueryServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryServer.swift; sourceTree = "<group>"; };
 		EAB8201E1FAD29C6002AB754 /* Cage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cage.swift; sourceTree = "<group>"; };
 		EAE65E471FAD43BE00ADF0A3 /* RackPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RackPageViewController.swift; sourceTree = "<group>"; };
+		F4B239E81FAD85C7001304FB /* breedingCageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = breedingCageViewController.swift; sourceTree = "<group>"; };
+		F4B239EA1FAD85DF001304FB /* stockCageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = stockCageViewController.swift; sourceTree = "<group>"; };
+		F4B239EC1FAD85ED001304FB /* addMaleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addMaleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +150,9 @@
 				EA62C62D1FA6DA420044C464 /* RackViewCell.swift */,
 				EAB8201A1FACC69D002AB754 /* ColumnFlowLayout.swift */,
 				EA9E84BC1FA6CB8400FDE9AB /* Main.storyboard */,
+				F4B239E81FAD85C7001304FB /* breedingCageViewController.swift */,
+				F4B239EA1FAD85DF001304FB /* stockCageViewController.swift */,
+				F4B239EC1FAD85ED001304FB /* addMaleViewController.swift */,
 				EAE65E471FAD43BE00ADF0A3 /* RackPageViewController.swift */,
 				EA9E84BF1FA6CB8400FDE9AB /* Assets.xcassets */,
 				EA9E84C11FA6CB8400FDE9AB /* LaunchScreen.storyboard */,
@@ -365,10 +374,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAE65E481FAD43BE00ADF0A3 /* RackPageViewController.swift in Sources */,
+				F4B239ED1FAD85ED001304FB /* addMaleViewController.swift in Sources */,
 				EA62C6301FA6F16E0044C464 /* QRScannerController.swift in Sources */,
 				EAB8201B1FACC69D002AB754 /* ColumnFlowLayout.swift in Sources */,
 				EAB8201D1FAD29A6002AB754 /* QueryServer.swift in Sources */,
+				F4B239E91FAD85C7001304FB /* breedingCageViewController.swift in Sources */,
 				EA9E84BB1FA6CB8400FDE9AB /* ViewController.swift in Sources */,
+				F4B239EB1FAD85DF001304FB /* stockCageViewController.swift in Sources */,
 				EA62C62E1FA6DA420044C464 /* RackViewCell.swift in Sources */,
 				EA9E84B91FA6CB8400FDE9AB /* AppDelegate.swift in Sources */,
 				EAB8201F1FAD29C6002AB754 /* Cage.swift in Sources */,

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Alamofire
+//import Alamofire
 
 class ViewController: UIViewController {
     
@@ -16,17 +16,28 @@ class ViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var breedingCageButton: UIButton!  //temporary button
+    @IBOutlet weak var stockCageButton: UIButton! //temporary button
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         print("Now viewing: Login Screen (ViewController)")
+     
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func breedingCageButtonPressed(_ sender: UIButton) {
+        print("breeding Cage button Pressed")
+    }
+    @IBAction func stockCageButtonPressed(_ sender: UIButton) {
+        print("stock Cage button Pressed")
     }
 
     @IBAction func loginButtonPressed(_ sender: UIButton) {
