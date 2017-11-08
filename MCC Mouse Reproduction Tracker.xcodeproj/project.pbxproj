@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		BDF828FD48CD5981E1FB881E /* Pods_MCC_Mouse_Reproduction_Tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94346DC2A98292DE00C7E8E /* Pods_MCC_Mouse_Reproduction_Tracker.framework */; };
-		EA62C62C1FA6DA070044C464 /* RackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA62C62B1FA6DA070044C464 /* RackViewController.swift */; };
 		EA62C62E1FA6DA420044C464 /* RackViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA62C62D1FA6DA420044C464 /* RackViewCell.swift */; };
 		EA62C6301FA6F16E0044C464 /* QRScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA62C62F1FA6F16E0044C464 /* QRScannerController.swift */; };
 		EA9E84B91FA6CB8400FDE9AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA9E84B81FA6CB8400FDE9AB /* AppDelegate.swift */; };
@@ -21,7 +20,9 @@
 		EAB8201B1FACC69D002AB754 /* ColumnFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB8201A1FACC69D002AB754 /* ColumnFlowLayout.swift */; };
 		EAB8201D1FAD29A6002AB754 /* QueryServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB8201C1FAD29A6002AB754 /* QueryServer.swift */; };
 		EAB8201F1FAD29C6002AB754 /* Cage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB8201E1FAD29C6002AB754 /* Cage.swift */; };
+		EAD200F61FB229D500308C1A /* RackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD200F51FB229D500308C1A /* RackViewController.swift */; };
 		EAE65E481FAD43BE00ADF0A3 /* RackPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE65E471FAD43BE00ADF0A3 /* RackPageViewController.swift */; };
+		EAE65E4A1FAFA24D00ADF0A3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE65E491FAFA24D00ADF0A3 /* Settings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +46,6 @@
 		079B346EE825F7DDFD3E639B /* Pods-MCC Mouse Reproduction Tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCC Mouse Reproduction Tracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-MCC Mouse Reproduction Tracker/Pods-MCC Mouse Reproduction Tracker.release.xcconfig"; sourceTree = "<group>"; };
 		ADC17CFBF0CE0D312BC0BF49 /* Pods-MCC Mouse Reproduction Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCC Mouse Reproduction Tracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MCC Mouse Reproduction Tracker/Pods-MCC Mouse Reproduction Tracker.debug.xcconfig"; sourceTree = "<group>"; };
 		D94346DC2A98292DE00C7E8E /* Pods_MCC_Mouse_Reproduction_Tracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MCC_Mouse_Reproduction_Tracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EA62C62B1FA6DA070044C464 /* RackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RackViewController.swift; sourceTree = "<group>"; };
 		EA62C62D1FA6DA420044C464 /* RackViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RackViewCell.swift; sourceTree = "<group>"; };
 		EA62C62F1FA6F16E0044C464 /* QRScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScannerController.swift; sourceTree = "<group>"; };
 		EA9E84B51FA6CB8400FDE9AB /* MCC Mouse Reproduction Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MCC Mouse Reproduction Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,7 +64,9 @@
 		EAB8201A1FACC69D002AB754 /* ColumnFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnFlowLayout.swift; sourceTree = "<group>"; };
 		EAB8201C1FAD29A6002AB754 /* QueryServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryServer.swift; sourceTree = "<group>"; };
 		EAB8201E1FAD29C6002AB754 /* Cage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cage.swift; sourceTree = "<group>"; };
+		EAD200F51FB229D500308C1A /* RackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RackViewController.swift; sourceTree = "<group>"; };
 		EAE65E471FAD43BE00ADF0A3 /* RackPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RackPageViewController.swift; sourceTree = "<group>"; };
+		EAE65E491FAFA24D00ADF0A3 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,9 +138,10 @@
 			isa = PBXGroup;
 			children = (
 				EA9E84B81FA6CB8400FDE9AB /* AppDelegate.swift */,
+				EAD200F51FB229D500308C1A /* RackViewController.swift */,
+				EAE65E491FAFA24D00ADF0A3 /* Settings.swift */,
 				EA62C62F1FA6F16E0044C464 /* QRScannerController.swift */,
 				EA9E84BA1FA6CB8400FDE9AB /* ViewController.swift */,
-				EA62C62B1FA6DA070044C464 /* RackViewController.swift */,
 				EAB8201C1FAD29A6002AB754 /* QueryServer.swift */,
 				EAB8201E1FAD29C6002AB754 /* Cage.swift */,
 				EA62C62D1FA6DA420044C464 /* RackViewCell.swift */,
@@ -368,11 +371,12 @@
 				EA62C6301FA6F16E0044C464 /* QRScannerController.swift in Sources */,
 				EAB8201B1FACC69D002AB754 /* ColumnFlowLayout.swift in Sources */,
 				EAB8201D1FAD29A6002AB754 /* QueryServer.swift in Sources */,
+				EAE65E4A1FAFA24D00ADF0A3 /* Settings.swift in Sources */,
 				EA9E84BB1FA6CB8400FDE9AB /* ViewController.swift in Sources */,
 				EA62C62E1FA6DA420044C464 /* RackViewCell.swift in Sources */,
 				EA9E84B91FA6CB8400FDE9AB /* AppDelegate.swift in Sources */,
 				EAB8201F1FAD29C6002AB754 /* Cage.swift in Sources */,
-				EA62C62C1FA6DA070044C464 /* RackViewController.swift in Sources */,
+				EAD200F61FB229D500308C1A /* RackViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
