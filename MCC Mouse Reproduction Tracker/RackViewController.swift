@@ -155,8 +155,8 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let logoutConfirmationAlert = UIAlertController(title: "Logout", message: "Are you sure you want to logout?", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "Confirm", style: .default) { (alert) in
             print("Clear username and email from shared settings")
-            Settings.shared.userName = nil
-            Settings.shared.email = nil
+            Settings.shared.userName = ""
+            Settings.shared.email = ""
             self.navigationController?.popToRootViewController(animated: true)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

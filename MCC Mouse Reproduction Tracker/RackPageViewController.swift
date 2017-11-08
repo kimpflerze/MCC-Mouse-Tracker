@@ -49,7 +49,7 @@ class RackPageViewController: UIPageViewController, UIPageViewControllerDelegate
     }
     
     func updateNavigationControllerTitle() {
-        self.navigationItem.title = "Rack View \(currentPage?.rackNumber)"
+        self.navigationItem.title = "Rack View \(currentPage!.rackNumber)"
     }
     
     func menuButtonPressed(_ sender: UIBarButtonItem) {
