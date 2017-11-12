@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MouseApi.Entities;
 using MouseApi.Service;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
@@ -45,10 +49,22 @@ namespace MouseApi.Controllers
         /// </summary>
         /// <param name="creator">The <see cref="TCreate"/>provided.</param>
         /// <returns>A <see cref="TModel"/>representing the newly added <see cref="TEntity"/>.</returns>
-        public virtual TModel Post([FromBody]TCreate creator)
+        public virtual HttpResponseMessage Post([FromBody]TCreate creator)
         {
             TEntity entity = _mapper.Map<TCreate, TEntity>(creator);
-            return _mapper.Map<TModel>(_service.Add(entity));
+            try
+            {
+                var response = _mapper.Map<TModel>(_service.Add(entity));
+                return Request.CreateResponse(HttpStatusCode.OK, response);
+            }
+            catch(SqlException ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.Conflict, ex.Message);
+            }    
+            catch(ValidationException ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.PreconditionFailed, ex.Message);
+            }
         }
 
         /// <summary>
@@ -59,6 +75,28 @@ namespace MouseApi.Controllers
         public virtual TEntity Put([FromBody]TEntity entity)
         {
             return _service.Update(entity);
+        }
+
+        public virtual HttpResponseMessage Patch(string id)
+        {
+            var queryParams = Request.GetQueryNameValuePairs();
+            try
+            {
+                var response = _service.Patch(id, queryParams);
+                return Request.CreateResponse(HttpStatusCode.OK, response);
+            }
+            catch (SqlException ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (NullReferenceException ex)
+            {
+               return Request.CreateResponse(HttpStatusCode.NotFound, "No Model Found with Given Id");
+            }
+            catch(ValidationException ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.PreconditionFailed, ex.Message);
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace MouseApi.DataAccess
         Task AddAsync(TEntity entity);
         TEntity Update(TEntity entity);
         Task UpdateAsync(TEntity entity, params object[] keyValues);
-        void Delete(params object[] keyValues);
+        TEntity Delete(params object[] keyValues);
         Task DeleteAsync(params object[] keyValues);
     }
 }

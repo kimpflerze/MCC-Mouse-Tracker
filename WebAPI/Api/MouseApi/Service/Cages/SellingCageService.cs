@@ -1,12 +1,13 @@
 ﻿using MouseApi.DataAccess;
 using MouseApi.Entities;
 using MouseApi.FilterProviders.Cages;
+using MouseApi.Patchers.Cages;
 using MouseApi.Validator.Cages;
 using System;
 
 namespace MouseApi.Service.Cages
 {
-    public class SellingCageService : BaseService<SellingCageEntity, SellingCageValidator, ISellingCageFilterProvider>, ISellingCageService
+    public class SellingCageService : BaseService<SellingCageEntity, SellingCageValidator, ISellingCageFilterProvider, ISellingCagePatcher>, ISellingCageService
     {
         protected IBaseRepository<GenericCageEntity> _genericCageRepository;
         protected IBaseRepository<ParentCageLookupEntity> _lookupRepository;
@@ -17,7 +18,8 @@ namespace MouseApi.Service.Cages
             , IBaseRepository<GenericCageEntity> genericCageRepository
             , IBaseRepository<ParentCageLookupEntity> lookupRepository
             , SellingCageValidator validator
-            , ISellingCageFilterProvider provider) : base(dbContext, repository, validator, provider)
+            , ISellingCageFilterProvider provider
+            , ISellingCagePatcher patcher) : base(dbContext, repository, validator, provider, patcher)
         {
             _genericCageRepository = genericCageRepository;
             _lookupRepository = lookupRepository;

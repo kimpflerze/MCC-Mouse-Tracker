@@ -7,7 +7,6 @@ namespace MouseApi.ViewModels
         public string Id { get; set; }
         public GenericCageModel GenericCage { get; set; }
         public DateTime? LitterDOB { get; set; }
-        public int LittersFromCage { get; set; }
-        
+        public int LittersFromCage { get; set; }     
     }
 }

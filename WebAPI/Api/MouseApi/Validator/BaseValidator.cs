@@ -2,7 +2,7 @@
 
 namespace MouseApi.Validator
 {
-    public class BaseValidator<TEntity> : AbstractValidator<TEntity>
+    public abstract class BaseValidator<TEntity> : AbstractValidator<TEntity>
     {
     }
 }

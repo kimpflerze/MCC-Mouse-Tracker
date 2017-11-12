@@ -3,7 +3,7 @@ using MouseApi.Entities;
 
 namespace MouseApi.Validator.ParentCageLookup
 {
-    public class ParentCageLookupValidator : AbstractValidator<ParentCageLookupEntity>
+    public class ParentCageLookupValidator : BaseValidator<ParentCageLookupEntity>, IParentCageLookupValidator
     {
     }
 }

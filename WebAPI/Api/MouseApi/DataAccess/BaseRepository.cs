@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,7 +41,18 @@ namespace MouseApi.DataAccess
         public virtual TEntity Add(TEntity entity)
         {
             _dbSet.Add(entity);
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                while(ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                }
+                throw ex;
+            }
             return entity;
         }
 
@@ -52,9 +64,20 @@ namespace MouseApi.DataAccess
 
         public virtual TEntity Update(TEntity entity)
         {
-            _dbSet.Attach(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _dbContext.Detach(entity);
+                while (ex.InnerException != null)
+                {
+                    ex = ex.InnerException;
+                }
+                throw ex;
+            }
 
             return entity;
         }
@@ -71,7 +94,7 @@ namespace MouseApi.DataAccess
             await _dbContext.SaveChangesAsync();
         }
 
-        public virtual void Delete(params object[] keyValues)
+        public virtual TEntity Delete(params object[] keyValues)
         {
             var entity = Find(keyValues);
             if(entity == null)
@@ -85,6 +108,7 @@ namespace MouseApi.DataAccess
             }
             _dbSet.Remove(entity);
             _dbContext.SaveChanges();
+            return entity;
         }
 
         public virtual async Task DeleteAsync(params object[] keyValues)

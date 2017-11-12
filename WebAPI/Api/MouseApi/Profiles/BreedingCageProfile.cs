@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using MouseApi.Creators;
+﻿using MouseApi.Creators;
 using MouseApi.Entities;
 using MouseApi.ViewModels;
-using System;
 
 namespace MouseApi.Profiles
 {

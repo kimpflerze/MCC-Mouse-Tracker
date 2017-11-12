@@ -25,6 +25,9 @@ namespace MouseApi.FilterProviders.Cages
                     case "rack":
                         list = list.Where(x => x.GenericCage.Rack == Int32.Parse(filter.Value));
                         break;
+                    case "gender":
+                        list = list.Where(x => x.Gender == Int32.Parse(filter.Value));
+                        break;
                     default:
                         break;
                 }

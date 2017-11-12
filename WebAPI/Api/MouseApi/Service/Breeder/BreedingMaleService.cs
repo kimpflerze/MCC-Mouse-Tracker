@@ -1,19 +1,21 @@
 ﻿using MouseApi.DataAccess;
 using MouseApi.Entities;
 using MouseApi.FilterProviders.BreedingMale;
+using MouseApi.Patchers.BreedingMale;
 using MouseApi.Validator.Breeder;
 using System;
 
 namespace MouseApi.Service.Breeder
 {
-    public class BreedingMaleService : BaseService<BreedingMaleEntity, BreedingMaleValidator, IBreedingMaleFilterProvider>, IBreedingMaleService
+    public class BreedingMaleService : BaseService<BreedingMaleEntity, BreedingMaleValidator, IBreedingMaleFilterProvider, IBreedingMalePatcher>, IBreedingMaleService
     {
         private IBaseRepository<BreedingCageEntity> _breedingCageRepository;
         public BreedingMaleService(MouseTrackDbContext dbContext
             , IBaseRepository<BreedingMaleEntity> repository
             , IBaseRepository<BreedingCageEntity> breedingCageRepository
             , BreedingMaleValidator validator
-            , IBreedingMaleFilterProvider provider) : base(dbContext, repository, validator, provider)
+            , IBreedingMaleFilterProvider provider
+            , IBreedingMalePatcher patcher) : base(dbContext, repository, validator, provider, patcher)
         {
             _breedingCageRepository = breedingCageRepository;
         }

@@ -2,7 +2,7 @@
 
 namespace MouseApi.Validator.LitterLog
 {
-    public class LitterLogValidator : BaseValidator<LitterLogEntity>
+    public class LitterLogValidator : BaseValidator<LitterLogEntity>, ILitterLogValidator
     {
     }
 }
