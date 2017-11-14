@@ -1,0 +1,877 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16G1036" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ivm-cO-QbQ">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Login-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="sVz-vJ-vyl" userLabel="Username TextField">
+                                <rect key="frame" x="259" y="497" width="250" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="Uc4-oG-wHM"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="W3v-nA-x5c" userLabel="Password TextField">
+                                <rect key="frame" x="259" y="587" width="250" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="IwL-bI-tJk"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l57-7g-xi3" userLabel="Login Button">
+                                <rect key="frame" x="365" y="677" width="38" height="30"/>
+                                <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="loginButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yx1-Va-lAJ"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MasseyCancerCenterLogo-Cropped" translatesAutoresizingMaskIntoConstraints="NO" id="5Mw-GW-GUF" userLabel="Logo">
+                                <rect key="frame" x="28" y="124" width="712" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="3Le-28-KVa"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nzx-0M-nls">
+                                <rect key="frame" x="302" y="727" width="165" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="create breeding cage"/>
+                                <connections>
+                                    <action selector="breedingCageButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="slE-BS-oUd"/>
+                                    <segue destination="wsw-vQ-VSv" kind="show" id="E0Z-RG-nzW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EUG-oL-KFV">
+                                <rect key="frame" x="302" y="783" width="165" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="create stock cage"/>
+                                <connections>
+                                    <action selector="stockCageButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aFz-Of-wD8"/>
+                                    <segue destination="cM7-b4-LQ5" kind="show" id="BC0-ke-mW5"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="W3v-nA-x5c" firstAttribute="top" secondItem="sVz-vJ-vyl" secondAttribute="bottom" constant="60" id="8xc-10-vCm"/>
+                            <constraint firstItem="l57-7g-xi3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FRC-lI-VuH"/>
+                            <constraint firstItem="W3v-nA-x5c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HlP-BE-JyP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5Mw-GW-GUF" secondAttribute="trailing" constant="8" id="LgM-Nf-00G"/>
+                            <constraint firstItem="sVz-vJ-vyl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ULE-l2-aOc"/>
+                            <constraint firstItem="5Mw-GW-GUF" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="8" id="V6C-yP-6Kv"/>
+                            <constraint firstItem="sVz-vJ-vyl" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="YQP-ae-S53"/>
+                            <constraint firstItem="5Mw-GW-GUF" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="60" id="bHN-av-56I"/>
+                            <constraint firstItem="l57-7g-xi3" firstAttribute="top" secondItem="W3v-nA-x5c" secondAttribute="bottom" constant="60" id="lbt-Ce-zQF"/>
+                            <constraint firstItem="l57-7g-xi3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nmH-Hp-i7D"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Login" id="Q8S-Pt-tSU"/>
+                    <connections>
+                        <outlet property="breedingCageButton" destination="Nzx-0M-nls" id="dsJ-eW-W6N"/>
+                        <outlet property="loginButton" destination="l57-7g-xi3" id="7yn-sq-hd7"/>
+                        <outlet property="passwordTextField" destination="W3v-nA-x5c" id="nHy-sQ-RXS"/>
+                        <outlet property="stockCageButton" destination="EUG-oL-KFV" id="Stg-Tv-8vz"/>
+                        <outlet property="usernameTextField" destination="sVz-vJ-vyl" id="n7O-3n-Uq7"/>
+                        <segue destination="MTG-X9-dTN" kind="show" identifier="loginToPageView" id="GRC-zn-saA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1075.78125" y="138.8671875"/>
+        </scene>
+        <!--Scanner Controller-->
+        <scene sceneID="huo-ry-X27">
+            <objects>
+                <viewController storyboardIdentifier="scanner" id="CS2-aQ-ZJ3" customClass="QRScannerController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="t2o-Mn-m8b"/>
+                        <viewControllerLayoutGuide type="bottom" id="JQV-ik-5Vv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Fj3-0E-oBz">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1400"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="tSI-zv-mbm"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JM4-bQ-jG4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1743" y="913"/>
+        </scene>
+        <!--Rack View-->
+        <scene sceneID="bmS-G8-3cR">
+            <objects>
+                <collectionViewController storyboardIdentifier="RackVC" id="06p-km-SgQ" customClass="RackViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="2rQ-BW-YIU">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="30" id="99u-ol-tax">
+                            <size key="itemSize" width="100" height="100"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="30" minY="30" maxX="30" maxY="30"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cage" id="OSW-2e-SCX" customClass="RackViewCell" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target">
+                                <rect key="frame" x="30" y="30" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WrJ-vC-QqY" userLabel="Cage Type Icon">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        </imageView>
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MaleInCageIcon" translatesAutoresizingMaskIntoConstraints="NO" id="XWM-nf-LWn" userLabel="Weaning Icon">
+                                            <rect key="frame" x="5" y="55" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="QvS-NG-tv7"/>
+                                                <constraint firstAttribute="width" constant="40" id="opd-Cw-kgU"/>
+                                            </constraints>
+                                        </imageView>
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OldAgeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="fpw-d8-rQI" userLabel="Old Age Icon">
+                                            <rect key="frame" x="55" y="55" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="BZc-uz-eYc"/>
+                                                <constraint firstAttribute="height" constant="40" id="xrG-qs-uR1"/>
+                                            </constraints>
+                                        </imageView>
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WeanCageIcon" translatesAutoresizingMaskIntoConstraints="NO" id="fH5-8h-pw2" userLabel="Breeding Male Icon">
+                                            <rect key="frame" x="55" y="5" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="wYR-cZ-54f"/>
+                                                <constraint firstAttribute="width" constant="40" id="ze8-2x-0qv"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="XWM-nf-LWn" firstAttribute="leading" secondItem="OSW-2e-SCX" secondAttribute="leading" constant="5" id="4LK-i6-GOz"/>
+                                    <constraint firstAttribute="bottom" secondItem="WrJ-vC-QqY" secondAttribute="bottom" id="DgT-MZ-YgY"/>
+                                    <constraint firstAttribute="trailing" secondItem="WrJ-vC-QqY" secondAttribute="trailing" id="F87-Fv-649"/>
+                                    <constraint firstAttribute="trailing" secondItem="fH5-8h-pw2" secondAttribute="trailing" constant="5" id="Kmp-Vr-AlP"/>
+                                    <constraint firstItem="WrJ-vC-QqY" firstAttribute="leading" secondItem="OSW-2e-SCX" secondAttribute="leading" id="Mjr-iW-Nz2"/>
+                                    <constraint firstAttribute="bottom" secondItem="XWM-nf-LWn" secondAttribute="bottom" constant="5" id="a2z-ka-DQX"/>
+                                    <constraint firstItem="WrJ-vC-QqY" firstAttribute="top" secondItem="OSW-2e-SCX" secondAttribute="top" id="dGd-mU-eLB"/>
+                                    <constraint firstAttribute="trailing" secondItem="fpw-d8-rQI" secondAttribute="trailing" constant="5" id="g8U-Y4-nHr"/>
+                                    <constraint firstAttribute="bottom" secondItem="fpw-d8-rQI" secondAttribute="bottom" constant="5" id="rCJ-Yh-TwI"/>
+                                    <constraint firstItem="fH5-8h-pw2" firstAttribute="top" secondItem="OSW-2e-SCX" secondAttribute="top" constant="5" id="wFq-JB-XOg"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="cageTypeIcon" destination="WrJ-vC-QqY" id="sEF-l5-7fS"/>
+                                    <outlet property="maleInCageIcon" destination="fH5-8h-pw2" id="nQo-91-gH7"/>
+                                    <outlet property="oldAgeIcon" destination="fpw-d8-rQI" id="X98-tg-LSP"/>
+                                    <outlet property="weanCageIcon" destination="XWM-nf-LWn" id="YE4-W2-qcb"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="06p-km-SgQ" id="Afl-I6-m4h"/>
+                            <outlet property="delegate" destination="06p-km-SgQ" id="Kn4-eJ-ap5"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="Rack View" id="Kac-ff-i1V"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wbn-D9-1CI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2738" y="139"/>
+        </scene>
+        <!--Rack Page View Controller-->
+        <scene sceneID="xJJ-78-pzJ">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="MTG-X9-dTN" customClass="RackPageViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sk4-aN-jmD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1929" y="139"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="axd-71-cWa">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ivm-cO-QbQ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="04D-Yx-Tif">
+                        <rect key="frame" x="0.0" y="20" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Bhv-jV-ItH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DeC-CE-oGW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="116" y="139"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="AJF-iT-zZX">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Aai-RE-zcF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="prb-ct-bKl">
+                        <rect key="frame" x="0.0" y="20" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="CS2-aQ-ZJ3" kind="relationship" relationship="rootViewController" id="1Qk-eP-l26"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ecm-aY-YaT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="116" y="913"/>
+        </scene>
+        <!--Breeding Cage View Controller-->
+        <scene sceneID="YRh-DE-wFs">
+            <objects>
+                <viewController id="wsw-vQ-VSv" customClass="breedingCageViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pjN-3T-pug"/>
+                        <viewControllerLayoutGuide type="bottom" id="A8l-JB-w1s"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="y9q-kT-Hfh">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1400"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QeU-0M-hTw">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1400"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="82I-Sq-jiQ">
+                                        <rect key="frame" x="0.0" y="64" width="768" height="1400"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create a Breeding Cage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FOC-OC-kjG">
+                                                <rect key="frame" x="48" y="31" width="488" height="57"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="36"/>
+                                                <color key="textColor" red="0.18823529411764706" green="0.33333333333333331" blue="0.38431372549019605" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rack No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zAZ-Oy-ifp">
+                                                <rect key="frame" x="48" y="158" width="126" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" highlighted="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="22" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="k3d-vT-rLo">
+                                                <rect key="frame" x="271" y="155" width="351" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Row No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A8K-de-oBF">
+                                                <rect key="frame" x="48" y="226" width="126" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" highlighted="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="22" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="AiV-mi-bMM">
+                                                <rect key="frame" x="271" y="223" width="351" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Column No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ue-RF-0zB">
+                                                <rect key="frame" x="48" y="278" width="139" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Parent D.O.B" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emS-OW-bOE">
+                                                <rect key="frame" x="48" y="397" width="153" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bWW-g7-ao2">
+                                                <rect key="frame" x="48" y="429" width="30" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" backgroundImage="add_button"/>
+                                                <connections>
+                                                    <action selector="pressed_addParentDOBButton:" destination="wsw-vQ-VSv" eventType="touchUpInside" id="J4p-FM-QdD"/>
+                                                </connections>
+                                            </button>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" highlighted="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="22" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5hM-K9-au0">
+                                                <rect key="frame" x="256" y="394" width="351" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="addParentDOBEditing:" destination="wsw-vQ-VSv" eventType="editingDidBegin" id="KWt-0c-Few"/>
+                                                </connections>
+                                            </textField>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j6V-Fv-fQl">
+                                                <rect key="frame" x="256" y="461" width="351" height="225"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="sectionIndexColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                <prototypes>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="28" id="lWd-yK-x2Y">
+                                                        <rect key="frame" x="0.0" y="28" width="351" height="28"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lWd-yK-x2Y" id="6xO-lw-XyD">
+                                                            <rect key="frame" x="0.0" y="0.0" width="351" height="27"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </tableViewCellContentView>
+                                                    </tableViewCell>
+                                                </prototypes>
+                                            </tableView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Parent Cage(s)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mp0-sY-qNb">
+                                                <rect key="frame" x="55" y="723" width="178" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MuQ-6e-bvN">
+                                                <rect key="frame" x="55" y="762" width="30" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" backgroundImage="add_button"/>
+                                                <connections>
+                                                    <action selector="pressed_addParentCageButton:" destination="wsw-vQ-VSv" eventType="touchUpInside" id="44Y-VE-c1E"/>
+                                                </connections>
+                                            </button>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" highlighted="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="22" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mVx-al-Gfx">
+                                                <rect key="frame" x="271" y="292" width="351" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" highlighted="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="22" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="96D-ea-CdT">
+                                                <rect key="frame" x="263" y="752" width="351" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARN-Hu-7ri">
+                                                <rect key="frame" x="665" y="44" width="66" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="18"/>
+                                                <state key="normal" title="Done"/>
+                                                <connections>
+                                                    <action selector="pressed_done_btn:" destination="wsw-vQ-VSv" eventType="touchUpInside" id="4Ea-k1-QX5"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1r0-Eh-5g6">
+                                                <rect key="frame" x="69" y="1112" width="150" height="55"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="1" green="0.75686274509999996" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <state key="normal" title="Add Litter">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="pressed_add_litter_btn:" destination="wsw-vQ-VSv" eventType="touchUpInside" id="fVT-wE-Irq"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E6V-bl-RJu">
+                                                <rect key="frame" x="555" y="1112" width="150" height="55"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" red="1" green="0.75686274509999996" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <state key="normal" title="Add Male">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="pressed_add_male_btn:" destination="wsw-vQ-VSv" eventType="touchUpInside" id="Lf5-Jq-sNA"/>
+                                                    <segue destination="ZCd-9y-FqR" kind="show" identifier="breedingCageToAddMale" id="tMh-Af-vuX"/>
+                                                </connections>
+                                            </button>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="B2E-YH-i74">
+                                                <rect key="frame" x="263" y="810" width="351" height="228"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="sectionIndexColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                <prototypes>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell1" rowHeight="28" id="u0f-ld-rc6">
+                                                        <rect key="frame" x="0.0" y="28" width="351" height="28"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u0f-ld-rc6" id="CPG-lV-494">
+                                                            <rect key="frame" x="0.0" y="0.0" width="351" height="27"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </tableViewCellContentView>
+                                                    </tableViewCell>
+                                                </prototypes>
+                                            </tableView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4O-Tr-lf0">
+                                                <rect key="frame" x="347" y="1105" width="96" height="96"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" backgroundImage="QR_code btn">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="pressed_QR_Code_btn:" destination="wsw-vQ-VSv" eventType="touchUpInside" id="B1o-fb-5Xy"/>
+                                                    <segue destination="CS2-aQ-ZJ3" kind="show" identifier="breedingCageToQRCode" id="4yB-qJ-ReB"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="768" id="AIW-Sa-JBI"/>
+                                            <constraint firstAttribute="height" constant="1400" id="ccd-dO-qpd"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="82I-Sq-jiQ" secondAttribute="bottom" constant="-64" id="2W9-tN-PSO"/>
+                                    <constraint firstItem="82I-Sq-jiQ" firstAttribute="leading" secondItem="QeU-0M-hTw" secondAttribute="leading" id="6QV-C3-IP1"/>
+                                    <constraint firstItem="82I-Sq-jiQ" firstAttribute="top" secondItem="QeU-0M-hTw" secondAttribute="top" constant="64" id="EdN-Bu-WeS"/>
+                                    <constraint firstAttribute="trailing" secondItem="82I-Sq-jiQ" secondAttribute="trailing" id="y4u-RR-KWl"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QeU-0M-hTw" firstAttribute="top" secondItem="pjN-3T-pug" secondAttribute="bottom" constant="-64" id="0fP-jo-Wkf"/>
+                            <constraint firstItem="A8l-JB-w1s" firstAttribute="top" secondItem="QeU-0M-hTw" secondAttribute="bottom" id="Kut-oV-yCw"/>
+                            <constraint firstItem="QeU-0M-hTw" firstAttribute="leading" secondItem="y9q-kT-Hfh" secondAttribute="leading" id="TDZ-4l-eWa"/>
+                            <constraint firstItem="82I-Sq-jiQ" firstAttribute="width" secondItem="y9q-kT-Hfh" secondAttribute="width" id="TJN-dp-6ZL"/>
+                            <constraint firstAttribute="trailing" secondItem="QeU-0M-hTw" secondAttribute="trailing" id="z1w-pt-4su"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="768" height="1400"/>
+                    <connections>
+                        <outlet property="QR_code_btn" destination="f4O-Tr-lf0" id="i1R-nc-O1P"/>
+                        <outlet property="add_litter_btn" destination="1r0-Eh-5g6" id="LLN-Iy-evZ"/>
+                        <outlet property="add_male_btn" destination="E6V-bl-RJu" id="u11-GR-dD1"/>
+                        <outlet property="columnNoTextField" destination="mVx-al-Gfx" id="3eg-l5-dNq"/>
+                        <outlet property="done_btn" destination="ARN-Hu-7ri" id="ZYn-N5-GIl"/>
+                        <outlet property="parentCageTableView" destination="B2E-YH-i74" id="lGP-lw-IPS"/>
+                        <outlet property="parentCageTextField" destination="96D-ea-CdT" id="UVd-zq-O1D"/>
+                        <outlet property="parentDOBTableView" destination="j6V-Fv-fQl" id="Vfe-Ff-mXd"/>
+                        <outlet property="parentDOBTextField" destination="5hM-K9-au0" id="ocG-yf-vmY"/>
+                        <outlet property="rackNoTextField" destination="k3d-vT-rLo" id="xGn-ma-b3Z"/>
+                        <outlet property="rowNoTextField" destination="AiV-mi-bMM" id="p68-W3-wDT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bl2-ad-6ga" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="116" y="1981"/>
+        </scene>
+        <!--Stock Cage View Controller-->
+        <scene sceneID="AuR-Hx-RXK">
+            <objects>
+                <viewController id="cM7-b4-LQ5" customClass="stockCageViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Sic-ie-Jrs"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mrr-H6-sm1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YQv-eP-Zqx">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XpJ-2c-QKd">
+                                <rect key="frame" x="0.0" y="72" width="768" height="1128"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SiY-kW-FbJ">
+                                        <rect key="frame" x="0.0" y="-86" width="768" height="1200"/>
+                                        <subviews>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dim-Nk-J69">
+                                                <rect key="frame" x="277" y="569" width="345" height="178"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="sectionIndexColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                <prototypes>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="p8O-uW-zX1">
+                                                        <rect key="frame" x="0.0" y="28" width="345" height="44"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p8O-uW-zX1" id="OA9-LW-4rg">
+                                                            <rect key="frame" x="0.0" y="0.0" width="345" height="43"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </tableViewCellContentView>
+                                                    </tableViewCell>
+                                                </prototypes>
+                                            </tableView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Male/Female" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="txu-zI-Jyl">
+                                                <rect key="frame" x="232" y="334" width="152" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="SCp-vQ-QJd">
+                                                <rect key="frame" x="274" y="422" width="351" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mice Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="20U-Mx-DNU">
+                                                <rect key="frame" x="65" y="425" width="137" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vb8-AP-uHi">
+                                                <rect key="frame" x="83" y="331" width="51" height="31"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <connections>
+                                                    <action selector="genderFlagSwitchedFlipped:" destination="cM7-b4-LQ5" eventType="valueChanged" id="mr4-1a-GGm"/>
+                                                </connections>
+                                            </switch>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KTI-aq-IXq">
+                                                <rect key="frame" x="277" y="533" width="351" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="addStockCageDOBEditing:" destination="cM7-b4-LQ5" eventType="editingDidBegin" id="ITt-zL-wxG"/>
+                                                </connections>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VRH-1h-18t">
+                                                <rect key="frame" x="84" y="543" width="30" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" backgroundImage="add_button"/>
+                                                <connections>
+                                                    <action selector="pressed_addStockCageDOBButton:" destination="cM7-b4-LQ5" eventType="touchUpInside" id="te4-ut-pmr"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="D.O.B in Cage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SLN-Va-BUN">
+                                                <rect key="frame" x="65" y="500" width="164" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rack No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1X-eH-6y8">
+                                                <rect key="frame" x="67" y="159" width="126" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XfE-k4-3Rv">
+                                                <rect key="frame" x="229" y="207" width="351" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Row No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CiN-HR-lHx">
+                                                <rect key="frame" x="65" y="213" width="126" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="AZk-aQ-OAh">
+                                                <rect key="frame" x="229" y="264" width="351" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Column No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NpT-9B-IyA">
+                                                <rect key="frame" x="66" y="270" width="139" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bU7-Pa-eMb">
+                                                <rect key="frame" x="229" y="156" width="351" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create a Stock Cage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Okj-TX-jiQ">
+                                                <rect key="frame" x="46" y="40" width="488" height="57"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="36"/>
+                                                <color key="textColor" red="0.18823529410000001" green="0.33333333329999998" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vd5-2u-cdn">
+                                                <rect key="frame" x="676" y="23" width="66" height="74"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="18"/>
+                                                <state key="normal" title="Done"/>
+                                                <connections>
+                                                    <action selector="pressed_done_btn:" destination="cM7-b4-LQ5" eventType="touchUpInside" id="ihf-Bn-FT3"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jhf-sB-XU8">
+                                                <rect key="frame" x="323" y="909" width="96" height="96"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" backgroundImage="QR_code btn">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="pressed_QR_Code_btn:" destination="cM7-b4-LQ5" eventType="touchUpInside" id="ZRW-OM-onr"/>
+                                                    <segue destination="CS2-aQ-ZJ3" kind="show" id="BLe-PG-Fy4"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1200" id="tbp-r8-8SD"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="SiY-kW-FbJ" firstAttribute="top" secondItem="XpJ-2c-QKd" secondAttribute="top" constant="-22" id="29X-d7-EW0"/>
+                                    <constraint firstAttribute="bottom" secondItem="SiY-kW-FbJ" secondAttribute="bottom" constant="-50" id="Op4-dQ-lnK"/>
+                                    <constraint firstItem="SiY-kW-FbJ" firstAttribute="leading" secondItem="XpJ-2c-QKd" secondAttribute="leading" id="a1J-pF-0lU"/>
+                                    <constraint firstAttribute="trailing" secondItem="SiY-kW-FbJ" secondAttribute="trailing" id="nrI-7X-I5r"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="XpJ-2c-QKd" secondAttribute="trailing" id="0KM-lc-Ery"/>
+                            <constraint firstItem="Mrr-H6-sm1" firstAttribute="top" secondItem="XpJ-2c-QKd" secondAttribute="bottom" id="CYz-HZ-LP3"/>
+                            <constraint firstItem="SiY-kW-FbJ" firstAttribute="width" secondItem="YQv-eP-Zqx" secondAttribute="width" id="E9C-RS-dUt"/>
+                            <constraint firstItem="XpJ-2c-QKd" firstAttribute="top" secondItem="Sic-ie-Jrs" secondAttribute="bottom" constant="8" symbolic="YES" id="LjR-A5-HvO"/>
+                            <constraint firstItem="XpJ-2c-QKd" firstAttribute="leading" secondItem="YQv-eP-Zqx" secondAttribute="leading" id="rtS-cA-OqN"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="768" height="1200"/>
+                    <connections>
+                        <outlet property="QRCodeButton" destination="Jhf-sB-XU8" id="MoR-3S-5o4"/>
+                        <outlet property="addDOBButton" destination="VRH-1h-18t" id="LGR-Lw-EBK"/>
+                        <outlet property="columnNoTextField" destination="AZk-aQ-OAh" id="lOn-N5-eR5"/>
+                        <outlet property="doneButton" destination="Vd5-2u-cdn" id="Me9-uC-KwG"/>
+                        <outlet property="genderFlagSwitch" destination="Vb8-AP-uHi" id="ANz-O2-iJy"/>
+                        <outlet property="genderFlagTextLabel" destination="txu-zI-Jyl" id="O6I-5m-y34"/>
+                        <outlet property="miceCountTextField" destination="SCp-vQ-QJd" id="aqp-9g-Iuh"/>
+                        <outlet property="rackNoTextField" destination="bU7-Pa-eMb" id="t6Z-SK-AFG"/>
+                        <outlet property="rowNoTextField" destination="XfE-k4-3Rv" id="2Zv-dd-S2X"/>
+                        <outlet property="stockCageDOBTableView" destination="dim-Nk-J69" id="TJw-JS-Jcf"/>
+                        <outlet property="stockCageDOBTextField" destination="KTI-aq-IXq" id="SCR-Tb-X7J"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jAL-RA-ZwW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="863" y="1922"/>
+        </scene>
+        <!--Add Male View Controller-->
+        <scene sceneID="5Np-rO-ZVw">
+            <objects>
+                <viewController id="ZCd-9y-FqR" customClass="addMaleViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6WG-cK-YIe"/>
+                        <viewControllerLayoutGuide type="bottom" id="2TY-dw-Lwf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="f3r-mk-P5o">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="968"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YME-Ci-ACg">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1400"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XYe-LX-aXO">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="1400"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create a Breeding Male" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oUh-57-pJh">
+                                                <rect key="frame" x="82" y="90" width="488" height="57"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="36"/>
+                                                <color key="textColor" red="0.18823529410000001" green="0.33333333329999998" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6VJ-gn-TgX">
+                                                <rect key="frame" x="324" y="173" width="351" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Column No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHf-2l-gyB">
+                                                <rect key="frame" x="105" y="231" width="139" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="crS-Pa-OXb">
+                                                <rect key="frame" x="324" y="228" width="351" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Row No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GCn-AA-otB">
+                                                <rect key="frame" x="105" y="287" width="126" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XWi-J3-R6h">
+                                                <rect key="frame" x="324" y="284" width="351" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rack No." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4cx-is-ZRz">
+                                                <rect key="frame" x="105" y="176" width="126" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="2vg-mE-twl">
+                                                <rect key="frame" x="324" y="338" width="351" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="maleDOBEditing:" destination="ZCd-9y-FqR" eventType="editingDidBegin" id="WC0-3d-qVa"/>
+                                                </connections>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8dw-a9-Ffl">
+                                                <rect key="frame" x="95" y="458" width="30" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" backgroundImage="add_button"/>
+                                                <connections>
+                                                    <action selector="pressed_addParentCageIDButton:" destination="ZCd-9y-FqR" eventType="touchUpInside" id="8Eo-pX-jeF"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Parent Cage ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sTk-M0-mEQ">
+                                                <rect key="frame" x="95" y="414" width="180" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="D.O.B" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WHa-bk-ERS">
+                                                <rect key="frame" x="105" y="341" width="66" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="t48-6n-uVq">
+                                                <rect key="frame" x="203" y="520" width="409" height="159"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <prototypes>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="H2Q-WJ-v2S">
+                                                        <rect key="frame" x="0.0" y="28" width="409" height="44"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H2Q-WJ-v2S" id="snn-cb-DhB">
+                                                            <rect key="frame" x="0.0" y="0.0" width="409" height="43"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </tableViewCellContentView>
+                                                    </tableViewCell>
+                                                </prototypes>
+                                            </tableView>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9WD-iW-tTf">
+                                                <rect key="frame" x="203" y="458" width="409" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QbT-bx-vpK">
+                                                <rect key="frame" x="336" y="792" width="96" height="96"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" backgroundImage="QR_code btn">
+                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="pressed_QR_Code_btn:" destination="ZCd-9y-FqR" eventType="touchUpInside" id="4XU-VS-afG"/>
+                                                    <segue destination="CS2-aQ-ZJ3" kind="show" id="ugv-eT-WvD"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tJU-Q6-eM2">
+                                                <rect key="frame" x="669" y="99" width="66" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="18"/>
+                                                <state key="normal" title="Done"/>
+                                                <connections>
+                                                    <action selector="pressed_done_btn:" destination="ZCd-9y-FqR" eventType="touchUpInside" id="UUN-xu-R4L"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="XYe-LX-aXO" firstAttribute="centerX" secondItem="YME-Ci-ACg" secondAttribute="centerX" id="7uq-kg-g1y"/>
+                                    <constraint firstItem="XYe-LX-aXO" firstAttribute="leading" secondItem="YME-Ci-ACg" secondAttribute="leading" id="GpI-jU-oz0"/>
+                                    <constraint firstItem="XYe-LX-aXO" firstAttribute="centerY" secondItem="YME-Ci-ACg" secondAttribute="centerY" id="KIW-RC-9pE"/>
+                                    <constraint firstAttribute="trailing" secondItem="XYe-LX-aXO" secondAttribute="trailing" id="eqF-7L-1BD"/>
+                                    <constraint firstItem="XYe-LX-aXO" firstAttribute="top" secondItem="YME-Ci-ACg" secondAttribute="top" id="hzi-Fb-9n1"/>
+                                    <constraint firstAttribute="bottom" secondItem="XYe-LX-aXO" secondAttribute="bottom" id="luV-nF-WxI"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="YME-Ci-ACg" secondAttribute="bottom" constant="-432" id="8Td-qu-Udk"/>
+                            <constraint firstAttribute="trailing" secondItem="YME-Ci-ACg" secondAttribute="trailing" id="9iL-qB-bl3"/>
+                            <constraint firstItem="YME-Ci-ACg" firstAttribute="leading" secondItem="f3r-mk-P5o" secondAttribute="leading" id="IET-1g-xYt"/>
+                            <constraint firstItem="YME-Ci-ACg" firstAttribute="top" secondItem="f3r-mk-P5o" secondAttribute="top" id="wCs-rD-lGi"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="768" height="968"/>
+                    <connections>
+                        <outlet property="QRCodeButton" destination="QbT-bx-vpK" id="IbG-gI-q9U"/>
+                        <outlet property="addParentCageIDButton" destination="8dw-a9-Ffl" id="Mhl-sV-1nz"/>
+                        <outlet property="columnNoTextField" destination="crS-Pa-OXb" id="WvG-vj-vCr"/>
+                        <outlet property="doneButton" destination="tJU-Q6-eM2" id="Wgu-6c-HCg"/>
+                        <outlet property="maleDOBTextField" destination="2vg-mE-twl" id="iNZ-cH-cd1"/>
+                        <outlet property="parentCageIDTableView" destination="t48-6n-uVq" id="Gyb-zD-4fS"/>
+                        <outlet property="parentCageIDTextField" destination="9WD-iW-tTf" id="fNj-GB-32b"/>
+                        <outlet property="rackNoTextField" destination="6VJ-gn-TgX" id="E9u-YZ-4VV"/>
+                        <outlet property="rowNoTextField" destination="XWi-J3-R6h" id="tvR-sb-OKI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hgS-fc-tAm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1664.84375" y="1853.9062499999998"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="MaleInCageIcon" width="512" height="512"/>
+        <image name="MasseyCancerCenterLogo-Cropped" width="976" height="400"/>
+        <image name="OldAgeIcon" width="512" height="512"/>
+        <image name="QR_code btn" width="96" height="96"/>
+        <image name="WeanCageIcon" width="512" height="512"/>
+        <image name="add_button" width="22" height="21"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="4yB-qJ-ReB"/>
+    </inferredMetricsTieBreakers>
+</document>
