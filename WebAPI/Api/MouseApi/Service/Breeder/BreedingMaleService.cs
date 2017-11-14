@@ -7,9 +7,22 @@ using System;
 
 namespace MouseApi.Service.Breeder
 {
+    /// <summary>
+    /// Service for <see cref="BreedingMaleEntity"/>.
+    /// </summary>
     public class BreedingMaleService : BaseService<BreedingMaleEntity, IBreedingMaleValidator, IBreedingMaleFilterProvider, IBreedingMalePatcher>, IBreedingMaleService
     {
         private IBaseRepository<BreedingCageEntity> _breedingCageRepository;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="BreedingMaleService"/>.
+        /// </summary>
+        /// <param name="dbContext">The <see cref="MouseTrackDbContext"/>used.</param>
+        /// <param name="repository">The <see cref="IBaseRepository{BreedingMaleEntity}"/>used to interact with Breeding Males in the DB.</param>
+        /// <param name="breedingCageRepository">The <see cref="IBaseRepository{BreedingCageEntity}"/>used to interact with Breeding Cages in the DB.</param>
+        /// <param name="validator">The <see cref="IBreedingMaleValidator"/>used for entity validation.</param>
+        /// <param name="provider">The <see cref="IBreedingMaleFilterProvider"/>used to provide query filters.</param>
+        /// <param name="patcher">The <see cref="IBreedingMalePatcher"/>used to patch entities.</param>
         public BreedingMaleService(MouseTrackDbContext dbContext
             , IBaseRepository<BreedingMaleEntity> repository
             , IBaseRepository<BreedingCageEntity> breedingCageRepository

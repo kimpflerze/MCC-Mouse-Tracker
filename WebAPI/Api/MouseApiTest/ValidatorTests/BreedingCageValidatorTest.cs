@@ -51,5 +51,45 @@ namespace MouseApiTest.ValidatorTests
             result.Errors.Count.Should().Be(1);
             result.Errors.First().ErrorMessage.Should().Contain($"Missing property: {nameof(BreedingCageEntity.Id)}");
         }
+
+        [TestMethod]
+        public void Validate_BreedingCage_InvalidRow()
+        {
+            _entity.GenericCage.Row = 0;
+            var result = _validator.Validate(_entity);
+            result.IsValid.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+            result.Errors.First().ErrorMessage.Should().Contain($"Invalid Row Number");
+        }
+
+        [TestMethod]
+        public void Validate_BreedingCage_InvalidColumn()
+        {
+            _entity.GenericCage.Column = 0;
+            var result = _validator.Validate(_entity);
+            result.IsValid.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+            result.Errors.First().ErrorMessage.Should().Contain($"Invalid Column Number");
+        }
+
+        [TestMethod]
+        public void Validate_BreedingCage_InvalidRack()
+        {
+            _entity.GenericCage.Rack = 0;
+            var result = _validator.Validate(_entity);
+            result.IsValid.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+            result.Errors.First().ErrorMessage.Should().Contain($"Invalid Rack Number");
+        }
+
+        [TestMethod]
+        public void Validate_BreedingCage_InvalidActive()
+        {
+            _entity.GenericCage.Active = 2;
+            var result = _validator.Validate(_entity);
+            result.IsValid.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+            result.Errors.First().ErrorMessage.Should().Contain("Active must be set to either 0 (inactive) or 1 (active)");
+        }
     }
 }
