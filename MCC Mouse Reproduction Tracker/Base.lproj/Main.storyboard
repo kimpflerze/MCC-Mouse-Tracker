@@ -109,7 +109,7 @@
                         <viewControllerLayoutGuide type="bottom" id="JQV-ik-5Vv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Fj3-0E-oBz">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="968"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -123,7 +123,7 @@
         <scene sceneID="bmS-G8-3cR">
             <objects>
                 <collectionViewController storyboardIdentifier="RackVC" id="06p-km-SgQ" customClass="RackViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="2rQ-BW-YIU">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="2rQ-BW-YIU">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -324,7 +324,7 @@
                                                 <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
-                                                    <action selector="addParentDOBEditing:" destination="wsw-vQ-VSv" eventType="editingDidBegin" id="SWu-zJ-fQQ"/>
+                                                    <action selector="addParentDOBEditing:" destination="wsw-vQ-VSv" eventType="editingDidBegin" id="KWt-0c-Few"/>
                                                 </connections>
                                             </textField>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j6V-Fv-fQl">
@@ -872,6 +872,6 @@
         <image name="add_button" width="22" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ugv-eT-WvD"/>
+        <segue reference="4yB-qJ-ReB"/>
     </inferredMetricsTieBreakers>
 </document>

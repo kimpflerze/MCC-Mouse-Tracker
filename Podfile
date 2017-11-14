@@ -7,5 +7,5 @@ use_frameworks!
 
 # Pods for MCC Mouse Reproduction Tracker
 pod 'Alamofire'
-
+pod 'SwiftValidator', :git => 'https://github.com/jpotts18/SwiftValidator.git', :branch => 'master'
 end
