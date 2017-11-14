@@ -1,8 +1,9 @@
-﻿using MouseApi.Entities;
+﻿using FluentValidation;
+using MouseApi.Entities;
 
 namespace MouseApi.Validator.LitterLog
 {
-    public class LitterLogValidator : BaseValidator<LitterLogEntity>, ILitterLogValidator
+    public class LitterLogValidator : AbstractValidator<LitterLogEntity>, ILitterLogValidator
     {
     }
 }

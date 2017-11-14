@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace MouseApi.Service.LitterLog
 {
-    public class LitterLogService : BaseService<LitterLogEntity, LitterLogValidator, ILitterLogFilterProvider, ILitterLogPatcher>, ILitterLogService
+    public class LitterLogService : BaseService<LitterLogEntity, ILitterLogValidator, ILitterLogFilterProvider, ILitterLogPatcher>, ILitterLogService
     {
         private IBaseRepository<BreedingCageEntity> _breedingCageRepository;
         private IBaseRepository<BreedingMaleEntity> _breedingMaleRepository;
@@ -16,7 +16,7 @@ namespace MouseApi.Service.LitterLog
             , IBaseRepository<LitterLogEntity> repository
             , IBaseRepository<BreedingCageEntity> breedingCageRepository
             , IBaseRepository<BreedingMaleEntity> breedingMaleRespository
-            , LitterLogValidator validator
+            , ILitterLogValidator validator
             , ILitterLogFilterProvider provider
             , ILitterLogPatcher patcher) : base(dbContext, repository, validator, provider, patcher)
         {
@@ -26,7 +26,7 @@ namespace MouseApi.Service.LitterLog
 
         public override LitterLogEntity Add(LitterLogEntity entity)
         {
-            entity.DOB = DateTime.UtcNow;
+            entity.DOB = DateTime.Now;
 
             var breedingCage = _breedingCageRepository.Find(entity.MotherCageId);
             var maleInCage = _breedingMaleRepository.Get().Where(x => x.CurrentCageId == breedingCage.Id && x.Active != 0).FirstOrDefault();

@@ -7,13 +7,13 @@ using System;
 
 namespace MouseApi.Service.Breeder
 {
-    public class BreedingMaleService : BaseService<BreedingMaleEntity, BreedingMaleValidator, IBreedingMaleFilterProvider, IBreedingMalePatcher>, IBreedingMaleService
+    public class BreedingMaleService : BaseService<BreedingMaleEntity, IBreedingMaleValidator, IBreedingMaleFilterProvider, IBreedingMalePatcher>, IBreedingMaleService
     {
         private IBaseRepository<BreedingCageEntity> _breedingCageRepository;
         public BreedingMaleService(MouseTrackDbContext dbContext
             , IBaseRepository<BreedingMaleEntity> repository
             , IBaseRepository<BreedingCageEntity> breedingCageRepository
-            , BreedingMaleValidator validator
+            , IBreedingMaleValidator validator
             , IBreedingMaleFilterProvider provider
             , IBreedingMalePatcher patcher) : base(dbContext, repository, validator, provider, patcher)
         {

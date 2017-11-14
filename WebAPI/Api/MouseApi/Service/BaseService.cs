@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MouseApi.DataAccess;
+using MouseApi.Entities;
 using MouseApi.FilterProviders;
 using MouseApi.Patchers;
 using MouseApi.Validator;
@@ -10,8 +11,8 @@ using System.Threading.Tasks;
 namespace MouseApi.Service
 {
     public abstract class BaseService<TEntity, TValidator, TFilterProvider, TPatcher>
-        where TEntity : class 
-        where TValidator : BaseValidator<TEntity>
+        where TEntity : BaseEntity 
+        where TValidator : IBaseValidator<TEntity>
         where TFilterProvider : IBaseFilterProvider<TEntity>
         where TPatcher : IBasePatcher<TEntity>
     {     
@@ -22,13 +23,13 @@ namespace MouseApi.Service
         protected TPatcher _patcher;
 
         public BaseService(MouseTrackDbContext dbContext
-            , IBaseRepository<TEntity> respository
+            , IBaseRepository<TEntity> repository
             , TValidator validator
             , TFilterProvider provider
             , TPatcher patcher)
         {
             _dbContext = dbContext;
-            _repository = respository;
+            _repository = repository;
             _validator = validator;
             _provider = provider;
             _patcher = patcher;
@@ -65,7 +66,7 @@ namespace MouseApi.Service
 
             if (!validationResult.IsValid)
             {
-                throw new ValidationException(validationResult.Errors.First().ErrorMessage);
+                throw new ValidationException(validationResult.Errors);
             }
             return _repository.Add(entity);
         }
@@ -81,7 +82,7 @@ namespace MouseApi.Service
 
             if (!validationResult.IsValid)
             {
-                throw new ValidationException(validationResult.Errors.First().ErrorMessage);
+                throw new ValidationException(validationResult.Errors);
             }
             return _repository.Update(entity);
         }

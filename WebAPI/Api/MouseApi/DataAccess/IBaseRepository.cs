@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using MouseApi.Entities;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace MouseApi.DataAccess
@@ -8,7 +10,7 @@ namespace MouseApi.DataAccess
     /// Makes direct calls to the Database.
     /// </summary>
     /// <typeparam name="TEntity">The Entity type.</typeparam>
-    public interface IBaseRepository<TEntity> where TEntity : class
+    public interface IBaseRepository<TEntity> where TEntity : BaseEntity
     {
         IEnumerable<TEntity> Get();
         Task<IEnumerable<TEntity>> GetAsync();

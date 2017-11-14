@@ -1,8 +1,9 @@
-﻿using MouseApi.Entities;
+﻿using FluentValidation;
+using MouseApi.Entities;
 
 namespace MouseApi.Validator.Alert
 {
-    public class AlertValidator : BaseValidator<AlertEntity>, IAlertValidator
+    public class AlertValidator : AbstractValidator<AlertEntity>, IAlertValidator
     {
     }
 }

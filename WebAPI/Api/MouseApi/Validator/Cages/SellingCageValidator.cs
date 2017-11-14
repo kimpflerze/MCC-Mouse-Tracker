@@ -3,10 +3,11 @@ using MouseApi.Entities;
 
 namespace MouseApi.Validator.Cages
 {
-    public class SellingCageValidator : BaseValidator<SellingCageEntity>, ISellingCageValidator
+    public class SellingCageValidator : AbstractValidator<SellingCageEntity>, ISellingCageValidator
     {
         public SellingCageValidator()
         {
+            RuleFor(cage => cage.Id).NotNull().WithMessage("Id cannot be null");
             RuleFor(cage => cage.GenericCage.Row).NotEqual(0).WithMessage("Invalid Row Number").NotNull().WithMessage("Missing Property: Row");
             RuleFor(cage => cage.GenericCage.Column).NotEqual(0).WithMessage("Invalid Column Number").NotNull().WithMessage("Missing Property: Column");
             RuleFor(cage => cage.GenericCage.Rack).NotEqual(0).WithMessage("Invalid Rack Number").NotNull().WithMessage("Missing Property: Column");

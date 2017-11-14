@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MouseApi.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MouseApi.DataAccess
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity: class
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity: BaseEntity
     {
         protected DbSet<TEntity> _dbSet;
         protected MouseTrackDbContext _dbContext;
@@ -15,7 +16,6 @@ namespace MouseApi.DataAccess
         {
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<TEntity>();
-
         }
 
         public virtual IEnumerable<TEntity> Get()
@@ -47,7 +47,7 @@ namespace MouseApi.DataAccess
             }
             catch(Exception ex)
             {
-                while(ex.InnerException != null)
+                while (ex.InnerException != null)
                 {
                     ex = ex.InnerException;
                 }
@@ -64,7 +64,6 @@ namespace MouseApi.DataAccess
 
         public virtual TEntity Update(TEntity entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
             try
             {
                 _dbContext.SaveChanges();

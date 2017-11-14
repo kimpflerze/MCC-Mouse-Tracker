@@ -77,6 +77,11 @@ namespace MouseApi.Controllers
             return _service.Update(entity);
         }
 
+        /// <summary>
+        /// PATCH Method. Updates an existing record in the database.
+        /// </summary>
+        /// <param name="id">The Id of the record to patch.</param>
+        /// <returns>A <see cref="HttpResponseMessage"/>containing the updated entry.</returns>
         public virtual HttpResponseMessage Patch(string id)
         {
             var queryParams = Request.GetQueryNameValuePairs();
@@ -89,7 +94,7 @@ namespace MouseApi.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.Conflict, ex.Message);
             }
-            catch (NullReferenceException ex)
+            catch (NullReferenceException)
             {
                return Request.CreateResponse(HttpStatusCode.NotFound, "No Model Found with Given Id");
             }

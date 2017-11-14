@@ -7,7 +7,7 @@ using System;
 
 namespace MouseApi.Service.Cages
 {
-    public class BreedingCageService : BaseService<BreedingCageEntity, BreedingCageValidator, IBreedingCageFilterProvider, IBreedingCagePatcher>, IBreedingCageService
+    public class BreedingCageService : BaseService<BreedingCageEntity, IBreedingCageValidator, IBreedingCageFilterProvider, IBreedingCagePatcher>, IBreedingCageService
     {
         protected IBaseRepository<GenericCageEntity> _genericCageRepository;
         protected IBaseRepository<ParentCageLookupEntity> _lookupRepository;
@@ -19,7 +19,7 @@ namespace MouseApi.Service.Cages
             , IBaseRepository<GenericCageEntity> genericCageRepository
             , IBaseRepository<ParentCageLookupEntity> lookupRepository
             , IBaseRepository<BreedingMaleEntity> breedingMaleRepository
-            , BreedingCageValidator validator
+            , IBreedingCageValidator validator
             , IBreedingCageFilterProvider provider
             , IBreedingCagePatcher patcher) : base(dbContext, repository, validator, provider, patcher)
         {

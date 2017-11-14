@@ -1,8 +1,9 @@
-﻿using MouseApi.Entities.Transaction;
+﻿using FluentValidation;
+using MouseApi.Entities.Transaction;
 
 namespace MouseApi.Validator.Transaction
 {
-    public class TransactionValidator : BaseValidator<TransactionEntity>
+    public class TransactionValidator : AbstractValidator<TransactionEntity>, ITransactionValidator
     {
     }
 }

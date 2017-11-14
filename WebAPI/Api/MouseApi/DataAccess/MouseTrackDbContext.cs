@@ -1,8 +1,8 @@
 ﻿using MouseApi.Entities;
+using MouseApi.Entities.Test;
 using MouseApi.Entities.Transaction;
 using System.Configuration;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 
 namespace MouseApi.DataAccess
@@ -27,5 +27,7 @@ namespace MouseApi.DataAccess
         public DbSet<TransactionEntity> Transactions { get; set; }
         public DbSet<TransactionEventEntity> TransactionEvents { get; set; }
         public DbSet<AlertEntity> Alerts { get; set; }
+        public DbSet<SettingsEntity> Settings { get; set; }
+        public virtual DbSet<TestEntity> TestEntities { get; set; }
     }
 }

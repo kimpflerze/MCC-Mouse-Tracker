@@ -7,14 +7,14 @@ using MouseApi.Validator.Alert;
 
 namespace MouseApi.Service.Alert
 {
-    public class AlertService : BaseService<AlertEntity, AlertValidator, IAlertFilterProvider, IAlertPatcher>, IAlertService
+    public class AlertService : BaseService<AlertEntity, IAlertValidator, IAlertFilterProvider, IAlertPatcher>, IAlertService
     {
         private IBaseRepository<BreedingCageEntity> _cageRepository;
         private IBaseRepository<BreedingMaleEntity> _maleRepository;
 
         public AlertService(MouseTrackDbContext dbContext
             , IBaseRepository<AlertEntity> repository
-            , AlertValidator validator
+            , IAlertValidator validator
             , IAlertFilterProvider provider
             , IBaseRepository<BreedingCageEntity> cageRepository
             , IBaseRepository<BreedingMaleEntity> maleRepository
