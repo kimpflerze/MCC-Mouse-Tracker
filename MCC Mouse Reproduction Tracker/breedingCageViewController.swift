@@ -36,9 +36,9 @@ UITableViewDataSource, UITextFieldDelegate, ValidationDelegate {
     // TextFields
     @IBOutlet weak var rackNoTextField: UITextField!
     
-    @IBOutlet weak var columnNoTextField: UITextField!
-    
     @IBOutlet weak var rowNoTextField: UITextField!
+    
+    @IBOutlet weak var columnNoTextField: UITextField!
     
     @IBOutlet weak var parentDOBTextField: UITextField!
     
@@ -63,8 +63,17 @@ UITableViewDataSource, UITextFieldDelegate, ValidationDelegate {
         parentCageTableView.dataSource = self
         parentCageTableView.delegate = self
         
+        parentDOBTextField.delegate = self
+        parentCageTextField.delegate = self
+        
+        rackNoTextField.delegate = self
+        rowNoTextField.delegate = self
+        columnNoTextField.delegate = self
+        
+        
+        
         //Register textfields for validation
-        validator.registerField(parentDOBTextField, rules: [RequiredRule(),ValidDateRule()])
+    validator.registerField(parentDOBTextField, rules: [RequiredRule(),ValidDateRule()])
         validator.registerField(parentCageTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
@@ -154,6 +163,11 @@ UITableViewDataSource, UITextFieldDelegate, ValidationDelegate {
      */
     @IBAction func pressed_add_male_btn(_ sender: UIButton) {
         print("pressed Add Male button")
+        
+        let storyboard = UIStoryboard(name: "addBreedingMale", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "InitialController") as UIViewController
+        
+        self.present(controller, animated: true, completion: nil)
     }
     
     /**
@@ -242,24 +256,24 @@ UITableViewDataSource, UITextFieldDelegate, ValidationDelegate {
         }
          return result
     }
-    
+ 
    
-    
     /**
      * Displays a Date picker when the parentDOBTextField starts to be edited.
      */
-    @IBAction func addParentDOBEditing(_ sender: UITextField) {
-        
-        /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
-        
-        let datePickerView:UIDatePicker = UIDatePicker()
-        
-        datePickerView.datePickerMode = UIDatePickerMode.date
-        
-        sender.inputView = datePickerView
-        
-        datePickerView.addTarget(self, action:
-            #selector(breedingCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == parentDOBTextField {
+            /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
+          
+            let datePickerView:UIDatePicker = UIDatePicker()
+            
+            datePickerView.datePickerMode = UIDatePickerMode.date
+            
+            textField.inputView = datePickerView
+            
+            datePickerView.addTarget(self, action:
+                #selector(breedingCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        }
     }
     
     /**
@@ -275,6 +289,14 @@ UITableViewDataSource, UITextFieldDelegate, ValidationDelegate {
     
         parentDOBTextField.text = dateFormatter.string(from: sender.date)        
         /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
+    }
+    
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        
+        textField.layer.borderColor = UIColor.black.cgColor
+        textField.layer.borderWidth = 1.0
+        return true
     }
    /***********************************************************************/
     

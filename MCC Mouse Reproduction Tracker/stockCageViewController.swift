@@ -18,7 +18,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     var stockCageDOBList = [String]()
     var genderFlag = 0
     
-    //TextLabel Variables
+    // TextLabel Variables
     @IBOutlet weak var genderFlagTextLabel: UILabel!
     
     //TextFields
@@ -40,6 +40,9 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     @IBOutlet weak var stockCageDOBTableView: UITableView!
     
     
+    
+    
+    
     /************************* VIEW CONTROLLER FUNCTIONS *************************/
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +50,12 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         // Do any additional setup after loading the view.
         stockCageDOBTableView.dataSource = self
         stockCageDOBTableView.delegate = self
+        
+        rackNoTextField.delegate = self
+        rowNoTextField.delegate = self
+        columnNoTextField.delegate = self
+        miceCountTextField.delegate = self
+        stockCageDOBTextField.delegate = self
 
         genderFlagSwitch.isOn = false
         genderFlagTextLabel.text = "Male"
@@ -73,7 +82,8 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     
     
     /**
-     * Function is called if all registered fields are validated sucessfully
+     * Function is called if all registered fields are
+     * validated sucessfully
      */
     func validationSuccessful(){
         /* save textfield information database */
@@ -138,23 +148,29 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     
     /************************* BUTTON FUNCTIONS *************************/
     /**
-     * Directs user to the QRScannerView when QR_Code button is pressed.
+     * Directs user to the QRScannerView when QR_Code button
+     * is pressed.
      */
     @IBAction func pressed_QR_Code_btn(_ sender: UIButton) {
         print("pressed QR Code button")
     }
     
     /**
-     * Directs user to previous view (RackViewController) when information
+     * Directs user to previous view (RackViewController)
+     * when information
      * is correctly put in
      */
     @IBAction func pressed_done_btn(_ sender: UIButton) {
         print("pressed done button")
         /* validate fields */
         validator.validate(self)
-
     }
     
+    /** 
+     * Validates the stockCageDOB text field input. If the
+     * input is valid it added to the corresponding list and
+     * tableview. Otherwise the validation fails.
+    */
     @IBAction func pressed_addStockCageDOBButton(_ sender: UIButton) {
         if textFieldShouldReturn(stockCageDOBTextField) == true {
             print("pressed add stock cage DOB button")
@@ -178,7 +194,9 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     /************************* TEXTFIELD FUNCTIONS *************************/
     
     /**
-     *
+     * Changes the textfield border depending on whether
+     * the input is valid or not. If the text is valid the
+     * border turns green. Otherwise the border turns red.
      */
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         var result = true
@@ -201,23 +219,37 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     }
     
     /**
-     * Displays a Date picker when the stockCageDOBTextField starts to be edited.
+     * When the user clears the input using the clear button
+     * the border the textfield is set to its default
+     * design.
      */
-    @IBAction func addStockCageDOBEditing(_ sender: UITextField) {
-        
-        /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
-        
-        let datePickerView:UIDatePicker = UIDatePicker()
-        
-        datePickerView.datePickerMode = UIDatePickerMode.date
-        
-        sender.inputView = datePickerView
-        
-        datePickerView.addTarget(self, action: #selector(breedingCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        textField.layer.borderColor = UIColor.black.cgColor
+        textField.layer.borderWidth = 1.0
+        return true
     }
     
     /**
-     * Formats the date from the datepicker into the form dd/MM/YY.
+     * Displays a Date picker when the stockCageDOBTextField
+     * starts to be edited.
+     */
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
+        
+        if textField == stockCageDOBTextField {
+            let datePickerView:UIDatePicker = UIDatePicker()
+            
+            datePickerView.datePickerMode = UIDatePickerMode.date
+            
+            textField.inputView = datePickerView
+            
+            datePickerView.addTarget(self, action: #selector(breedingCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        }
+    }
+    
+    /**
+     * Formats the date from the datepicker into the form
+     * dd/MM/YY.
      */
     func datePickerValueChanged(sender:UIDatePicker) {
         
@@ -256,7 +288,6 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     if editingStyle == UITableViewCellEditingStyle.delete {
        stockCageDOBList.remove(at: indexPath.row)
        stockCageDOBTableView.reloadData()}
-        
     }
     /***********************************************************************/
     
@@ -267,7 +298,8 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     /*************************** VALIDATION RULES **************************/
     
     /**
-     * Matches dates with either format M/dd/yy or MM/dd/yy i.e) 7/10/17 or 07/10/17
+     * Matches dates with either format M/dd/yy or MM/dd/yy
+     * i.e) 7/10/17 or 07/10/17
      */
     class ValidDateRule: RegexRule {
         
@@ -279,7 +311,8 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     }
     
     /**
-     * Matches any number of length 1 or greater that does not have a leading zero
+     * Matches any number of length 1 or greater that does
+     * not have a leading zero
      */
     class NumericRule: RegexRule {
         

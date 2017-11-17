@@ -59,7 +59,6 @@
                                 <state key="normal" title="create breeding cage"/>
                                 <connections>
                                     <action selector="breedingCageButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="slE-BS-oUd"/>
-                                    <segue destination="wsw-vQ-VSv" kind="show" id="E0Z-RG-nzW"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EUG-oL-KFV">
@@ -68,7 +67,6 @@
                                 <state key="normal" title="create stock cage"/>
                                 <connections>
                                     <action selector="stockCageButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aFz-Of-wD8"/>
-                                    <segue destination="cM7-b4-LQ5" kind="show" id="BC0-ke-mW5"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -109,7 +107,7 @@
                         <viewControllerLayoutGuide type="bottom" id="JQV-ik-5Vv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Fj3-0E-oBz">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1400"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -242,10 +240,10 @@
             </objects>
             <point key="canvasLocation" x="116" y="913"/>
         </scene>
-        <!--Breeding Cage View Controller-->
+        <!--View Controller-->
         <scene sceneID="YRh-DE-wFs">
             <objects>
-                <viewController id="wsw-vQ-VSv" customClass="breedingCageViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="wsw-vQ-VSv" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pjN-3T-pug"/>
                         <viewControllerLayoutGuide type="bottom" id="A8l-JB-w1s"/>
@@ -255,7 +253,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QeU-0M-hTw">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1400"/>
+                                <rect key="frame" x="0.0" y="-44" width="768" height="1444"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="82I-Sq-jiQ">
                                         <rect key="frame" x="0.0" y="64" width="768" height="1400"/>
@@ -404,7 +402,6 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="pressed_add_male_btn:" destination="wsw-vQ-VSv" eventType="touchUpInside" id="Lf5-Jq-sNA"/>
-                                                    <segue destination="ZCd-9y-FqR" kind="show" identifier="breedingCageToAddMale" id="tMh-Af-vuX"/>
                                                 </connections>
                                             </button>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="66" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="B2E-YH-i74">
@@ -432,7 +429,6 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="pressed_QR_Code_btn:" destination="wsw-vQ-VSv" eventType="touchUpInside" id="B1o-fb-5Xy"/>
-                                                    <segue destination="CS2-aQ-ZJ3" kind="show" identifier="breedingCageToQRCode" id="4yB-qJ-ReB"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -478,7 +474,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bl2-ad-6ga" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="116" y="1981"/>
+            <point key="canvasLocation" x="217" y="1727"/>
         </scene>
         <!--Stock Cage View Controller-->
         <scene sceneID="AuR-Hx-RXK">
@@ -493,28 +489,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XpJ-2c-QKd">
-                                <rect key="frame" x="0.0" y="72" width="768" height="1128"/>
+                                <rect key="frame" x="0.0" y="28" width="768" height="1172"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SiY-kW-FbJ">
-                                        <rect key="frame" x="0.0" y="-86" width="768" height="1200"/>
+                                        <rect key="frame" x="0.0" y="34" width="768" height="1200"/>
                                         <subviews>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dim-Nk-J69">
-                                                <rect key="frame" x="277" y="569" width="345" height="178"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="sectionIndexColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="p8O-uW-zX1">
-                                                        <rect key="frame" x="0.0" y="28" width="345" height="44"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p8O-uW-zX1" id="OA9-LW-4rg">
-                                                            <rect key="frame" x="0.0" y="0.0" width="345" height="43"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                        </tableViewCellContentView>
-                                                    </tableViewCell>
-                                                </prototypes>
-                                            </tableView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Male/Female" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="txu-zI-Jyl">
                                                 <rect key="frame" x="232" y="334" width="152" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -634,9 +613,25 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="pressed_QR_Code_btn:" destination="cM7-b4-LQ5" eventType="touchUpInside" id="ZRW-OM-onr"/>
-                                                    <segue destination="CS2-aQ-ZJ3" kind="show" id="BLe-PG-Fy4"/>
                                                 </connections>
                                             </button>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dim-Nk-J69">
+                                                <rect key="frame" x="274" y="645" width="345" height="178"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="sectionIndexColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                <prototypes>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="p8O-uW-zX1">
+                                                        <rect key="frame" x="0.0" y="28" width="345" height="44"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p8O-uW-zX1" id="OA9-LW-4rg">
+                                                            <rect key="frame" x="0.0" y="0.0" width="345" height="43"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </tableViewCellContentView>
+                                                    </tableViewCell>
+                                                </prototypes>
+                                            </tableView>
                                         </subviews>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <constraints>
@@ -810,7 +805,6 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="pressed_QR_Code_btn:" destination="ZCd-9y-FqR" eventType="touchUpInside" id="4XU-VS-afG"/>
-                                                    <segue destination="CS2-aQ-ZJ3" kind="show" id="ugv-eT-WvD"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tJU-Q6-eM2">
@@ -871,7 +865,4 @@
         <image name="WeanCageIcon" width="512" height="512"/>
         <image name="add_button" width="22" height="21"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="4yB-qJ-ReB"/>
-    </inferredMetricsTieBreakers>
 </document>

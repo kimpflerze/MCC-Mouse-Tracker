@@ -43,6 +43,11 @@ UITableViewDataSource, UITextFieldDelegate, ValidationDelegate{
         // Do any additional setup after loading the view.
         parentCageIDTableView.dataSource = self
         parentCageIDTableView.delegate = self
+        maleDOBTextField.delegate = self
+        rackNoTextField.delegate = self
+        rowNoTextField.delegate = self
+        columnNoTextField.delegate = self
+        
         
         //Register textfields for validation
         validator.registerField(parentCageIDTextField, rules: [RequiredRule(),NumericRule()])
@@ -60,6 +65,7 @@ UITableViewDataSource, UITextFieldDelegate, ValidationDelegate{
     override func viewDidAppear(_ animated: Bool) {
         parentCageIDTableView.reloadData()
     }
+    
     /**
      * Function is called if all registered fields are validated sucessfully
      */
@@ -168,19 +174,32 @@ UITableViewDataSource, UITextFieldDelegate, ValidationDelegate{
     }
     
     /**
-     * Displays a Date picker when the stockCageDOBTextField starts to be edited.
+     * When the user clears the input using the clear button
+     * the border the textfield is set to its default
+     * design.
      */
-    @IBAction func maleDOBEditing(_ sender: UITextField) {
-        
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        textField.layer.borderColor = UIColor.black.cgColor
+        textField.layer.borderWidth = 1.0
+        return true
+    }
+    
+    /**
+     * Displays a Date picker when the parentCageIDTextField
+     * starts to be edited.
+     */
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
         
-        let datePickerView:UIDatePicker = UIDatePicker()
-        
-        datePickerView.datePickerMode = UIDatePickerMode.date
-        
-        sender.inputView = datePickerView
-        
-        datePickerView.addTarget(self, action: #selector(breedingCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        if textField == maleDOBTextField {
+            let datePickerView:UIDatePicker = UIDatePicker()
+            
+            datePickerView.datePickerMode = UIDatePickerMode.date
+            
+            textField.inputView = datePickerView
+            
+            datePickerView.addTarget(self, action: #selector(breedingCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        }
     }
     
     /**
