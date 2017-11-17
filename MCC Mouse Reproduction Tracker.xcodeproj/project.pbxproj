@@ -23,6 +23,12 @@
 		EAD200F61FB229D500308C1A /* RackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD200F51FB229D500308C1A /* RackViewController.swift */; };
 		EAE65E481FAD43BE00ADF0A3 /* RackPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE65E471FAD43BE00ADF0A3 /* RackPageViewController.swift */; };
 		EAE65E4A1FAFA24D00ADF0A3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE65E491FAFA24D00ADF0A3 /* Settings.swift */; };
+		F44B57131FBCE9C60080F794 /* breedingCage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44B57121FBCE9C60080F794 /* breedingCage.storyboard */; };
+		F44B57151FBCE9DE0080F794 /* stockCage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44B57141FBCE9DE0080F794 /* stockCage.storyboard */; };
+		F44B57171FBCE9EB0080F794 /* addBreedingMale.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44B57161FBCE9EB0080F794 /* addBreedingMale.storyboard */; };
+		F4B239E91FAD85C7001304FB /* breedingCageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B239E81FAD85C7001304FB /* breedingCageViewController.swift */; };
+		F4B239EB1FAD85DF001304FB /* stockCageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B239EA1FAD85DF001304FB /* stockCageViewController.swift */; };
+		F4B239ED1FAD85ED001304FB /* addMaleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B239EC1FAD85ED001304FB /* addMaleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +73,13 @@
 		EAD200F51FB229D500308C1A /* RackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RackViewController.swift; sourceTree = "<group>"; };
 		EAE65E471FAD43BE00ADF0A3 /* RackPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RackPageViewController.swift; sourceTree = "<group>"; };
 		EAE65E491FAFA24D00ADF0A3 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		F44B57121FBCE9C60080F794 /* breedingCage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = breedingCage.storyboard; sourceTree = "<group>"; };
+		F44B57141FBCE9DE0080F794 /* stockCage.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = stockCage.storyboard; sourceTree = "<group>"; };
+		F44B57161FBCE9EB0080F794 /* addBreedingMale.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = addBreedingMale.storyboard; sourceTree = "<group>"; };
+		F4B239E81FAD85C7001304FB /* breedingCageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = breedingCageViewController.swift; sourceTree = "<group>"; };
+		F4B239EA1FAD85DF001304FB /* stockCageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = stockCageViewController.swift; sourceTree = "<group>"; };
+		F4B239EC1FAD85ED001304FB /* addMaleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addMaleViewController.swift; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +160,12 @@
 				EA62C62D1FA6DA420044C464 /* RackViewCell.swift */,
 				EAB8201A1FACC69D002AB754 /* ColumnFlowLayout.swift */,
 				EA9E84BC1FA6CB8400FDE9AB /* Main.storyboard */,
+				F4B239E81FAD85C7001304FB /* breedingCageViewController.swift */,
+				F44B57121FBCE9C60080F794 /* breedingCage.storyboard */,
+				F44B57141FBCE9DE0080F794 /* stockCage.storyboard */,
+				F44B57161FBCE9EB0080F794 /* addBreedingMale.storyboard */,
+				F4B239EA1FAD85DF001304FB /* stockCageViewController.swift */,
+				F4B239EC1FAD85ED001304FB /* addMaleViewController.swift */,
 				EAE65E471FAD43BE00ADF0A3 /* RackPageViewController.swift */,
 				EA9E84BF1FA6CB8400FDE9AB /* Assets.xcassets */,
 				EA9E84C11FA6CB8400FDE9AB /* LaunchScreen.storyboard */,
@@ -287,7 +306,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA9E84C31FA6CB8400FDE9AB /* LaunchScreen.storyboard in Resources */,
+				F44B57151FBCE9DE0080F794 /* stockCage.storyboard in Resources */,
 				EA9E84C01FA6CB8400FDE9AB /* Assets.xcassets in Resources */,
+				F44B57171FBCE9EB0080F794 /* addBreedingMale.storyboard in Resources */,
+				F44B57131FBCE9C60080F794 /* breedingCage.storyboard in Resources */,
 				EA9E84BE1FA6CB8400FDE9AB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,10 +354,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MCC Mouse Reproduction Tracker/Pods-MCC Mouse Reproduction Tracker-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftValidator/SwiftValidator.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftValidator.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
