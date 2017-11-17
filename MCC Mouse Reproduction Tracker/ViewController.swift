@@ -30,8 +30,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-<<<<<<< HEAD
-=======
     
     @IBAction func breedingCageButtonPressed(_ sender: UIButton) {
         print("breeding Cage button Pressed")
@@ -47,7 +45,6 @@ class ViewController: UIViewController {
         
         self.present(controller, animated: true, completion: nil)
     }
->>>>>>> feature/cageViews
 
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         print("Login Button Pressed!")

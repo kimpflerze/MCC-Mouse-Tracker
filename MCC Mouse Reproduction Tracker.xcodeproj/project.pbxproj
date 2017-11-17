@@ -26,9 +26,6 @@
 		F44B57131FBCE9C60080F794 /* breedingCage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44B57121FBCE9C60080F794 /* breedingCage.storyboard */; };
 		F44B57151FBCE9DE0080F794 /* stockCage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44B57141FBCE9DE0080F794 /* stockCage.storyboard */; };
 		F44B57171FBCE9EB0080F794 /* addBreedingMale.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44B57161FBCE9EB0080F794 /* addBreedingMale.storyboard */; };
-		F4B239E91FAD85C7001304FB /* breedingCageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B239E81FAD85C7001304FB /* breedingCageViewController.swift */; };
-		F4B239EB1FAD85DF001304FB /* stockCageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B239EA1FAD85DF001304FB /* stockCageViewController.swift */; };
-		F4B239ED1FAD85ED001304FB /* addMaleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B239EC1FAD85ED001304FB /* addMaleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,7 +76,6 @@
 		F4B239E81FAD85C7001304FB /* breedingCageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = breedingCageViewController.swift; sourceTree = "<group>"; };
 		F4B239EA1FAD85DF001304FB /* stockCageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = stockCageViewController.swift; sourceTree = "<group>"; };
 		F4B239EC1FAD85ED001304FB /* addMaleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addMaleViewController.swift; sourceTree = "<group>"; };
-
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,11 +156,11 @@
 				EA62C62D1FA6DA420044C464 /* RackViewCell.swift */,
 				EAB8201A1FACC69D002AB754 /* ColumnFlowLayout.swift */,
 				EA9E84BC1FA6CB8400FDE9AB /* Main.storyboard */,
-				F4B239E81FAD85C7001304FB /* breedingCageViewController.swift */,
 				F44B57121FBCE9C60080F794 /* breedingCage.storyboard */,
 				F44B57141FBCE9DE0080F794 /* stockCage.storyboard */,
 				F44B57161FBCE9EB0080F794 /* addBreedingMale.storyboard */,
 				F4B239EA1FAD85DF001304FB /* stockCageViewController.swift */,
+				F4B239E81FAD85C7001304FB /* breedingCageViewController.swift */,
 				F4B239EC1FAD85ED001304FB /* addMaleViewController.swift */,
 				EAE65E471FAD43BE00ADF0A3 /* RackPageViewController.swift */,
 				EA9E84BF1FA6CB8400FDE9AB /* Assets.xcassets */,
