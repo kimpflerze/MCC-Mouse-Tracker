@@ -9,7 +9,7 @@
 import UIKit
 import SwiftValidator
 
-class stockCageViewController: UIViewController,  UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, ValidationDelegate{
+class stockCageViewController: UIViewController,  UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, ValidationDelegate {
     
     // Validator Variable
     let validator = Validator()

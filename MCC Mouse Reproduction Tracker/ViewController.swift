@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     
+    @IBOutlet weak var createStockCageButton: UIButton!
+    @IBOutlet weak var createBreedingCageButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -33,17 +35,18 @@ class ViewController: UIViewController {
     
     @IBAction func breedingCageButtonPressed(_ sender: UIButton) {
         print("breeding Cage button Pressed")
-        let storyboard = UIStoryboard(name: "breedingCage", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "InitialController") as UIViewController
+                let storyboard = UIStoryboard(name: "breedingCage", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "breedingCage") as UIViewController
         
-        self.present(controller, animated: true, completion: nil)
+        self.show(controller, sender: self)
     }
+    
     @IBAction func stockCageButtonPressed(_ sender: UIButton) {
         print("stock Cage button Pressed")
         let storyboard = UIStoryboard(name: "stockCage", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "InitialController") as UIViewController
-        
-        self.present(controller, animated: true, completion: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "stockCage") as UIViewController
+    
+        self.show(controller, sender: self)
     }
 
     @IBAction func loginButtonPressed(_ sender: UIButton) {

@@ -14,7 +14,7 @@
         <!--Stock Cage View Controller-->
         <scene sceneID="JS3-pm-fD1">
             <objects>
-                <viewController storyboardIdentifier="InitialController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Usl-VW-0nK" customClass="stockCageViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="stockCage" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Usl-VW-0nK" customClass="stockCageViewController" customModule="MCC_Mouse_Reproduction_Tracker" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nGR-9M-hah"/>
                         <viewControllerLayoutGuide type="bottom" id="DJW-bI-vWw"/>
@@ -142,7 +142,7 @@
                                                 </constraints>
                                                 <state key="normal" title="Button" backgroundImage="QR_code btn"/>
                                                 <connections>
-                                                    <action selector="pressed_QR_Code_btn:" destination="Usl-VW-0nK" eventType="touchUpInside" id="f7V-qw-U6i"/>
+                                                    <action selector="pressed_QR_Code_btn:" destination="Usl-VW-0nK" eventType="touchUpInside" id="fYy-a5-tma"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dmT-gt-1PR">
@@ -175,7 +175,7 @@
                                                     <constraint firstAttribute="height" constant="180" id="igY-oP-s8H"/>
                                                 </constraints>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="8fK-r6-Skq">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cell" selectionStyle="default" indentationWidth="10" id="8fK-r6-Skq">
                                                         <rect key="frame" x="0.0" y="28" width="380" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8fK-r6-Skq" id="4jF-Sx-pyW">
@@ -282,7 +282,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="768" height="1300"/>
                     <connections>
-                        <outlet property="QRCodeButton" destination="tdz-xD-km2" id="D3p-CN-QJx"/>
+                        <outlet property="QRCodeButton" destination="tdz-xD-km2" id="Fep-A0-gbH"/>
                         <outlet property="addDOBButton" destination="dmT-gt-1PR" id="RDN-zQ-fyx"/>
                         <outlet property="columnNoTextField" destination="wC9-UF-CqH" id="KRJ-aO-yH3"/>
                         <outlet property="doneButton" destination="TEt-1h-cfg" id="qJj-Ko-UFy"/>

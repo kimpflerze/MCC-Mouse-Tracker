@@ -23,6 +23,9 @@
 		EAD200F61FB229D500308C1A /* RackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD200F51FB229D500308C1A /* RackViewController.swift */; };
 		EAE65E481FAD43BE00ADF0A3 /* RackPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE65E471FAD43BE00ADF0A3 /* RackPageViewController.swift */; };
 		EAE65E4A1FAFA24D00ADF0A3 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE65E491FAFA24D00ADF0A3 /* Settings.swift */; };
+		F429566F1FC381D600A47916 /* stockCageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B239EA1FAD85DF001304FB /* stockCageViewController.swift */; };
+		F42956711FC381ED00A47916 /* breedingCageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B239E81FAD85C7001304FB /* breedingCageViewController.swift */; };
+		F42956721FC381F500A47916 /* addMaleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B239EC1FAD85ED001304FB /* addMaleViewController.swift */; };
 		F44B57131FBCE9C60080F794 /* breedingCage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44B57121FBCE9C60080F794 /* breedingCage.storyboard */; };
 		F44B57151FBCE9DE0080F794 /* stockCage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44B57141FBCE9DE0080F794 /* stockCage.storyboard */; };
 		F44B57171FBCE9EB0080F794 /* addBreedingMale.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F44B57161FBCE9EB0080F794 /* addBreedingMale.storyboard */; };
@@ -259,7 +262,7 @@
 				TargetAttributes = {
 					EA9E84B41FA6CB8400FDE9AB = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = A5Q224W4VJ;
+						DevelopmentTeam = 83Z464RYUJ;
 						ProvisioningStyle = Automatic;
 					};
 					EA9E84C81FA6CB8400FDE9AB = {
@@ -387,6 +390,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F42956721FC381F500A47916 /* addMaleViewController.swift in Sources */,
+				F42956711FC381ED00A47916 /* breedingCageViewController.swift in Sources */,
+				F429566F1FC381D600A47916 /* stockCageViewController.swift in Sources */,
 				EAE65E481FAD43BE00ADF0A3 /* RackPageViewController.swift in Sources */,
 				EA62C6301FA6F16E0044C464 /* QRScannerController.swift in Sources */,
 				EAB8201B1FACC69D002AB754 /* ColumnFlowLayout.swift in Sources */,
@@ -551,7 +557,7 @@
 			baseConfigurationReference = ADC17CFBF0CE0D312BC0BF49 /* Pods-MCC Mouse Reproduction Tracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = A5Q224W4VJ;
+				DEVELOPMENT_TEAM = 83Z464RYUJ;
 				INFOPLIST_FILE = "MCC Mouse Reproduction Tracker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -567,7 +573,7 @@
 			baseConfigurationReference = 079B346EE825F7DDFD3E639B /* Pods-MCC Mouse Reproduction Tracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = A5Q224W4VJ;
+				DEVELOPMENT_TEAM = 83Z464RYUJ;
 				INFOPLIST_FILE = "MCC Mouse Reproduction Tracker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

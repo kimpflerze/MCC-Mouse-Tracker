@@ -12,7 +12,7 @@
         <!--Add Male View Controller-->
         <scene sceneID="JUR-Vf-sL2">
             <objects>
-                <viewController storyboardIdentifier="InitialController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Eq8-Ld-591" customClass="addMaleViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addBreedingMale" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Eq8-Ld-591" customClass="addMaleViewController" customModule="MCC_Mouse_Reproduction_Tracker" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uj5-ss-Mjq"/>
                         <viewControllerLayoutGuide type="bottom" id="eIk-PI-oeJ"/>
@@ -183,7 +183,7 @@
                                                     <constraint firstAttribute="height" constant="209" id="RGk-4u-gDY"/>
                                                 </constraints>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="UKj-AU-sxC">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cell" selectionStyle="default" indentationWidth="10" id="UKj-AU-sxC">
                                                         <rect key="frame" x="0.0" y="28" width="380" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UKj-AU-sxC" id="O7V-AM-03g">

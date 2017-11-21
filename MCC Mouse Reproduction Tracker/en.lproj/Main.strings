@@ -1,0 +1,39 @@
+
+/* Class = "UIButton"; normalTitle = "create stock cage"; ObjectID = "EUG-oL-KFV"; */
+"EUG-oL-KFV.normalTitle" = "create stock cage";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Iux-JO-EkF"; */
+"Iux-JO-EkF.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "create breeding cage"; ObjectID = "Nzx-0M-nls"; */
+"Nzx-0M-nls.normalTitle" = "create breeding cage";
+
+/* Class = "UINavigationItem"; title = "Login"; ObjectID = "Q8S-Pt-tSU"; */
+"Q8S-Pt-tSU.title" = "Login";
+
+/* Class = "UIButton"; normalTitle = "Alerts"; ObjectID = "TH9-ya-mog"; */
+"TH9-ya-mog.normalTitle" = "Alerts";
+
+/* Class = "UIButton"; normalTitle = "Logout"; ObjectID = "Vaf-hE-cUs"; */
+"Vaf-hE-cUs.normalTitle" = "Logout";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "W3v-nA-x5c"; */
+"W3v-nA-x5c.placeholder" = "Password";
+
+/* Class = "UIButton"; normalTitle = "Scan QR Code"; ObjectID = "cj4-OE-xyM"; */
+"cj4-OE-xyM.normalTitle" = "Scan QR Code";
+
+/* Class = "UILabel"; text = "Email"; ObjectID = "gXe-bK-JFF"; */
+"gXe-bK-JFF.text" = "Email";
+
+/* Class = "UIButton"; normalTitle = "Login"; ObjectID = "l57-7g-xi3"; */
+"l57-7g-xi3.normalTitle" = "Login";
+
+/* Class = "UILabel"; text = "Username"; ObjectID = "np4-4J-1rI"; */
+"np4-4J-1rI.text" = "Username";
+
+/* Class = "UITextField"; placeholder = "Username"; ObjectID = "sVz-vJ-vyl"; */
+"sVz-vJ-vyl.placeholder" = "Username";
+
+/* Class = "UIButton"; normalTitle = "Settings"; ObjectID = "zf2-Q8-O9q"; */
+"zf2-Q8-O9q.normalTitle" = "Settings";

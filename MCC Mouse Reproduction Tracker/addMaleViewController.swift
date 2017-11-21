@@ -43,6 +43,8 @@ UITableViewDataSource, UITextFieldDelegate, ValidationDelegate{
         // Do any additional setup after loading the view.
         parentCageIDTableView.dataSource = self
         parentCageIDTableView.delegate = self
+        
+        parentCageIDTextField.delegate = self
         maleDOBTextField.delegate = self
         rackNoTextField.delegate = self
         rowNoTextField.delegate = self

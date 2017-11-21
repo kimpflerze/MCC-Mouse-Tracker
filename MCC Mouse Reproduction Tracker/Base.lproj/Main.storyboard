@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ivm-cO-QbQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16G1036" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ivm-cO-QbQ">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +13,7 @@
         <!--Login-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MCC_Mouse_Reproduction_Tracker" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -59,24 +59,22 @@
                                     <constraint firstAttribute="height" constant="250" id="3Le-28-KVa"/>
                                 </constraints>
                             </imageView>
-
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nzx-0M-nls">
-                                <rect key="frame" x="302" y="727" width="165" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="create breeding cage"/>
-                                <connections>
-                                    <action selector="breedingCageButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="slE-BS-oUd"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EUG-oL-KFV">
-                                <rect key="frame" x="302" y="783" width="165" height="30"/>
+                                <rect key="frame" x="302" y="849" width="165" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="create stock cage"/>
                                 <connections>
                                     <action selector="stockCageButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aFz-Of-wD8"/>
                                 </connections>
                             </button>
-
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nzx-0M-nls">
+                                <rect key="frame" x="302" y="792" width="165" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="create breeding cage"/>
+                                <connections>
+                                    <action selector="breedingCageButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="slE-BS-oUd"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -94,6 +92,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="Q8S-Pt-tSU"/>
                     <connections>
+                        <outlet property="createBreedingCageButton" destination="Nzx-0M-nls" id="sz0-Jd-tld"/>
+                        <outlet property="createStockCageButton" destination="EUG-oL-KFV" id="mk8-7S-J3X"/>
                         <outlet property="loginButton" destination="l57-7g-xi3" id="7yn-sq-hd7"/>
                         <outlet property="passwordTextField" destination="W3v-nA-x5c" id="nHy-sQ-RXS"/>
                         <outlet property="usernameTextField" destination="sVz-vJ-vyl" id="n7O-3n-Uq7"/>
@@ -126,7 +126,6 @@
         <!--Rack View Controller-->
         <scene sceneID="ZYp-zG-Pr9">
             <objects>
-
                 <viewController storyboardIdentifier="RackVC" id="Dq5-Aw-gce" customClass="RackViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bNz-Yy-dp0"/>
@@ -149,7 +148,7 @@
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cage" id="Td0-lq-cqW" customClass="RackViewCell" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="204" height="185"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="204" height="185"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>

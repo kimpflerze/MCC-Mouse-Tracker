@@ -22,7 +22,7 @@ UITableViewDataSource, UITextFieldDelegate, ValidationDelegate {
     // Buttons
     @IBOutlet weak var add_litter_btn: UIButton!
     
-    @IBOutlet weak var QR_code_btn: UIButton!
+    @IBOutlet weak var QRCodeButton: UIButton!
     
     @IBOutlet weak var add_male_btn: UIButton!
 
@@ -73,7 +73,7 @@ UITableViewDataSource, UITextFieldDelegate, ValidationDelegate {
         
         
         //Register textfields for validation
-    validator.registerField(parentDOBTextField, rules: [RequiredRule(),ValidDateRule()])
+        validator.registerField(parentDOBTextField, rules: [RequiredRule(),ValidDateRule()])
         validator.registerField(parentCageTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
@@ -143,14 +143,10 @@ UITableViewDataSource, UITextFieldDelegate, ValidationDelegate {
     
     
    /****************************** BUTTON FUNCTIONS *****************************/
-    
-    /**
-     * Directs user to the QRScannerView when QR_Code button is pressed.
-     */
-    @IBAction func pressed_QR_Code_btn(_ sender: UIButton) {
+  
+    @IBAction func pressed_QRCodeButton(_ sender: UIButton) {
         print("pressed QR Code button")
     }
-    
     /**
      * Displays an addLitterView when add_litter_btn is pressed.
      */
@@ -165,9 +161,9 @@ UITableViewDataSource, UITextFieldDelegate, ValidationDelegate {
         print("pressed Add Male button")
         
         let storyboard = UIStoryboard(name: "addBreedingMale", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "InitialController") as UIViewController
+        let controller = storyboard.instantiateViewController(withIdentifier: "addBreedingMale") as UIViewController
         
-        self.present(controller, animated: true, completion: nil)
+        self.show(controller, sender: self)
     }
     
     /**
