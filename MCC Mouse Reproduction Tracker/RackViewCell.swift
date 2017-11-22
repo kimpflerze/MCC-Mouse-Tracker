@@ -16,4 +16,6 @@ class RackViewCell: UICollectionViewCell {
     @IBOutlet weak var oldAgeIcon: UIImageView!
     @IBOutlet weak var cagePositionLabel: UILabel!
     
+    var cage: Cage?
+    
 }

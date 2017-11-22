@@ -13,26 +13,29 @@ import AVFoundation
 
 class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
+    //Labels and buttons
     @IBOutlet var messageLabel:UILabel!
-    @IBOutlet var topbar: UIView!
+    @IBOutlet weak var cancelScanningButton: UIButton!
+    @IBOutlet weak var confirmCodeButton: UIButton!
     
     var captureSession:AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
     
-    let supportedCodeTypes = [AVMetadataObjectTypeUPCECode,
-                              AVMetadataObjectTypeCode39Code,
-                              AVMetadataObjectTypeCode39Mod43Code,
-                              AVMetadataObjectTypeCode93Code,
-                              AVMetadataObjectTypeCode128Code,
-                              AVMetadataObjectTypeEAN8Code,
-                              AVMetadataObjectTypeEAN13Code,
-                              AVMetadataObjectTypeAztecCode,
-                              AVMetadataObjectTypePDF417Code,
-                              AVMetadataObjectTypeQRCode]
+    var lastSuccessfullyScannedCodeResult: String?
+    
+    var delegate: QRScannerControllerDelegate?
+    
+    let supportedCodeTypes = [AVMetadataObjectTypeQRCode]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        cancelScanningButton.layer.cornerRadius = 10
+        cancelScanningButton.layer.masksToBounds = true
+        
+        confirmCodeButton.layer.cornerRadius = 10
+        confirmCodeButton.layer.masksToBounds = true
         
         // Get an instance of the AVCaptureDevice class to initialize a device object and provide the video as the media type parameter.
         let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
@@ -66,7 +69,8 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
             
             // Move the message label and top bar to the front
             view.bringSubview(toFront: messageLabel)
-            view.bringSubview(toFront: topbar)
+            view.bringSubview(toFront: cancelScanningButton)
+            view.bringSubview(toFront: confirmCodeButton)
             
             // Initialize QR Code Frame to highlight the QR code
             qrCodeFrameView = UIView()
@@ -99,22 +103,43 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
         // Check if the metadataObjects array is not nil and it contains at least one object.
         if metadataObjects == nil || metadataObjects.count == 0 {
             qrCodeFrameView?.frame = CGRect.zero
-            messageLabel.text = "No QR/barcode is detected"
+            messageLabel.text = "No QR code detected!"
             return
         }
         
         // Get the metadata object.
-        let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
-        
-        if supportedCodeTypes.contains(metadataObj.type) {
-            // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
-            let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
-            qrCodeFrameView?.frame = barCodeObject!.bounds
-            
-            if metadataObj.stringValue != nil {
-                messageLabel.text = metadataObj.stringValue
+        for object in metadataObjects {
+            guard let metadataObj = object as? AVMetadataMachineReadableCodeObject else {
+                return
+            }
+            if supportedCodeTypes.contains(metadataObj.type) {
+                // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
+                let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
+                qrCodeFrameView?.frame = barCodeObject!.bounds
+                
+                if metadataObj.stringValue != nil {
+                    messageLabel.text = metadataObj.stringValue
+                    lastSuccessfullyScannedCodeResult = metadataObj.stringValue
+                }
             }
         }
+        
     }
     
+    @IBAction func cancelScanningButtonPressed(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func confirmCodeButtonPressed(_ sender: UIButton) {
+        guard let qrValue = lastSuccessfullyScannedCodeResult else {
+            return
+        }
+        delegate?.qrScannerController(controller: self, didScanQRCodeWith: qrValue)
+    }
+    
+    
+}
+
+protocol QRScannerControllerDelegate {
+    func qrScannerController(controller: QRScannerController, didScanQRCodeWith value: String)
 }

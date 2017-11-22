@@ -7,5 +7,7 @@ target 'MCC Mouse Reproduction Tracker' do
 
   # Pods for MCC Mouse Reproduction Tracker
   pod 'Alamofire'
+  
+  pod 'MBProgressHUD'
 
 end

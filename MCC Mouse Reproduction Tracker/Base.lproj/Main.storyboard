@@ -9,6 +9,11 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HiraginoKakuGothic.ttc">
+            <string>HiraginoSans-W3</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Login-->
         <scene sceneID="tne-QT-ifu">
@@ -28,7 +33,7 @@
                                     <constraint firstAttribute="width" constant="250" id="Uc4-oG-wHM"/>
                                 </constraints>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="W3v-nA-x5c" userLabel="Password TextField">
@@ -37,15 +42,16 @@
                                     <constraint firstAttribute="width" constant="250" id="IwL-bI-tJk"/>
                                 </constraints>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l57-7g-xi3" userLabel="Login Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l57-7g-xi3" userLabel="Login Button">
                                 <rect key="frame" x="259" y="677" width="250" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="b3h-jH-SYQ"/>
                                     <constraint firstAttribute="width" constant="250" id="fNa-45-4gE"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="23"/>
                                 <state key="normal" title="Login">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -97,13 +103,65 @@
                     <view key="view" contentMode="scaleToFill" id="Fj3-0E-oBz">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No QR code found!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lKu-uW-Xts">
+                                <rect key="frame" x="0.0" y="964" width="768" height="60"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="3oZ-j8-HD9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q9a-6N-mVW">
+                                <rect key="frame" x="75" y="979" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.94901960780000005" green="0.75294117650000003" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="ic0-4a-qye"/>
+                                </constraints>
+                                <state key="normal" title="Cancel Scanning">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelScanningButtonPressed:" destination="CS2-aQ-ZJ3" eventType="touchUpInside" id="kpE-lr-9zC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Kj-W9-Syv">
+                                <rect key="frame" x="573" y="979" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.94901960780000005" green="0.75294117650000003" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="Mhe-Eb-l30"/>
+                                </constraints>
+                                <state key="normal" title="Confirm Code">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="confirmCodeButtonPressed:" destination="CS2-aQ-ZJ3" eventType="touchUpInside" id="PdX-0a-WdS"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="lKu-uW-Xts" secondAttribute="trailing" id="5MT-B0-o6b"/>
+                            <constraint firstItem="q9a-6N-mVW" firstAttribute="leading" secondItem="Fj3-0E-oBz" secondAttribute="leading" constant="75" id="KGB-k1-H2S"/>
+                            <constraint firstItem="JQV-ik-5Vv" firstAttribute="top" secondItem="q9a-6N-mVW" secondAttribute="bottom" constant="15" id="L5f-Ul-L8P"/>
+                            <constraint firstAttribute="trailing" secondItem="2Kj-W9-Syv" secondAttribute="trailing" constant="75" id="O5s-4I-Rlr"/>
+                            <constraint firstItem="lKu-uW-Xts" firstAttribute="leading" secondItem="Fj3-0E-oBz" secondAttribute="leading" id="Q9U-vc-on0"/>
+                            <constraint firstItem="JQV-ik-5Vv" firstAttribute="top" secondItem="2Kj-W9-Syv" secondAttribute="bottom" constant="15" id="TJZ-mE-P9Z"/>
+                            <constraint firstItem="JQV-ik-5Vv" firstAttribute="top" secondItem="lKu-uW-Xts" secondAttribute="bottom" id="YbA-jT-ccS"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="tSI-zv-mbm"/>
+                    <connections>
+                        <outlet property="cancelScanningButton" destination="q9a-6N-mVW" id="UMa-p6-Ky4"/>
+                        <outlet property="confirmCodeButton" destination="2Kj-W9-Syv" id="tb5-T6-WEM"/>
+                        <outlet property="messageLabel" destination="lKu-uW-Xts" id="vDM-dA-Dma"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JM4-bQ-jG4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1929" y="862"/>
+            <point key="canvasLocation" x="3016" y="1049"/>
         </scene>
         <!--Rack View Controller-->
         <scene sceneID="ZYp-zG-Pr9">
@@ -143,7 +201,7 @@
                                                         <constraint firstAttribute="width" constant="50" id="EFw-18-qrG"/>
                                                         <constraint firstAttribute="height" constant="21" id="uUS-Rr-hjq"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -187,9 +245,9 @@
                                         <connections>
                                             <outlet property="cagePositionLabel" destination="Iux-JO-EkF" id="sr1-1E-dzW"/>
                                             <outlet property="cageTypeIcon" destination="p3z-bh-pJj" id="3zP-oI-idW"/>
-                                            <outlet property="maleInCageIcon" destination="88j-lr-cH0" id="B5b-Sk-zKf"/>
+                                            <outlet property="maleInCageIcon" destination="oHp-nD-SOn" id="dg9-zo-5qD"/>
                                             <outlet property="oldAgeIcon" destination="xtu-Ah-BGH" id="pwr-D5-99Q"/>
-                                            <outlet property="weanCageIcon" destination="oHp-nD-SOn" id="LDb-Wr-QR5"/>
+                                            <outlet property="weanCageIcon" destination="88j-lr-cH0" id="Jkc-Gp-oyQ"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -212,42 +270,55 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="Z33-Zc-mBQ"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
                                         <state key="normal" title="Alerts">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="alertsButtonPressed:" destination="Dq5-Aw-gce" eventType="touchUpInside" id="8mc-yj-IGX"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cj4-OE-xyM">
                                         <rect key="frame" x="50" y="310" width="140" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="mGL-uo-2ru"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
                                         <state key="normal" title="Scan QR Code">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="CS2-aQ-ZJ3" kind="presentation" identifier="rackViewToScanner" id="bCo-2f-XF6"/>
+                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zf2-Q8-O9q">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zf2-Q8-O9q">
                                         <rect key="frame" x="50" y="420" width="140" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="tat-KS-JCW"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
                                         <state key="normal" title="Settings">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="settingsButtonPressed:" destination="Dq5-Aw-gce" eventType="touchUpInside" id="tMa-6E-POc"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXe-bK-JFF">
-                                        <rect key="frame" x="110" y="79.5" width="105" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="110" y="81.5" width="105" height="17"/>
+                                        <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="np4-4J-1rI">
-                                        <rect key="frame" x="110" y="40" width="105" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="110" y="40" width="105" height="17"/>
+                                        <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vaf-hE-cUs">
-                                        <rect key="frame" x="112" y="110" width="103" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vaf-hE-cUs">
+                                        <rect key="frame" x="112" y="111" width="103" height="29"/>
+                                        <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
                                         <state key="normal" title="Logout">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -304,13 +375,13 @@
                         <outlet property="menuView" destination="8Rj-Ue-gxo" id="vSS-RJ-4hG"/>
                         <outlet property="rackCollectionView" destination="D2F-Y9-mOi" id="WnW-cy-fw2"/>
                         <outlet property="scanCodeButton" destination="cj4-OE-xyM" id="Jtq-cR-Qda"/>
-                        <outlet property="serttingsButton" destination="zf2-Q8-O9q" id="v8C-sC-wdR"/>
+                        <outlet property="settingsButton" destination="zf2-Q8-O9q" id="v8C-sC-wdR"/>
                         <outlet property="userNameLabel" destination="np4-4J-1rI" id="3jD-5p-mxY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oka-bp-D7b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2687.5" y="138.8671875"/>
+            <point key="canvasLocation" x="3017" y="139"/>
         </scene>
         <!--Rack Page View Controller-->
         <scene sceneID="xJJ-78-pzJ">
@@ -318,7 +389,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="MTG-X9-dTN" customClass="RackPageViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sk4-aN-jmD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1929" y="139"/>
+            <point key="canvasLocation" x="2064" y="138"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="axd-71-cWa">

@@ -10,7 +10,7 @@ import UIKit
 
 class RackPageViewController: UIPageViewController, UIPageViewControllerDelegate {
     
-    var pageCount = 3
+    var pageCount = Settings.shared.numRacks
     var pages = [RackViewController]()
     
     var currentPage: RackViewController?
@@ -18,9 +18,19 @@ class RackPageViewController: UIPageViewController, UIPageViewControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for i in 0..<pageCount {
+        self.dataSource = self
+        self.delegate = self
+        
+        print("[TO-DO] Complete highlighting cell of interest in RackPageViewController.swift ")
+        
+        //Guard let statement to remove pageCount optional issues
+        guard let thePageCount = pageCount else {
+            return
+        }
+        
+        //Setting up pages array to hold appropriate number RackViewControllers(Racks)
+        for i in 0..<thePageCount {
             let rackVC = storyboard?.instantiateViewController(withIdentifier: "RackVC") as! RackViewController
-//            let rackVC = storyboard?.instantiateViewController(withIdentifier: "TestVC") as! RackViewController
             rackVC.rackNumber = i
             pages.append(rackVC)
         }
@@ -29,14 +39,14 @@ class RackPageViewController: UIPageViewController, UIPageViewControllerDelegate
         self.setViewControllers([pages[0]], direction: .forward, animated: true, completion: nil)
         currentPage = pages[0]
         
-        self.dataSource = self
-        self.delegate = self
-        
-        //Navigation Controller visual changes
+        //Navigation Controller changes to improve layout of underlying collection view and appearance of navigation bar
         self.navigationController?.navigationBar.isTranslucent = false;
+        
+        //LeftBarButtonItem displays the main menu, only visible while viewing RackViewController
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(menuButtonPressed(_:)))
         self.navigationItem.leftBarButtonItem?.tintColor = Settings.shared.masseyCancerCenterYellow
         
+        //RightBarButtonItem refreshes RackViewController
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Refresh View", style: .plain, target: self, action: #selector(refreshCollectionViewPressed(_:)))
         self.navigationItem.rightBarButtonItem?.tintColor = Settings.shared.masseyCancerCenterYellow
         
@@ -49,7 +59,7 @@ class RackPageViewController: UIPageViewController, UIPageViewControllerDelegate
     }
     
     func updateNavigationControllerTitle() {
-        self.navigationItem.title = "Rack View \(currentPage!.rackNumber)"
+        self.navigationItem.title = "Rack View \(currentPage!.rackNumber + 1)"
     }
     
     func menuButtonPressed(_ sender: UIBarButtonItem) {
@@ -60,13 +70,10 @@ class RackPageViewController: UIPageViewController, UIPageViewControllerDelegate
         currentPage?.refreshRackView()
     }
 
-    // MARK:- PageView Controller Data Source
-
 }
 
 extension RackPageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        //Changed from RackViewController to TestViewController
         guard let viewControllerIndex = pages.index(of: viewController as! RackViewController) else {
             return nil
         }
@@ -74,8 +81,7 @@ extension RackPageViewController: UIPageViewControllerDataSource {
         let nextIndex = viewControllerIndex + 1
         let pagesCount = pages.count
         
-        // User is on the last view controller and swiped right to loop to
-        // the first view controller.
+        // User is on the last view controller and swiped right to loop tothe first view controller.
         guard pagesCount != nextIndex else {
             return pages.first
         }
@@ -88,15 +94,13 @@ extension RackPageViewController: UIPageViewControllerDataSource {
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        //Changed from RackViewController to TestViewController
         guard let viewControllerIndex = pages.index(of: viewController as! RackViewController) else {
             return nil
         }
         
         let previousIndex = viewControllerIndex - 1
         
-        // User is on the first view controller and swiped left to loop to
-        // the last view controller.
+        // User is on the first view controller and swiped left to loop to the last view controller.
         guard previousIndex >= 0 else {
             return pages.last
         }
@@ -113,7 +117,6 @@ extension RackPageViewController: UIPageViewControllerDataSource {
     }
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        //Changed from RackViewController to TestViewController
         guard let firstViewController = viewControllers?.first as? RackViewController,
             let firstViewControllerIndex = pages.index(of: firstViewController) else {
                 return 0
@@ -122,7 +125,6 @@ extension RackPageViewController: UIPageViewControllerDataSource {
         return firstViewControllerIndex
     }
     
-    //This function isnt being called, why???
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if let vc = pageViewController.viewControllers?[0] as? RackViewController{
             currentPage = vc

@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import MBProgressHUD
 
 class ViewController: UIViewController {
     
@@ -22,8 +23,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         loginButton.backgroundColor = Settings.shared.masseyCancerCenterYellow
         loginButton.layer.cornerRadius = 10
-        loginButton.clipsToBounds = true
-        print("Now viewing: Login Screen (ViewController)")
+        loginButton.layer.masksToBounds = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,14 +32,14 @@ class ViewController: UIViewController {
     }
 
     @IBAction func loginButtonPressed(_ sender: UIButton) {
-        print("Login Button Pressed!")
-        
+        print("[TO-DO] Complete login process in ViewController.swift")
+        print("[TO-DO] Complete query for app settings in ViewController.swift & Settings.swift")
         guard let inputUserName = usernameTextField.text else {
-            blankTextField()
+//            blankTextField()
             return
         }
         guard let inputPassword = passwordTextField.text else {
-            blankTextField()
+//            blankTextField()
             return
         }
         
@@ -47,19 +47,18 @@ class ViewController: UIViewController {
         
         
         //Temporary segue just for testing purposes, should be a check for the login information here!
-        performSegue(withIdentifier: "loginToPageView", sender: sender)
-        
-        /*
-        let loginErrorAlert = UIAlertController(title: "Login Error!", message: "Username/Password incorrect!", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
-        loginErrorAlert.addAction(cancelAction)
-        self.present(loginErrorAlert, animated: true, completion: nil)
-        */
- 
+        let downloadSettingsHUD = MBProgressHUD.showAdded(to: view, animated: true)
+        QueryServer.shared.getSettings { (error) in
+            downloadSettingsHUD.hide(animated: true)
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "loginToPageView", sender: sender)
+            }
+        }
     }
     
-    func blankTextField() {
-        
+    //Function to check for blank username/password textfields
+    func blankTextField(input: String) -> Bool {
+        return true
     }
 
 }
