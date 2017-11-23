@@ -8,8 +8,14 @@
 
 import UIKit
 import MBProgressHUD
+import SwiftValidator
 
-class breedingCageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class breedingCageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, ValidationDelegate {
+    var wasValidationSuccessful = false
+    
+    // Validator Variable
+    let validator = Validator()
+    
     //Data sources for Table Views
     var parentDOBList = [String]()
     var parentCageList = [String]()
@@ -52,12 +58,22 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         parentDOBTableView.dataSource = self
         parentDOBTableView.delegate = self
         
         parentCageTableView.dataSource = self
         parentCageTableView.delegate = self
+        
+        parentDOBTextField.delegate = self
+        parentCageTextField.delegate = self
+        
+        //Register textfields for validation
+        validator.registerField(parentDOBTextField, rules: [RequiredRule(),ValidDateRule()])
+        validator.registerField(parentCageTextField, rules: [RequiredRule(), NumericRule()])
+        validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
+        validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
+        validator.registerField(columnNoTextField, rules: [RequiredRule(), NumericRule()])
         
         //Populate information from passed cage here!
         
@@ -96,14 +112,46 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         }
         
     }
-
+    
+    func validationSuccessful() {
+        /* save textfield information database */
+        parentCageTextField.layer.borderColor = UIColor.green.cgColor
+        parentCageTextField.layer.borderWidth = 1.0
+        
+        parentDOBTextField.layer.borderColor = UIColor.green.cgColor
+        parentDOBTextField.layer.borderWidth = 1.0
+        
+        rackNoTextField.layer.borderColor = UIColor.green.cgColor
+        rackNoTextField.layer.borderWidth = 1.0
+        
+        rowNoTextField.layer.borderColor = UIColor.green.cgColor
+        rowNoTextField.layer.borderWidth = 1.0
+        
+        columnNoTextField.layer.borderColor = UIColor.green.cgColor
+        columnNoTextField.layer.borderWidth = 1.0
+        
+        wasValidationSuccessful = true
+        print("textField validation successful!!")
+    }
+    
+    func validationFailed(_ errors: [(Validatable, ValidationError)]) {
+        // turn the fields to red
+        for (field, error) in errors {
+            if let field = field as? UITextField {
+                field.layer.borderColor = UIColor.red.cgColor
+                field.layer.borderWidth = 1.0
+            }
+            error.errorLabel?.text = error.errorMessage // works if you added labels
+            error.errorLabel?.isHidden = false
+        }
+        
+        wasValidationSuccessful = false
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-  
     
     @IBAction func pressed_QR_Code_btn(_ sender: UIButton) {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: .main)
@@ -119,7 +167,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBAction func pressed_add_male_btn(_ sender: UIButton) {
         //Just for testing!
-//        cage?.maleInCage = true
+        //        cage?.maleInCage = true
         
         if let addMaleVC = self.storyboard?.instantiateViewController(withIdentifier: "BreedingMale") as? addMaleViewController {
             
@@ -161,6 +209,8 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         print("[TO-DO] Complete pushing new information to database in breedingCageViewController.swift")
         print("[TO_DO] Complete idiot proofing for done button in breedingCageViewController.swift")
         
+        validator.validate(self)
+        
         //Depending on if isNewCage is true or false, will either update or insert into the database
         if(isNewCage) {
             //New cage, insert into database
@@ -174,7 +224,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         }
         else {
             //Existing cage, update its information
-            if (!hasInformationChanged()) {
+            if (!hasInformationChanged() || !(wasValidationSuccessful)) {
                 dismiss(animated: true, completion: nil)
             }
             else {
@@ -207,7 +257,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         
         
     }
-   
+    
     @IBAction func pressed_addParentDOBButton(_ sender: UIButton) {
         if(parentDOBTextField.text != "")
         {
@@ -248,13 +298,73 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        var result = true
+        validator.validateField(textField){ error in
+            if error == nil {
+                // Field validation was successful
+                textField.layer.borderColor = UIColor.green.cgColor
+                textField.layer.borderWidth = 0.5
+                print("textField validation successful!!")
+                result = true
+            } else {
+                // Validation error occurred
+                print(error?.errorMessage ?? textField.text! + "is an invalid entry")
+                textField.layer.borderColor = UIColor.red.cgColor
+                textField.layer.borderWidth = 1.0
+                result = false
+            }
+        }
+        return result
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        
+        textField.layer.borderColor = UIColor.black.cgColor
+        textField.layer.borderWidth = 1.0
+        return true
+    }
+    
+    /**
+     * Displays a Date picker when the parentDOBTextField starts to be edited.
+     */
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == parentDOBTextField {
+            /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
+            
+            let datePickerView:UIDatePicker = UIDatePicker()
+            
+            datePickerView.datePickerMode = UIDatePickerMode.date
+            
+            textField.inputView = datePickerView
+            
+            datePickerView.addTarget(self, action:
+                #selector(breedingCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        validator.validateField(textField){ error in
+            if error == nil {
+                // Field validation was successful
+                textField.layer.borderColor = UIColor.green.cgColor
+                textField.layer.borderWidth = 0.5
+                print("textField validation successful!!")
+            } else {
+                // Validation error occurred
+                print(error?.errorMessage ?? textField.text! + "is an invalid entry")
+                textField.layer.borderColor = UIColor.red.cgColor
+                textField.layer.borderWidth = 1.0
+            }
+        }
+    }
     
     func datePickerValueChanged(sender:UIDatePicker) {
-//        let dateFormatter = DateFormatter()
-//
-//        dateFormatter.dateStyle = DateFormatter.Style.short
-//
-//        dateFormatter.timeStyle = DateFormatter.Style.none
+        //        let dateFormatter = DateFormatter()
+        //
+        //        dateFormatter.dateStyle = DateFormatter.Style.short
+        //
+        //        dateFormatter.timeStyle = DateFormatter.Style.none
         parentDOBTextField.text = sender.date.toString()
         /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
     }
@@ -318,17 +428,33 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         parentCageTableView.reloadData()
     }
     
+    /************************** VALIDATION RULES **************************/
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    /**
+     * Matches dates with either format M/dd/yy or MM/dd/yy i.e) 7/10/17 or 07/10/17
+     */
+    class ValidDateRule: RegexRule {
+        
+        static let regex = "^([1-9]|0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])[/]\\d\\d$"
+        
+        convenience init(message : String = "Not a valid date (format: MM/dd/yy or M/dd/yy)"){
+            self.init(regex: ValidDateRule.regex, message : message)
+        }
     }
-    */
-
+    
+    /**
+     * Matches any number of length 1 or greater that does not have a leading zero
+     */
+    class NumericRule: RegexRule {
+        
+        static let regex = "^[1-9][0-9]*"
+        
+        convenience init(message : String = "Not a valid number"){
+            self.init(regex: NumericRule.regex, message : message)
+        }
+    }
+    /***********************************************************************/
+    
 }
 
 extension breedingCageViewController: QRScannerControllerDelegate {
@@ -343,12 +469,12 @@ extension breedingCageViewController: QRScannerControllerDelegate {
                     downloadParentCageHUD.hide(animated: true)
                     
                     print("[TO-DO] Complete add parent info scanning in BreedingCageViewController.swift")
-//                    parentDOBList.append(cage?.parentCages.)
-//                    for parent in cage?.parentCages {
-//                        parentCageList.append(parent)
-//                    }
-//
-//                    parentCageList.append(contentsOf: cage?.parentCages)
+                    //                    parentDOBList.append(cage?.parentCages.)
+                    //                    for parent in cage?.parentCages {
+                    //                        parentCageList.append(parent)
+                    //                    }
+                    //
+                    //                    parentCageList.append(contentsOf: cage?.parentCages)
                 })
             }
             else {

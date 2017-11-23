@@ -1,15 +1,28 @@
 PODS:
   - Alamofire (4.5.1)
   - MBProgressHUD (1.0.0)
+  - SwiftValidator (4.0.0)
 
 DEPENDENCIES:
   - Alamofire
   - MBProgressHUD
+  - SwiftValidator (from `https://github.com/jpotts18/SwiftValidator.git`, branch `master`)
+
+EXTERNAL SOURCES:
+  SwiftValidator:
+    :branch: master
+    :git: https://github.com/jpotts18/SwiftValidator.git
+
+CHECKOUT OPTIONS:
+  SwiftValidator:
+    :commit: 6cff6cac3e02a617f7cf11323e18526a117d5673
+    :git: https://github.com/jpotts18/SwiftValidator.git
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  SwiftValidator: 25ded5ca1f10c05adf57f6ac82a72d28ac8d91af
 
-PODFILE CHECKSUM: b03d43a11beacf11765d5fb6631bbbbfd9ebda30
+PODFILE CHECKSUM: 5eab1675f9927ffea057304163255024216f55a3
 
 COCOAPODS: 1.3.1

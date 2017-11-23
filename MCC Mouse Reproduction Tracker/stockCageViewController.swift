@@ -8,8 +8,14 @@
 
 import UIKit
 import MBProgressHUD
+import SwiftValidator
 
-class stockCageViewController: UIViewController,  UITableViewDelegate, UITableViewDataSource  {
+class stockCageViewController: UIViewController,  UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, ValidationDelegate {
+    var wasValidationSuccessful = false
+    
+    // Validator Variable
+    let validator = Validator()
+    
     var stockCageDOBList = [String]()
     var stockCageParentCageIdList = [String]()
     
@@ -56,7 +62,14 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         stockCageDOBTableView.dataSource = self
         stockCageDOBTableView.delegate = self
         
-        view.bringSubview(toFront: stockCageViewTitleLabel)
+        //Register textfields for validation
+        validator.registerField(stockCageDOBTextField, rules: [RequiredRule(),ValidDateRule()])
+        validator.registerField(miceCountTextField, rules: [RequiredRule(), NumericRule()])
+        validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
+        validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
+        validator.registerField(columnNoTextField, rules: [RequiredRule(), NumericRule()])
+        
+//        view.bringSubview(toFront: stockCageViewTitleLabel)
         
         //Checking if the cage being manipulated is a new one or existing
         
@@ -101,6 +114,40 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         }
     }
     
+    func validationSuccessful(){
+        /* save textfield information database */
+        stockCageDOBTextField.layer.borderColor = UIColor.green.cgColor
+        stockCageDOBTextField.layer.borderWidth = 1.0
+        
+        miceCountTextField.layer.borderColor = UIColor.green.cgColor
+        miceCountTextField.layer.borderWidth = 1.0
+        
+        rackNoTextField.layer.borderColor = UIColor.green.cgColor
+        rackNoTextField.layer.borderWidth = 1.0
+        
+        rowNoTextField.layer.borderColor = UIColor.green.cgColor
+        rowNoTextField.layer.borderWidth = 1.0
+        
+        columnNoTextField.layer.borderColor = UIColor.green.cgColor
+        columnNoTextField.layer.borderWidth = 1.0
+        
+        print("textField validation successful!!")
+        
+        /* SAVE DATA TO DATABASE AND DIRECT USER TO PROPER VIEW HERE */
+    }
+    
+    func validationFailed(_ errors:[(Validatable ,ValidationError)]) {
+        // turn the fields to red
+        for (field, error) in errors {
+            if let field = field as? UITextField {
+                field.layer.borderColor = UIColor.red.cgColor
+                field.layer.borderWidth = 1.0
+            }
+            error.errorLabel?.text = error.errorMessage // works if you added labels
+            error.errorLabel?.isHidden = false
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -130,6 +177,9 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     @IBAction func pressed_done_btn(_ sender: UIButton) {
         print("[TO-DO] Complete pushing new information to database in stockCageViewController.swift")
         print("[TO_DO] Complete idiot proofing for done button in stockCageViewController.swift")
+        
+        validator.validate(self)
+        
         //Depending on if isNewCage is true or false, will either update or insert into the database
         if(isNewCage) {
             //New cage, insert into database
@@ -143,7 +193,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         }
         else {
             //Existing cage, update its information
-            if (!hasInformationChanged()) {
+            if (!hasInformationChanged() || !(wasValidationSuccessful)) {
                 dismiss(animated: true, completion: nil)
             }
             else {
@@ -245,15 +295,83 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         stockCageDOBTableView.reloadData()
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        var result = true
+        validator.validateField(textField){ error in
+            if error == nil {
+                // Field validation was successful
+                textField.layer.borderColor = UIColor.green.cgColor
+                textField.layer.borderWidth = 0.5
+                print("textField validation successful!!")
+                result = true
+            } else {
+                // Validation error occurred
+                print(error?.errorMessage ?? textField.text! + "is an invalid entry")
+                textField.layer.borderColor = UIColor.red.cgColor
+                textField.layer.borderWidth = 1.0
+                result = false
+            }
+        }
+        return result
     }
-    */
+    
+    /**
+     * When the user clears the input using the clear button
+     * the border the textfield is set to its default
+     * design.
+     */
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        textField.layer.borderColor = UIColor.black.cgColor
+        textField.layer.borderWidth = 1.0
+        return true
+    }
+    
+    /**
+     * Displays a Date picker when the stockCageDOBTextField
+     * starts to be edited.
+     */
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
+        
+        if textField == stockCageDOBTextField {
+            let datePickerView:UIDatePicker = UIDatePicker()
+            
+            datePickerView.datePickerMode = UIDatePickerMode.date
+            
+            textField.inputView = datePickerView
+            
+            datePickerView.addTarget(self, action: #selector(breedingCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        }
+    }
+    
+    /*************************** VALIDATION RULES **************************/
+    
+    /**
+     * Matches dates with either format M/dd/yy or MM/dd/yy
+     * i.e) 7/10/17 or 07/10/17
+     */
+    class ValidDateRule: RegexRule {
+        
+        static let regex = "^([1-9]|0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])[/]\\d\\d$"
+        
+        convenience init(message : String = "Not a valid date (format: MM/dd/yy or M/dd/yy)"){
+            self.init(regex: ValidDateRule.regex, message : message)
+        }
+    }
+    
+    /**
+     * Matches any number of length 1 or greater that does
+     * not have a leading zero
+     */
+    class NumericRule: RegexRule {
+        
+        static let regex = "^[1-9][0-9]*"
+        
+        convenience init(message : String = "Not a valid number"){
+            self.init(regex: NumericRule.regex, message : message)
+        }
+    }
+    /***********************************************************************/
 
 }
 

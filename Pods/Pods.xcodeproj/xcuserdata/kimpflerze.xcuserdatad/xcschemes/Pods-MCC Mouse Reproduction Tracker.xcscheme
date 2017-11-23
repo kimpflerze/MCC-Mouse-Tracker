@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D26114AF2A3CB12836F20ECF14F1EA09"
+               BlueprintIdentifier = "2186B347622A07C1D75C508484914EE3"
                BuildableName = "Pods_MCC_Mouse_Reproduction_Tracker.framework"
                BlueprintName = "Pods-MCC Mouse Reproduction Tracker"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D26114AF2A3CB12836F20ECF14F1EA09"
+            BlueprintIdentifier = "2186B347622A07C1D75C508484914EE3"
             BuildableName = "Pods_MCC_Mouse_Reproduction_Tracker.framework"
             BlueprintName = "Pods-MCC Mouse Reproduction Tracker"
             ReferencedContainer = "container:Pods.xcodeproj">

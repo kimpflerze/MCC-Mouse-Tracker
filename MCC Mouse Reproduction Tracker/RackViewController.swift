@@ -393,6 +393,10 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         print("[TO-DO] Complete settings button in RackViewController.swift!")
         showMenu()
         
+        let cageViewStoryboard = UIStoryboard(name: "CageViews", bundle: .main)
+        if let settingsVC = cageViewStoryboard.instantiateViewController(withIdentifier: "Settings") as? SettingsViewController {
+            self.present(settingsVC, animated: true, completion: nil)
+        }
     }
     
 }

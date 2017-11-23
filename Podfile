@@ -3,11 +3,13 @@
 
 target 'MCC Mouse Reproduction Tracker' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
+  use_frameworks! 
 
   # Pods for MCC Mouse Reproduction Tracker
   pod 'Alamofire'
   
   pod 'MBProgressHUD'
 
+  pod 'SwiftValidator', :git => 'https://github.com/jpotts18/SwiftValidator.git', :branch => 'master'
+  
 end
