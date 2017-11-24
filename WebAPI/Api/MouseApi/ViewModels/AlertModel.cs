@@ -10,10 +10,10 @@ namespace MouseApi.ViewModels
         public int AlertTypeId { get; set; }
         public AlertTypeEntity AlertType { get; set; }
         public string SubjectId { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public BreedingCageModel BreedingCage { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public BreedingMaleModel BreedingMale { get; set; }
-        public DateTime AlertDate { get; set; }
+        //[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        //public BreedingCageModel BreedingCage { get; set; }
+        //[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        //public BreedingMaleModel BreedingMale { get; set; }
+        public string AlertDate { get; set; }
     }
 }

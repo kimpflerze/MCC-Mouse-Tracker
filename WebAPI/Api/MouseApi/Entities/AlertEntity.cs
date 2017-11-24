@@ -1,5 +1,4 @@
-﻿using MouseApi.ViewModels;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,9 +19,9 @@ namespace MouseApi.Entities
         public DateTime AlertDate { get; set; }
         [ForeignKey("AlertTypeId")]
         public virtual AlertTypeEntity AlertType { get; set; }
-        [NotMapped]
-        public  BreedingCageEntity BreedingCage { get; set; }
-        [NotMapped]
-        public BreedingMaleEntity BreedingMale { get; set; }
+        [ForeignKey("SubjectId")]
+        public virtual  BreedingCageEntity BreedingCage { get; set; }
+        [ForeignKey("SubjectId")]
+        public virtual BreedingMaleEntity BreedingMale { get; set; }
     }
 }

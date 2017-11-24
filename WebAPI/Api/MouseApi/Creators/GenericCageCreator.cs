@@ -4,6 +4,7 @@ namespace MouseApi.Creators
 {
     public class GenericCageCreator
     {
+        public string Id { get; set; }
         public int Row { get; set; }
         public int Column { get; set; }
         public int Rack { get; set; }

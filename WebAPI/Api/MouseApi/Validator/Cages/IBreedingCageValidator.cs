@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MouseApi.Entities;
 
 namespace MouseApi.Validator.Cages
 {
-    public interface IBreedingCageValidator
+    /// <summary>
+    /// Interface for interacting with <see cref="BreedingCageValidator"/>.
+    /// </summary>
+    public interface IBreedingCageValidator : IBaseValidator<BreedingCageEntity>
     {
     }
 }

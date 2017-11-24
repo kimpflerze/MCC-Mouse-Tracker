@@ -8,7 +8,7 @@ namespace MouseApi.ViewModels
     public class GenericCageModel
     {
         public string Id { get; set; }
-        public DateTime Created { get; set; }
+        public string Created { get; set; }
         public int Row { get; set; }
         public int Column { get; set; }
         public int Rack { get; set; }

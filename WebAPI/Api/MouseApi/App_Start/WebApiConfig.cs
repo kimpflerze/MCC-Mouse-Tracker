@@ -1,7 +1,4 @@
 ﻿using MouseApi.Profiles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 
 namespace MouseApi

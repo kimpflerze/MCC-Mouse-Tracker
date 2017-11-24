@@ -7,6 +7,6 @@ namespace MouseApi.ViewModels
         public string Id { get; set; }
         public string Event { get; set; }
         public string Object { get; set; }
-        public DateTime TransactionDate { get; set; }
+        public string TransactionDate { get; set; }
     }
 }

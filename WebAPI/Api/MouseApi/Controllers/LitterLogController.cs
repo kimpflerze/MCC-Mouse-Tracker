@@ -1,8 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Net.Http;
+using AutoMapper;
 using MouseApi.Creators;
 using MouseApi.Entities;
 using MouseApi.Service.LitterLog;
 using MouseApi.ViewModels;
+using System;
 
 namespace MouseApi.Controllers
 {
@@ -20,6 +22,11 @@ namespace MouseApi.Controllers
         {
             _service = service;
             _mapper = mapper;
+        }
+
+        public override HttpResponseMessage Patch(string id)
+        {
+            throw new NotImplementedException("PATCH is not supported on this endpoint.");
         }
     }
 }

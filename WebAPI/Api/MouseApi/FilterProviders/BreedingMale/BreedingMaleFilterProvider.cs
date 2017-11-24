@@ -13,6 +13,9 @@ namespace MouseApi.FilterProviders.BreedingMale
             {
                 switch (filter.Key)
                 {
+                    case "currentCageId":
+                        list = list.Where(x => x.CurrentCageId == filter.Value);
+                        break;
                     case "active":
                         list = list.Where(x => x.Active == Int32.Parse(filter.Value));
                         break;

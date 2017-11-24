@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace MouseApi.Entities
 {
@@ -19,6 +16,6 @@ namespace MouseApi.Entities
         [Column("father_id")]
         public string FatherId { get; set; }
         [Column("mother_id")]
-        public string MotherId { get; set; }
+        public string MotherCageId { get; set; }
     }
 }

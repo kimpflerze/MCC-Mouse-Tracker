@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -24,5 +25,6 @@ namespace MouseApi.Entities
         public virtual BreedingCageEntity MotherCage { get; set; }
         [ForeignKey("CurrentCageId")]
         public virtual GenericCageEntity CurrentCage { get; set; }
+        public virtual ICollection<AlertEntity> Alerts { get; set; }
     }
 }

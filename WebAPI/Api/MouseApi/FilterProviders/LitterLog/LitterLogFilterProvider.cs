@@ -12,10 +12,10 @@ namespace MouseApi.FilterProviders.LitterLog
             {
                 switch (filter.Key)
                 {
-                    case "mother":
-                        list = list.Where(x => x.MotherId == filter.Value);
+                    case "motherCageId":
+                        list = list.Where(x => x.MotherCageId == filter.Value);
                         break;
-                    case "father":
+                    case "fatherId":
                         list = list.Where(x => x.FatherId == filter.Value);
                         break;
                     default:

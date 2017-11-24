@@ -1,15 +1,13 @@
 ﻿using MouseApi.DataAccess;
 using MouseApi.Entities;
-using MouseApi.FilterProviders;
 using MouseApi.FilterProviders.Cages;
+using MouseApi.Patchers.Cages;
 using MouseApi.Validator.Cages;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace MouseApi.Service.Cages
 {
-    public class BreedingCageService : BaseService<BreedingCageEntity, BreedingCageValidator, IBreedingCageFilterProvider>, IBreedingCageService
+    public class BreedingCageService : BaseService<BreedingCageEntity, IBreedingCageValidator, IBreedingCageFilterProvider, IBreedingCagePatcher>, IBreedingCageService
     {
         protected IBaseRepository<GenericCageEntity> _genericCageRepository;
         protected IBaseRepository<ParentCageLookupEntity> _lookupRepository;
@@ -21,28 +19,13 @@ namespace MouseApi.Service.Cages
             , IBaseRepository<GenericCageEntity> genericCageRepository
             , IBaseRepository<ParentCageLookupEntity> lookupRepository
             , IBaseRepository<BreedingMaleEntity> breedingMaleRepository
-            , BreedingCageValidator validator
-            , IBreedingCageFilterProvider provider) : base(dbContext, repository, validator, provider)
+            , IBreedingCageValidator validator
+            , IBreedingCageFilterProvider provider
+            , IBreedingCagePatcher patcher) : base(dbContext, repository, validator, provider, patcher)
         {
             _genericCageRepository = genericCageRepository;
             _lookupRepository = lookupRepository;
             _breedingMaleRepository = breedingMaleRepository;
-        }
-
-        public override IEnumerable<BreedingCageEntity> Get(IEnumerable<KeyValuePair<string, string>> queryParams)
-        {
-            ////foreach(var queryParam in queryParams)
-            ////{
-            ////    if(queryParam.Key.Equals("active"))
-            ////    {
-            ////        return base.Get(queryParams).Where(x => x.GenericCage.Active.Equals(Int32.Parse(queryParam.Value)));
-            ////    }
-            ////}
-            //if(queryParams.Count() > 0)
-            //{
-            //    return BreedingCageFilterProvider.Filter(base.Get(queryParams), queryParams);
-            //}
-            return base.Get(queryParams);
         }
 
         /// <summary>

@@ -18,5 +18,6 @@ namespace MouseApi.Entities
         public int LittersFromCage { get; set; }
         
         public virtual GenericCageEntity GenericCage { get; set; }
+        public virtual ICollection<AlertEntity> Alerts { get; set; }
     }
 }
