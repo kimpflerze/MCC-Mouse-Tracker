@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftValidator
+import MBProgressHUD
 
 class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
     
@@ -50,6 +51,18 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         maleCostTextField.delegate = self
         femaleCostTextField.delegate = self
         cageCostTextField.delegate = self
+        
+        //Filling the text fields with downloaded information - Complete the rest of these!
+        if let theNumRacks = Settings.shared.numRacks {
+            numRacksTextField.text = String(theNumRacks)
+        }
+        if let theNumRows = Settings.shared.numRows {
+            numRowsTextField.text = String(theNumRows)
+        }
+        if let theNumColumns = Settings.shared.numColumns {
+            numColumnsTextField.text = String(theNumColumns)
+        }
+        
         
         validator.registerField(numRacksTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(numRowsTextField, rules: [RequiredRule(), NumericRule()])
@@ -143,8 +156,79 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
     }
     
     @IBAction func pressedDoneButton(_ sender: UIButton) {
+        print("[TO-DO] Tell George to make the settings table support PATCH statements, not just PUT!")
+        var parameters = [String : String]()
+        if(numRacksTextField.text != nil && numRacksTextField.text != "") {
+            if let racksNumber = Int(numRacksTextField.text!) {
+                parameters["Racks"] = String(racksNumber)
+            }
+        }
+        if(numRowsTextField.text != nil && numRowsTextField.text != "") {
+            if let rowsNumber = Int(numRowsTextField.text!) {
+                parameters["Rows"] = String(rowsNumber)
+            }
+        }
+        if(numColumnsTextField.text != nil && numColumnsTextField.text != "") {
+            if let columnsNumber = Int(numColumnsTextField.text!) {
+                parameters["Columns"] = String(columnsNumber)
+            }
+        }
+        if(maleCostTextField.text != nil && maleCostTextField.text != "") {
+            if let maleCost = Int(maleCostTextField.text!) {
+                parameters["MaleCost"] = String(maleCost)
+            }
+        }
+        if(femaleCostTextField.text != nil && femaleCostTextField.text != "") {
+            if let femaleCost = Int(femaleCostTextField.text!) {
+                parameters["FemaleCost"] = String(femaleCost)
+            }
+        }
+        if(cageCostTextField.text != nil && cageCostTextField.text != "") {
+            if let cageCost = Int(cageCostTextField.text!) {
+                parameters["CageCost"] = String(cageCost)
+            }
+        }
+        //Any "Period" will most likely have to be udpated later!
+        print("[TO-DO] Update period information in the SettingsViewController doneButtonPressed Method!")
+        if(weaningPeriodTextField.text != nil && weaningPeriodTextField.text != "") {
+            if let weaningPeriod = Int(weaningPeriodTextField.text!) {
+                parameters["WeaningPeriod"] = String(weaningPeriod)
+            }
+        }
+        if(breedingPeriodTextField.text != nil && breedingPeriodTextField.text != "") {
+            if let breedingPeriod = Int(breedingPeriodTextField.text!) {
+                parameters["BreedingPeriod"] = String(breedingPeriod)
+            }
+        }
+        if(gestationPeriodTextField.text != nil && gestationPeriodTextField.text != "") {
+            if let gestationPeriod = Int(gestationPeriodTextField.text!) {
+                parameters["GestationPeriod"] = String(gestationPeriod)
+            }
+        }
+        if(maleLifeSpanTextField.text != nil && maleLifeSpanTextField.text != "") {
+            if let maleLifespan = Int(maleLifeSpanTextField.text!) {
+                parameters["MaleLifespan"] = String(maleLifespan)
+            }
+        }
+        if(femaleLifeSpanTextField.text != nil && femaleLifeSpanTextField.text != "") {
+            if let femaleLifespan = Int(femaleLifeSpanTextField.text!) {
+                parameters["FemaleLifespan"] = String(femaleLifespan)
+            }
+        }
         
-        //close settings view
+        let updatingSettingsHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
+        updatingSettingsHUD.detailsLabel.text = "Updating settings..."
+        QueryServer.shared.updateSettings(parameters: parameters) { (error) in
+            
+            updatingSettingsHUD.detailsLabel.text = "Downloading settings..."
+            QueryServer.shared.getSettings { (error) in
+                DispatchQueue.main.async {
+                    updatingSettingsHUD.hide(animated: true)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updatedSettings"), object: nil)
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
         
     }
     /**********************************************************************/

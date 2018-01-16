@@ -57,15 +57,9 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         userNameLabel.text = Settings.shared.userName
         emailLabel.text = Settings.shared.email
         
-        //Setting collection view layout
-        let columnLayout = ColumnFlowLayout(
-            cellsPerRow: numColumns!,
-            minimumInteritemSpacing: 20,
-            minimumLineSpacing: 10,
-            sectionInset: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-        )
+        setRackViewLayout()
         
-        rackCollectionView.collectionViewLayout = columnLayout
+        NotificationCenter.default.addObserver(self, selector: #selector(setRackViewLayout), name: NSNotification.Name(rawValue: "updatedSettings"), object: nil)
         
         //Query for all breeding cages
         let breedingCageDownloadHUD = MBProgressHUD.showAdded(to: view, animated: true)
@@ -95,7 +89,9 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
                                     if let theMales = downloadedMales {
                                         self.breedingMales = theMales
                                         DispatchQueue.main.async {
+                                            self.rackCollectionView.reloadData()
                                             
+                                            /*
                                             //Query for all alerts
                                             let alertsDownloadHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
                                             alertsDownloadHUD.detailsLabel.text = "Downloading alerts for cages..."
@@ -135,6 +131,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
                                                     self.rackCollectionView.reloadData()
                                                 }
                                             }
+                                            */
                                         }
                                     }
                                 }
@@ -189,10 +186,28 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
             cell.cage = sellingCages[index]
         }
         
-        //Displaying the proper alert icons on the cell
-        cell.maleInCageIcon.isHidden = cell.cage?.maleInCage != true
-        cell.oldAgeIcon.isHidden = cell.cage?.mouseTooOld  != true
-        cell.weanCageIcon.isHidden = cell.cage?.needsToBeWeaned  != true
+        //Make sure all alerts are hidden prior to turning them to unhidden
+        cell.weanCageIcon.isHidden = true
+        cell.oldAgeIcon.isHidden = true
+        
+        if let alerts = cell.cage?.alerts {
+            for alert in alerts {
+                switch alert.alertTypeID {
+                case "1":
+                    print("Case one")
+                    cell.weanCageIcon.isHidden = false
+                    break
+                case "2":
+                    print("Case two")
+                    cell.oldAgeIcon.isHidden = false
+                    break
+                default:
+                    break
+                }
+            }
+        }
+        
+        
         
         return cell
     }
@@ -273,6 +288,18 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         else {
             menuView.isHidden = true
         }
+    }
+    
+    func setRackViewLayout() {
+        //Setting collection view layout
+        let columnLayout = ColumnFlowLayout(
+            cellsPerRow: Settings.shared.numColumns!,
+            minimumInteritemSpacing: 20,
+            minimumLineSpacing: 10,
+            sectionInset: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        )
+        
+        rackCollectionView.collectionViewLayout = columnLayout
     }
     
     //Function to refresh the cage information in the collection view - with completion alert!

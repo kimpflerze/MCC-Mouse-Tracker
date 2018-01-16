@@ -62,17 +62,10 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         parentCageIDTableView.dataSource = self
         parentCageIDTableView.delegate = self
         
-        //Register textfields for validation
-        validator.registerField(parentCageIDTextField, rules: [RequiredRule(),NumericRule()])
-        validator.registerField(maleDOBTextField, rules: [RequiredRule(),ValidDateRule()])
-        validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
-        validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
-        validator.registerField(columnNoTextField, rules: [RequiredRule(), NumericRule()])
+        textfieldValidationRegistration()
         
         //Populate information from passed cage here!
-        
         //Filling informatin for an existing cage
-        
         if let theCage = breedingMaleCurrentCage {
             rackNoTextField.text = String(theCage.rack)
             columnNoTextField.text = String(theCage.column)
@@ -96,8 +89,16 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    func textfieldValidationRegistration() {
+        //Register textfields for validation
+        validator.registerField(parentCageIDTextField, rules: [RequiredRule(),NumericRule()])
+        validator.registerField(maleDOBTextField, rules: [RequiredRule(),ValidDateRule()])
+        validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
+        validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
+        validator.registerField(columnNoTextField, rules: [RequiredRule(), NumericRule()])
+    }
+    
     func validationSuccessful() {
-        /* save textfield information database */
         maleDOBTextField.layer.borderColor = UIColor.green.cgColor
         maleDOBTextField.layer.borderWidth = 1.0
         
@@ -129,11 +130,6 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         wasValidationSuccessful = false
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func hasInformationChanged() -> Bool {

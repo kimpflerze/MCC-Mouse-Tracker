@@ -273,6 +273,9 @@ class QueryServer: NSObject {
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
             if let downloadedSettings = response.value as? [String : Any] {
                 print("[TO-DO] Complete getSettings query in QueryServer.swift!")
+                
+                print("==Downloaded Settings==")
+                
                 //Might have to implement this later on, all "Periods" should be dates though, not Ints
                 /*
                  
@@ -301,26 +304,34 @@ class QueryServer: NSObject {
                 
                 if let theCageCost = downloadedSettings["CageCost"] {
                     Settings.shared.costPerCagePerDay = theCageCost as? Double
+                    print(" Cost of Cage per Day: \(Settings.shared.costPerCagePerDay!)")
                 }
                 
                 if let theColumns = downloadedSettings["Columns"] {
                     Settings.shared.numColumns = theColumns as? Int
+                    print(" Num Columns: \(Settings.shared.numColumns!)")
                 }
                 
                 if let theFemaleMousePrice = downloadedSettings["FemaleCost"] {
                     Settings.shared.costPerFemaleMouse = theFemaleMousePrice as? Double
+                    print(" Cost per Female: \(Settings.shared.costPerFemaleMouse!)")
                 }
                 
                 if let theMaleMousePrice = downloadedSettings["MaleCost"] {
                     Settings.shared.costPerMaleMouse = theMaleMousePrice as? Double
+                    print(" Cost per Male: \(Settings.shared.costPerMaleMouse!)")
                 }
                 
                 if let theNumRacks = downloadedSettings["Racks"] {
                     Settings.shared.numRacks = theNumRacks as? Int
+                    print(" Num Racks: \(Settings.shared.numRacks!)")
                 }
                 if let theNumRows = downloadedSettings["Rows"] {
                     Settings.shared.numRows = theNumRows as? Int
+                    print(" Num Racks: \(Settings.shared.numRows!)")
                 }
+                
+                print("==End Settings==")
                 
                 completion()
  
@@ -586,6 +597,25 @@ class QueryServer: NSObject {
             })
         }
         
+    }
+    
+    func updateSettings(parameters: [String : String], completion: @escaping (_ error: String?) -> Void) {
+        let templateURL = "https://mouseapi.azurewebsites.net/api/settings"
+        var urlComponents = URLComponents(string: templateURL)
+        var queryItems = [URLQueryItem]()
+        
+        let keys = parameters.keys
+        for key in keys {
+            queryItems.append(URLQueryItem(name: key, value: parameters[key]!))
+        }
+        
+        urlComponents?.queryItems = queryItems
+        if let url = urlComponents?.url {
+            Alamofire.request(url, method: .put, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
+                debugPrint(response)
+                completion(response.error?.localizedDescription)
+            })
+        }
     }
     
     

@@ -20,13 +20,13 @@ class Alert: NSObject {
         if let theId = alertInfo["Id"] as? String {
             id = theId
         }
-        if let theTypeId = (alertInfo["AlertType"] as? [String : Any])?["Id"] as? String {
-            alertTypeID = theTypeId
+        if let theTypeId = (alertInfo["AlertType"] as? [String : Any])?["Id"] as? Int {
+            alertTypeID = String(theTypeId)
         }
         if let theTypeDescription = (alertInfo["AlertType"] as? [String : Any])?["Description"] as? String {
             alertTypeDescription = theTypeDescription
         }
-        if let theSubjectId = alertInfo["SubjectId"] as? String{
+        if let theSubjectId = alertInfo["SubjectId"] as? String {
             subjectId = theSubjectId
         }
         let formatter = DateFormatter()
