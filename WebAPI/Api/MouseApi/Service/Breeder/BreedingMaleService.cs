@@ -1,4 +1,5 @@
-﻿using MouseApi.DataAccess;
+﻿using FluentValidation;
+using MouseApi.DataAccess;
 using MouseApi.Entities;
 using MouseApi.FilterProviders.BreedingMale;
 using MouseApi.Patchers.BreedingMale;
@@ -43,7 +44,7 @@ namespace MouseApi.Service.Breeder
             if(entity.Active != 0)
             {
                 var breedingCage = _breedingCageRepository.Find(entity.CurrentCageId);
-                if (SiblingCheck(entity, breedingCage)) throw new Exception("These are siblings!");
+                if (SiblingCheck(entity, breedingCage)) throw new ValidationException("These are siblings!");
             }
             return base.Add(entity);
         }
@@ -51,9 +52,8 @@ namespace MouseApi.Service.Breeder
         public override BreedingMaleEntity Update(BreedingMaleEntity entity)
         {
             var breedingCage = _breedingCageRepository.Find(entity.CurrentCageId);
-            if (SiblingCheck(entity, breedingCage)) throw new Exception("These are siblings!");
+            if (SiblingCheck(entity, breedingCage)) throw new ValidationException("These are siblings!");
             return base.Update(entity);
-
         }
 
         /// <summary>

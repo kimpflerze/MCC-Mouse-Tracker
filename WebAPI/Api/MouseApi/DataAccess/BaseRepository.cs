@@ -64,6 +64,11 @@ namespace MouseApi.DataAccess
 
         public virtual TEntity Update(TEntity entity)
         {
+            if(_dbContext.Entry(entity).State == EntityState.Detached)
+            {
+                _dbContext.Entry(entity).State = EntityState.Modified;
+            }
+
             try
             {
                 _dbContext.SaveChanges();
