@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -494,6 +494,14 @@
                                                     <action selector="currentCageIDScanButtonPressed:" destination="c0G-rr-ea1" eventType="touchUpInside" id="4qG-5V-xR3"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XtW-Hh-jqz">
+                                                <rect key="frame" x="539" y="824" width="100" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Move Male"/>
+                                                <connections>
+                                                    <action selector="moveMaleButtonPressed:" destination="c0G-rr-ea1" eventType="touchUpInside" id="TFF-sz-z2P"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <constraints>
@@ -574,6 +582,7 @@
                         <outlet property="currentCageIDTextField" destination="1yx-ae-lbz" id="FQ7-cG-iUX"/>
                         <outlet property="doneButton" destination="PNV-SB-D3o" id="wof-1T-CJv"/>
                         <outlet property="maleDOBTextField" destination="Jgw-hH-l8H" id="5RL-Bq-yDT"/>
+                        <outlet property="moveMaleButton" destination="XtW-Hh-jqz" id="aon-R7-20P"/>
                         <outlet property="parentCageIDScanButton" destination="WO3-z1-Ias" id="6wv-en-JAV"/>
                         <outlet property="parentCageIDTableView" destination="Bnq-Ie-o85" id="PdO-bP-QTO"/>
                         <outlet property="parentCageIDTextField" destination="CaV-9f-osF" id="J5g-EI-Y4W"/>
@@ -728,7 +737,11 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DsO-Xq-Avp">
-                                                <rect key="frame" x="656" y="37.5" width="47" height="30"/>
+                                                <rect key="frame" x="633" y="27.5" width="100" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="100" id="ZOT-x6-mRN"/>
+                                                    <constraint firstAttribute="height" constant="50" id="a7H-Up-zKN"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="18"/>
                                                 <state key="normal" title="Done"/>
                                                 <connections>
@@ -862,7 +875,7 @@
                                             <constraint firstItem="1vA-s0-xDf" firstAttribute="centerY" secondItem="dhc-4K-Ooe" secondAttribute="centerY" id="qxR-Rq-Ald"/>
                                             <constraint firstItem="hxG-gw-Z1K" firstAttribute="leading" secondItem="NmU-iy-GgC" secondAttribute="leading" id="rCv-Na-Ohk"/>
                                             <constraint firstItem="1vA-s0-xDf" firstAttribute="leading" secondItem="dhc-4K-Ooe" secondAttribute="trailing" id="rEo-VM-5wJ"/>
-                                            <constraint firstAttribute="trailing" secondItem="DsO-Xq-Avp" secondAttribute="trailing" constant="65" id="us3-8b-IE2"/>
+                                            <constraint firstAttribute="trailing" secondItem="DsO-Xq-Avp" secondAttribute="trailing" constant="35" id="us3-8b-IE2"/>
                                             <constraint firstItem="hn8-FQ-hDa" firstAttribute="leading" secondItem="LHb-61-ryN" secondAttribute="leading" id="wcX-ej-seo"/>
                                             <constraint firstItem="DsO-Xq-Avp" firstAttribute="centerY" secondItem="dhc-4K-Ooe" secondAttribute="centerY" id="yCS-ZR-hat"/>
                                             <constraint firstItem="cqI-j4-izj" firstAttribute="centerY" secondItem="yFQ-JD-zST" secondAttribute="centerY" id="yVC-Jh-bNf"/>

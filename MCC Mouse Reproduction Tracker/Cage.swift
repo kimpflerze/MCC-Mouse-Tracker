@@ -37,6 +37,9 @@ class Cage: NSObject {
     //Attribute specific to the application for navigation purposes
     var isBreeding = false
     
+    //Attributes for filter functionality
+    var shouldHighlightCage = false
+    
     init(rackInfo: [String : Any]) {
         if let theId = rackInfo["Id"] as? String {
             id = theId

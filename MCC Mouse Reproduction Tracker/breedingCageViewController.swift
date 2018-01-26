@@ -111,6 +111,15 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
         
+        //Quick query to determine if male is in cage for purpose of add_male_btn title clarity!
+        QueryServer.shared.getBreedingMaleBy(cageId: (cage?.id)!, completion: { (downloadedMale, error) in
+            DispatchQueue.main.async {
+                if(downloadedMale != nil) {
+                    self.add_male_btn.setTitle("View Male", for: .normal)
+                }
+            }
+        })
+        
     }
     
     func validationSuccessful() {
@@ -166,9 +175,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func pressed_add_male_btn(_ sender: UIButton) {
-        //Just for testing!
-        //        cage?.maleInCage = true
-        
         if let addMaleVC = self.storyboard?.instantiateViewController(withIdentifier: "BreedingMale") as? addMaleViewController {
             
             QueryServer.shared.getBreedingMaleBy(cageId: (cage?.id)!, completion: { (downloadedMale, error) in
@@ -217,7 +223,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
             let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
             doneButtonHUD.detailsLabel.text = "Sending information..."
             QueryServer.shared.createNewBreedingCage(id: newCageId, row: Int(rowNoTextField.text!), column: Int(columnNoTextField.text!), rack: Int(rackNoTextField.text!), isActive: 1, parentsCagesDOB: parentDOBList, parentCagesId: parentCageList, completion: { (error) in
-                debugPrint(error)
+                debugPrint(error ?? "There was an error!")
                 doneButtonHUD.hide(animated: true)
                 self.delegate?.detailViewControllerDidSave(controller: self)
             })

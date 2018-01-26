@@ -21,8 +21,6 @@ class RackPageViewController: UIPageViewController, UIPageViewControllerDelegate
         self.dataSource = self
         self.delegate = self
         
-        print("[TO-DO] Complete highlighting cell of interest in RackPageViewController.swift ")
-        
         //Guard let statement to remove pageCount optional issues
         guard let thePageCount = pageCount else {
             return

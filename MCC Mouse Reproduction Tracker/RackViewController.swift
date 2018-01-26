@@ -11,6 +11,8 @@ import MBProgressHUD
 
 class RackViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    var delegate : RackViewControllerDelegate?
+    
     //Collection Views
     @IBOutlet weak var rackCollectionView: UICollectionView!
     
@@ -88,6 +90,14 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
                                     breedingMaleDownloadHUD.hide(animated: true)
                                     if let theMales = downloadedMales {
                                         self.breedingMales = theMales
+                                        self.breedingCages = self.breedingCages.map({ (cage) -> Cage in
+                                            let newCage = cage
+                                            newCage.maleInCage = theMales.contains(where: { (male) -> Bool in
+                                                cage.maleInCage = true
+                                                return male.currentCageId == cage.id
+                                            })
+                                            return newCage
+                                        })
                                         DispatchQueue.main.async {
                                             self.rackCollectionView.reloadData()
                                             
@@ -207,7 +217,18 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }
         }
         
+        //Extra check specific to breeding cages to display the "maleInCage" icon!
+        if cell.cage?.maleInCage == true {
+            cell.maleInCageIcon.isHidden = false
+        }
         
+        //Check to change opacity of cages when filtering
+        if cell.cage?.shouldHighlightCage == false || cell.cage?.id == nil {
+            cell.alpha = 1
+        }
+        else  {
+            cell.alpha = 0.3
+        }
         
         return cell
     }
@@ -216,6 +237,11 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let cell = collectionView.cellForItem(at: indexPath) as? RackViewCell
         var cage = cell?.cage
 
+        if let theDelegate = delegate {
+            theDelegate.rackViewController(controller: self, didSelectCage: cage)
+            return
+        }
+        
         //Determining if the cell has an assigned cage or if its a blank cell
         if let theCage = cell?.cage {
             //Selected a cage that already exists
@@ -384,6 +410,10 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }
         }
     }
+    
+    func highlightCages() {
+        
+    }
             
     //User logout action - with alert
     @IBAction func logoutButtonPressed(_ sender: Any) {
@@ -485,4 +515,8 @@ extension RackViewController: DetailViewControllerDelegate {
             self.refreshRackView()
         }
     }
+}
+
+protocol RackViewControllerDelegate {
+    func rackViewController(controller : RackViewController, didSelectCage cage : Cage?)
 }

@@ -45,9 +45,15 @@ class QueryServer: NSObject {
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
             if let result = response.value as? [[String : Any]] {
+                
+                print("==Downloaded Breeding Cages==")
+                
                 var cages = [Cage]()
                 for item in result {
                     let cage = Cage(rackInfo: item)
+                    
+                    print("cage.id: \(cage.id), Row: \(cage.row), Column: \(cage.column), Rack: \(cage.rack)")
+                    
                     cage.isBreeding = true
                     cages.append(cage)
                 }
@@ -109,12 +115,18 @@ class QueryServer: NSObject {
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
             if let result = response.value as? [[String : Any]] {
+                print("==Downloaded Selling Cages==")
+                
                 var cages = [Cage]()
                 for item in result {
                     let cage = Cage(rackInfo: item)
+                    
+                    print("cage.id: \(cage.id), Row: \(cage.row), Column: \(cage.column), Rack: \(cage.rack)")
+                    
                     cage.isBreeding = false
                     cages.append(cage)
                 }
+                
                 completion(cages, nil)
             }
             else {
@@ -171,10 +183,13 @@ class QueryServer: NSObject {
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
             if let result = response.value as? [[String : Any]] {
+                
+                print("==Downloaded Breeding Males==")
+                
                 var males = [BreedingMale]()
                 for item in result {
                     let male = BreedingMale(maleInfo: item)
-                    print("BreedingMale CurrentCageId: \(male.currentCageId)")
+                    print("BreedingMale CurrentCageId: \(male.currentCageId), BreedingMaleID: \(male.id)")
                     males.append(male)
                 }
                 completion(males, nil)
@@ -330,8 +345,6 @@ class QueryServer: NSObject {
                     Settings.shared.numRows = theNumRows as? Int
                     print(" Num Racks: \(Settings.shared.numRows!)")
                 }
-                
-                print("==End Settings==")
                 
                 completion()
  
@@ -593,6 +606,16 @@ class QueryServer: NSObject {
         if let url = urlComponents?.url {
             Alamofire.request(url, method: .patch, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
                 debugPrint(response)
+                
+                if response.response?.statusCode == 200 {
+                    completion(nil)
+                }
+                else {
+                    var errorMessage = response.value as? String ?? "There was an unknown error! Please try again."
+                    errorMessage = errorMessage.replacingOccurrences(of: "SUCCESS:", with: "")
+                    completion(errorMessage)
+                }
+                
                 completion(response.error?.localizedDescription)
             })
         }

@@ -40,6 +40,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var addParentCageIDButton: UIButton!
     @IBOutlet weak var QRCodeButton: UIButton!
+    @IBOutlet weak var moveMaleButton: UIButton!
     
     //TableViews
     @IBOutlet weak var parentCageIDTableView: UITableView!
@@ -241,6 +242,18 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    @IBAction func moveMaleButtonPressed(_ sender: UIButton) {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        if let rackVC = mainStoryboard.instantiateViewController(withIdentifier: "RackVC") as? RackViewController {
+            
+            rackVC.delegate = self
+            self.present(rackVC, animated: true, completion: nil)
+            
+        }
+        
+    }
+    
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         var result = true
         validator.validateField(textField){ error in
@@ -372,6 +385,41 @@ extension addMaleViewController: QRScannerControllerDelegate {
                 self.cageHasId.image = #imageLiteral(resourceName: "CheckIcon")
             }
             
+        }
+    }
+}
+
+extension addMaleViewController : RackViewControllerDelegate {
+    func rackViewController(controller: RackViewController, didSelectCage cage: Cage?) {
+        controller.dismiss(animated: true) {
+            if cage?.maleInCage == true {
+                let alert = UIAlertController(title: "Male Exists!", message: "This cage already contains a male!", preferredStyle: .alert)
+                let confirm = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                alert.addAction(confirm)
+                
+                self.present(alert, animated: true, completion: nil)
+            }
+            else {
+            let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+            hud.detailsLabel.text = "Moving male..."
+            QueryServer.shared.updateBreedingMaleWith(id: self.breedingMale?.id, isActive: nil, currentCageId: cage?.id, completion: { (error) in
+                hud.hide(animated: true)
+                if let errorMessage = error {
+                    let alert = UIAlertController(title: "Error!", message: "There was an error moving this male: \(errorMessage)", preferredStyle: .alert)
+                    let confirm = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                    alert.addAction(confirm)
+                    
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else {
+                    let alert = UIAlertController(title: "Moved Male Successfully!", message: "This male has been moved to cage ID: \(cage?.id ?? "")", preferredStyle: .alert)
+                    let confirm = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                    alert.addAction(confirm)
+                    
+                    self.present(alert, animated: true, completion: nil)
+                }
+            })
+            }
         }
     }
 }
