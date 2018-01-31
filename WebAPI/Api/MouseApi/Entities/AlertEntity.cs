@@ -10,6 +10,8 @@ namespace MouseApi.Entities
         [Key]
         [Column("id")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int AlertId { get; set; }
+        [NotMapped]
         public override string Id { get; set; }
         [Column("alert_type")]
         public int AlertTypeId { get; set; }

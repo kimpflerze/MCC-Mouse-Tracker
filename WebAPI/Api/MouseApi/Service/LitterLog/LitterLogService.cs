@@ -1,4 +1,5 @@
-﻿using MouseApi.DataAccess;
+﻿using FluentValidation;
+using MouseApi.DataAccess;
 using MouseApi.Entities;
 using MouseApi.FilterProviders.LitterLog;
 using MouseApi.Patchers.LitterLog;
@@ -12,6 +13,7 @@ namespace MouseApi.Service.LitterLog
     {
         private IBaseRepository<BreedingCageEntity> _breedingCageRepository;
         private IBaseRepository<BreedingMaleEntity> _breedingMaleRepository;
+
         public LitterLogService(MouseTrackDbContext dbContext
             , IBaseRepository<LitterLogEntity> repository
             , IBaseRepository<BreedingCageEntity> breedingCageRepository
@@ -30,6 +32,9 @@ namespace MouseApi.Service.LitterLog
 
             var breedingCage = _breedingCageRepository.Find(entity.MotherCageId);
             var maleInCage = _breedingMaleRepository.Get().Where(x => x.CurrentCageId == breedingCage.Id && x.Active != 0).FirstOrDefault();
+
+            if (maleInCage == null) throw new ValidationException("The provided cage contains no Breeding Male");
+
             entity.FatherId = maleInCage.Id;
 
             breedingCage.LitterDOB = entity.DOB;

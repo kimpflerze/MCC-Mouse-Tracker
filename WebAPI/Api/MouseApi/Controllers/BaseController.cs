@@ -2,6 +2,7 @@
 using FluentValidation;
 using MouseApi.Entities;
 using MouseApi.Service;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -39,9 +40,12 @@ namespace MouseApi.Controllers
         /// </summary>
         /// <param name="id">The id.</param>
         /// <returns>A <see cref="TModel"/>with the given id.</returns>
-        public virtual TModel Get(string id)
+        public virtual HttpResponseMessage Get(string id)
         {
-            return _mapper.Map<TModel>(_service.Find(id));
+            var response = _mapper.Map<TModel>(_service.Find(id));
+            if(response == null) { return Request.CreateResponse(HttpStatusCode.NotFound, response); }
+
+            return Request.CreateResponse(HttpStatusCode.OK, response);
         }
         
         /// <summary>
@@ -60,8 +64,12 @@ namespace MouseApi.Controllers
             catch(SqlException ex)
             {
                 return Request.CreateResponse(HttpStatusCode.Conflict, ex.Message);
-            }    
-            catch(ValidationException ex)
+            }
+            catch (MySqlException ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.Conflict, ex.Message);
+            }
+            catch (ValidationException ex)
             {
                 return Request.CreateResponse(HttpStatusCode.PreconditionFailed, ex.Message);
             }
@@ -72,9 +80,10 @@ namespace MouseApi.Controllers
         /// </summary>
         /// <param name="entity">The given <see cref="TEntity"/>.</param>
         /// <returns>The updated <see cref="TEntity"/>.</returns>
-        public virtual TEntity Put([FromBody]TEntity entity)
+        public virtual HttpResponseMessage Put([FromBody]TEntity entity)
         {
-            return _service.Update(entity);
+            return Request.CreateResponse(HttpStatusCode.NotImplemented);
+           // return _service.Update(entity);
         }
 
         /// <summary>

@@ -43,7 +43,7 @@ namespace MouseApi
         {
 			var container = new UnityContainer();
 
-            container.RegisterType<MouseTrackDbContext, MouseTrackDbContext>();
+            container.RegisterType<MouseTrackDbContext, MouseTrackDbContext>(new HierarchicalLifetimeManager());
             // register all your components with the container here
             // it is NOT necessary to register your controllers
 
