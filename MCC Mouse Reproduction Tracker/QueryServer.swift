@@ -52,7 +52,7 @@ class QueryServer: NSObject {
                 for item in result {
                     let cage = Cage(rackInfo: item)
                     
-                    print("cage.id: \(cage.id), Row: \(cage.row), Column: \(cage.column), Rack: \(cage.rack)")
+                    print("  cage.id: \(cage.id), Row: \(cage.row), Column: \(cage.column), Rack: \(cage.rack)")
                     
                     cage.isBreeding = true
                     cages.append(cage)
@@ -121,7 +121,7 @@ class QueryServer: NSObject {
                 for item in result {
                     let cage = Cage(rackInfo: item)
                     
-                    print("cage.id: \(cage.id), Row: \(cage.row), Column: \(cage.column), Rack: \(cage.rack)")
+                    print("  cage.id: \(cage.id), Row: \(cage.row), Column: \(cage.column), Rack: \(cage.rack)")
                     
                     cage.isBreeding = false
                     cages.append(cage)
@@ -189,7 +189,7 @@ class QueryServer: NSObject {
                 var males = [BreedingMale]()
                 for item in result {
                     let male = BreedingMale(maleInfo: item)
-                    print("BreedingMale CurrentCageId: \(male.currentCageId), BreedingMaleID: \(male.id)")
+                    print("  BreedingMale CurrentCageId: \(male.currentCageId), BreedingMaleID: \(male.id)")
                     males.append(male)
                 }
                 completion(males, nil)
@@ -319,31 +319,31 @@ class QueryServer: NSObject {
                 
                 if let theCageCost = downloadedSettings["CageCost"] {
                     Settings.shared.costPerCagePerDay = theCageCost as? Double
-                    print(" Cost of Cage per Day: \(Settings.shared.costPerCagePerDay!)")
+                    print("  Cost of Cage per Day: \(Settings.shared.costPerCagePerDay!)")
                 }
                 
                 if let theColumns = downloadedSettings["Columns"] {
                     Settings.shared.numColumns = theColumns as? Int
-                    print(" Num Columns: \(Settings.shared.numColumns!)")
+                    print("  Num Columns: \(Settings.shared.numColumns!)")
                 }
                 
                 if let theFemaleMousePrice = downloadedSettings["FemaleCost"] {
                     Settings.shared.costPerFemaleMouse = theFemaleMousePrice as? Double
-                    print(" Cost per Female: \(Settings.shared.costPerFemaleMouse!)")
+                    print("  Cost per Female: \(Settings.shared.costPerFemaleMouse!)")
                 }
                 
                 if let theMaleMousePrice = downloadedSettings["MaleCost"] {
                     Settings.shared.costPerMaleMouse = theMaleMousePrice as? Double
-                    print(" Cost per Male: \(Settings.shared.costPerMaleMouse!)")
+                    print("  Cost per Male: \(Settings.shared.costPerMaleMouse!)")
                 }
                 
                 if let theNumRacks = downloadedSettings["Racks"] {
                     Settings.shared.numRacks = theNumRacks as? Int
-                    print(" Num Racks: \(Settings.shared.numRacks!)")
+                    print("  Num Racks: \(Settings.shared.numRacks!)")
                 }
                 if let theNumRows = downloadedSettings["Rows"] {
                     Settings.shared.numRows = theNumRows as? Int
-                    print(" Num Racks: \(Settings.shared.numRows!)")
+                    print("  Num Racks: \(Settings.shared.numRows!)")
                 }
                 
                 completion()

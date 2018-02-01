@@ -94,7 +94,8 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                 }
                 
                 for parentCage in theCage.parentCages {
-                    if let dateAsString = parentCage.dob?.toString(withFormat: "yyyy-MM-dd HH:mm:s") {
+//                    if let dateAsString = parentCage.dob?.toString(withFormat: "yyyy-MM-dd HH:mm:s") {
+                    if let dateAsString = parentCage.dob?.toString(withFormat: "MM-dd-yyyy hh:mm:s a") {
                         if(!parentDOBList.contains(dateAsString)) {
                             parentDOBList.append(dateAsString)
                             parentDOBTableView.reloadData()
