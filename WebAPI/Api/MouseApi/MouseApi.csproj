@@ -144,6 +144,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\PatchExceptionFilterAttribute.cs" />
+    <Compile Include="ActionFilters\PostExceptionFilterAttribute.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
@@ -155,6 +157,7 @@
     <Compile Include="Controllers\GenericCageController.cs" />
     <Compile Include="Controllers\LitterLogController.cs" />
     <Compile Include="Controllers\BreedingFemaleController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\SellingCageController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
@@ -163,6 +166,7 @@
     <Compile Include="Creators\BreedingMaleCreator.cs" />
     <Compile Include="Creators\GenericCageCreator.cs" />
     <Compile Include="Creators\LitterLogCreator.cs" />
+    <Compile Include="Creators\OrderCreator.cs" />
     <Compile Include="Creators\ParentCageLookupCreator.cs" />
     <Compile Include="Creators\SellingCageCreator.cs" />
     <Compile Include="Creators\SettingsCreator.cs" />
@@ -176,6 +180,7 @@
     <Compile Include="Entities\BreedingCageEntity.cs" />
     <Compile Include="Entities\BreedingMaleEntity.cs" />
     <Compile Include="Entities\LitterLogEntity.cs" />
+    <Compile Include="Entities\OrderEntity.cs" />
     <Compile Include="Entities\ParentCageLookupEntity.cs" />
     <Compile Include="Entities\GenericCageEntity.cs" />
     <Compile Include="Entities\SellingCageEntity.cs" />
@@ -198,6 +203,8 @@
     <Compile Include="FilterProviders\IBaseFilterProvider.cs" />
     <Compile Include="FilterProviders\LitterLog\ILitterLogFilterProvider.cs" />
     <Compile Include="FilterProviders\LitterLog\LitterLogFilterProvider.cs" />
+    <Compile Include="FilterProviders\Order\IOrderFilterProvider.cs" />
+    <Compile Include="FilterProviders\Order\OrderFilterProvider.cs" />
     <Compile Include="FilterProviders\ParentCageLookup\IParentCageLookupFilterProvider.cs" />
     <Compile Include="FilterProviders\ParentCageLookup\ParentCageLookupFilterProvider.cs" />
     <Compile Include="FilterProviders\Settings\ISettingsFilterProvider.cs" />
@@ -221,6 +228,8 @@
     <Compile Include="Patchers\IBasePatcher.cs" />
     <Compile Include="Patchers\LitterLog\ILitterLogPatcher.cs" />
     <Compile Include="Patchers\LitterLog\LitterLogPatcher.cs" />
+    <Compile Include="Patchers\Order\IOrderPatcher.cs" />
+    <Compile Include="Patchers\Order\OrderPatcher.cs" />
     <Compile Include="Patchers\ParentCageLookup\IParentCageLookupPatcher.cs" />
     <Compile Include="Patchers\ParentCageLookup\ParentCageLookupPatcher.cs" />
     <Compile Include="Patchers\Settings\ISettingsPatcher.cs" />
@@ -233,6 +242,7 @@
     <Compile Include="Profiles\BreedingMaleProfile.cs" />
     <Compile Include="Profiles\GenericCageProfile.cs" />
     <Compile Include="Profiles\LitterLogProfile.cs" />
+    <Compile Include="Profiles\OrderProfile.cs" />
     <Compile Include="Profiles\ParentCageLookupProfile.cs" />
     <Compile Include="Profiles\SellingCageProfile.cs" />
     <Compile Include="Profiles\SettingsProfile.cs" />
@@ -252,6 +262,8 @@
     <Compile Include="Service\IBaseService.cs" />
     <Compile Include="Service\LitterLog\ILitterLogService.cs" />
     <Compile Include="Service\LitterLog\LitterLogService.cs" />
+    <Compile Include="Service\Order\IOrderService.cs" />
+    <Compile Include="Service\Order\OrderService.cs" />
     <Compile Include="Service\ParentCageLookup\IParentCageLookupService.cs" />
     <Compile Include="Service\ParentCageLookup\ParentCageLookupService.cs" />
     <Compile Include="Service\Settings\ISettingsService.cs" />
@@ -259,6 +271,7 @@
     <Compile Include="Service\Transaction\ITransactionService.cs" />
     <Compile Include="Service\Transaction\TransactionService.cs" />
     <Compile Include="Shared\MouseApiConstants.cs" />
+    <Compile Include="Shared\TimeUnits.cs" />
     <Compile Include="Validator\Alert\AlertValidator.cs" />
     <Compile Include="Validator\Alert\IAlertValidator.cs" />
     <Compile Include="Validator\Breeder\IBreedingMaleValidator.cs" />
@@ -272,6 +285,8 @@
     <Compile Include="Validator\IBaseValidator.cs" />
     <Compile Include="Validator\LitterLog\ILitterLogValidator.cs" />
     <Compile Include="Validator\LitterLog\LitterLogValidator.cs" />
+    <Compile Include="Validator\Order\IOrderValidator.cs" />
+    <Compile Include="Validator\Order\OrderValidator.cs" />
     <Compile Include="Validator\ParentCageLookup\IParentCageLookupValidator.cs" />
     <Compile Include="Validator\ParentCageLookup\ParentCageLookupValidator.cs" />
     <Compile Include="Validator\Settings\ISettingsValidator.cs" />
@@ -283,6 +298,7 @@
     <Compile Include="ViewModels\BreedingMaleModel.cs" />
     <Compile Include="ViewModels\GenericCageModel.cs" />
     <Compile Include="ViewModels\LitterLogModel.cs" />
+    <Compile Include="ViewModels\OrderModel.cs" />
     <Compile Include="ViewModels\ParentCageLookupModel.cs" />
     <Compile Include="ViewModels\SellingCageModel.cs" />
     <Compile Include="ViewModels\SettingsModel.cs" />

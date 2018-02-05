@@ -31,9 +31,9 @@ namespace MouseApi.Controllers
             throw new NotImplementedException();
         }
 
-        public override HttpResponseMessage Put([FromBody] SettingsEntity entity)
+        public override HttpResponseMessage Put([FromBody] SettingsCreator entity)
         {
-            var response = _service.Update(entity);
+            var response = _service.Update(_mapper.Map<SettingsEntity>(entity));
             return Request.CreateResponse(HttpStatusCode.OK, response);
         }
     }

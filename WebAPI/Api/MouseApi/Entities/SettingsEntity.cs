@@ -32,5 +32,29 @@ namespace MouseApi.Entities
         public decimal FemaleCost { get; set; }
         [Column("cage_cost")]
         public decimal CageCost { get; set; }
+        [Column("breeding_alert_advance")]
+        public int BreedingAlertAdvance { get; set; }
+        [Column("weaning_alert_advance")]
+        public int WeaningAlertAdvance { get; set; }
+        [Column("old_male_alert_advance")]
+        public int OldMaleAlertAdvance { get; set; }
+
+        [Column("weaning_period_unit")]
+        public int WeaningPeriodUnit { get; set; }
+        [Column("breeding_period_unit")]
+        public int BreedingPeriodUnit { get; set; }
+        [Column("gestation_period_unit")]
+        public int GestationPeriodUnit { get; set; }
+        [Column("male_lifespan_unit")]
+        public int MaleLifespanUnit { get; set; }
+        [Column("female_lifespan_unit")]
+        public int FemaleLifespanUnit { get; set; }
+
+        [Column("breeding_alert_advance_unit")]
+        public int BreedingAlertAdvanceUnit { get; set; }
+        [Column("weaning_alert_advance_unit")]
+        public int WeaningAlertAdvanceUnit { get; set; }
+        [Column("old_male_alert_advance_unit")]
+        public int OldMaleAlertAdvanceUnit { get; set; }
     }
 }

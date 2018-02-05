@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using FluentValidation;
+using MouseApi.ActionFilters;
 using MouseApi.Entities;
 using MouseApi.Service;
-using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -53,26 +50,12 @@ namespace MouseApi.Controllers
         /// </summary>
         /// <param name="creator">The <see cref="TCreate"/>provided.</param>
         /// <returns>A <see cref="TModel"/>representing the newly added <see cref="TEntity"/>.</returns>
+        [PostExceptionFilter]
         public virtual HttpResponseMessage Post([FromBody]TCreate creator)
         {
             TEntity entity = _mapper.Map<TCreate, TEntity>(creator);
-            try
-            {
-                var response = _mapper.Map<TModel>(_service.Add(entity));
-                return Request.CreateResponse(HttpStatusCode.OK, response);
-            }
-            catch(SqlException ex)
-            {
-                return Request.CreateResponse(HttpStatusCode.Conflict, ex.Message);
-            }
-            catch (MySqlException ex)
-            {
-                return Request.CreateResponse(HttpStatusCode.Conflict, ex.Message);
-            }
-            catch (ValidationException ex)
-            {
-                return Request.CreateResponse(HttpStatusCode.PreconditionFailed, ex.Message);
-            }
+            var response = _mapper.Map<TModel>(_service.Add(entity));
+            return Request.CreateResponse(HttpStatusCode.OK, response);
         }
 
         /// <summary>
@@ -80,10 +63,9 @@ namespace MouseApi.Controllers
         /// </summary>
         /// <param name="entity">The given <see cref="TEntity"/>.</param>
         /// <returns>The updated <see cref="TEntity"/>.</returns>
-        public virtual HttpResponseMessage Put([FromBody]TEntity entity)
+        public virtual HttpResponseMessage Put([FromBody]TCreate entity)
         {
             return Request.CreateResponse(HttpStatusCode.NotImplemented);
-           // return _service.Update(entity);
         }
 
         /// <summary>
@@ -91,26 +73,12 @@ namespace MouseApi.Controllers
         /// </summary>
         /// <param name="id">The Id of the record to patch.</param>
         /// <returns>A <see cref="HttpResponseMessage"/>containing the updated entry.</returns>
+        [PatchExceptionFilter]
         public virtual HttpResponseMessage Patch(string id)
         {
             var queryParams = Request.GetQueryNameValuePairs();
-            try
-            {
-                var response = _mapper.Map<TModel>(_service.Patch(id, queryParams));
-                return Request.CreateResponse(HttpStatusCode.OK, response);
-            }
-            catch (SqlException ex)
-            {
-                return Request.CreateResponse(HttpStatusCode.Conflict, ex.Message);
-            }
-            catch(NullReferenceException)
-            {
-               return Request.CreateResponse(HttpStatusCode.NotFound, "No Model Found with Given Id");
-            }
-            catch(ValidationException ex)
-            {
-                return Request.CreateResponse(HttpStatusCode.PreconditionFailed, ex.Message);
-            }
+            var response = _mapper.Map<TModel>(_service.Patch(id, queryParams));
+            return Request.CreateResponse(HttpStatusCode.OK, response);
         }
     }
 }
