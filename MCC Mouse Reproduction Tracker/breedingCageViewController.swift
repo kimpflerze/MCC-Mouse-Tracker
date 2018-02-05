@@ -57,6 +57,9 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var parentCageTableView: UITableView!
     
     override func viewDidLoad() {
+        print("[TO-DO] Add functionality for ScanParentInfo button!")
+        print("[TO-DO] Add functionality for the AddLitter button!")
+        
         super.viewDidLoad()
         
         parentDOBTableView.dataSource = self
@@ -94,9 +97,10 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                 }
                 
                 for parentCage in theCage.parentCages {
+                    print("in parentDOBList loop")
 //                    if let dateAsString = parentCage.dob?.toString(withFormat: "yyyy-MM-dd HH:mm:s") {
-                    if let dateAsString = parentCage.dob?.toString(withFormat: "MM-dd-yyyy hh:mm:s a") {
-                        if(!parentDOBList.contains(dateAsString)) {
+                    if let dateAsString = parentCage.dob?.toString() {
+                        if(parentDOBList.contains(dateAsString) == false) {
                             parentDOBList.append(dateAsString)
                             parentDOBTableView.reloadData()
                         }
