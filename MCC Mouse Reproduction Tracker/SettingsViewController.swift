@@ -221,7 +221,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         QueryServer.shared.updateSettings(parameters: parameters) { (error) in
             
             updatingSettingsHUD.detailsLabel.text = "Downloading settings..."
-            QueryServer.shared.getSettings { (error) in
+            QueryServer.shared.getSettings { 
                 DispatchQueue.main.async {
                     updatingSettingsHUD.hide(animated: true)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updatedSettings"), object: nil)

@@ -47,6 +47,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("[TO-DO] Fix male in cage icon moving around after refreshing view")
         
         rackCollectionView.delegate = self
         rackCollectionView.dataSource = self
@@ -221,6 +222,9 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if cell.cage?.maleInCage == true {
             cell.maleInCageIcon.isHidden = false
         }
+        else {
+            cell.maleInCageIcon.isHidden = true
+        }
         
         //Check to change opacity of cages when filtering
         if cell.cage?.shouldHighlightCage == false || cell.cage?.id == nil {
@@ -316,7 +320,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
-    func setRackViewLayout() {
+    @objc func setRackViewLayout() {
         //Setting collection view layout
         let columnLayout = ColumnFlowLayout(
             cellsPerRow: Settings.shared.numColumns!,
@@ -355,53 +359,21 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     breedingMaleDownloadHUD.hide(animated: true)
                     if let theMales = downloadedMales {
                         self.breedingMales = theMales
+                        self.breedingCages = self.breedingCages.map({ (cage) -> Cage in
+                            let newCage = cage
+                            newCage.maleInCage = theMales.contains(where: { (male) -> Bool in
+                                cage.maleInCage = true
+                                return male.currentCageId == cage.id
+                            })
+                            return newCage
+                        })
                         DispatchQueue.main.async {
-                            
-                            //Query for all alerts
-                            let alertsDownloadHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-                            alertsDownloadHUD.detailsLabel.text = "Refreshing alerts for cages..."
-                            QueryServer.shared.getAlerts { (downloadedAlerts, error) in
-                                alertsDownloadHUD.hide(animated: true)
-                                if let theAlerts = downloadedAlerts {
-                                    for alert in theAlerts {
-                                        if let index = self.breedingCages.index(where: { (cage) -> Bool in
-                                            return alert.subjectId == cage.id
-                                        }) {
-                                            switch alert.alertTypeID {
-                                            case "1":
-                                                self.breedingCages[index].mouseTooOld = true
-                                            case "2":
-                                                self.breedingCages[index].needsToBeWeaned = true
-                                            default:
-                                                print("Default case, should never fire")
-                                            }
-                                            
-                                        }
-                                        if let index = self.sellingCages.index(where: { (cage) -> Bool in
-                                            return alert.subjectId == cage.id
-                                        }) {
-                                            switch alert.alertTypeID {
-                                            case "1":
-                                                self.sellingCages[index].mouseTooOld = true
-                                            case "2":
-                                                self.sellingCages[index].needsToBeWeaned = true
-                                            default:
-                                                print("Default case, should never fire")
-                                            }
-                                            
-                                        }
-                                    }
                                     self.rackCollectionView.reloadData()
                                 }
+                        
                             }
                             
                         }
-                        
-                    }
-                    
-                }
-                
-                
                 
                 let refreshCollectionViewAlert = UIAlertController(title: "Data Refreshed", message: "The cage data was refreshed successfully.", preferredStyle: .alert)
                 let cancelAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
@@ -456,6 +428,15 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
+    func showFailureToFindScannedID(failureCount: Int) {
+        if (failureCount == 3) {
+            let failureAlert = UIAlertController(title: "Failure to Locate Cage", message: "QR Code's value does not exist in the database. Please try again.", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            failureAlert.addAction(cancelAction)
+            self.present(failureAlert, animated: true, completion: nil)
+        }
+    }
+    
 }
 
 //Extension to handle return from QRScannerController called from the menu
@@ -465,7 +446,63 @@ extension RackViewController: QRScannerControllerDelegate {
     func qrScannerController(controller: QRScannerController, didScanQRCodeWith value: String) {
         print("Cage ID Recieved from Scanner! Id: \(value)")
         controller.dismiss(animated: true) {
+            var responseFailureCounter = 0
+            //Check if returned ID is a breeding cage
+            QueryServer.shared.getBreedingCageBy(id: value, completion: { (cage, error) in
+                if let theCage = cage {
+                    //Found the cage
+                    let cageViewStoryboard = UIStoryboard(name: "CageViews", bundle: .main)
+                    if let breedingVC = cageViewStoryboard.instantiateViewController(withIdentifier: "BreedingCage") as? breedingCageViewController {
+                        breedingVC.delegate = self
+                        breedingVC.cage = theCage
+                        self.present(breedingVC, animated: true, completion: nil)
+                    }
+                }
+                else {
+                    responseFailureCounter += 1
+                    self.showFailureToFindScannedID(failureCount: responseFailureCounter)
+                }
+            })
+            QueryServer.shared.getSellingCageBy(id: value, completion: { (cage, error) in
+                if let theCage = cage {
+                    //Found the cage
+                    let cageViewStoryboard = UIStoryboard(name: "CageViews", bundle: .main)
+                    if let sellingVC = cageViewStoryboard.instantiateViewController(withIdentifier: "SellingCage") as? stockCageViewController {
+                        sellingVC.delegate = self
+                        sellingVC.cage = theCage
+                        self.present(sellingVC, animated: true, completion: nil)
+                    }
+                }
+                else {
+                    responseFailureCounter += 1
+                    self.showFailureToFindScannedID(failureCount: responseFailureCounter)
+                }
+            })
+            QueryServer.shared.getBreedingMaleBy(id: value, completion: { (male, error) in
+                if let theMale = male {
+                    //Found the male
+                    let cageViewStoryboard = UIStoryboard(name: "CageViews", bundle: .main)
+                    if let breedingMaleVC = cageViewStoryboard.instantiateViewController(withIdentifier: "BreedingMale") as? addMaleViewController {
+                        breedingMaleVC.delegate = self
+                        breedingMaleVC.breedingMale = male
+                        if let indexTwo = self.breedingCages.index(where: { (cage) -> Bool in
+                            return cage.id == theMale.currentCageId
+                        }) {
+                            breedingMaleVC.breedingMaleCurrentCage = self.breedingCages[indexTwo]
+                            self.present(breedingMaleVC, animated: true, completion:  nil)
+                        }
+                    }
+                }
+                else {
+                    responseFailureCounter += 1
+                    self.showFailureToFindScannedID(failureCount: responseFailureCounter)
+                }
+            })
+            
+            
+            
             //Find the cage object
+            /*
             let allCages = self.breedingCages + self.sellingCages
             if let index = allCages.index(where: { (cage) -> Bool in
                 return cage.id == value
@@ -504,6 +541,7 @@ extension RackViewController: QRScannerControllerDelegate {
                     }
                 }
             }
+            */
         }
     }
 }

@@ -48,12 +48,19 @@ class ViewController: UIViewController {
         
         //Temporary segue just for testing purposes, should be a check for the login information here!
         let downloadSettingsHUD = MBProgressHUD.showAdded(to: view, animated: true)
-        QueryServer.shared.getSettings { (error) in
+        QueryServer.shared.getSettings {
             downloadSettingsHUD.hide(animated: true)
             DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "loginToPageView", sender: sender)
             }
         }
+        
+//        QueryServer.shared.getSettings { (error) in
+//            downloadSettingsHUD.hide(animated: true)
+//            DispatchQueue.main.async {
+//                self.performSegue(withIdentifier: "loginToPageView", sender: sender)
+//            }
+//        }
     }
     
     //Function to check for blank username/password textfields

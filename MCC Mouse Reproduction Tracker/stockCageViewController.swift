@@ -57,7 +57,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        stockCageParentCageIdList.append("ORIGIN")
+        print("[TO-DO] Add/fix button to allow setting DOB of mice int he cage!")
         
         stockCageDOBTableView.dataSource = self
         stockCageDOBTableView.delegate = self
@@ -103,13 +103,26 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                 }
                 
                 for parentCage in theCage.parentCages {
-                    if let dateAsString = parentCage.dob?.toString(withFormat: "yyyy-MM-dd HH:mm:s") {
-                        if(!stockCageDOBList.contains(dateAsString)) {
+                    if let dateAsString = parentCage.dob?.toString() {
+                        if(stockCageDOBList.contains(dateAsString) == false) {
                             stockCageDOBList.append(dateAsString)
                             stockCageDOBTableView.reloadData()
                         }
                     }
                 }
+                
+                /*
+                 let formatter = DateFormatter()
+                 formatter.dateFormat = "MM-dd-yyyy hh:mm:ss a"
+                 if var dateString = parentInfo["DOB"] as? String {
+                 if let theDob = formatter.date(from: dateString) {
+                 dob = theDob
+                 }
+                 }
+ */
+                
+                
+                
             }
         }
     }
