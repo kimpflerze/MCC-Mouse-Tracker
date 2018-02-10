@@ -9,7 +9,7 @@ namespace MouseApi.Entities
     {
         [Key]
         [Column("id")]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public override string Id { get; set; }
 
         [Column("lab")]
