@@ -25,6 +25,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     var hasTableViewChanged = false
     var newCageId: String?
     var genderFlag = 0;
+    var originalCageActiveState: Bool?
     
     var delegate: DetailViewControllerDelegate?
     
@@ -54,6 +55,9 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     //TableViews
     @IBOutlet weak var stockCageDOBTableView: UITableView!
     
+    //Switches
+    @IBOutlet weak var cageActiveSwitch: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,8 +72,6 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(columnNoTextField, rules: [RequiredRule(), NumericRule()])
-        
-//        view.bringSubview(toFront: stockCageViewTitleLabel)
         
         //Checking if the cage being manipulated is a new one or existing
         
@@ -86,6 +88,12 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
             rowNoTextField.text = String(theCage.row)
             
             if(isNewCage == false) {
+                //Setting the "active" switch to "off" if the cage is not an activly used cage.
+                originalCageActiveState = theCage.isActive
+                if(theCage.isActive == false) {
+                    cageActiveSwitch.setOn(false, animated: false)
+                }
+                
                 miceCountTextField.text = String(theCage.numMice)
                 
                 if(theCage.id != "" || theCage.id != nil) {
@@ -111,18 +119,9 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                     }
                 }
                 
-                /*
-                 let formatter = DateFormatter()
-                 formatter.dateFormat = "MM-dd-yyyy hh:mm:ss a"
-                 if var dateString = parentInfo["DOB"] as? String {
-                 if let theDob = formatter.date(from: dateString) {
-                 dob = theDob
-                 }
-                 }
- */
-                
-                
-                
+            }
+            else {
+                cageHasId.image = #imageLiteral(resourceName: "XIcon")
             }
         }
     }
@@ -206,7 +205,8 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         }
         else {
             //Existing cage, update its information
-            if (!hasInformationChanged() || !(wasValidationSuccessful)) {
+            if (!hasInformationChanged() /*|| wasValidationSuccessful)*/) {
+                print("Dismissed existing stock cage without pushing new changes! \(!hasInformationChanged())")
                 dismiss(animated: true, completion: nil)
             }
             else {
@@ -214,7 +214,15 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                 let confirmUpdateAction  = UIAlertAction(title: "Confirm", style: .default, handler: { (placeholder) in
                     let updateHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
                     updateHUD.detailsLabel.text = "Updating database information..."
-                    QueryServer.shared.updateSellingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: nil, numberOfMice: self.miceCountTextField.text, completion: { (response) in
+                    //Temporary variable used just for passing correct information to the QueryServer.shared.updateBreedingCageWith(id:)
+                    var numericalStringCageIsActive = ""
+                    if(self.cage?.isActive == true) {
+                        numericalStringCageIsActive = "1"
+                    }
+                    else {
+                        numericalStringCageIsActive = "0"
+                    }
+                    QueryServer.shared.updateSellingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: numericalStringCageIsActive, numberOfMice: self.miceCountTextField.text, completion: { (response) in
                         updateHUD.hide(animated: true)
                         let updateAlert = UIAlertController(title: "Update Cage", message: "The cage information was successfully udpated!", preferredStyle: .alert)
                         let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (response) in
@@ -239,7 +247,8 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         guard let theCage = cage else {
             return false
         }
-        if rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) {
+        if originalCageActiveState != self.cage?.isActive || rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) {
+            print("Something didnt match!")
             return true
         }
         return hasTableViewChanged
@@ -256,6 +265,8 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         }
     }
     
+    
+    
     @IBAction func addStockCageDOBEditing(_ sender: UITextField) {
         
         /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
@@ -268,6 +279,25 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         
         datePickerView.addTarget(self, action: #selector(breedingCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
     }
+    
+    @IBAction func cageActiveSwitchFlipped(_ sender: UISwitch) {
+        if cageActiveSwitch.isOn {
+            self.cage?.isActive = true
+        }
+        else {
+            let activeSwitchAlert = UIAlertController(title: "Warning!", message: "Are you sure you wish to deactivate this cage?", preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (sender) in
+                self.cage?.isActive = false
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (sender) in
+                self.cageActiveSwitch.setOn(true, animated: true)
+            })
+            activeSwitchAlert.addAction(confirmAction)
+            activeSwitchAlert.addAction(cancelAction)
+            self.present(activeSwitchAlert, animated: true, completion: nil)
+        }
+    }
+    
     
     func datePickerValueChanged(sender:UIDatePicker) {
         

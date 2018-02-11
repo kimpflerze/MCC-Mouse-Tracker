@@ -133,6 +133,9 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                 if(downloadedMale != nil) {
                     self.add_male_btn.setTitle("View Male", for: .normal)
                 }
+                else {
+                    self.add_male_btn.setTitle("Add Male", for: .normal)
+                }
             }
         })
         
@@ -219,7 +222,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     
     func hasInformationChanged() -> Bool {
         guard let theCage = cage else {
-            print("theCage = cage failed!")
             return false
         }
         if originalCageActiveState != self.cage?.isActive || rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) {
@@ -250,12 +252,11 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
             //Existing cage, update its information
             print("[TO-DO] Fix this validator POD in all classes where its used! Its funky.")
             if (!hasInformationChanged() /*|| !(wasValidationSuccessful)*/) {
-                print("Window was dismissed for some reason")
+                print("Dismissed existing breeding cage without pushing changes!")
                 dismiss(animated: true, completion: nil)
             }
             else {
                 print("In else statement, information has changed in BreedingCageViewController!")
-                print((self.cage?.isActive.description ?? "none"))
                 let updateConfirmAlert = UIAlertController(title: "Confirm Update", message: "Cage information has been changed, do you wish to save these changes?", preferredStyle: .alert)
                 let confirmUpdateAction  = UIAlertAction(title: "Confirm", style: .default, handler: { (placeholder) in
                     let updateHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
