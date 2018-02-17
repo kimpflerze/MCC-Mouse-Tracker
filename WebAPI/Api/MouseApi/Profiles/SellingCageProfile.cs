@@ -15,7 +15,21 @@ namespace MouseApi.Profiles
         public SellingCageProfile()
         {
             CreateMap<SellingCageCreator, SellingCageEntity>();
-            CreateMap<SellingCageModel, SellingCageEntity>().ReverseMap();
+            CreateMap<SellingCageEntity, SellingCageModel>()
+                .ForMember(model => model.MarkedForOrder, exp => exp.ResolveUsing(entity => CheckForOrder(entity)));
+        }
+
+        private bool CheckForOrder(SellingCageEntity entity)
+        {
+            var orders = entity.CagesForOrder;
+            if (orders != null)
+            {
+                foreach (var order in orders)
+                {
+                    if (order.Order.Active == 1) return true;
+                }
+            }
+            return false;
         }
     }
 }

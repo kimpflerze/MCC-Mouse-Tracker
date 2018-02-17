@@ -8,6 +8,7 @@ using MouseApi.Entities.Transaction;
 using MouseApi.FilterProviders.Alert;
 using MouseApi.FilterProviders.BreedingMale;
 using MouseApi.FilterProviders.Cages;
+using MouseApi.FilterProviders.CagesForOrder;
 using MouseApi.FilterProviders.LitterLog;
 using MouseApi.FilterProviders.Order;
 using MouseApi.FilterProviders.ParentCageLookup;
@@ -16,6 +17,7 @@ using MouseApi.FilterProviders.Transaction;
 using MouseApi.Patchers.Alert;
 using MouseApi.Patchers.BreedingMale;
 using MouseApi.Patchers.Cages;
+using MouseApi.Patchers.CagesForOrder;
 using MouseApi.Patchers.LitterLog;
 using MouseApi.Patchers.Order;
 using MouseApi.Patchers.ParentCageLookup;
@@ -25,6 +27,7 @@ using MouseApi.Profiles;
 using MouseApi.Service.Alert;
 using MouseApi.Service.Breeder;
 using MouseApi.Service.Cages;
+using MouseApi.Service.CagesForOrder;
 using MouseApi.Service.LitterLog;
 using MouseApi.Service.Order;
 using MouseApi.Service.ParentCageLookup;
@@ -33,6 +36,7 @@ using MouseApi.Service.Transaction;
 using MouseApi.Validator.Alert;
 using MouseApi.Validator.Breeder;
 using MouseApi.Validator.Cages;
+using MouseApi.Validator.CagesForOrder;
 using MouseApi.Validator.LitterLog;
 using MouseApi.Validator.Order;
 using MouseApi.Validator.ParentCageLookup;
@@ -67,11 +71,13 @@ namespace MouseApi
                         container.RegisterType<IAlertFilterProvider, AlertFilterProvider>();
                         container.RegisterType<ISettingsFilterProvider, SettingsFilterProvider>();
                         container.RegisterType<IOrderFilterProvider, OrderFilterProvider>();
+                        container.RegisterType<ICagesForOrderFilterProvider, CagesForOrderFilterProvider>();
 
             #endregion
 
 
             #region Patchers
+
             container.RegisterType<IBreedingCagePatcher, BreedingCagePatcher>();
             container.RegisterType<IGenericCagePatcher, GenericCagePatcher>();
             container.RegisterType<IBreedingMalePatcher, BreedingMalePatcher>();
@@ -82,11 +88,13 @@ namespace MouseApi
             container.RegisterType<IAlertPatcher, AlertPatcher>();
             container.RegisterType<ISettingsPatcher, SettingsPatcher>();
             container.RegisterType<IOrderPatcher, OrderPatcher>();
+            container.RegisterType<ICagesForOrderPatcher, CagesForOrderPatcher>();
 
             #endregion
 
 
             #region Validators
+
             container.RegisterType<IBreedingCageValidator, BreedingCageValidator>();
             container.RegisterType<ISellingCageValidator, SellingCageValidator>();
             container.RegisterType<IGenericCageValidator, GenericCageValidator>();
@@ -97,6 +105,7 @@ namespace MouseApi
             container.RegisterType<ISettingsValidator, SettingsValidator>();
             container.RegisterType<ITransactionValidator, TransactionValidator>();
             container.RegisterType<IOrderValidator, OrderValidator>();
+            container.RegisterType<ICagesForOrderValidator, CagesForOrderValidator>();
 
             #endregion
 
@@ -112,6 +121,7 @@ namespace MouseApi
             container.RegisterType<IBaseRepository<AlertEntity>, BaseRepository<AlertEntity>>();
             container.RegisterType<IBaseRepository<SettingsEntity>, BaseRepository<SettingsEntity>>();
             container.RegisterType<IBaseRepository<OrderEntity>, BaseRepository<OrderEntity>>();
+            container.RegisterType<IBaseRepository<CagesForOrderEntity>, BaseRepository<CagesForOrderEntity>>();
             #endregion
 
 
@@ -126,6 +136,7 @@ namespace MouseApi
             container.RegisterType<IAlertService, AlertService>();
             container.RegisterType<ISettingsService, SettingsService>();
             container.RegisterType<IOrderService, OrderService>();
+            container.RegisterType<ICagesForOrderService, CagesForOrderService>();
             #endregion
 
 
@@ -143,6 +154,7 @@ namespace MouseApi
                     cfg.AddProfile<AlertProfile>();
                     cfg.AddProfile<SettingsProfile>();
                     cfg.AddProfile<OrderProfile>();
+                    cfg.AddProfile<CagesForOrderProfile>();
                 } )));
 #endregion
 

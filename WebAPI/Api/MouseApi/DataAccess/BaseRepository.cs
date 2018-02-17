@@ -20,7 +20,8 @@ namespace MouseApi.DataAccess
 
         public virtual IEnumerable<TEntity> Get()
         {
-            return  _dbSet.ToList<TEntity>();
+            var result = _dbSet.ToList<TEntity>();
+            return result;
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAsync()

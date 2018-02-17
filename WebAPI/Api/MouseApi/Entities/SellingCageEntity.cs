@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MouseApi.Entities
@@ -16,5 +17,8 @@ namespace MouseApi.Entities
         public int Gender { get; set; }
 
         public virtual GenericCageEntity GenericCage { get; set; }
+
+        [ForeignKey("SellingCageId")]
+        public virtual List<CagesForOrderEntity> CagesForOrder { get; set; }
     }
 }

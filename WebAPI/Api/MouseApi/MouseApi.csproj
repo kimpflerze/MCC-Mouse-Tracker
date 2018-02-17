@@ -163,6 +163,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BreedingCageController.cs" />
     <Compile Include="Controllers\BreedingMaleController.cs" />
+    <Compile Include="Controllers\CageOrderController.cs" />
     <Compile Include="Controllers\GenericCageController.cs" />
     <Compile Include="Controllers\LitterLogController.cs" />
     <Compile Include="Controllers\BreedingFemaleController.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Creators\AlertCreator.cs" />
     <Compile Include="Creators\BreedingCageCreator.cs" />
     <Compile Include="Creators\BreedingMaleCreator.cs" />
+    <Compile Include="Creators\CagesForOrderCreator.cs" />
     <Compile Include="Creators\GenericCageCreator.cs" />
     <Compile Include="Creators\LitterLogCreator.cs" />
     <Compile Include="Creators\OrderCreator.cs" />
@@ -189,6 +191,7 @@
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\BreedingCageEntity.cs" />
     <Compile Include="Entities\BreedingMaleEntity.cs" />
+    <Compile Include="Entities\CagesForOrderEntity.cs" />
     <Compile Include="Entities\LitterLogEntity.cs" />
     <Compile Include="Entities\OrderEntity.cs" />
     <Compile Include="Entities\ParentCageLookupEntity.cs" />
@@ -204,6 +207,8 @@
     <Compile Include="FilterProviders\BaseFilterProvider.cs" />
     <Compile Include="FilterProviders\BreedingMale\BreedingMaleFilterProvider.cs" />
     <Compile Include="FilterProviders\BreedingMale\IBreedingMaleFilterProvider.cs" />
+    <Compile Include="FilterProviders\CagesForOrder\CagesForOrderFilterProvider.cs" />
+    <Compile Include="FilterProviders\CagesForOrder\ICagesForOrderFilterProvider.cs" />
     <Compile Include="FilterProviders\Cages\BreedingCageFilterProvider.cs" />
     <Compile Include="FilterProviders\Cages\GenericCageFilterProvider.cs" />
     <Compile Include="FilterProviders\Cages\IBreedingCageFilterProvider.cs" />
@@ -229,6 +234,8 @@
     <Compile Include="Patchers\BasePatcher.cs" />
     <Compile Include="Patchers\BreedingMale\BreedingMalePatcher.cs" />
     <Compile Include="Patchers\BreedingMale\IBreedingMalePatcher.cs" />
+    <Compile Include="Patchers\CagesForOrder\CagesForOrderPatcher.cs" />
+    <Compile Include="Patchers\CagesForOrder\ICagesForOrderPatcher.cs" />
     <Compile Include="Patchers\Cages\BreedingCagePatcher.cs" />
     <Compile Include="Patchers\Cages\GenericCagePatcher.cs" />
     <Compile Include="Patchers\Cages\IBreedingCagePatcher.cs" />
@@ -250,6 +257,7 @@
     <Compile Include="Profiles\BaseProfile.cs" />
     <Compile Include="Profiles\BreedingCageProfile.cs" />
     <Compile Include="Profiles\BreedingMaleProfile.cs" />
+    <Compile Include="Profiles\CagesForOrderProfile.cs" />
     <Compile Include="Profiles\GenericCageProfile.cs" />
     <Compile Include="Profiles\LitterLogProfile.cs" />
     <Compile Include="Profiles\OrderProfile.cs" />
@@ -263,6 +271,8 @@
     <Compile Include="Service\BaseService.cs" />
     <Compile Include="Service\Breeder\IBreedingMaleService.cs" />
     <Compile Include="Service\Breeder\BreedingMaleService.cs" />
+    <Compile Include="Service\CagesForOrder\CagesForOrderService.cs" />
+    <Compile Include="Service\CagesForOrder\ICagesForOrderService.cs" />
     <Compile Include="Service\Cages\BreedingCageService.cs" />
     <Compile Include="Service\Cages\GenericCageService.cs" />
     <Compile Include="Service\Cages\IBreedingCageService.cs" />
@@ -285,6 +295,8 @@
     <Compile Include="Validator\Alert\AlertValidator.cs" />
     <Compile Include="Validator\Alert\IAlertValidator.cs" />
     <Compile Include="Validator\Breeder\IBreedingMaleValidator.cs" />
+    <Compile Include="Validator\CagesForOrder\CagesForOrderValidator.cs" />
+    <Compile Include="Validator\CagesForOrder\ICagesForOrderValidator.cs" />
     <Compile Include="Validator\Cages\BreedingCageValidator.cs" />
     <Compile Include="Validator\Breeder\BreedingMaleValidator.cs" />
     <Compile Include="Validator\Cages\GenericCageValidator.cs" />
@@ -306,6 +318,7 @@
     <Compile Include="ViewModels\AlertModel.cs" />
     <Compile Include="ViewModels\BreedingCageModel.cs" />
     <Compile Include="ViewModels\BreedingMaleModel.cs" />
+    <Compile Include="ViewModels\CagesForOrderModel.cs" />
     <Compile Include="ViewModels\GenericCageModel.cs" />
     <Compile Include="ViewModels\LitterLogModel.cs" />
     <Compile Include="ViewModels\OrderModel.cs" />
