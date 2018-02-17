@@ -24,7 +24,8 @@ namespace MouseApi.Profiles
                 .ForMember(entity => entity.MaleLifespan, expression => expression.ResolveUsing(creator => MapToDays(creator.MaleLifespan, creator.MaleLifespanUnit)))
                 .ForMember(entity => entity.OldMaleAlertAdvance, expression => expression.ResolveUsing(creator => MapToDays(creator.OldMaleAlertAdvance, creator.OldMaleAlertAdvanceUnit)))
                 .ForMember(entity => entity.WeaningPeriod, expression => expression.ResolveUsing(creator => MapToDays(creator.WeaningPeriod, creator.WeaningPeriodUnit)))
-                .ForMember(entity => entity.WeaningAlertAdvance, expression => expression.ResolveUsing(creator => MapToDays(creator.WeaningAlertAdvance, creator.WeaningAlertAdvanceUnit)));
+                .ForMember(entity => entity.WeaningAlertAdvance, expression => expression.ResolveUsing(creator => MapToDays(creator.WeaningAlertAdvance, creator.WeaningAlertAdvanceUnit)))
+                .ForMember(entity => entity.OldFemaleAlertAdvance, expression => expression.ResolveUsing(creator => MapToDays(creator.OldFemaleAlertAdvance, creator.OldFemaleAlertAdvanceUnit)));
 
             CreateMap<SettingsEntity, SettingsModel>()
                 .ForMember(model => model.BreedingAlertAdvance, exp => exp.ResolveUsing(entity => MapToCorrectUnit(entity.BreedingAlertAdvance, (TimeUnits)entity.BreedingAlertAdvanceUnit)))
@@ -34,7 +35,8 @@ namespace MouseApi.Profiles
                 .ForMember(model => model.MaleLifespan, exp => exp.ResolveUsing(entity => MapToCorrectUnit(entity.MaleLifespan, (TimeUnits)entity.MaleLifespanUnit)))
                 .ForMember(model => model.OldMaleAlertAdvance, exp => exp.ResolveUsing(entity => MapToCorrectUnit(entity.OldMaleAlertAdvance, (TimeUnits)entity.OldMaleAlertAdvanceUnit)))
                 .ForMember(model => model.WeaningPeriod, exp => exp.ResolveUsing(entity => MapToCorrectUnit(entity.WeaningPeriod, (TimeUnits)entity.WeaningPeriodUnit)))
-                .ForMember(model => model.WeaningAlertAdvance, exp => exp.ResolveUsing(entity => MapToCorrectUnit(entity.WeaningAlertAdvance, (TimeUnits)entity.WeaningAlertAdvanceUnit)));
+                .ForMember(model => model.WeaningAlertAdvance, exp => exp.ResolveUsing(entity => MapToCorrectUnit(entity.WeaningAlertAdvance, (TimeUnits)entity.WeaningAlertAdvanceUnit)))
+                .ForMember(model => model.OldFemaleAlertAdvance, exp => exp.ResolveUsing(entity => MapToCorrectUnit(entity.OldFemaleAlertAdvance, (TimeUnits)entity.OldFemaleAlertAdvanceUnit)));
         }
 
         private int MapToDays(int span, TimeUnits unit)
