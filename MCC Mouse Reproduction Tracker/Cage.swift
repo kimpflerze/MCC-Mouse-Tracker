@@ -26,6 +26,7 @@ class Cage: NSObject {
     //Breeding specific attributes
     var litterDOB: Date?
     var numLittersFromCage = 0
+    var litterInCage = false
     
     //Alert specific attributes - Replaced by alerts being returned in cage JSON in array format
     var alerts = [Alert]() // Should this be optional or initialized?
@@ -50,16 +51,23 @@ class Cage: NSObject {
     
         //Most likely will have to update the date once we have the new server hosted by MCC.
         let formatter = DateFormatter()
-        //"Created": "2017-10-26T15:50:24.5",
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.dateFormat = "MM-dd-yyyy hh:mm:ss a"
         if var dateString = genericCage?["Created"] as? String {
-            let index = dateString.index(dateString.startIndex, offsetBy: 19)
-            dateString = dateString.substring(to: index)
-            dateString = dateString.replacingOccurrences(of: "T", with: " ")
             if let theCreatedAt = formatter.date(from: dateString) {
                 createdAt = theCreatedAt
             }
         }
+//        let formatter = DateFormatter()
+//        //"Created": "2017-10-26T15:50:24.5",
+//        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss a"
+//        if var dateString = genericCage?["Created"] as? String {
+//            let index = dateString.index(dateString.startIndex, offsetBy: 19)
+//            dateString = dateString.substring(to: index)
+//            dateString = dateString.replacingOccurrences(of: "T", with: " ")
+//            if let theCreatedAt = formatter.date(from: dateString) {
+//                createdAt = theCreatedAt
+//            }
+//        }
         if let theRow = genericCage?["Row"] as? Int {
             row = theRow
         }

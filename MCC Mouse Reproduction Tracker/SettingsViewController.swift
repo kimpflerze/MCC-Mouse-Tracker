@@ -18,26 +18,89 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
     
     // Validator Variable
     let validator = Validator()
+    
     // Textfields
     @IBOutlet weak var numRacksTextField: UITextField!
     @IBOutlet weak var numRowsTextField: UITextField!
     @IBOutlet weak var numColumnsTextField: UITextField!
-    
     @IBOutlet weak var weaningPeriodTextField: UITextField!
     @IBOutlet weak var breedingPeriodTextField: UITextField!
     @IBOutlet weak var gestationPeriodTextField: UITextField!
-    
-    
     @IBOutlet weak var maleLifeSpanTextField: UITextField!
     @IBOutlet weak var femaleLifeSpanTextField: UITextField!
     @IBOutlet weak var maleCostTextField: UITextField!
     @IBOutlet weak var femaleCostTextField: UITextField!
     @IBOutlet weak var cageCostTextField: UITextField!
+    @IBOutlet weak var maleInCageAlertAdvanceTextField: UITextField!
+    @IBOutlet weak var pupsInCageAlertAdvanceTextField: UITextField!
+    @IBOutlet weak var pupsToWeanAlertAdvanceTextField: UITextField!
+    @IBOutlet weak var maleTooOldAlertAdvanceTextField: UITextField!
+    @IBOutlet weak var femaleTooOldAlertAdvanceTextField: UITextField!
+    @IBOutlet weak var cageWithOrderAlertAdvanceTextField: UITextField!
     
     //Buttons
-    @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
-    
+        //Male In Cage Alert Color Selection Buttons
+    @IBOutlet weak var redMaleInCageAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var orangeMaleInCageAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var yellowMaleInCageAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var greenMaleInCageAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var cyanMaleInCageAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var blueMaleInCageAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var purpleMaleInCageAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var pinkMaleInCageAlertColorSelectionButton: UIButton!
+        //Pups In Cage Alert Color Selection Buttons
+    @IBOutlet weak var redPupsInCageAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var orangePupsInCageAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var yellowPupsInCageAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var greenPupsInCageAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var cyanPupsInCageAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var bluePupsInCageAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var purplePupsInCageAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var pinkPupsInCageAlertColorSelectionButton: UIButton!
+        //Pups To Wean Alert Color Selection Buttons
+    @IBOutlet weak var redPupsToWeanAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var orangePupsToWeanAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var yellowPupsToWeanAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var greenPupsToWeanAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var cyanPupsToWeanAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var bluePupsToWeanAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var purplePupsToWeanAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var pinkPupsToWeanAlertColorSelectionButton: UIButton!
+        //Male Too Old Alert Color Selection Buttons
+    @IBOutlet weak var redMaleTooOldAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var orangeMaleTooOldAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var yellowMaleTooOldAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var greenMaleTooOldAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var cyanMaleTooOldAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var blueMaleTooOldAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var purpleMaleTooOldAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var pinkMaleTooOldAlertColorSelectionButton: UIButton!
+        //Female Too Old Alert Color Selection Buttons
+    @IBOutlet weak var redFemaleTooOldAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var orangeFemaleTooOldAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var yellowFemaleTooOldAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var greenFemaleTooOldAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var cyanFemaleTooOldAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var blueFemaleTooOldAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var purpleFemaleTooOldAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var pinkFemaleTooOldAlertColorSelectionButton: UIButton!
+        //Cage With Order Alert Color Selection Buttons
+    @IBOutlet weak var redCageWithOrderAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var orangeCageWithOrderAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var yellowCageWithOrderAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var greenCageWithOrderAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var cyanCageWithOrderAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var blueCageWithOrderAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var purpleCageWithOrderAlertColorSelectionButton: UIButton!
+    @IBOutlet weak var pinkCageWithOrderAlertColorSelectionButton: UIButton!
+        //Variables to go with the above alert color selections
+    var maleInCageAlertColor = ""
+    var pupsInCageAlertColor = ""
+    var pupsToWeanAlertColor = ""
+    var maleTooOldAlertColor = ""
+    var femaleTooOldAlertColor = ""
+    var cageWithOrderAlertColor = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +142,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         let gestationPickerView = UIPickerView()
         let maleLifeSpanPickerView = UIPickerView()
         let femaleLifeSpanPickerView = UIPickerView()
-        
+        let maleInCageAlertAdvancePickerView = UIPickerView()
+        let pupsInCageAlertAdvancePickerView = UIPickerView()
+        let pupsToWeanAlertAdvancePickerView = UIPickerView()
+        let maleTooOldAlertAdvancePickerView = UIPickerView()
+        let femaleTooOldAlertAdvancePickerView = UIPickerView()
+        let cageWithOrderAlertAdvancePickerView = UIPickerView()
         
         weaningPickerView.delegate = self
             weaningPickerView.tag = 0
@@ -91,12 +159,29 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             maleLifeSpanPickerView.tag = 3
         femaleLifeSpanPickerView.delegate = self
             femaleLifeSpanPickerView.tag = 4
+        maleInCageAlertAdvancePickerView.delegate = self
+            maleInCageAlertAdvancePickerView.tag = 5
+        pupsInCageAlertAdvancePickerView.delegate = self
+            pupsInCageAlertAdvancePickerView.tag = 6
+        pupsToWeanAlertAdvancePickerView.delegate = self
+            pupsToWeanAlertAdvancePickerView.tag = 7
+        maleTooOldAlertAdvancePickerView.delegate = self
+            maleTooOldAlertAdvancePickerView.tag = 8
+        femaleTooOldAlertAdvancePickerView.delegate = self
+            femaleTooOldAlertAdvancePickerView.tag = 9
+        cageWithOrderAlertAdvancePickerView.delegate = self
+            cageWithOrderAlertAdvancePickerView.tag = 10
         
         weaningPeriodTextField.inputView = weaningPickerView
         breedingPeriodTextField.inputView = breedingPickerView
         gestationPeriodTextField.inputView = gestationPickerView
         maleLifeSpanTextField.inputView = maleLifeSpanPickerView
         femaleLifeSpanTextField.inputView = femaleLifeSpanPickerView
+        pupsInCageAlertAdvanceTextField.inputView = pupsInCageAlertAdvancePickerView
+        pupsToWeanAlertAdvanceTextField.inputView = pupsToWeanAlertAdvancePickerView
+        maleTooOldAlertAdvanceTextField.inputView = maleTooOldAlertAdvancePickerView
+        femaleTooOldAlertAdvanceTextField.inputView = femaleTooOldAlertAdvancePickerView
+        cageWithOrderAlertAdvanceTextField.inputView = cageWithOrderAlertAdvancePickerView
     }
 
     override func didReceiveMemoryWarning() {
@@ -221,7 +306,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         QueryServer.shared.updateSettings(parameters: parameters) { (error) in
             
             updatingSettingsHUD.detailsLabel.text = "Downloading settings..."
-            QueryServer.shared.getSettings { (error) in
+            QueryServer.shared.getSettings {
                 DispatchQueue.main.async {
                     updatingSettingsHUD.hide(animated: true)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updatedSettings"), object: nil)

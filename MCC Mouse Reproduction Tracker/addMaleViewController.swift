@@ -22,6 +22,11 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     var isNewMale = false
     var newMaleId: String?
     var hasTableViewChanged = false
+    //Parent Cage ID Scan = 0
+    //Current Cage ID Scan = 1
+    var lastPressedScanButton = -1
+    var maleInTheCage = false
+    var originalMaleActiveState: Bool?
     
     var delegate: DetailViewControllerDelegate?
     
@@ -38,9 +43,12 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     //Buttons
     @IBOutlet weak var doneButton: UIButton!
-    @IBOutlet weak var addParentCageIDButton: UIButton!
+//    @IBOutlet weak var addParentCageIDButton: UIButton!
     @IBOutlet weak var QRCodeButton: UIButton!
     @IBOutlet weak var moveMaleButton: UIButton!
+    
+    //Switches
+    @IBOutlet weak var maleActiveSwitch: UISwitch!
     
     //TableViews
     @IBOutlet weak var parentCageIDTableView: UITableView!
@@ -49,11 +57,6 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var parentCageIDScanButton: UIButton!
     @IBOutlet weak var currentCageIDScanButton: UIButton!
     @IBOutlet weak var currentCageIDTextField: UITextField!
-    
-    //Parent Cage ID Scan = 0
-    //Current Cage ID Scan = 1
-    var lastPressedScanButton = -1
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,10 +75,27 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
             columnNoTextField.text = String(theCage.column)
             rowNoTextField.text = String(theCage.row)
             
+            maleInTheCage = theCage.maleInCage
+            
             if(isNewMale == false) {
                 guard let theMale = breedingMale else {
                     return
                 }
+                
+                //Setting icon for indication of if cage has an ID set. Only relevant if its a new cage.
+                if(theMale.id != "") {
+                    cageHasId.image = #imageLiteral(resourceName: "CheckIcon")
+                }
+                else {
+                    cageHasId.image = #imageLiteral(resourceName: "XIcon")
+                }
+                
+                //Setting the "active" switch to "off" if the cage is not an activly used cage.
+                originalMaleActiveState = theMale.active
+                if(theMale.active == false) {
+                    maleActiveSwitch.setOn(false, animated: false)
+                }
+                
                 maleDOBTextField.text = theMale.dob?.toString()
                 
                 for parentCage in theMale.motherCageIds {
@@ -84,6 +104,9 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
                 parentCageIDTableView.reloadData()
                 
                 currentCageIDTextField.text = theMale.currentCageId
+            }
+            else {
+                cageHasId.image = #imageLiteral(resourceName: "XIcon")
             }
             
         }
@@ -137,7 +160,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         guard let theCage = breedingMaleCurrentCage else {
             return false
         }
-        if rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) || currentCageIDTextField.text != String(theCage.id){
+        if originalMaleActiveState != self.breedingMale?.active || rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) || currentCageIDTextField.text != String(theCage.id) {
             return true
         }
         return hasTableViewChanged
@@ -162,7 +185,8 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
             //New male, insert into database
             let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
             doneButtonHUD.detailsLabel.text = "Sending information..."
-            QueryServer.shared.createNewBreedingMale(id: newMaleId, isActive: 1, motherCageId: parentCageIDList[0], DOB: maleDOBTextField.text, currentCageId: breedingMaleCurrentCage?.id, completion: { (error) in
+            print("[TO-DO] Prevent pushing new breeding male if information is missing!")
+            QueryServer.shared.createNewBreedingMale(id: newMaleId, isActive: 1, motherCageId: parentCageIDList.first, DOB: maleDOBTextField.text, currentCageId: breedingMaleCurrentCage?.id, completion: { (error) in
                 debugPrint(error)
                 doneButtonHUD.hide(animated: true)
                 self.delegate?.detailViewControllerDidSave(controller: self)
@@ -170,7 +194,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         else {
             //Existing cage, update its information
-            if(!hasInformationChanged() || !(wasValidationSuccessful)) {
+            if(!hasInformationChanged() /*|| !(wasValidationSuccessful)*/) {
                 dismiss(animated: true, completion: nil)
             }
             else {
@@ -178,7 +202,16 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let confirmUpdateAction  = UIAlertAction(title: "Confirm", style: .default, handler: { (placeholder) in
                     let updateHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
                     updateHUD.detailsLabel.text = "Updating database information..."
-                    QueryServer.shared.updateBreedingMaleWith(id: self.breedingMale?.id, isActive: nil, currentCageId: self.currentCageIDTextField.text, completion: { (response) in
+                    //Temporary variable used just for passing correct information to the QueryServer.shared.updateBreedingCageWith(id:)
+                    var numericalStringCageIsActive = ""
+                    if(self.breedingMale?.active == true) {
+                        numericalStringCageIsActive = "1"
+                    }
+                    else {
+                        numericalStringCageIsActive = "0"
+                    }
+                    
+                    QueryServer.shared.updateBreedingMaleWith(id: self.breedingMale?.id, isActive: numericalStringCageIsActive, currentCageId: self.currentCageIDTextField.text, completion: { (response) in
                         updateHUD.hide(animated: true)
                         let updateAlert = UIAlertController(title: "Update Cage", message: "The cage information was successfully udpated!", preferredStyle: .alert)
                         let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (response) in
@@ -253,6 +286,23 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    @IBAction func maleActiveSwitchFlipped(_ sender: UISwitch) {
+        if maleActiveSwitch.isOn {
+            self.breedingMale?.active = true
+        }
+        else {
+            let activeSwitchAlert = UIAlertController(title: "Warning!", message: "Are you sure you wish to deactivate this cage?", preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (sender) in
+                self.breedingMale?.active = false
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (sender) in
+                self.maleActiveSwitch.setOn(true, animated: true)
+            })
+            activeSwitchAlert.addAction(confirmAction)
+            activeSwitchAlert.addAction(cancelAction)
+            self.present(activeSwitchAlert, animated: true, completion: nil)
+        }
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         var result = true
@@ -378,7 +428,42 @@ extension addMaleViewController: QRScannerControllerDelegate {
                 self.hasTableViewChanged = true
             }
             else if (self.lastPressedScanButton == 1){
-                self.currentCageIDTextField.text = value
+            //Attempt to update breeding male current cage information
+                //Query for cage with the scanned ID and store it
+                QueryServer.shared.getBreedingCageBy(id: value, completion: { (cage, error) in
+                    if(cage != nil) {
+                        //Attempt to move the male to new cage, if male in cage or one degree separation violated, fail to move male
+                        if self.maleInTheCage == true {
+                            let alert = UIAlertController(title: "Male Exists!", message: "This cage already contains a male!", preferredStyle: .alert)
+                            let confirm = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                            alert.addAction(confirm)
+                            
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                        else {
+                            let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                            hud.detailsLabel.text = "Moving male..."
+                            QueryServer.shared.updateBreedingMaleWith(id: self.breedingMale?.id, isActive: nil, currentCageId: value, completion: { (error) in
+                                hud.hide(animated: true)
+                                if let errorMessage = error {
+                                    let alert = UIAlertController(title: "Error!", message: "There was an error moving this male: \(errorMessage)", preferredStyle: .alert)
+                                    let confirm = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                                    alert.addAction(confirm)
+                                    
+                                    self.present(alert, animated: true, completion: nil)
+                                }
+                                else {
+                                    let alert = UIAlertController(title: "Moved Male Successfully!", message: "This male has been moved to cage ID: \(cage?.id ?? "")", preferredStyle: .alert)
+                                    let confirm = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                                    alert.addAction(confirm)
+                                    self.currentCageIDTextField.text = value
+                                    self.present(alert, animated: true, completion: nil)
+                                }
+                            })
+                        }
+                    }
+                })
+                
             }
             else {
                 self.newMaleId = value
