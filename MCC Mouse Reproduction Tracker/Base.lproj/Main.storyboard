@@ -175,6 +175,105 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="D2F-Y9-mOi">
+                                <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RKO-4y-Kmn">
+                                    <size key="itemSize" width="204" height="185"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cage" id="Td0-lq-cqW" customClass="RackViewCell" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="204" height="185"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="204" height="185"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p3z-bh-pJj" userLabel="CageTypeIcon">
+                                                    <rect key="frame" x="0.0" y="0.0" width="204" height="185"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iux-JO-EkF">
+                                                    <rect key="frame" x="5" y="5" width="40" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="uUS-Rr-hjq"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gwF-vu-zBY" userLabel="Alerts Stack View">
+                                                    <rect key="frame" x="184" y="10" width="14" height="84"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TVo-1K-sff" userLabel="MaleInCage">
+                                                            <rect key="frame" x="0.0" y="0.0" width="14" height="14"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="14" id="oRO-i1-6fo"/>
+                                                                <constraint firstAttribute="height" constant="14" id="uGg-XB-SGp"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8qI-ho-R4g" userLabel="PupsInCage">
+                                                            <rect key="frame" x="0.0" y="14" width="14" height="14"/>
+                                                        </imageView>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4m7-Lb-3bd" userLabel="PupsToWean">
+                                                            <rect key="frame" x="0.0" y="28" width="14" height="14"/>
+                                                        </imageView>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EnU-hl-N9v" userLabel="MaleTooOld">
+                                                            <rect key="frame" x="0.0" y="42" width="14" height="14"/>
+                                                        </imageView>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c3D-fj-zWE" userLabel="FemaleTooOld">
+                                                            <rect key="frame" x="0.0" y="56" width="14" height="14"/>
+                                                        </imageView>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aSu-bp-vmy" userLabel="CageWithOrder">
+                                                            <rect key="frame" x="0.0" y="70" width="14" height="14"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="EnU-hl-N9v" firstAttribute="height" secondItem="TVo-1K-sff" secondAttribute="height" id="2eH-NT-dxA"/>
+                                                        <constraint firstItem="c3D-fj-zWE" firstAttribute="leading" secondItem="TVo-1K-sff" secondAttribute="leading" id="59m-lA-UIO"/>
+                                                        <constraint firstItem="4m7-Lb-3bd" firstAttribute="leading" secondItem="TVo-1K-sff" secondAttribute="leading" id="JNe-Sd-2hJ"/>
+                                                        <constraint firstItem="aSu-bp-vmy" firstAttribute="leading" secondItem="TVo-1K-sff" secondAttribute="leading" id="LbQ-1H-1bL"/>
+                                                        <constraint firstItem="c3D-fj-zWE" firstAttribute="height" secondItem="TVo-1K-sff" secondAttribute="height" id="RWC-RY-kbB"/>
+                                                        <constraint firstItem="4m7-Lb-3bd" firstAttribute="height" secondItem="TVo-1K-sff" secondAttribute="height" id="SYn-FE-fFx"/>
+                                                        <constraint firstItem="8qI-ho-R4g" firstAttribute="height" secondItem="TVo-1K-sff" secondAttribute="height" id="UpO-Nd-lB0"/>
+                                                        <constraint firstItem="aSu-bp-vmy" firstAttribute="width" secondItem="TVo-1K-sff" secondAttribute="width" id="Y12-3o-BOJ"/>
+                                                        <constraint firstItem="aSu-bp-vmy" firstAttribute="height" secondItem="TVo-1K-sff" secondAttribute="height" id="dVS-hX-1MZ"/>
+                                                        <constraint firstItem="c3D-fj-zWE" firstAttribute="width" secondItem="TVo-1K-sff" secondAttribute="width" id="e8v-t8-ncj"/>
+                                                        <constraint firstItem="8qI-ho-R4g" firstAttribute="leading" secondItem="TVo-1K-sff" secondAttribute="leading" id="fTo-XL-2wB"/>
+                                                        <constraint firstItem="4m7-Lb-3bd" firstAttribute="width" secondItem="TVo-1K-sff" secondAttribute="width" id="fsQ-pZ-ltH"/>
+                                                        <constraint firstItem="EnU-hl-N9v" firstAttribute="width" secondItem="TVo-1K-sff" secondAttribute="width" id="fy0-vH-BuJ"/>
+                                                        <constraint firstItem="EnU-hl-N9v" firstAttribute="leading" secondItem="TVo-1K-sff" secondAttribute="leading" id="lgZ-nE-grl"/>
+                                                        <constraint firstItem="8qI-ho-R4g" firstAttribute="width" secondItem="TVo-1K-sff" secondAttribute="width" id="sbV-QH-BBt"/>
+                                                    </constraints>
+                                                </stackView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="p3z-bh-pJj" secondAttribute="trailing" id="3v4-MX-gUL"/>
+                                            <constraint firstItem="Iux-JO-EkF" firstAttribute="leading" secondItem="Td0-lq-cqW" secondAttribute="leading" constant="5" id="BZW-nv-26d"/>
+                                            <constraint firstItem="Iux-JO-EkF" firstAttribute="top" secondItem="Td0-lq-cqW" secondAttribute="top" constant="5" id="EX7-CU-a0j"/>
+                                            <constraint firstItem="gwF-vu-zBY" firstAttribute="top" secondItem="Td0-lq-cqW" secondAttribute="topMargin" constant="2" id="Fpo-jV-pEn"/>
+                                            <constraint firstAttribute="bottom" secondItem="p3z-bh-pJj" secondAttribute="bottom" id="OnB-2B-AVR"/>
+                                            <constraint firstItem="p3z-bh-pJj" firstAttribute="leading" secondItem="Td0-lq-cqW" secondAttribute="leading" id="OsY-j4-S63"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Iux-JO-EkF" secondAttribute="trailing" symbolic="YES" id="QXP-b6-uGd"/>
+                                            <constraint firstItem="gwF-vu-zBY" firstAttribute="trailing" secondItem="Td0-lq-cqW" secondAttribute="trailingMargin" constant="2" id="bMn-gQ-wH9"/>
+                                            <constraint firstItem="p3z-bh-pJj" firstAttribute="top" secondItem="Td0-lq-cqW" secondAttribute="top" id="f7f-XW-3sT"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="FemaleTooOldAlertIcon" destination="c3D-fj-zWE" id="wEC-PJ-Xqd"/>
+                                            <outlet property="cagePositionLabel" destination="Iux-JO-EkF" id="sr1-1E-dzW"/>
+                                            <outlet property="cageTypeIcon" destination="p3z-bh-pJj" id="3zP-oI-idW"/>
+                                            <outlet property="cageWithOrderAlertIcon" destination="aSu-bp-vmy" id="OkE-cZ-qNT"/>
+                                            <outlet property="maleInCageAlertIcon" destination="TVo-1K-sff" id="03i-3z-zDk"/>
+                                            <outlet property="maleTooOldAlertIcon" destination="EnU-hl-N9v" id="Ddq-40-zCW"/>
+                                            <outlet property="pupsInCageAlertIcon" destination="8qI-ho-R4g" id="Bhm-27-nbu"/>
+                                            <outlet property="pupsToWeanAlertIcon" destination="4m7-Lb-3bd" id="tVL-qG-M8u"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                             <view hidden="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Rj-Ue-gxo" userLabel="Menu View">
                                 <rect key="frame" x="0.0" y="40" width="240" height="964"/>
                                 <subviews>
@@ -308,105 +407,6 @@
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="p3E-X9-jcO" secondAttribute="trailing" constant="20" symbolic="YES" id="zFF-3i-AyX"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="D2F-Y9-mOi">
-                                <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RKO-4y-Kmn">
-                                    <size key="itemSize" width="204" height="185"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cage" id="Td0-lq-cqW" customClass="RackViewCell" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="204" height="185"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="204" height="185"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p3z-bh-pJj" userLabel="CageTypeIcon">
-                                                    <rect key="frame" x="0.0" y="0.0" width="204" height="185"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iux-JO-EkF">
-                                                    <rect key="frame" x="5" y="5" width="40" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="uUS-Rr-hjq"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="15"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gwF-vu-zBY" userLabel="Alerts Stack View">
-                                                    <rect key="frame" x="184" y="10" width="14" height="84"/>
-                                                    <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TVo-1K-sff" userLabel="MaleInCage">
-                                                            <rect key="frame" x="0.0" y="0.0" width="14" height="14"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="14" id="oRO-i1-6fo"/>
-                                                                <constraint firstAttribute="height" constant="14" id="uGg-XB-SGp"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8qI-ho-R4g" userLabel="PupsInCage">
-                                                            <rect key="frame" x="0.0" y="14" width="14" height="14"/>
-                                                        </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4m7-Lb-3bd" userLabel="PupsToWean">
-                                                            <rect key="frame" x="0.0" y="28" width="14" height="14"/>
-                                                        </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EnU-hl-N9v" userLabel="MaleTooOld">
-                                                            <rect key="frame" x="0.0" y="42" width="14" height="14"/>
-                                                        </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c3D-fj-zWE" userLabel="FemaleTooOld">
-                                                            <rect key="frame" x="0.0" y="56" width="14" height="14"/>
-                                                        </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aSu-bp-vmy" userLabel="CageWithOrder">
-                                                            <rect key="frame" x="0.0" y="70" width="14" height="14"/>
-                                                        </imageView>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="EnU-hl-N9v" firstAttribute="height" secondItem="TVo-1K-sff" secondAttribute="height" id="2eH-NT-dxA"/>
-                                                        <constraint firstItem="c3D-fj-zWE" firstAttribute="leading" secondItem="TVo-1K-sff" secondAttribute="leading" id="59m-lA-UIO"/>
-                                                        <constraint firstItem="4m7-Lb-3bd" firstAttribute="leading" secondItem="TVo-1K-sff" secondAttribute="leading" id="JNe-Sd-2hJ"/>
-                                                        <constraint firstItem="aSu-bp-vmy" firstAttribute="leading" secondItem="TVo-1K-sff" secondAttribute="leading" id="LbQ-1H-1bL"/>
-                                                        <constraint firstItem="c3D-fj-zWE" firstAttribute="height" secondItem="TVo-1K-sff" secondAttribute="height" id="RWC-RY-kbB"/>
-                                                        <constraint firstItem="4m7-Lb-3bd" firstAttribute="height" secondItem="TVo-1K-sff" secondAttribute="height" id="SYn-FE-fFx"/>
-                                                        <constraint firstItem="8qI-ho-R4g" firstAttribute="height" secondItem="TVo-1K-sff" secondAttribute="height" id="UpO-Nd-lB0"/>
-                                                        <constraint firstItem="aSu-bp-vmy" firstAttribute="width" secondItem="TVo-1K-sff" secondAttribute="width" id="Y12-3o-BOJ"/>
-                                                        <constraint firstItem="aSu-bp-vmy" firstAttribute="height" secondItem="TVo-1K-sff" secondAttribute="height" id="dVS-hX-1MZ"/>
-                                                        <constraint firstItem="c3D-fj-zWE" firstAttribute="width" secondItem="TVo-1K-sff" secondAttribute="width" id="e8v-t8-ncj"/>
-                                                        <constraint firstItem="8qI-ho-R4g" firstAttribute="leading" secondItem="TVo-1K-sff" secondAttribute="leading" id="fTo-XL-2wB"/>
-                                                        <constraint firstItem="4m7-Lb-3bd" firstAttribute="width" secondItem="TVo-1K-sff" secondAttribute="width" id="fsQ-pZ-ltH"/>
-                                                        <constraint firstItem="EnU-hl-N9v" firstAttribute="width" secondItem="TVo-1K-sff" secondAttribute="width" id="fy0-vH-BuJ"/>
-                                                        <constraint firstItem="EnU-hl-N9v" firstAttribute="leading" secondItem="TVo-1K-sff" secondAttribute="leading" id="lgZ-nE-grl"/>
-                                                        <constraint firstItem="8qI-ho-R4g" firstAttribute="width" secondItem="TVo-1K-sff" secondAttribute="width" id="sbV-QH-BBt"/>
-                                                    </constraints>
-                                                </stackView>
-                                            </subviews>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="p3z-bh-pJj" secondAttribute="trailing" id="3v4-MX-gUL"/>
-                                            <constraint firstItem="Iux-JO-EkF" firstAttribute="leading" secondItem="Td0-lq-cqW" secondAttribute="leading" constant="5" id="BZW-nv-26d"/>
-                                            <constraint firstItem="Iux-JO-EkF" firstAttribute="top" secondItem="Td0-lq-cqW" secondAttribute="top" constant="5" id="EX7-CU-a0j"/>
-                                            <constraint firstItem="gwF-vu-zBY" firstAttribute="top" secondItem="Td0-lq-cqW" secondAttribute="topMargin" constant="2" id="Fpo-jV-pEn"/>
-                                            <constraint firstAttribute="bottom" secondItem="p3z-bh-pJj" secondAttribute="bottom" id="OnB-2B-AVR"/>
-                                            <constraint firstItem="p3z-bh-pJj" firstAttribute="leading" secondItem="Td0-lq-cqW" secondAttribute="leading" id="OsY-j4-S63"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Iux-JO-EkF" secondAttribute="trailing" symbolic="YES" id="QXP-b6-uGd"/>
-                                            <constraint firstItem="gwF-vu-zBY" firstAttribute="trailing" secondItem="Td0-lq-cqW" secondAttribute="trailingMargin" constant="2" id="bMn-gQ-wH9"/>
-                                            <constraint firstItem="p3z-bh-pJj" firstAttribute="top" secondItem="Td0-lq-cqW" secondAttribute="top" id="f7f-XW-3sT"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="FemaleTooOldAlertIcon" destination="c3D-fj-zWE" id="wEC-PJ-Xqd"/>
-                                            <outlet property="cagePositionLabel" destination="Iux-JO-EkF" id="sr1-1E-dzW"/>
-                                            <outlet property="cageTypeIcon" destination="p3z-bh-pJj" id="3zP-oI-idW"/>
-                                            <outlet property="cageWithOrderAlertIcon" destination="aSu-bp-vmy" id="OkE-cZ-qNT"/>
-                                            <outlet property="maleInCageAlertIcon" destination="TVo-1K-sff" id="03i-3z-zDk"/>
-                                            <outlet property="maleTooOldAlertIcon" destination="EnU-hl-N9v" id="Ddq-40-zCW"/>
-                                            <outlet property="pupsInCageAlertIcon" destination="8qI-ho-R4g" id="Bhm-27-nbu"/>
-                                            <outlet property="pupsToWeanAlertIcon" destination="4m7-Lb-3bd" id="tVL-qG-M8u"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
