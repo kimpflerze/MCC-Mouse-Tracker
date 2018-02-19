@@ -24,7 +24,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     var isNewCage = false
     var hasTableViewChanged = false
     var newCageId: String?
-    var genderFlag = 0;
+    var genderFlag = 0
     
     var delegate: DetailViewControllerDelegate?
     
@@ -131,6 +131,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         columnNoTextField.layer.borderColor = UIColor.green.cgColor
         columnNoTextField.layer.borderWidth = 1.0
         
+        wasValidationSuccessful = true
         print("textField validation successful!!")
         
         /* SAVE DATA TO DATABASE AND DIRECT USER TO PROPER VIEW HERE */
@@ -146,6 +147,8 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
             error.errorLabel?.text = error.errorMessage // works if you added labels
             error.errorLabel?.isHidden = false
         }
+        wasValidationSuccessful = false
+        print("textField validation failed!!")
     }
     
     override func didReceiveMemoryWarning() {
@@ -180,47 +183,49 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         
         validator.validate(self)
         
-        //Depending on if isNewCage is true or false, will either update or insert into the database
-        if(isNewCage) {
-            //New cage, insert into database
-            let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-            doneButtonHUD.detailsLabel.text = "Sending information..."
-            QueryServer.shared.createNewSellingCage(id: newCageId, row: Int(rowNoTextField.text!), column: Int(columnNoTextField.text!), rack: Int(rackNoTextField.text!), isActive: 1, parentsCagesDOB: stockCageDOBList, parentCagesId: stockCageParentCageIdList, gender: genderFlag, numberOfMice: Int(miceCountTextField.text!), completion: { (error) in
-                debugPrint(error)
-                doneButtonHUD.hide(animated: true)
-                self.delegate?.detailViewControllerDidSave(controller: self)
-            })
-        }
-        else {
-            //Existing cage, update its information
-            if (!hasInformationChanged() || !(wasValidationSuccessful)) {
-                dismiss(animated: true, completion: nil)
+        if wasValidationSuccessful {
+            //validation was successfull
+            //Depending on if isNewCage is true or false, will either update or insert into the database
+            if(isNewCage) {
+                //New cage, insert into database
+                let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
+                doneButtonHUD.detailsLabel.text = "Sending information..."
+                QueryServer.shared.createNewSellingCage(id: newCageId, row: Int(rowNoTextField.text!), column: Int(columnNoTextField.text!), rack: Int(rackNoTextField.text!), isActive: 1, parentsCagesDOB: stockCageDOBList, parentCagesId: stockCageParentCageIdList, gender: genderFlag, numberOfMice: Int(miceCountTextField.text!), completion: { (error) in
+                    debugPrint(error)
+                    doneButtonHUD.hide(animated: true)
+                    self.delegate?.detailViewControllerDidSave(controller: self)
+                })
             }
             else {
-                let updateConfirmAlert = UIAlertController(title: "Confirm Update", message: "Cage information has been changed, do you wish to save these changes?", preferredStyle: .alert)
-                let confirmUpdateAction  = UIAlertAction(title: "Confirm", style: .default, handler: { (placeholder) in
-                    let updateHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-                    updateHUD.detailsLabel.text = "Updating database information..."
-                    QueryServer.shared.updateSellingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: nil, numberOfMice: self.miceCountTextField.text, completion: { (response) in
-                        updateHUD.hide(animated: true)
-                        let updateAlert = UIAlertController(title: "Update Cage", message: "The cage information was successfully udpated!", preferredStyle: .alert)
-                        let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (response) in
-                            self.delegate?.detailViewControllerDidSave(controller: self)
+                //Existing cage, update its information
+                if (!hasInformationChanged() || !(wasValidationSuccessful)) {
+                    dismiss(animated: true, completion: nil)
+                }
+                else {
+                    let updateConfirmAlert = UIAlertController(title: "Confirm Update", message: "Cage information has been changed, do you wish to save these changes?", preferredStyle: .alert)
+                    let confirmUpdateAction  = UIAlertAction(title: "Confirm", style: .default, handler: { (placeholder) in
+                        let updateHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
+                        updateHUD.detailsLabel.text = "Updating database information..."
+                        QueryServer.shared.updateSellingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: nil, numberOfMice: self.miceCountTextField.text, completion: { (response) in
+                            updateHUD.hide(animated: true)
+                            let updateAlert = UIAlertController(title: "Update Cage", message: "The cage information was successfully udpated!", preferredStyle: .alert)
+                            let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (response) in
+                                self.delegate?.detailViewControllerDidSave(controller: self)
+                            })
+                            updateAlert.addAction(confirmAction)
+                            self.present(updateAlert, animated: true, completion: nil)
+                            
                         })
-                        updateAlert.addAction(confirmAction)
-                        self.present(updateAlert, animated: true, completion: nil)
-                        
                     })
-                })
-                let cancelUpdateAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                updateConfirmAlert.addAction(confirmUpdateAction)
-                updateConfirmAlert.addAction(cancelUpdateAction)
-                self.present(updateConfirmAlert, animated: true, completion: nil)
+                    let cancelUpdateAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    updateConfirmAlert.addAction(confirmUpdateAction)
+                    updateConfirmAlert.addAction(cancelUpdateAction)
+                    self.present(updateConfirmAlert, animated: true, completion: nil)
+                }
             }
-            
         }
-
-    }
+        
+    } //end pressed_done_btn()
     
     func hasInformationChanged() -> Bool {
         guard let theCage = cage else {
@@ -232,16 +237,17 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         return hasTableViewChanged
     }
     
-    @IBAction func pressed_addStockCageDOBButton(_ sender: UIButton) {
+    /* //Depreciated, no longer using addButtons
+     @IBAction func pressed_addStockCageDOBButton(_ sender: UIButton) {
         print("pressed add stock cage DOB button")
-        
+ 
         if(stockCageDOBTextField.text != "")
         {
             stockCageDOBList.append(stockCageDOBTextField.text!)
             print("     We added a stock cage DOB")
             stockCageDOBTableView.reloadData()
         }
-    }
+    }*/
     
     @IBAction func addStockCageDOBEditing(_ sender: UITextField) {
         

@@ -15,9 +15,11 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
     var pickOption = [["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
                      "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
                      "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"], ["day(s)", "week(s)", "month(s)"]]
+    var wasValidationSuccessful = false
     
     // Validator Variable
     let validator = Validator()
+    
     // Textfields
     @IBOutlet weak var numRacksTextField: UITextField!
     @IBOutlet weak var numRowsTextField: UITextField!
@@ -26,7 +28,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
     @IBOutlet weak var weaningPeriodTextField: UITextField!
     @IBOutlet weak var breedingPeriodTextField: UITextField!
     @IBOutlet weak var gestationPeriodTextField: UITextField!
-    
     
     @IBOutlet weak var maleLifeSpanTextField: UITextField!
     @IBOutlet weak var femaleLifeSpanTextField: UITextField!
@@ -127,6 +128,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         cageCostTextField.layer.borderColor = UIColor.green.cgColor
         cageCostTextField.layer.borderWidth = 1.0
         
+        wasValidationSuccessful = true
         /* SAVE DATA TO DATABASE */
     }
     
@@ -143,6 +145,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             error.errorLabel?.text = error.errorMessage // works if you added labels
             error.errorLabel?.isHidden = false
         }
+        wasValidationSuccessful = false
     }
     
     
@@ -229,7 +232,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
                 }
             }
         }
-        
     }
     /**********************************************************************/
     
@@ -272,7 +274,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
     
     /************************ TEXTFIELD FUNCTIONS *************************/
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1.0
         return true

@@ -443,6 +443,10 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         print("[TO_DO] Complete alerts button in RackViewController.swift!")
         showMenu()
         
+        let alertViewStoryboard = UIStoryboard(name: "Alerts", bundle: .main)
+        if let alertsVC = alertViewStoryboard.instantiateViewController(withIdentifier: "alertStoryboard") as? AlertsViewController {
+            self.present(alertsVC, animated: true, completion: nil)
+        }
     }
     
     //Incomplete settings button, need settings view!

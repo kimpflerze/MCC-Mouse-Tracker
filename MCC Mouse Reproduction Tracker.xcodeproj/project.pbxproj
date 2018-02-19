@@ -31,6 +31,9 @@
 		EAFC62541FB3D12700F22B3C /* stockCageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFC62511FB3D12600F22B3C /* stockCageViewController.swift */; };
 		EAFC62561FB3DD7700F22B3C /* ParentCage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFC62551FB3DD7700F22B3C /* ParentCage.swift */; };
 		EAFC62581FB53D0900F22B3C /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFC62571FB53D0900F22B3C /* Alert.swift */; };
+		F4DB13E9202C8A7500DEFED9 /* Statistics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4DB13E8202C8A7500DEFED9 /* Statistics.storyboard */; };
+		F4DB13EB202C8B7D00DEFED9 /* Alerts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4DB13EA202C8B7D00DEFED9 /* Alerts.storyboard */; };
+		F4DB13ED202C978900DEFED9 /* AlertsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DB13EC202C978900DEFED9 /* AlertsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +86,9 @@
 		EAFC62511FB3D12600F22B3C /* stockCageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = stockCageViewController.swift; sourceTree = "<group>"; };
 		EAFC62551FB3DD7700F22B3C /* ParentCage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCage.swift; sourceTree = "<group>"; };
 		EAFC62571FB53D0900F22B3C /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		F4DB13E8202C8A7500DEFED9 /* Statistics.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Statistics.storyboard; sourceTree = "<group>"; };
+		F4DB13EA202C8B7D00DEFED9 /* Alerts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Alerts.storyboard; sourceTree = "<group>"; };
+		F4DB13EC202C978900DEFED9 /* AlertsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,10 +174,13 @@
 				EAB8201A1FACC69D002AB754 /* ColumnFlowLayout.swift */,
 				EA9E84BC1FA6CB8400FDE9AB /* Main.storyboard */,
 				EA9BEE2D1FC60CDD00C537B4 /* CageViews.storyboard */,
+				F4DB13E8202C8A7500DEFED9 /* Statistics.storyboard */,
+				F4DB13EA202C8B7D00DEFED9 /* Alerts.storyboard */,
 				EAFC62501FB3D12600F22B3C /* addMaleViewController.swift */,
 				EAFC624F1FB3D12500F22B3C /* breedingCageViewController.swift */,
 				EAFC62511FB3D12600F22B3C /* stockCageViewController.swift */,
 				EAE65E471FAD43BE00ADF0A3 /* RackPageViewController.swift */,
+				F4DB13EC202C978900DEFED9 /* AlertsViewController.swift */,
 				EA9E84BF1FA6CB8400FDE9AB /* Assets.xcassets */,
 				EA9E84C11FA6CB8400FDE9AB /* LaunchScreen.storyboard */,
 				EA9E84C41FA6CB8400FDE9AB /* Info.plist */,
@@ -313,7 +322,9 @@
 				EA9E84C31FA6CB8400FDE9AB /* LaunchScreen.storyboard in Resources */,
 				EA9BEE2E1FC60CDD00C537B4 /* CageViews.storyboard in Resources */,
 				EA9E84C01FA6CB8400FDE9AB /* Assets.xcassets in Resources */,
+				F4DB13E9202C8A7500DEFED9 /* Statistics.storyboard in Resources */,
 				EA9E84BE1FA6CB8400FDE9AB /* Main.storyboard in Resources */,
+				F4DB13EB202C8B7D00DEFED9 /* Alerts.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +420,7 @@
 				EAFC62521FB3D12700F22B3C /* breedingCageViewController.swift in Sources */,
 				EA62C62E1FA6DA420044C464 /* RackViewCell.swift in Sources */,
 				EA9BEE301FC6477D00C537B4 /* SettingsViewController.swift in Sources */,
+				F4DB13ED202C978900DEFED9 /* AlertsViewController.swift in Sources */,
 				EA2601C71FB7AB2C00127D57 /* BreedingMale.swift in Sources */,
 				EA9E84B91FA6CB8400FDE9AB /* AppDelegate.swift in Sources */,
 				EAB8201F1FAD29C6002AB754 /* Cage.swift in Sources */,

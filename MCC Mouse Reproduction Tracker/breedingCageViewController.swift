@@ -158,8 +158,8 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
             error.errorLabel?.text = error.errorMessage // works if you added labels
             error.errorLabel?.isHidden = false
         }
-        
         wasValidationSuccessful = false
+        print("textField validation failed!!")
     }
     
     override func didReceiveMemoryWarning() {
@@ -201,9 +201,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                     }
                 }
             })
-            
         }
-        
     }
     
     func hasInformationChanged() -> Bool {
@@ -222,70 +220,76 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         
         validator.validate(self)
         
-        //Depending on if isNewCage is true or false, will either update or insert into the database
-        if(isNewCage) {
-            //New cage, insert into database
-            let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-            doneButtonHUD.detailsLabel.text = "Sending information..."
-            QueryServer.shared.createNewBreedingCage(id: newCageId, row: Int(rowNoTextField.text!), column: Int(columnNoTextField.text!), rack: Int(rackNoTextField.text!), isActive: 1, parentsCagesDOB: parentDOBList, parentCagesId: parentCageList, completion: { (error) in
-                debugPrint(error ?? "There was an error!")
-                doneButtonHUD.hide(animated: true)
-                self.delegate?.detailViewControllerDidSave(controller: self)
-            })
-        }
-        else {
-            //Existing cage, update its information
-            if (!hasInformationChanged() || !(wasValidationSuccessful)) {
-                dismiss(animated: true, completion: nil)
+        if wasValidationSuccessful { // Valdiation was Successful
+            
+            //Depending on if isNewCage is true or false, will either update or insert into the database
+            if(isNewCage) {
+                //New cage, insert into database
+                let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
+                doneButtonHUD.detailsLabel.text = "Sending information..."
+                QueryServer.shared.createNewBreedingCage(id: newCageId, row: Int(rowNoTextField.text!), column: Int(columnNoTextField.text!), rack: Int(rackNoTextField.text!), isActive: 1, parentsCagesDOB: parentDOBList, parentCagesId: parentCageList, completion: { (error) in
+                    debugPrint(error ?? "There was an error!")
+                    doneButtonHUD.hide(animated: true)
+                    self.delegate?.detailViewControllerDidSave(controller: self)
+                })
             }
             else {
-                let updateConfirmAlert = UIAlertController(title: "Confirm Update", message: "Cage information has been changed, do you wish to save these changes?", preferredStyle: .alert)
-                let confirmUpdateAction  = UIAlertAction(title: "Confirm", style: .default, handler: { (placeholder) in
-                    let updateHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-                    updateHUD.detailsLabel.text = "Updating database information..."
-                    QueryServer.shared.updateBreedingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: nil, completion: { (response) in
-                        updateHUD.hide(animated: true)
-                        let updateAlert = UIAlertController(title: "Update Cage", message: "The cage information was successfully udpated!", preferredStyle: .alert)
-                        let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (response) in
-                            self.delegate?.detailViewControllerDidSave(controller: self)
+                //Existing cage, update its information
+                if (!hasInformationChanged() || !(wasValidationSuccessful)) {
+                    dismiss(animated: true, completion: nil)
+                }
+                else {
+                    let updateConfirmAlert = UIAlertController(title: "Confirm Update", message: "Cage information has been changed, do you wish to save these changes?", preferredStyle: .alert)
+                    let confirmUpdateAction  = UIAlertAction(title: "Confirm", style: .default, handler: { (placeholder) in
+                        let updateHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
+                        updateHUD.detailsLabel.text = "Updating database information..."
+                        QueryServer.shared.updateBreedingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: nil, completion: { (response) in
+                            updateHUD.hide(animated: true)
+                            let updateAlert = UIAlertController(title: "Update Cage", message: "The cage information was successfully udpated!", preferredStyle: .alert)
+                            let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (response) in
+                                self.delegate?.detailViewControllerDidSave(controller: self)
+                            })
+                            updateAlert.addAction(confirmAction)
+                            self.present(updateAlert, animated: true, completion: nil)
                         })
-                        updateAlert.addAction(confirmAction)
-                        self.present(updateAlert, animated: true, completion: nil)
-                        
                     })
-                })
-                let cancelUpdateAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                updateConfirmAlert.addAction(confirmUpdateAction)
-                updateConfirmAlert.addAction(cancelUpdateAction)
-                self.present(updateConfirmAlert, animated: true, completion: nil)
-                
+                    let cancelUpdateAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    updateConfirmAlert.addAction(confirmUpdateAction)
+                    updateConfirmAlert.addAction(cancelUpdateAction)
+                    self.present(updateConfirmAlert, animated: true, completion: nil)
+                }
             }
-            
             //Temporary dismiss! Will be removed once updating is implemented
-            
-            
-        }
-        
-        
-    }
+        } // end if validation was successful check
+    } //end pressed_done_btn() function
     
+    
+    /* //pressed_addParentDOBButton() and pressed_addParentCageButton() functions are //depreciated. We no longer use the add button for these fields.
     @IBAction func pressed_addParentDOBButton(_ sender: UIButton) {
-        if(parentDOBTextField.text != "")
-        {
-            hasTableViewChanged = true
-            parentDOBList.append(parentDOBTextField.text!)
-            parentDOBTableView.reloadData()
+        
+        if let parentDOB = parentDOBTextField.text{
+            if(parentDOB != ""){
+                hasTableViewChanged = true
+                parentDOBList.append(parentDOB)
+                parentDOBTableView.reloadData()
+            }
+        }else {
+            //create alert : invalid DOB
         }
     }
     
     @IBAction func pressed_addParentCageButton(_ sender: UIButton) {
-        if(parentCageTextField.text != "")
-        {
-            hasTableViewChanged = true
-            parentCageList.append(parentCageTextField.text!)
-            parentCageTableView.reloadData()
+        if let parentCageText = parentCageTextField.text {
+            if (parentCageText != "") {
+                hasTableViewChanged = true
+                parentCageList.append(parentCageText)
+                parentCageTableView.reloadData()
+            }
+        }else {
+            // create alert: invalid parent Cage
         }
     }
+    */
     
     @IBAction func addParentDOBEditing(_ sender: UITextField) {
         
@@ -330,7 +334,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1.0
         return true
@@ -404,13 +407,11 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         if tableView == self.parentDOBTableView{
             cell = UITableViewCell(style: UITableViewCellStyle.default , reuseIdentifier: "cell")
             cell?.textLabel?.text = parentDOBList[indexPath.row]
-            
         }
         
         if tableView == self.parentCageTableView{
             cell = UITableViewCell(style: UITableViewCellStyle.default , reuseIdentifier: "cell1")
             cell?.textLabel?.text = parentCageList[indexPath.row]
-            
         }
         return cell!
     }
