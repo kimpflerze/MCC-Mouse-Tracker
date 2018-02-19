@@ -21,6 +21,9 @@ namespace MouseApi.Patchers.Cages
                     case "rack":
                         oldEntity.GenericCage.Rack = Int32.Parse(property.Value);
                         break;
+                    case "weaned":
+                        if(Int32.Parse(property.Value) == 1) { oldEntity.LitterDOB = null;  }
+                        break;
                     case "active":
                         oldEntity.GenericCage.Active = Int32.Parse(property.Value);
                         break;

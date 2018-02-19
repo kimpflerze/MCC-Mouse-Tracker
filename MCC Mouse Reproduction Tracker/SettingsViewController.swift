@@ -10,9 +10,9 @@ import UIKit
 import SwiftValidator
 import MBProgressHUD
 
-class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
+class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    var pickOption = [["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+    var pickOption = [["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
                      "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
                      "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"], ["day(s)", "week(s)", "month(s)"]]
     var wasValidationSuccessful = false
@@ -24,24 +24,43 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
     @IBOutlet weak var numRacksTextField: UITextField!
     @IBOutlet weak var numRowsTextField: UITextField!
     @IBOutlet weak var numColumnsTextField: UITextField!
-    
     @IBOutlet weak var weaningPeriodTextField: UITextField!
     @IBOutlet weak var breedingPeriodTextField: UITextField!
     @IBOutlet weak var gestationPeriodTextField: UITextField!
-    
+
     @IBOutlet weak var maleLifeSpanTextField: UITextField!
     @IBOutlet weak var femaleLifeSpanTextField: UITextField!
     @IBOutlet weak var maleCostTextField: UITextField!
     @IBOutlet weak var femaleCostTextField: UITextField!
     @IBOutlet weak var cageCostTextField: UITextField!
+    @IBOutlet weak var maleInCageAlertAdvanceTextField: UITextField!
+    @IBOutlet weak var pupsInCageAlertAdvanceTextField: UITextField!
+    @IBOutlet weak var pupsToWeanAlertAdvanceTextField: UITextField!
+    @IBOutlet weak var maleTooOldAlertAdvanceTextField: UITextField!
+    @IBOutlet weak var femaleTooOldAlertAdvanceTextField: UITextField!
+    @IBOutlet weak var cageWithOrderAlertAdvanceTextField: UITextField!
     
     //Buttons
-    @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
+    //Button Collections for Alert Colors
+    @IBOutlet var maleInCageAlertColorButtonCollection: [UIButton]!
+    @IBOutlet var pupsInCageAlertColorButtonCollection: [UIButton]!
+    @IBOutlet var pupsToWeanAlertColorButtonCollection: [UIButton]!
+    @IBOutlet var maleTooOldAlertColorButtonCollection: [UIButton]!
+    @IBOutlet var femaleTooOldAlertColorButtonCollection: [UIButton]!
+    @IBOutlet var cageWithOrderAlertColorButtonCollection: [UIButton]!
     
+    //Variables to go with the above alert color selections
+    var maleInCageAlertColor = ""
+    var pupsInCageAlertColor = ""
+    var pupsToWeanAlertColor = ""
+    var maleTooOldAlertColor = ""
+    var femaleTooOldAlertColor = ""
+    var cageWithOrderAlertColor = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
         numRacksTextField.delegate = self
         numRowsTextField.delegate = self
@@ -53,17 +72,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         femaleCostTextField.delegate = self
         cageCostTextField.delegate = self
         
-        //Filling the text fields with downloaded information - Complete the rest of these!
-        if let theNumRacks = Settings.shared.numRacks {
-            numRacksTextField.text = String(theNumRacks)
-        }
-        if let theNumRows = Settings.shared.numRows {
-            numRowsTextField.text = String(theNumRows)
-        }
-        if let theNumColumns = Settings.shared.numColumns {
-            numColumnsTextField.text = String(theNumColumns)
-        }
-        
+        maleInCageAlertAdvanceTextField.delegate = self
+        pupsInCageAlertAdvanceTextField.delegate = self
+        pupsToWeanAlertAdvanceTextField.delegate = self
+        maleTooOldAlertAdvanceTextField.delegate = self
+        femaleTooOldAlertAdvanceTextField.delegate = self
+        cageWithOrderAlertAdvanceTextField.delegate = self
         
         validator.registerField(numRacksTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(numRowsTextField, rules: [RequiredRule(), NumericRule()])
@@ -80,7 +94,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         let gestationPickerView = UIPickerView()
         let maleLifeSpanPickerView = UIPickerView()
         let femaleLifeSpanPickerView = UIPickerView()
-        
+        let maleInCageAlertAdvancePickerView = UIPickerView()
+        let pupsInCageAlertAdvancePickerView = UIPickerView()
+        let pupsToWeanAlertAdvancePickerView = UIPickerView()
+        let maleTooOldAlertAdvancePickerView = UIPickerView()
+        let femaleTooOldAlertAdvancePickerView = UIPickerView()
+        let cageWithOrderAlertAdvancePickerView = UIPickerView()
         
         weaningPickerView.delegate = self
             weaningPickerView.tag = 0
@@ -92,12 +111,137 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             maleLifeSpanPickerView.tag = 3
         femaleLifeSpanPickerView.delegate = self
             femaleLifeSpanPickerView.tag = 4
+        maleInCageAlertAdvancePickerView.delegate = self
+            maleInCageAlertAdvancePickerView.tag = 5
+        pupsInCageAlertAdvancePickerView.delegate = self
+            pupsInCageAlertAdvancePickerView.tag = 6
+        pupsToWeanAlertAdvancePickerView.delegate = self
+            pupsToWeanAlertAdvancePickerView.tag = 7
+        maleTooOldAlertAdvancePickerView.delegate = self
+            maleTooOldAlertAdvancePickerView.tag = 8
+        femaleTooOldAlertAdvancePickerView.delegate = self
+            femaleTooOldAlertAdvancePickerView.tag = 9
+        cageWithOrderAlertAdvancePickerView.delegate = self
+            cageWithOrderAlertAdvancePickerView.tag = 10
         
         weaningPeriodTextField.inputView = weaningPickerView
         breedingPeriodTextField.inputView = breedingPickerView
         gestationPeriodTextField.inputView = gestationPickerView
         maleLifeSpanTextField.inputView = maleLifeSpanPickerView
         femaleLifeSpanTextField.inputView = femaleLifeSpanPickerView
+        maleInCageAlertAdvanceTextField.inputView = maleInCageAlertAdvancePickerView
+        pupsInCageAlertAdvanceTextField.inputView = pupsInCageAlertAdvancePickerView
+        pupsToWeanAlertAdvanceTextField.inputView = pupsToWeanAlertAdvancePickerView
+        maleTooOldAlertAdvanceTextField.inputView = maleTooOldAlertAdvancePickerView
+        femaleTooOldAlertAdvanceTextField.inputView = femaleTooOldAlertAdvancePickerView
+        cageWithOrderAlertAdvanceTextField.inputView = cageWithOrderAlertAdvancePickerView
+        
+        //Toolbar to allow for dismissal of the picker views
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.blue
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(SettingsViewController.donePicker))
+
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        //Assigning the toolbard created above to all of the textfields that use a pickerview.
+        weaningPeriodTextField.inputAccessoryView = toolBar
+        breedingPeriodTextField.inputAccessoryView = toolBar
+        gestationPeriodTextField.inputAccessoryView = toolBar
+        maleLifeSpanTextField.inputAccessoryView = toolBar
+        femaleLifeSpanTextField.inputAccessoryView = toolBar
+        maleInCageAlertAdvanceTextField.inputAccessoryView = toolBar
+        pupsInCageAlertAdvanceTextField.inputAccessoryView = toolBar
+        pupsToWeanAlertAdvanceTextField.inputAccessoryView = toolBar
+        maleTooOldAlertAdvanceTextField.inputAccessoryView = toolBar
+        femaleTooOldAlertAdvanceTextField.inputAccessoryView = toolBar
+        cageWithOrderAlertAdvanceTextField.inputAccessoryView = toolBar
+        
+        //Query for settings just in case there are any changes
+        let downloadSettingsHUD = MBProgressHUD.showAdded(to: view, animated: true)
+        QueryServer.shared.getSettings {
+            downloadSettingsHUD.hide(animated: true)
+            DispatchQueue.main.async {
+                //Filling the text fields with downloaded information - Complete the rest of these!
+                if let theNumRacks = Settings.shared.numRacks {
+                    self.numRacksTextField.text = String(theNumRacks)
+                }
+                if let theNumRows = Settings.shared.numRows {
+                    self.numRowsTextField.text = String(theNumRows)
+                }
+                if let theNumColumns = Settings.shared.numColumns {
+                    self.numColumnsTextField.text = String(theNumColumns)
+                }
+                if let theGestationPeriodNumber = Settings.shared.gestationPeriodNumber, let theGestationPeriodUnit = Settings.shared.gestationPeriodUnit {
+                    self.gestationPeriodTextField.text = String(theGestationPeriodNumber) + " " + self.timeUnitToString(timeUnit: theGestationPeriodUnit)
+                }
+                if let theWeaningPeriodNumber = Settings.shared.weaningPeriodNumber, let theWeaningPeriodUnit = Settings.shared.weaningPeriodUnit {
+                    self.weaningPeriodTextField.text = String(theWeaningPeriodNumber) + " " + self.timeUnitToString(timeUnit: theWeaningPeriodUnit)
+                }
+                if let theBreedingPeriodNumber = Settings.shared.breedingPeriodNumber, let theBreedingPeriodUnit = Settings.shared.breedingPeriodUnit {
+                    self.breedingPeriodTextField.text = String(theBreedingPeriodNumber) + " " + self.timeUnitToString(timeUnit: theBreedingPeriodUnit)
+                }
+                if let theMaleLifespan = Settings.shared.maleLifeSpanNumber, let theMaleLifespanUnit = Settings.shared.maleLifeSpanUnit {
+                    self.maleLifeSpanTextField.text = String(theMaleLifespan) + " " + self.timeUnitToString(timeUnit: theMaleLifespanUnit)
+                }
+                if let theFemaleLifespan = Settings.shared.femaleLifeSpanNumber, let theFemaleLifespanUnit = Settings.shared.femaleLifeSpanUnit {
+                    self.femaleLifeSpanTextField.text = String(theFemaleLifespan) + " " + self.timeUnitToString(timeUnit: theFemaleLifespanUnit)
+                }
+                if let theCostPerMaleMouse = Settings.shared.costPerMaleMouse {
+                    self.maleCostTextField.text = "$" + String(theCostPerMaleMouse)
+                }
+                if let theCostPerFemaleMouse = Settings.shared.costPerFemaleMouse {
+                    self.femaleCostTextField.text = "$" + String(theCostPerFemaleMouse)
+                }
+                if let theCostPerCage = Settings.shared.costPerCagePerDay {
+                    self.cageCostTextField.text = "$" + String(theCostPerCage)
+                }
+                if let theMaleInCageAlertAdvanceNumber = Settings.shared.maleInCageAlertAdvanceNumber, let theMaleInCageAlertAdvanceUnit = Settings.shared.maleInCageAlertAdvanceUnit {
+                    self.maleInCageAlertAdvanceTextField.text = String(theMaleInCageAlertAdvanceNumber) + " " + self.timeUnitToString(timeUnit: theMaleInCageAlertAdvanceUnit)
+                }
+                if let thePupsInCageAlertAdvanceNumber = Settings.shared.pupsInCageAlertAdvanceNumber, let thePupsInCageAlertAdvanceUnit = Settings.shared.pupsInCageAlertAdvanceUnit {
+                    self.pupsInCageAlertAdvanceTextField.text = String(thePupsInCageAlertAdvanceNumber) + " " + self.timeUnitToString(timeUnit: thePupsInCageAlertAdvanceUnit)
+                }
+                if let thePupsToWeanAlertAdvanceNumber = Settings.shared.pupsToWeanAlertAdvanceNumber, let thePupsToWeanAlertAdvanceUnit = Settings.shared.pupsToWeanAlertAdvanceUnit {
+                    self.pupsToWeanAlertAdvanceTextField.text = String(thePupsToWeanAlertAdvanceNumber) + " " + self.timeUnitToString(timeUnit: thePupsToWeanAlertAdvanceUnit)
+                }
+                if let theMaleTooOldAlertAdvanceNumber = Settings.shared.maleTooOldAlertAdvanceNumber, let theMaleTooOldAlertAdvanceUnit = Settings.shared.maleTooOldAlertAdvanceUnit {
+                    self.maleTooOldAlertAdvanceTextField.text = String(theMaleTooOldAlertAdvanceNumber) + " " + self.timeUnitToString(timeUnit: theMaleTooOldAlertAdvanceUnit)
+                }
+                if let theFemaleTooOldAlertAdvanceNumber = Settings.shared.femaleTooOldAlertAdvanceNumber, let theFemaleTooOldAlertAdvanceUnit = Settings.shared.femaleTooOldAlertAdvanceUnit {
+                    self.femaleTooOldAlertAdvanceTextField.text = String(theFemaleTooOldAlertAdvanceNumber) + " " + self.timeUnitToString(timeUnit: theFemaleTooOldAlertAdvanceUnit)
+                }
+                self.cageWithOrderAlertAdvanceTextField.text = "This may not even be needed! Discuss with group!"
+                
+                if let theMaleInCageAlertIconColor = Settings.shared.maleInCageAlertColor {
+                   //COMPLETE WHAT I WAS DOING HERE!!!!!!!
+                }
+            }
+        }
+    }
+    
+    func timeUnitToString(timeUnit : Int) -> String {
+        switch timeUnit {
+        case 1:
+            return "day(s)"
+        case 2:
+            return "week(s)"
+        case 3:
+            return "month(s)"
+        case 4:
+            return "year(s)"
+        default:
+            print("There was an error converting the unit for this value!")
+        }
+        return "Error: Bad Unit Value"
+    }
+    
+    @objc func donePicker() {
+        self.view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -224,7 +368,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         QueryServer.shared.updateSettings(parameters: parameters) { (error) in
             
             updatingSettingsHUD.detailsLabel.text = "Downloading settings..."
-            QueryServer.shared.getSettings { (error) in
+            QueryServer.shared.getSettings {
                 DispatchQueue.main.async {
                     updatingSettingsHUD.hide(animated: true)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updatedSettings"), object: nil)
@@ -233,6 +377,73 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
         }
     }
+    
+    @IBAction func maleInCageColorSelectionButtonPressed(_ sender: UIButton) {
+        for aButton in maleInCageAlertColorButtonCollection {
+            if aButton.tag != sender.tag {
+                aButton.alpha = 0.3
+            }
+            else {
+                aButton.alpha = 1
+            }
+        }
+    }
+    
+    @IBAction func pupsInCageColorSelectionButtonPressed(_ sender: UIButton) {
+        for aButton in pupsInCageAlertColorButtonCollection {
+            if aButton.tag != sender.tag {
+                aButton.alpha = 0.3
+            }
+            else {
+                aButton.alpha = 1
+            }
+        }
+    }
+    
+    @IBAction func pupsToWeanColorSelectionButtonPressed(_ sender: UIButton) {
+        for aButton in pupsToWeanAlertColorButtonCollection {
+            if aButton.tag != sender.tag {
+                aButton.alpha = 0.3
+            }
+            else {
+                aButton.alpha = 1
+            }
+        }
+    }
+    
+    @IBAction func maleTooOldColorSelectionButtonPressed(_ sender: UIButton) {
+        for aButton in maleTooOldAlertColorButtonCollection {
+            if aButton.tag != sender.tag {
+                aButton.alpha = 0.3
+            }
+            else {
+                aButton.alpha = 1
+            }
+        }
+    }
+    
+    @IBAction func femaleTooOldColorSelectionButtonPressed(_ sender: UIButton) {
+        for aButton in femaleTooOldAlertColorButtonCollection {
+            if aButton.tag != sender.tag {
+                aButton.alpha = 0.3
+            }
+            else {
+                aButton.alpha = 1
+            }
+        }
+    }
+    
+    @IBAction func cageWithOrderColorSelectionButtonPressed(_ sender: UIButton) {
+        for aButton in cageWithOrderAlertColorButtonCollection {
+            if aButton.tag != sender.tag {
+                aButton.alpha = 0.3
+            }
+            else {
+                aButton.alpha = 1
+            }
+        }
+    }
+
     /**********************************************************************/
     
     
@@ -258,15 +469,41 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         
         if pickerView.tag == 0{
             weaningPeriodTextField.text = count + " " + option
-        }else if pickerView.tag == 1{
+        }
+        else if pickerView.tag == 1{
             breedingPeriodTextField.text = count + " " + option
-        }else if pickerView.tag == 2 {
+        }
+        else if pickerView.tag == 2 {
             gestationPeriodTextField.text = count + " " + option
-        }else if pickerView.tag == 3 {
+        }
+        else if pickerView.tag == 3 {
             maleLifeSpanTextField.text = count + " " + option
-        }else {
+        }
+        else if pickerView.tag == 4 {
             femaleLifeSpanTextField.text = count + " " + option
         }
+        else if pickerView.tag == 5 {
+            maleInCageAlertAdvanceTextField.text = count + " " + option
+        }
+        else if pickerView.tag == 6 {
+            pupsInCageAlertAdvanceTextField.text = count + " " + option
+        }
+        else if pickerView.tag == 7 {
+            pupsToWeanAlertAdvanceTextField.text = count + " " + option
+        }
+        else if pickerView.tag == 8 {
+            maleTooOldAlertAdvanceTextField.text = count + " " + option
+        }
+        else if pickerView.tag == 9 {
+            femaleTooOldAlertAdvanceTextField.text = count + " " + option
+        }
+        else if pickerView.tag == 10 {
+            cageWithOrderAlertAdvanceTextField.text = count + " " + option
+        }
+        else {
+            print("There was an error when setting the text in a textfield that recieves information from a picker view in SettingsViewController.swift!")
+        }
+//        self.view.endEditing(true)
     }
     /***********************************************************************/
     

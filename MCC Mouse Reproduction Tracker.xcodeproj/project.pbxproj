@@ -61,7 +61,7 @@
 		EA62C62D1FA6DA420044C464 /* RackViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RackViewCell.swift; sourceTree = "<group>"; };
 		EA62C62F1FA6F16E0044C464 /* QRScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScannerController.swift; sourceTree = "<group>"; };
 		EA9BEE2D1FC60CDD00C537B4 /* CageViews.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CageViews.storyboard; sourceTree = "<group>"; };
-		EA9BEE2F1FC6477D00C537B4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		EA9BEE2F1FC6477D00C537B4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EA9E84B51FA6CB8400FDE9AB /* MCC Mouse Reproduction Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MCC Mouse Reproduction Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA9E84B81FA6CB8400FDE9AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA9E84BA1FA6CB8400FDE9AB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -277,18 +277,21 @@
 				TargetAttributes = {
 					EA9E84B41FA6CB8400FDE9AB = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = A5Q224W4VJ;
+						DevelopmentTeam = 8B4QBLLSCD;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					EA9E84C81FA6CB8400FDE9AB = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = A5Q224W4VJ;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						TestTargetID = EA9E84B41FA6CB8400FDE9AB;
 					};
 					EA9E84D31FA6CB8400FDE9AB = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = A5Q224W4VJ;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						TestTargetID = EA9E84B41FA6CB8400FDE9AB;
 					};
@@ -579,13 +582,14 @@
 			baseConfigurationReference = ADC17CFBF0CE0D312BC0BF49 /* Pods-MCC Mouse Reproduction Tracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = A5Q224W4VJ;
+				DEVELOPMENT_TEAM = 8B4QBLLSCD;
 				INFOPLIST_FILE = "MCC Mouse Reproduction Tracker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KimpflerWilliamsNovak.MCC-Mouse-Reproduction-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -595,13 +599,14 @@
 			baseConfigurationReference = 079B346EE825F7DDFD3E639B /* Pods-MCC Mouse Reproduction Tracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = A5Q224W4VJ;
+				DEVELOPMENT_TEAM = 8B4QBLLSCD;
 				INFOPLIST_FILE = "MCC Mouse Reproduction Tracker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KimpflerWilliamsNovak.MCC-Mouse-Reproduction-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -616,7 +621,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KimpflerWilliamsNovak.MCC-Mouse-Reproduction-TrackerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MCC Mouse Reproduction Tracker.app/MCC Mouse Reproduction Tracker";
 			};
 			name = Debug;
@@ -631,7 +637,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KimpflerWilliamsNovak.MCC-Mouse-Reproduction-TrackerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MCC Mouse Reproduction Tracker.app/MCC Mouse Reproduction Tracker";
 			};
 			name = Release;
@@ -645,7 +652,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KimpflerWilliamsNovak.MCC-Mouse-Reproduction-TrackerUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = "MCC Mouse Reproduction Tracker";
 			};
 			name = Debug;
@@ -659,7 +667,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KimpflerWilliamsNovak.MCC-Mouse-Reproduction-TrackerUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = "MCC Mouse Reproduction Tracker";
 			};
 			name = Release;

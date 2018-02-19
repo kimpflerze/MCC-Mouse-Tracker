@@ -27,6 +27,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     var hasTableViewChanged = false
     var newCageId: String?
     var didSelectScanParentInformationButton = false
+    var originalCageActiveState: Bool?
     
     var delegate: DetailViewControllerDelegate?
     
@@ -38,12 +39,10 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var QR_code_btn: UIButton!
     @IBOutlet weak var add_male_btn: UIButton!
     @IBOutlet weak var done_btn: UIButton!
-    @IBOutlet weak var addParentDOBButton: UIButton!
-    @IBOutlet weak var addParentCageButton: UIButton!
+//    @IBOutlet weak var addParentDOBButton: UIButton!
+//    @IBOutlet weak var addParentCageButton: UIButton!
     @IBOutlet weak var scanParentInformationButton: UIButton!
-    
-    
-    
+
     // TextFields
     @IBOutlet weak var rackNoTextField: UITextField!
     @IBOutlet weak var columnNoTextField: UITextField!
@@ -51,6 +50,8 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var parentDOBTextField: UITextField!
     @IBOutlet weak var parentCageTextField: UITextField!
     
+    //Switches
+    @IBOutlet weak var cageActiveSwitch: UISwitch!
     
     //TableViews
     @IBOutlet weak var parentDOBTableView: UITableView!
@@ -72,8 +73,8 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         parentCageTextField.delegate = self
         
         //Register textfields for validation
-        validator.registerField(parentDOBTextField, rules: [RequiredRule(),ValidDateRule()])
-        validator.registerField(parentCageTextField, rules: [RequiredRule(), NumericRule()])
+//        validator.registerField(parentDOBTextField, rules: [RequiredRule(),ValidDateRule()])
+//        validator.registerField(parentCageTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(columnNoTextField, rules: [RequiredRule(), NumericRule()])
@@ -88,6 +89,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
             
             if(isNewCage == false) {
                 
+                //Setting icon for indication of if cage has an ID set. Only relevant if its a new cage.
                 if(theCage.id != "") {
                     cageHasId.image = #imageLiteral(resourceName: "CheckIcon")
                 }
@@ -96,9 +98,14 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                     cageHasId.image = #imageLiteral(resourceName: "XIcon")
                 }
                 
+                //Setting the "active" switch to "off" if the cage is not an activly used cage.
+                originalCageActiveState = theCage.isActive
+                if(theCage.isActive == false) {
+                    cageActiveSwitch.setOn(false, animated: false)
+                }
+                
+                //Filling parent cage DOB information
                 for parentCage in theCage.parentCages {
-                    print("in parentDOBList loop")
-//                    if let dateAsString = parentCage.dob?.toString(withFormat: "yyyy-MM-dd HH:mm:s") {
                     if let dateAsString = parentCage.dob?.toString() {
                         if(parentDOBList.contains(dateAsString) == false) {
                             parentDOBList.append(dateAsString)
@@ -107,12 +114,16 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                     }
                 }
                 
+                //Filling parent cage ID information
                 for parentCage in theCage.parentCages {
                     if(!parentCageList.contains(parentCage.parentCageId)) {
                         parentCageList.append(parentCage.parentCageId)
                         parentCageTableView.reloadData()
                     }
                 }
+            }
+            else {
+                cageHasId.image = #imageLiteral(resourceName: "XIcon")
             }
         }
         
@@ -121,6 +132,9 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
             DispatchQueue.main.async {
                 if(downloadedMale != nil) {
                     self.add_male_btn.setTitle("View Male", for: .normal)
+                }
+                else {
+                    self.add_male_btn.setTitle("Add Male", for: .normal)
                 }
             }
         })
@@ -208,7 +222,8 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         guard let theCage = cage else {
             return false
         }
-        if rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) {
+        if originalCageActiveState != self.cage?.isActive || rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) {
+            print("Something didnt match!")
             return true
         }
         return hasTableViewChanged
@@ -219,77 +234,60 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         print("[TO_DO] Complete idiot proofing for done button in breedingCageViewController.swift")
         
         validator.validate(self)
-        
-        if wasValidationSuccessful { // Valdiation was Successful
-            
-            //Depending on if isNewCage is true or false, will either update or insert into the database
-            if(isNewCage) {
-                //New cage, insert into database
-                let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-                doneButtonHUD.detailsLabel.text = "Sending information..."
-                QueryServer.shared.createNewBreedingCage(id: newCageId, row: Int(rowNoTextField.text!), column: Int(columnNoTextField.text!), rack: Int(rackNoTextField.text!), isActive: 1, parentsCagesDOB: parentDOBList, parentCagesId: parentCageList, completion: { (error) in
-                    debugPrint(error ?? "There was an error!")
-                    doneButtonHUD.hide(animated: true)
-                    self.delegate?.detailViewControllerDidSave(controller: self)
-                })
+
+        if(wasValidationSuccessful) {
+        //Depending on if isNewCage is true or false, will either update or insert into the database
+        if(isNewCage) {
+            //New cage, insert into database
+            let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
+            doneButtonHUD.detailsLabel.text = "Sending information..."
+            QueryServer.shared.createNewBreedingCage(id: newCageId, row: Int(rowNoTextField.text!), column: Int(columnNoTextField.text!), rack: Int(rackNoTextField.text!), isActive: 1, parentsCagesDOB: parentDOBList, parentCagesId: parentCageList, completion: { (error) in
+                debugPrint(error ?? "There was an error!")
+                doneButtonHUD.hide(animated: true)
+                self.delegate?.detailViewControllerDidSave(controller: self)
+            })
+        }
+        else {
+            //Existing cage, update its information
+            print("[TO-DO] Fix this validator POD in all classes where its used! Its funky.")
+            if (!hasInformationChanged() /*|| !(wasValidationSuccessful)*/) {
+                print("Dismissed existing breeding cage without pushing changes!")
+                dismiss(animated: true, completion: nil)
             }
             else {
-                //Existing cage, update its information
-                if (!hasInformationChanged() || !(wasValidationSuccessful)) {
-                    dismiss(animated: true, completion: nil)
-                }
-                else {
-                    let updateConfirmAlert = UIAlertController(title: "Confirm Update", message: "Cage information has been changed, do you wish to save these changes?", preferredStyle: .alert)
-                    let confirmUpdateAction  = UIAlertAction(title: "Confirm", style: .default, handler: { (placeholder) in
-                        let updateHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-                        updateHUD.detailsLabel.text = "Updating database information..."
-                        QueryServer.shared.updateBreedingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: nil, completion: { (response) in
-                            updateHUD.hide(animated: true)
-                            let updateAlert = UIAlertController(title: "Update Cage", message: "The cage information was successfully udpated!", preferredStyle: .alert)
-                            let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (response) in
-                                self.delegate?.detailViewControllerDidSave(controller: self)
-                            })
-                            updateAlert.addAction(confirmAction)
-                            self.present(updateAlert, animated: true, completion: nil)
+                print("In else statement, information has changed in BreedingCageViewController!")
+                let updateConfirmAlert = UIAlertController(title: "Confirm Update", message: "Cage information has been changed, do you wish to save these changes?", preferredStyle: .alert)
+                let confirmUpdateAction  = UIAlertAction(title: "Confirm", style: .default, handler: { (placeholder) in
+                    let updateHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
+                    updateHUD.detailsLabel.text = "Updating database information..."
+                    //Temporary variable used just for passing correct information to the QueryServer.shared.updateBreedingCageWith(id:)
+                    var numericalStringCageIsActive = ""
+                    if(self.cage?.isActive == true) {
+                        numericalStringCageIsActive = "1"
+                    }
+                    else {
+                        numericalStringCageIsActive = "0"
+                    }
+                    QueryServer.shared.updateBreedingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: numericalStringCageIsActive, completion: { (response) in
+                        updateHUD.hide(animated: true)
+                        let updateAlert = UIAlertController(title: "Update Cage", message: "The cage information was successfully udpated!", preferredStyle: .alert)
+                        let confirmAction = UIAlertAction(title: "Ok", style: .default, handler: { (response) in
+                            self.delegate?.detailViewControllerDidSave(controller: self)
                         })
+                        updateAlert.addAction(confirmAction)
+                        self.present(updateAlert, animated: true, completion: nil)
                     })
-                    let cancelUpdateAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-                    updateConfirmAlert.addAction(confirmUpdateAction)
-                    updateConfirmAlert.addAction(cancelUpdateAction)
-                    self.present(updateConfirmAlert, animated: true, completion: nil)
-                }
+                })
+                let cancelUpdateAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                updateConfirmAlert.addAction(confirmUpdateAction)
+                updateConfirmAlert.addAction(cancelUpdateAction)
+                self.present(updateConfirmAlert, animated: true, completion: nil)
             }
             //Temporary dismiss! Will be removed once updating is implemented
-        } // end if validation was successful check
-    } //end pressed_done_btn() function
-    
-    
-    /* //pressed_addParentDOBButton() and pressed_addParentCageButton() functions are //depreciated. We no longer use the add button for these fields.
-    @IBAction func pressed_addParentDOBButton(_ sender: UIButton) {
-        
-        if let parentDOB = parentDOBTextField.text{
-            if(parentDOB != ""){
-                hasTableViewChanged = true
-                parentDOBList.append(parentDOB)
-                parentDOBTableView.reloadData()
-            }
-        }else {
-            //create alert : invalid DOB
         }
-    }
-    
-    @IBAction func pressed_addParentCageButton(_ sender: UIButton) {
-        if let parentCageText = parentCageTextField.text {
-            if (parentCageText != "") {
-                hasTableViewChanged = true
-                parentCageList.append(parentCageText)
-                parentCageTableView.reloadData()
-            }
-        }else {
-            // create alert: invalid parent Cage
-        }
-    }
-    */
+    } // end if validation was successful check
+    }//end pressed_done_btn() function
+  
     
     @IBAction func addParentDOBEditing(_ sender: UITextField) {
         
@@ -310,6 +308,24 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         if let qrVC = mainStoryboard.instantiateViewController(withIdentifier: "scanner") as? QRScannerController {
             qrVC.delegate = self
             present(qrVC, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func cageIsActiveSwitchFlipped(_ sender: UISwitch) {
+        if cageActiveSwitch.isOn {
+            self.cage?.isActive = true
+        }
+        else {
+            let activeSwitchAlert = UIAlertController(title: "Warning!", message: "Are you sure you wish to deactivate this cage?", preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (sender) in
+                self.cage?.isActive = false
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (sender) in
+                self.cageActiveSwitch.setOn(true, animated: true)
+            })
+            activeSwitchAlert.addAction(confirmAction)
+            activeSwitchAlert.addAction(cancelAction)
+            self.present(activeSwitchAlert, animated: true, completion: nil)
         }
     }
     
@@ -373,7 +389,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func datePickerValueChanged(sender:UIDatePicker) {
+    @objc func datePickerValueChanged(sender:UIDatePicker) {
         //        let dateFormatter = DateFormatter()
         //
         //        dateFormatter.dateStyle = DateFormatter.Style.short

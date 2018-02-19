@@ -8,7 +8,7 @@ namespace MouseApi.ViewModels
         public string Lab { get; set; }        
         public int Protocol { get; set; }        
         public string PrincipalInvestigator { get; set; }        
-        public int Charged { get; set; }        
+        public string Charged { get; set; }        
         public DateTime DeliveryDate { get; set; }       
         public int MaleMice { get; set; }      
         public int FemaleMice { get; set; }        
@@ -17,5 +17,6 @@ namespace MouseApi.ViewModels
         public int MaximumAge { get; set; }
         public string Address { get; set; }
         public string Room { get; set; }
+        public int Active { get; set; }
     }
 }

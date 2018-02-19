@@ -60,11 +60,11 @@ class RackPageViewController: UIPageViewController, UIPageViewControllerDelegate
         self.navigationItem.title = "Rack View \(currentPage!.rackNumber + 1)"
     }
     
-    func menuButtonPressed(_ sender: UIBarButtonItem) {
+    @objc func menuButtonPressed(_ sender: UIBarButtonItem) {
         currentPage?.showMenu()
     }
     
-    func refreshCollectionViewPressed(_ sender: UIBarButtonItem) {
+    @objc func refreshCollectionViewPressed(_ sender: UIBarButtonItem) {
         currentPage?.refreshRackView()
     }
 

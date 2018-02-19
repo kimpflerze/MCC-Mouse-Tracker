@@ -19,6 +19,7 @@ namespace MouseApi.Creators
         public int BreedingAlertAdvance { get; set; }
         public int WeaningAlertAdvance { get; set; }
         public int OldMaleAlertAdvance { get; set; }
+        public int OldFemaleAlertAdvance { get; set; }
 
         public TimeUnits WeaningPeriodUnit { get; set; }
         public TimeUnits BreedingPeriodUnit { get; set; }
@@ -29,5 +30,13 @@ namespace MouseApi.Creators
         public TimeUnits BreedingAlertAdvanceUnit { get; set; }
         public TimeUnits WeaningAlertAdvanceUnit { get; set; }
         public TimeUnits OldMaleAlertAdvanceUnit { get; set; }
+        public TimeUnits OldFemaleAlertAdvanceUnit { get; set; }
+
+        public int MaleInCageColor { get; set; }
+        public int PupsInCageColor { get; set; }
+        public int PupsToWeanColor { get; set; }
+        public int MaleTooOldColor { get; set; }
+        public int FemaleTooOldColor { get; set; }
+        public int CageWithOrderColor { get; set; }
     }
 }

@@ -67,17 +67,14 @@ class QueryServer: NSObject {
     }
     
     func getBreedingCageBy(id: String, completion: @escaping (_ cage: Cage?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/breedingcage?\(id)") else {
+        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/breedingcage/\(id)") else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
             debugPrint(response)
-            if let result = response.value as? [[String : Any]] {
-                var cage: Cage?
-                for item in result {
-                    cage = Cage(rackInfo: item)
-                    cage?.isBreeding = true
-                }
+            if let result = response.value as? [String : Any] {
+                var cage = Cage(rackInfo: result)
+                cage.isBreeding = true
                 completion(cage, nil)
             }
             else {
@@ -137,16 +134,13 @@ class QueryServer: NSObject {
     }
     
     func getSellingCageBy(id: String, completion: @escaping (_ cage: Cage?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/sellingcage?\(id)") else {
+        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/sellingcage/\(id)") else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
-            if let result = response.value as? [[String : Any]] {
-                var cage: Cage?
-                for item in result {
-                    cage = Cage(rackInfo: item)
-                    cage?.isBreeding = false
-                }
+            if let result = response.value as? [String : Any] {
+                let cage = Cage(rackInfo: result)
+                cage.isBreeding = false
                 completion(cage, nil)
             }
             else {
@@ -202,15 +196,12 @@ class QueryServer: NSObject {
     }
     
     func getBreedingMaleBy(id: String, completion: @escaping (_ cage: BreedingMale?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/sellingcage?\(id)") else {
+        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/breedingmale/\(id)") else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
-            if let result = response.value as? [[String : Any]] {
-                var male: BreedingMale?
-                for item in result {
-                    male = BreedingMale(maleInfo: item)
-                }
+            if let result = response.value as? [String : Any] {
+                let male = BreedingMale(maleInfo: result)
                 completion(male, nil)
             }
             else {
@@ -290,41 +281,69 @@ class QueryServer: NSObject {
                 print("[TO-DO] Complete getSettings query in QueryServer.swift!")
                 
                 print("==Downloaded Settings==")
+                debugPrint(response)
                 
-                //Might have to implement this later on, all "Periods" should be dates though, not Ints
-                /*
-                 
+                //Mouse information
                 if let theBreedingPeriod = downloadedSettings["BreedingPeriod"] {
-                    Settings.shared.breedingPeriod = theBreedingPeriod as? Date
-                    debugPrint(theBreedingPeriod)
+                    Settings.shared.breedingPeriodNumber = theBreedingPeriod as? Int
                 }
-                 
-                 if let theFemaleMouseLifespan = downloadedSettings["FemaleLifespan"] {
-                    Settings.shared.femaleLifeSpan = theFemaleMouseLifespan as? Int
-                 }
-                 
-                 if let theMaleMouseLifespan = downloadedSettings["MaleLifespan"] {
-                    Settings.shared.maleLifeSpan = theMaleMouseLifespan as? Int
-                 }
-                 
-                 if let theGestationPeriod = downloadedSettings["GestationPeriod"] {
-                    Settings.shared.gestationPeriod = theGestationPeriod as? Int
-                 }
-                 
-                 if let theWeaningPeriod = downloadedSettings["WeaningPeriod"] {
-                    Settings.shared.weaningPeriod = theWeaningPeriod as? Int
-                 }
-                 
-                */
+                if let theBreedingPeriodUnit = downloadedSettings["BreedingPeriodUnit"] {
+                    Settings.shared.breedingPeriodUnit = theBreedingPeriodUnit as? Int
+                }
+                if let theGestationPeriod = downloadedSettings["GestationPeriod"] {
+                    Settings.shared.gestationPeriodNumber = theGestationPeriod as? Int
+                }
+                if let theGestationPeriodUnit = downloadedSettings["GestationPeriodUnit"] {
+                    Settings.shared.gestationPeriodUnit = theGestationPeriodUnit as? Int
+                }
+                if let theWeaningPeriod = downloadedSettings["WeaningPeriod"] {
+                    Settings.shared.weaningPeriodNumber = theWeaningPeriod as? Int
+                }
+                if let theWeaningPeriodUnit = downloadedSettings["WeaningPeriodUnit"] {
+                    Settings.shared.weaningPeriodUnit = theWeaningPeriodUnit as? Int
+                }
+                if let theMaleLifeSpan = downloadedSettings["MaleLifespan"] {
+                    Settings.shared.maleLifeSpanNumber = theMaleLifeSpan as? Int
+                }
+                if let theMaleLifeSpanUnit = downloadedSettings["MaleLifespanUnit"] {
+                    Settings.shared.maleLifeSpanUnit = theMaleLifeSpanUnit as? Int
+                }
+                if let theFemaleLifeSpan = downloadedSettings["FemaleLifespan"] {
+                    Settings.shared.femaleLifeSpanNumber = theFemaleLifeSpan as? Int
+                }
+                if let theFemaleLifeSpanUnit = downloadedSettings["FemaleLifespanUnit"] {
+                    Settings.shared.femaleLifeSpanUnit = theFemaleLifeSpanUnit as? Int
+                }
                 
+                //Alert advance information
+                if let theBreedingAlertAdvance = downloadedSettings["BreedingAlertAdvance"], let theBreedingAlertAdvanceUnit = downloadedSettings["BreedingAlertAdvanceUnit"] {
+//                    Settings.shared.breeding
+                }
+                
+                //Alert colors information
+                if let theMaleInCageAlertIconColor = downloadedSettings["MaleInCageColor"] as? Int {
+                    Settings.shared.maleInCageAlertColor = self.textColorToUIColor(textColor: String(theMaleInCageAlertIconColor))
+                }
+                if let thePupsInCageAlertIconColor = downloadedSettings["PupsInCageColor"] as? Int {
+                    Settings.shared.pupsInCageAlertColor = self.textColorToUIColor(textColor: String(thePupsInCageAlertIconColor))
+                }
+                if let thePupsToWeanAlertIconColor = downloadedSettings["PupsToWeanColor"] as? Int {
+                    Settings.shared.pupsToWeanAlertColor = self.textColorToUIColor(textColor: String(thePupsToWeanAlertIconColor))
+                }
+                if let theMaleTooOldAlertIconColor = downloadedSettings["MaleTooOldColor"] as? Int {
+                    Settings.shared.maleTooOldAlertColor = self.textColorToUIColor(textColor: String(theMaleTooOldAlertIconColor))
+                }
+                if let theFemaleTooOldAlertIconColor = downloadedSettings["FemaleTooOldColor"] as? Int {
+                    Settings.shared.femaleTooOldAlertColor = self.textColorToUIColor(textColor: String(theFemaleTooOldAlertIconColor))
+                }
+                if let theCageWithOrderAlertIconColor = downloadedSettings["CageWithOrderColor"] as? Int {
+                    Settings.shared.cageWithOrderAlertColor = self.textColorToUIColor(textColor: String(theCageWithOrderAlertIconColor))
+                }
+                
+                //Financial information
                 if let theCageCost = downloadedSettings["CageCost"] {
                     Settings.shared.costPerCagePerDay = theCageCost as? Double
                     print("  Cost of Cage per Day: \(Settings.shared.costPerCagePerDay!)")
-                }
-                
-                if let theColumns = downloadedSettings["Columns"] {
-                    Settings.shared.numColumns = theColumns as? Int
-                    print("  Num Columns: \(Settings.shared.numColumns!)")
                 }
                 
                 if let theFemaleMousePrice = downloadedSettings["FemaleCost"] {
@@ -337,6 +356,11 @@ class QueryServer: NSObject {
                     print("  Cost per Male: \(Settings.shared.costPerMaleMouse!)")
                 }
                 
+                //Mouse storage information
+                if let theColumns = downloadedSettings["Columns"] {
+                    Settings.shared.numColumns = theColumns as? Int
+                    print("  Num Columns: \(Settings.shared.numColumns!)")
+                }
                 if let theNumRacks = downloadedSettings["Racks"] {
                     Settings.shared.numRacks = theNumRacks as? Int
                     print("  Num Racks: \(Settings.shared.numRacks!)")
@@ -354,6 +378,30 @@ class QueryServer: NSObject {
                 completion()
             }
         })
+    }
+    
+    func textColorToUIColor(textColor: String) -> UIColor {
+        switch textColor {
+        case "0":
+            return UIColor.red
+        case "1":
+            return UIColor.orange
+        case "2":
+            return UIColor.yellow
+        case "3":
+            return UIColor.green
+        case "4":
+            return UIColor.cyan
+        case "5":
+            return UIColor.blue
+        case "6":
+            return UIColor.purple
+        case "7":
+            return UIColor.magenta
+        default:
+            print("TextToUIColor - Default was hit!")
+            return UIColor.black
+        }
     }
     
 //End GET Queries
@@ -521,6 +569,7 @@ class QueryServer: NSObject {
         }
         
         var urlComponents = URLComponents(string: templateURL+theId)
+        debugPrint("urlComponents = \(String(describing: urlComponents))")
         var queryItems = [URLQueryItem]()
         
         if let theRow = row {
@@ -535,6 +584,8 @@ class QueryServer: NSObject {
         if let theIsActive = isActive {
             queryItems.append(URLQueryItem(name: "active", value: String(theIsActive)))
         }
+        
+        debugPrint("Queryitems = \(String(describing:queryItems))")
         
         urlComponents?.queryItems = queryItems
         
