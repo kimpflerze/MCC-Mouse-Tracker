@@ -1395,34 +1395,58 @@
                                                             <constraint firstAttribute="height" constant="50" id="gtU-wp-xGr"/>
                                                         </constraints>
                                                         <state key="normal" title="Button" image="RedDot"/>
+                                                        <connections>
+                                                            <action selector="maleInCageColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="Zxj-mg-uQo"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwm-HG-Jvc" userLabel="MiCOrange">
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwm-HG-Jvc" userLabel="MiCOrange">
                                                         <rect key="frame" x="50" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="OrangeDot"/>
+                                                        <connections>
+                                                            <action selector="maleInCageColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="HhX-vb-qqk"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="POH-y5-Hjq" userLabel="MiCYellow">
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="POH-y5-Hjq" userLabel="MiCYellow">
                                                         <rect key="frame" x="100" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="YellowDot"/>
+                                                        <connections>
+                                                            <action selector="maleInCageColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="BDq-RT-qby"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uyF-eC-w2D" userLabel="MiCGreen">
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uyF-eC-w2D" userLabel="MiCGreen">
                                                         <rect key="frame" x="150" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="GreenDot"/>
+                                                        <connections>
+                                                            <action selector="maleInCageColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="ckQ-Vf-uTH"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ReM-Wv-UHW" userLabel="MiCCyan">
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ReM-Wv-UHW" userLabel="MiCCyan">
                                                         <rect key="frame" x="200" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="CyanDot"/>
+                                                        <connections>
+                                                            <action selector="maleInCageColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="Cvn-t3-onS"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y29-Pt-2uD" userLabel="MiCBlue">
+                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y29-Pt-2uD" userLabel="MiCBlue">
                                                         <rect key="frame" x="250" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="BlueDot"/>
+                                                        <connections>
+                                                            <action selector="maleInCageColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="Abh-58-MdT"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gbr-L2-DyR" userLabel="MiCPurple">
+                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gbr-L2-DyR" userLabel="MiCPurple">
                                                         <rect key="frame" x="300" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="PurpleDot"/>
+                                                        <connections>
+                                                            <action selector="maleInCageColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="hWu-1R-0jT"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehp-18-QuU" userLabel="MiCPink">
+                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehp-18-QuU" userLabel="MiCPink">
                                                         <rect key="frame" x="350" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="PinkDot"/>
+                                                        <connections>
+                                                            <action selector="maleInCageColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="EkJ-TA-eax"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -1452,34 +1476,58 @@
                                                             <constraint firstAttribute="width" constant="50" id="pPN-y8-evH"/>
                                                         </constraints>
                                                         <state key="normal" title="Button" image="RedDot"/>
+                                                        <connections>
+                                                            <action selector="pupsInCageColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="efM-Zx-okQ"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fk-Yd-hlq" userLabel="MiCOrange">
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fk-Yd-hlq" userLabel="MiCOrange">
                                                         <rect key="frame" x="50" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="OrangeDot"/>
+                                                        <connections>
+                                                            <action selector="pupsInCageColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="Jmm-wA-Pzf"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZqI-bg-0F1" userLabel="MiCYellow">
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZqI-bg-0F1" userLabel="MiCYellow">
                                                         <rect key="frame" x="100" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="YellowDot"/>
+                                                        <connections>
+                                                            <action selector="pupsInCageColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="rpK-jd-Orb"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lbt-U9-SXT" userLabel="MiCGreen">
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lbt-U9-SXT" userLabel="MiCGreen">
                                                         <rect key="frame" x="150" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="GreenDot"/>
+                                                        <connections>
+                                                            <action selector="pupsInCageColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="qJX-we-Upy"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVD-O9-73U" userLabel="MiCCyan">
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVD-O9-73U" userLabel="MiCCyan">
                                                         <rect key="frame" x="200" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="CyanDot"/>
+                                                        <connections>
+                                                            <action selector="pupsInCageColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="OME-fK-QAd"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y0o-0f-8Ee" userLabel="MiCBlue">
+                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y0o-0f-8Ee" userLabel="MiCBlue">
                                                         <rect key="frame" x="250" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="BlueDot"/>
+                                                        <connections>
+                                                            <action selector="pupsInCageColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="ZjQ-xs-CUh"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MjB-f0-DWY" userLabel="MiCPurple">
+                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MjB-f0-DWY" userLabel="MiCPurple">
                                                         <rect key="frame" x="300" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="PurpleDot"/>
+                                                        <connections>
+                                                            <action selector="pupsInCageColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="BEU-vK-mGE"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PgN-Tj-XkT" userLabel="MiCPink">
+                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PgN-Tj-XkT" userLabel="MiCPink">
                                                         <rect key="frame" x="350" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="PinkDot"/>
+                                                        <connections>
+                                                            <action selector="pupsInCageColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="N2j-io-DGH"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -1509,34 +1557,58 @@
                                                             <constraint firstAttribute="height" constant="50" id="GtF-m4-zL4"/>
                                                         </constraints>
                                                         <state key="normal" title="Button" image="RedDot"/>
+                                                        <connections>
+                                                            <action selector="pupsToWeanColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="CLP-Hn-gv3"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AOz-8J-NBA" userLabel="MiCOrange">
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AOz-8J-NBA" userLabel="MiCOrange">
                                                         <rect key="frame" x="50" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="OrangeDot"/>
+                                                        <connections>
+                                                            <action selector="pupsToWeanColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="hyr-g0-xL3"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nax-p9-qSp" userLabel="MiCYellow">
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nax-p9-qSp" userLabel="MiCYellow">
                                                         <rect key="frame" x="100" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="YellowDot"/>
+                                                        <connections>
+                                                            <action selector="pupsToWeanColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="4z0-me-jXC"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIl-TS-4bE" userLabel="MiCGreen">
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIl-TS-4bE" userLabel="MiCGreen">
                                                         <rect key="frame" x="150" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="GreenDot"/>
+                                                        <connections>
+                                                            <action selector="pupsToWeanColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="hHb-aC-jxt"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8OH-ds-wb7" userLabel="MiCCyan">
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8OH-ds-wb7" userLabel="MiCCyan">
                                                         <rect key="frame" x="200" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="CyanDot"/>
+                                                        <connections>
+                                                            <action selector="pupsToWeanColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="CQS-cU-KEE"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WmS-n9-XVO" userLabel="MiCBlue">
+                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WmS-n9-XVO" userLabel="MiCBlue">
                                                         <rect key="frame" x="250" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="BlueDot"/>
+                                                        <connections>
+                                                            <action selector="pupsToWeanColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="mok-K0-392"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEF-Ib-Axw" userLabel="MiCPurple">
+                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEF-Ib-Axw" userLabel="MiCPurple">
                                                         <rect key="frame" x="300" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="PurpleDot"/>
+                                                        <connections>
+                                                            <action selector="pupsToWeanColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="TQA-Ge-rqF"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S0z-Cv-IF5" userLabel="MiCPink">
+                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S0z-Cv-IF5" userLabel="MiCPink">
                                                         <rect key="frame" x="350" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="PinkDot"/>
+                                                        <connections>
+                                                            <action selector="pupsToWeanColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="126-lg-ZdB"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -1611,34 +1683,58 @@
                                                             <constraint firstAttribute="height" constant="50" id="Q3r-aS-ZW3"/>
                                                         </constraints>
                                                         <state key="normal" title="Button" image="RedDot"/>
+                                                        <connections>
+                                                            <action selector="maleTooOldColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="k7z-RX-qTk"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Gy-Q0-IeI" userLabel="MiCOrange">
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Gy-Q0-IeI" userLabel="MiCOrange">
                                                         <rect key="frame" x="50" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="OrangeDot"/>
+                                                        <connections>
+                                                            <action selector="maleTooOldColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="uE4-x7-SUH"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fuO-Kw-gvj" userLabel="MiCYellow">
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fuO-Kw-gvj" userLabel="MiCYellow">
                                                         <rect key="frame" x="100" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="YellowDot"/>
+                                                        <connections>
+                                                            <action selector="maleTooOldColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="HyC-li-aus"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mvP-B1-UAW" userLabel="MiCGreen">
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mvP-B1-UAW" userLabel="MiCGreen">
                                                         <rect key="frame" x="150" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="GreenDot"/>
+                                                        <connections>
+                                                            <action selector="maleTooOldColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="1aK-ju-zl0"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LaO-lo-x1M" userLabel="MiCCyan">
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LaO-lo-x1M" userLabel="MiCCyan">
                                                         <rect key="frame" x="200" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="CyanDot"/>
+                                                        <connections>
+                                                            <action selector="maleTooOldColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="EBJ-Hw-J7J"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kd3-34-kDU" userLabel="MiCBlue">
+                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kd3-34-kDU" userLabel="MiCBlue">
                                                         <rect key="frame" x="250" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="BlueDot"/>
+                                                        <connections>
+                                                            <action selector="maleTooOldColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="xfD-fY-1o5"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IdE-am-1SS" userLabel="MiCPurple">
+                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IdE-am-1SS" userLabel="MiCPurple">
                                                         <rect key="frame" x="300" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="PurpleDot"/>
+                                                        <connections>
+                                                            <action selector="maleTooOldColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="JAq-H8-ZEp"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oxu-D1-2y1" userLabel="MiCPink">
+                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oxu-D1-2y1" userLabel="MiCPink">
                                                         <rect key="frame" x="350" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="PinkDot"/>
+                                                        <connections>
+                                                            <action selector="maleTooOldColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="yLd-tX-6Sr"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -1668,34 +1764,58 @@
                                                             <constraint firstAttribute="width" constant="50" id="vkT-EX-kEF"/>
                                                         </constraints>
                                                         <state key="normal" title="Button" image="RedDot"/>
+                                                        <connections>
+                                                            <action selector="femaleTooOldColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="yy6-Qx-kfK"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4XF-Jo-dKT" userLabel="MiCOrange">
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4XF-Jo-dKT" userLabel="MiCOrange">
                                                         <rect key="frame" x="50" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="OrangeDot"/>
+                                                        <connections>
+                                                            <action selector="femaleTooOldColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="sE0-jc-egT"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofQ-Mj-EUP" userLabel="MiCYellow">
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ofQ-Mj-EUP" userLabel="MiCYellow">
                                                         <rect key="frame" x="100" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="YellowDot"/>
+                                                        <connections>
+                                                            <action selector="femaleTooOldColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="fRX-9N-bYS"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UVb-H6-Y0g" userLabel="MiCGreen">
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UVb-H6-Y0g" userLabel="MiCGreen">
                                                         <rect key="frame" x="150" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="GreenDot"/>
+                                                        <connections>
+                                                            <action selector="femaleTooOldColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="IjG-Cr-xpn"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mA3-qB-BVa" userLabel="MiCCyan">
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mA3-qB-BVa" userLabel="MiCCyan">
                                                         <rect key="frame" x="200" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="CyanDot"/>
+                                                        <connections>
+                                                            <action selector="femaleTooOldColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="mEu-iK-tx8"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ih9-Cm-KlC" userLabel="MiCBlue">
+                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ih9-Cm-KlC" userLabel="MiCBlue">
                                                         <rect key="frame" x="250" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="BlueDot"/>
+                                                        <connections>
+                                                            <action selector="femaleTooOldColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="2hu-14-9m0"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OnF-vG-800" userLabel="MiCPurple">
+                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OnF-vG-800" userLabel="MiCPurple">
                                                         <rect key="frame" x="300" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="PurpleDot"/>
+                                                        <connections>
+                                                            <action selector="femaleTooOldColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="ifL-GH-Pme"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAl-KR-oAn" userLabel="MiCPink">
+                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAl-KR-oAn" userLabel="MiCPink">
                                                         <rect key="frame" x="350" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="PinkDot"/>
+                                                        <connections>
+                                                            <action selector="femaleTooOldColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="wgN-El-zel"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -1849,34 +1969,58 @@
                                                             <constraint firstAttribute="width" constant="50" id="91S-Gn-SUg"/>
                                                         </constraints>
                                                         <state key="normal" title="Button" image="RedDot"/>
+                                                        <connections>
+                                                            <action selector="cageWithOrderColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="Sdv-z5-tfL"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYM-IQ-xZv" userLabel="MiCOrange">
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYM-IQ-xZv" userLabel="MiCOrange">
                                                         <rect key="frame" x="50" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="OrangeDot"/>
+                                                        <connections>
+                                                            <action selector="cageWithOrderColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="6of-oh-Kaq"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gxb-p4-pd8" userLabel="MiCYellow">
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gxb-p4-pd8" userLabel="MiCYellow">
                                                         <rect key="frame" x="100" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="YellowDot"/>
+                                                        <connections>
+                                                            <action selector="cageWithOrderColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="olj-Sm-mDr"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Qm-jx-Nfd" userLabel="MiCGreen">
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Qm-jx-Nfd" userLabel="MiCGreen">
                                                         <rect key="frame" x="150" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="GreenDot"/>
+                                                        <connections>
+                                                            <action selector="cageWithOrderColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="u0X-Ca-ghL"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rzf-RV-QlM" userLabel="MiCCyan">
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rzf-RV-QlM" userLabel="MiCCyan">
                                                         <rect key="frame" x="200" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="CyanDot"/>
+                                                        <connections>
+                                                            <action selector="cageWithOrderColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="2rh-sh-bba"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wPa-X2-tbj" userLabel="MiCBlue">
+                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wPa-X2-tbj" userLabel="MiCBlue">
                                                         <rect key="frame" x="250" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="BlueDot"/>
+                                                        <connections>
+                                                            <action selector="cageWithOrderColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="l27-jz-Ndx"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="56g-48-sSU" userLabel="MiCPurple">
+                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="56g-48-sSU" userLabel="MiCPurple">
                                                         <rect key="frame" x="300" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="PurpleDot"/>
+                                                        <connections>
+                                                            <action selector="cageWithOrderColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="2GA-Ud-ibG"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hhv-79-cEO" userLabel="MiCPink">
+                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hhv-79-cEO" userLabel="MiCPink">
                                                         <rect key="frame" x="350" y="0.0" width="50" height="50"/>
                                                         <state key="normal" title="Button" image="PinkDot"/>
+                                                        <connections>
+                                                            <action selector="cageWithOrderColorSelectionButtonPressed:" destination="AVJ-6d-ek0" eventType="touchUpInside" id="E9Y-8p-AEW"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -2075,73 +2219,72 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="768" height="2400"/>
                     <connections>
-                        <outlet property="blueCageWithOrderAlertColorSelectionButton" destination="wPa-X2-tbj" id="rrV-tf-B1Q"/>
-                        <outlet property="blueFemaleTooOldAlertColorSelectionButton" destination="Ih9-Cm-KlC" id="QFr-wM-Em6"/>
-                        <outlet property="blueMaleInCageAlertColorSelectionButton" destination="y29-Pt-2uD" id="FBM-AL-KCp"/>
-                        <outlet property="blueMaleTooOldAlertColorSelectionButton" destination="Kd3-34-kDU" id="6dj-dI-cCp"/>
-                        <outlet property="bluePupsInCageAlertColorSelectionButton" destination="y0o-0f-8Ee" id="Mf6-Vs-1dv"/>
-                        <outlet property="bluePupsToWeanAlertColorSelectionButton" destination="WmS-n9-XVO" id="trM-gj-13Z"/>
                         <outlet property="breedingPeriodTextField" destination="cTv-2i-RWc" id="llo-an-JLY"/>
                         <outlet property="cageCostTextField" destination="OeC-aw-57d" id="VzV-YF-L5d"/>
                         <outlet property="cageWithOrderAlertAdvanceTextField" destination="sNC-yF-g3y" id="Xnl-sL-sCb"/>
-                        <outlet property="cyanCageWithOrderAlertColorSelectionButton" destination="Rzf-RV-QlM" id="dvD-Kp-Obf"/>
-                        <outlet property="cyanFemaleTooOldAlertColorSelectionButton" destination="mA3-qB-BVa" id="Juo-aM-emh"/>
-                        <outlet property="cyanMaleInCageAlertColorSelectionButton" destination="ReM-Wv-UHW" id="odj-h3-QJO"/>
-                        <outlet property="cyanMaleTooOldAlertColorSelectionButton" destination="LaO-lo-x1M" id="U8E-fR-g0R"/>
-                        <outlet property="cyanPupsInCageAlertColorSelectionButton" destination="qVD-O9-73U" id="N9j-1i-eyu"/>
-                        <outlet property="cyanPupsToWeanAlertColorSelectionButton" destination="8OH-ds-wb7" id="HLC-8w-mXK"/>
                         <outlet property="doneButton" destination="fyl-bs-wRO" id="Xli-vH-Bks"/>
                         <outlet property="femaleCostTextField" destination="qYd-af-cuW" id="EhR-Rx-ifP"/>
                         <outlet property="femaleLifeSpanTextField" destination="bwP-lo-4jA" id="m3j-Dc-pi8"/>
                         <outlet property="femaleTooOldAlertAdvanceTextField" destination="Kdx-wJ-DSh" id="73a-jz-HjO"/>
                         <outlet property="gestationPeriodTextField" destination="eiQ-hk-nij" id="0sk-DU-jHe"/>
-                        <outlet property="greenCageWithOrderAlertColorSelectionButton" destination="2Qm-jx-Nfd" id="A2f-OU-lje"/>
-                        <outlet property="greenFemaleTooOldAlertColorSelectionButton" destination="UVb-H6-Y0g" id="NhE-tn-aH2"/>
-                        <outlet property="greenMaleInCageAlertColorSelectionButton" destination="uyF-eC-w2D" id="hNF-pW-BQn"/>
-                        <outlet property="greenMaleTooOldAlertColorSelectionButton" destination="mvP-B1-UAW" id="KZx-ct-b3E"/>
-                        <outlet property="greenPupsInCageAlertColorSelectionButton" destination="Lbt-U9-SXT" id="Vfk-vK-NVE"/>
-                        <outlet property="greenPupsToWeanAlertColorSelectionButton" destination="bIl-TS-4bE" id="KEO-ua-dCe"/>
                         <outlet property="maleCostTextField" destination="c2q-oU-l7G" id="Tsw-j0-AZz"/>
                         <outlet property="maleInCageAlertAdvanceTextField" destination="s5j-Ii-yvS" id="d1Y-ER-Gnr"/>
-                        <outlet property="maleInCageAlertColorSelectionButton" destination="xkx-hh-B5x" id="7Bh-lq-8P3"/>
                         <outlet property="maleLifeSpanTextField" destination="Ka6-Wp-bEw" id="9IE-pb-naL"/>
                         <outlet property="maleTooOldAlertAdvanceTextField" destination="TB2-Ea-Qbc" id="WLf-OF-m4d"/>
                         <outlet property="numColumnsTextField" destination="De1-Ta-6Nb" id="QHm-Jz-OCf"/>
                         <outlet property="numRacksTextField" destination="Ysx-39-tVk" id="SRX-Pe-gYl"/>
                         <outlet property="numRowsTextField" destination="gYQ-rX-cdY" id="jtz-f1-qAW"/>
-                        <outlet property="orangeCageWithOrderAlertColorSelectionButton" destination="zYM-IQ-xZv" id="o9n-GS-PD7"/>
-                        <outlet property="orangeFemaleTooOldAlertColorSelectionButton" destination="4XF-Jo-dKT" id="Tr7-KT-Hs7"/>
-                        <outlet property="orangeMaleInCageAlertColorSelectionButton" destination="gwm-HG-Jvc" id="B0f-4v-hgk"/>
-                        <outlet property="orangeMaleTooOldAlertColorSelectionButton" destination="6Gy-Q0-IeI" id="3ke-CN-GAr"/>
-                        <outlet property="orangePupsInCageAlertColorSelectionButton" destination="2fk-Yd-hlq" id="tjV-gZ-gGI"/>
-                        <outlet property="orangePupsToWeanAlertColorSelectionButton" destination="AOz-8J-NBA" id="0XI-aQ-RfP"/>
-                        <outlet property="pinkCageWithOrderAlertColorSelectionButton" destination="Hhv-79-cEO" id="8bE-yz-NU8"/>
-                        <outlet property="pinkFemaleTooOldAlertColorSelectionButton" destination="rAl-KR-oAn" id="Rcy-lS-b3c"/>
-                        <outlet property="pinkMaleInCageAlertColorSelectionButton" destination="Ehp-18-QuU" id="KdN-x6-8ev"/>
-                        <outlet property="pinkMaleTooOldAlertColorSelectionButton" destination="Oxu-D1-2y1" id="mGG-Jn-4qJ"/>
-                        <outlet property="pinkPupsInCageAlertColorSelectionButton" destination="PgN-Tj-XkT" id="g34-db-1Xo"/>
-                        <outlet property="pinkPupsToWeanAlertColorSelectionButton" destination="S0z-Cv-IF5" id="Maz-7R-Etp"/>
                         <outlet property="pupsInCageAlertAdvanceTextField" destination="M4H-Mk-7si" id="P29-cl-wuw"/>
                         <outlet property="pupsToWeanAlertAdvanceTextField" destination="1mp-QY-EJh" id="C0I-Ur-PoJ"/>
-                        <outlet property="purpleCageWithOrderAlertColorSelectionButton" destination="56g-48-sSU" id="QJT-hL-Z1m"/>
-                        <outlet property="purpleFemaleTooOldAlertColorSelectionButton" destination="OnF-vG-800" id="Nuk-aH-ze2"/>
-                        <outlet property="purpleMaleInCageAlertColorSelectionButton" destination="gbr-L2-DyR" id="TlF-rf-LRF"/>
-                        <outlet property="purpleMaleTooOldAlertColorSelectionButton" destination="IdE-am-1SS" id="ICk-ra-sIH"/>
-                        <outlet property="purplePupsInCageAlertColorSelectionButton" destination="MjB-f0-DWY" id="Jln-DU-Bgo"/>
-                        <outlet property="purplePupsToWeanAlertColorSelectionButton" destination="KEF-Ib-Axw" id="byh-QF-goh"/>
-                        <outlet property="redCageWithOrderAlertColorSelectionButton" destination="9gg-Zr-gFB" id="SFs-M1-ShE"/>
-                        <outlet property="redFemaleTooOldAlertColorSelectionButton" destination="0Qe-dK-Hip" id="Izm-qK-9td"/>
-                        <outlet property="redMaleInCageAlertColorSelectionButton" destination="xkx-hh-B5x" id="emK-J9-BMW"/>
-                        <outlet property="redMaleTooOldAlertColorSelectionButton" destination="fQb-td-tco" id="Sc0-YB-CHm"/>
-                        <outlet property="redPupsInCageAlertColorSelectionButton" destination="Yqv-jg-Fa5" id="TAC-5C-Flg"/>
-                        <outlet property="redPupsToWeanAlertColorSelectionButton" destination="UjC-da-nlV" id="WjW-YC-9lP"/>
                         <outlet property="weaningPeriodTextField" destination="dGS-xX-1IA" id="FBI-Wp-7iS"/>
-                        <outlet property="yellowCageWithOrderAlertColorSelectionButton" destination="Gxb-p4-pd8" id="32v-Ai-p8r"/>
-                        <outlet property="yellowFemaleTooOldAlertColorSelectionButton" destination="ofQ-Mj-EUP" id="J1o-cO-IUc"/>
-                        <outlet property="yellowMaleInCageAlertColorSelectionButton" destination="POH-y5-Hjq" id="6jp-G0-Qgp"/>
-                        <outlet property="yellowMaleTooOldAlertColorSelectionButton" destination="fuO-Kw-gvj" id="IjI-Xz-jch"/>
-                        <outlet property="yellowPupsInCageAlertColorSelectionButton" destination="ZqI-bg-0F1" id="zso-ea-LdZ"/>
-                        <outlet property="yellowPupsToWeanAlertColorSelectionButton" destination="nax-p9-qSp" id="ArD-X7-PO4"/>
+                        <outletCollection property="maleInCageAlertColorButtonCollection" destination="xkx-hh-B5x" collectionClass="NSMutableArray" id="IBw-iE-sPI"/>
+                        <outletCollection property="maleInCageAlertColorButtonCollection" destination="gwm-HG-Jvc" collectionClass="NSMutableArray" id="wMj-Kc-hhd"/>
+                        <outletCollection property="maleInCageAlertColorButtonCollection" destination="POH-y5-Hjq" collectionClass="NSMutableArray" id="MNA-DD-23h"/>
+                        <outletCollection property="maleInCageAlertColorButtonCollection" destination="uyF-eC-w2D" collectionClass="NSMutableArray" id="H0X-ba-kGV"/>
+                        <outletCollection property="maleInCageAlertColorButtonCollection" destination="ReM-Wv-UHW" collectionClass="NSMutableArray" id="WNK-EE-h21"/>
+                        <outletCollection property="maleInCageAlertColorButtonCollection" destination="y29-Pt-2uD" collectionClass="NSMutableArray" id="kjH-wb-q5U"/>
+                        <outletCollection property="maleInCageAlertColorButtonCollection" destination="gbr-L2-DyR" collectionClass="NSMutableArray" id="cFJ-LS-APM"/>
+                        <outletCollection property="maleInCageAlertColorButtonCollection" destination="Ehp-18-QuU" collectionClass="NSMutableArray" id="QUu-op-5Dr"/>
+                        <outletCollection property="pupsInCageAlertColorButtonCollection" destination="Yqv-jg-Fa5" collectionClass="NSMutableArray" id="6le-5G-ZQ7"/>
+                        <outletCollection property="pupsInCageAlertColorButtonCollection" destination="2fk-Yd-hlq" collectionClass="NSMutableArray" id="F6o-cL-bjC"/>
+                        <outletCollection property="pupsInCageAlertColorButtonCollection" destination="ZqI-bg-0F1" collectionClass="NSMutableArray" id="kw2-x1-P9A"/>
+                        <outletCollection property="pupsInCageAlertColorButtonCollection" destination="Lbt-U9-SXT" collectionClass="NSMutableArray" id="HMu-bg-Wqa"/>
+                        <outletCollection property="pupsInCageAlertColorButtonCollection" destination="qVD-O9-73U" collectionClass="NSMutableArray" id="9vb-Hy-039"/>
+                        <outletCollection property="pupsInCageAlertColorButtonCollection" destination="y0o-0f-8Ee" collectionClass="NSMutableArray" id="NNI-LC-r2x"/>
+                        <outletCollection property="pupsInCageAlertColorButtonCollection" destination="MjB-f0-DWY" collectionClass="NSMutableArray" id="ubG-le-yQK"/>
+                        <outletCollection property="pupsInCageAlertColorButtonCollection" destination="PgN-Tj-XkT" collectionClass="NSMutableArray" id="GOf-Nl-kSu"/>
+                        <outletCollection property="pupsToWeanAlertColorButtonCollection" destination="UjC-da-nlV" collectionClass="NSMutableArray" id="3vk-Jx-XMM"/>
+                        <outletCollection property="pupsToWeanAlertColorButtonCollection" destination="AOz-8J-NBA" collectionClass="NSMutableArray" id="qxY-62-UUg"/>
+                        <outletCollection property="pupsToWeanAlertColorButtonCollection" destination="nax-p9-qSp" collectionClass="NSMutableArray" id="f5Y-oH-z9I"/>
+                        <outletCollection property="pupsToWeanAlertColorButtonCollection" destination="bIl-TS-4bE" collectionClass="NSMutableArray" id="PaO-sj-oD2"/>
+                        <outletCollection property="pupsToWeanAlertColorButtonCollection" destination="8OH-ds-wb7" collectionClass="NSMutableArray" id="TD7-yo-8bi"/>
+                        <outletCollection property="pupsToWeanAlertColorButtonCollection" destination="WmS-n9-XVO" collectionClass="NSMutableArray" id="zIh-qJ-qDK"/>
+                        <outletCollection property="pupsToWeanAlertColorButtonCollection" destination="KEF-Ib-Axw" collectionClass="NSMutableArray" id="VZu-yy-q2i"/>
+                        <outletCollection property="pupsToWeanAlertColorButtonCollection" destination="S0z-Cv-IF5" collectionClass="NSMutableArray" id="uI8-rU-TnY"/>
+                        <outletCollection property="maleTooOldAlertColorButtonCollection" destination="fQb-td-tco" collectionClass="NSMutableArray" id="nCD-QJ-MA2"/>
+                        <outletCollection property="maleTooOldAlertColorButtonCollection" destination="6Gy-Q0-IeI" collectionClass="NSMutableArray" id="wIY-YB-KbJ"/>
+                        <outletCollection property="maleTooOldAlertColorButtonCollection" destination="fuO-Kw-gvj" collectionClass="NSMutableArray" id="FTf-ZF-ajR"/>
+                        <outletCollection property="maleTooOldAlertColorButtonCollection" destination="mvP-B1-UAW" collectionClass="NSMutableArray" id="RyY-Ys-Iij"/>
+                        <outletCollection property="maleTooOldAlertColorButtonCollection" destination="LaO-lo-x1M" collectionClass="NSMutableArray" id="4Od-3u-slo"/>
+                        <outletCollection property="maleTooOldAlertColorButtonCollection" destination="Kd3-34-kDU" collectionClass="NSMutableArray" id="9Av-3E-49A"/>
+                        <outletCollection property="maleTooOldAlertColorButtonCollection" destination="IdE-am-1SS" collectionClass="NSMutableArray" id="vce-iI-EZU"/>
+                        <outletCollection property="maleTooOldAlertColorButtonCollection" destination="Oxu-D1-2y1" collectionClass="NSMutableArray" id="kly-J2-Gjr"/>
+                        <outletCollection property="femaleTooOldAlertColorButtonCollection" destination="0Qe-dK-Hip" collectionClass="NSMutableArray" id="XbK-hh-q55"/>
+                        <outletCollection property="femaleTooOldAlertColorButtonCollection" destination="4XF-Jo-dKT" collectionClass="NSMutableArray" id="3Pz-Nf-0rk"/>
+                        <outletCollection property="femaleTooOldAlertColorButtonCollection" destination="ofQ-Mj-EUP" collectionClass="NSMutableArray" id="7ey-fv-4YZ"/>
+                        <outletCollection property="femaleTooOldAlertColorButtonCollection" destination="UVb-H6-Y0g" collectionClass="NSMutableArray" id="q8O-s2-EJm"/>
+                        <outletCollection property="femaleTooOldAlertColorButtonCollection" destination="mA3-qB-BVa" collectionClass="NSMutableArray" id="4q7-Tj-Wbh"/>
+                        <outletCollection property="femaleTooOldAlertColorButtonCollection" destination="Ih9-Cm-KlC" collectionClass="NSMutableArray" id="6eb-7K-8b8"/>
+                        <outletCollection property="femaleTooOldAlertColorButtonCollection" destination="OnF-vG-800" collectionClass="NSMutableArray" id="0Eg-fO-aZk"/>
+                        <outletCollection property="femaleTooOldAlertColorButtonCollection" destination="rAl-KR-oAn" collectionClass="NSMutableArray" id="cy4-yK-ZFR"/>
+                        <outletCollection property="cageWithOrderAlertColorButtonCollection" destination="9gg-Zr-gFB" collectionClass="NSMutableArray" id="7WN-uW-ggY"/>
+                        <outletCollection property="cageWithOrderAlertColorButtonCollection" destination="zYM-IQ-xZv" collectionClass="NSMutableArray" id="Wjg-Gk-6x0"/>
+                        <outletCollection property="cageWithOrderAlertColorButtonCollection" destination="Gxb-p4-pd8" collectionClass="NSMutableArray" id="szM-xs-5iS"/>
+                        <outletCollection property="cageWithOrderAlertColorButtonCollection" destination="2Qm-jx-Nfd" collectionClass="NSMutableArray" id="TVm-M9-7ui"/>
+                        <outletCollection property="cageWithOrderAlertColorButtonCollection" destination="Rzf-RV-QlM" collectionClass="NSMutableArray" id="4Pi-aO-lLm"/>
+                        <outletCollection property="cageWithOrderAlertColorButtonCollection" destination="wPa-X2-tbj" collectionClass="NSMutableArray" id="L86-2g-z1H"/>
+                        <outletCollection property="cageWithOrderAlertColorButtonCollection" destination="56g-48-sSU" collectionClass="NSMutableArray" id="7MX-7t-djM"/>
+                        <outletCollection property="cageWithOrderAlertColorButtonCollection" destination="Hhv-79-cEO" collectionClass="NSMutableArray" id="CGQ-WJ-tJy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ddt-37-zaQ" userLabel="First Responder" sceneMemberID="firstResponder"/>

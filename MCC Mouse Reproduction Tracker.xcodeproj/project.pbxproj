@@ -58,7 +58,7 @@
 		EA62C62D1FA6DA420044C464 /* RackViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RackViewCell.swift; sourceTree = "<group>"; };
 		EA62C62F1FA6F16E0044C464 /* QRScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScannerController.swift; sourceTree = "<group>"; };
 		EA9BEE2D1FC60CDD00C537B4 /* CageViews.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CageViews.storyboard; sourceTree = "<group>"; };
-		EA9BEE2F1FC6477D00C537B4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		EA9BEE2F1FC6477D00C537B4 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EA9E84B51FA6CB8400FDE9AB /* MCC Mouse Reproduction Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MCC Mouse Reproduction Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA9E84B81FA6CB8400FDE9AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA9E84BA1FA6CB8400FDE9AB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };

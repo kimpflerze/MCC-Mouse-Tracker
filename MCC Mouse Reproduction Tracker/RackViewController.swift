@@ -29,6 +29,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     //Buttons
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var alertsButton: UIButton!
+    @IBOutlet weak var ordersButton: UIButton!
     @IBOutlet weak var scanCodeButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     
@@ -153,6 +154,29 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }
         }
     }
+    
+    func uiColorToIconImage(color: UIColor) -> UIImage {
+        switch color {
+        case UIColor.red:
+            return #imageLiteral(resourceName: "RedDot")
+        case UIColor.orange:
+            return #imageLiteral(resourceName: "OrangeDot")
+        case UIColor.yellow:
+            return #imageLiteral(resourceName: "YellowDot")
+        case UIColor.green:
+            return #imageLiteral(resourceName: "GreenDot")
+        case UIColor.cyan:
+            return #imageLiteral(resourceName: "CyanDot")
+        case UIColor.blue:
+            return #imageLiteral(resourceName: "BlueDot")
+        case UIColor.purple:
+            return #imageLiteral(resourceName: "PurpleDot")
+        case UIColor.magenta:
+            return #imageLiteral(resourceName: "PinkDot")
+        default:
+            return #imageLiteral(resourceName: "XIcon")
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -198,19 +222,37 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         
         //Make sure all alerts are hidden prior to turning them to unhidden
-        cell.weanCageIcon.isHidden = true
-        cell.oldAgeIcon.isHidden = true
+        cell.maleInCageAlertIcon.isHidden = true
+        cell.maleInCageAlertIcon.image = uiColorToIconImage(color: Settings.shared.maleInCageAlertColor!)
+        cell.pupsInCageAlertIcon.isHidden = true
+        cell.pupsInCageAlertIcon.image = uiColorToIconImage(color: Settings.shared.pupsInCageAlertColor!)
+        cell.pupsToWeanAlertIcon.isHidden = true
+        cell.pupsToWeanAlertIcon.image = uiColorToIconImage(color: Settings.shared.pupsToWeanAlertColor!)
+        cell.maleTooOldAlertIcon.isHidden = true
+        cell.maleTooOldAlertIcon.image = uiColorToIconImage(color: Settings.shared.maleTooOldAlertColor!)
+        cell.FemaleTooOldAlertIcon.isHidden = true
+        cell.FemaleTooOldAlertIcon.image = uiColorToIconImage(color: Settings.shared.femaleTooOldAlertColor!)
+        cell.cageWithOrderAlertIcon.isHidden = true
+        cell.cageWithOrderAlertIcon.image = uiColorToIconImage(color: Settings.shared.cageWithOrderAlertColor!)
         
         if let alerts = cell.cage?.alerts {
             for alert in alerts {
                 switch alert.alertTypeID {
                 case "1":
                     print("Case one")
-                    cell.weanCageIcon.isHidden = false
+                    cell.pupsToWeanAlertIcon.isHidden = false
                     break
                 case "2":
                     print("Case two")
-                    cell.oldAgeIcon.isHidden = false
+                    cell.maleTooOldAlertIcon.isHidden = false
+                    break
+                case "3":
+                    print("Case three")
+                    cell.FemaleTooOldAlertIcon.isHidden = false
+                    break
+                case "4":
+                    print("Case four")
+                    cell.cageWithOrderAlertIcon.isHidden = false
                     break
                 default:
                     break
@@ -220,10 +262,11 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         //Extra check specific to breeding cages to display the "maleInCage" icon!
         if cell.cage?.maleInCage == true {
-            cell.maleInCageIcon.isHidden = false
+//            cell.maleInCageAlertIcon.image = self.uiColorToIconImage(color: Settings.shared.maleInCageAlertColor!)
+            cell.maleInCageAlertIcon.isHidden = false
         }
         else {
-            cell.maleInCageIcon.isHidden = true
+            cell.maleInCageAlertIcon.isHidden = true
         }
         
         //Check to change opacity of cages when filtering

@@ -48,9 +48,10 @@ class ViewController: UIViewController {
         
         //Temporary segue just for testing purposes, should be a check for the login information here!
         let downloadSettingsHUD = MBProgressHUD.showAdded(to: view, animated: true)
+        downloadSettingsHUD.detailsLabel.text = "Downloading settings..."
         QueryServer.shared.getSettings {
-            downloadSettingsHUD.hide(animated: true)
             DispatchQueue.main.async {
+                downloadSettingsHUD.hide(animated: true)
                 self.performSegue(withIdentifier: "loginToPageView", sender: sender)
             }
         }
