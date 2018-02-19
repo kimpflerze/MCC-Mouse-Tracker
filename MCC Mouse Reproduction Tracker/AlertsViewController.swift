@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -21,28 +22,29 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // Table Cell should show Alert title, subtitle and alert icon
     
-    //var alertArray = [Alert]()
+    var alertArray = [Alert]()
     
     // make specific tableview cell to use for this view.
     
-    var tempAlertArray = [tempAlert]()
+    //var tempAlertArray = [tempAlert]()
     
     @IBOutlet weak var alertsTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let alertOne = tempAlert(title: "Weaning Alert", subtitle: "weam cage 1:1", alertIcon: nil)
-        let alertTwo = tempAlert(title: "Old Male Alert", subtitle: "old male in cage 2:1", alertIcon: nil)
-        let alertThree = tempAlert(title: "Pups Alert", subtitle: "pups sited in cage 2:3", alertIcon: nil)
-        let alertFour = tempAlert(title: "Old Female Alert", subtitle: "old female in cage 2:3", alertIcon: nil)
-        let alertFive = tempAlert(title: "Add Breeding Male Alert", subtitle: "add male to cage cage 1:1", alertIcon: nil)
+//        let alertOne = tempAlert(title: "Weaning Alert", subtitle: "weam cage 1:1", alertIcon: nil)
+//        let alertTwo = tempAlert(title: "Old Male Alert", subtitle: "old male in cage 2:1", alertIcon: nil)
+//        let alertThree = tempAlert(title: "Pups Alert", subtitle: "pups sited in cage 2:3", alertIcon: nil)
+//        let alertFour = tempAlert(title: "Old Female Alert", subtitle: "old female in cage 2:3", alertIcon: nil)
+//        let alertFive = tempAlert(title: "Add Breeding Male Alert", subtitle: "add male to cage cage 1:1", alertIcon: nil)
+//
+//        tempAlertArray = [alertOne, alertTwo, alertThree, alertFour, alertFive]
         
-        tempAlertArray = [alertOne, alertTwo, alertThree, alertFour, alertFive]
         alertsTableView.delegate = self
         alertsTableView.dataSource = self
         
         // load in alerts
-        // queryAlerts()
+        queryAlerts()
     }
     
     override func didReceiveMemoryWarning() {
@@ -52,36 +54,36 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     func queryAlerts() {
-        // query first 10 alerts
-        // add alerts to array
-        // display on view
+        let alertsDownloadHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
+        alertsDownloadHUD.detailsLabel.text = "Downloading alerts ..."
+        QueryServer.shared.getAlerts{(downloadedAlerts, error) in
+            alertsDownloadHUD.hide(animated: true)
+            if let alerts = downloadedAlerts {
+                self.alertArray = alerts
+            }
+        }
     }
-    
-    func removeAlert() {
-        
-    }
-    
-    func createAlert() {
-        
-    }
-    
+    /*TODO: create a refresh button to query alerts and update table*/
+    /*
+     * Updates Alerts View to reflect current alerts table
+     */
     func updateView(){
-        // update the table view
+       queryAlerts()
     }
     
-    
+    /* TableView Delegate Functions */
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return tempAlertArray.count
+        return alertArray.count
     }
     
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell(style: UITableViewCellStyle.default , reuseIdentifier: "cell")
-        cell.textLabel?.text = tempAlertArray[indexPath.row].title
+        cell.textLabel?.text = alertArray[indexPath.row].alertTypeDescription
         return cell
     }
     
@@ -89,14 +91,15 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == UITableViewCellEditingStyle.delete {
-            tempAlertArray.remove(at: indexPath.row)
+            alertArray.remove(at: indexPath.row)
             alertsTableView.reloadData()}
     }
  
    
 }
 
-class tempAlert {
+/*
+ class tempAlert {
     var title: String
     var subtitle: String
     var alertIcon : UIImage?
@@ -111,3 +114,4 @@ class tempAlert {
         }
     }
 }
+*/
