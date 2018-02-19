@@ -54,8 +54,9 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         rackCollectionView.dataSource = self
         
         //Visual changes to the menu
-        menuView.layer.cornerRadius = 10
+        menuView.layer.cornerRadius = 0
         menuView.clipsToBounds = true
+        
         
         //Setting username and email to signify user
         userNameLabel.text = Settings.shared.userName

@@ -11,20 +11,8 @@ import MBProgressHUD
 
 class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    //array to hold alerts
-    // query for alerts on load (maybe for the first 10)
-        //when user scrolls down show 10 more alerts
-    
-    // filter for alert types
-    
-    // if alert is deleted from view delete it from database
-        // also check alert array for deletion as well
-    
-    // Table Cell should show Alert title, subtitle and alert icon
     
     var alertArray = [Alert]()
-    
-    // make specific tableview cell to use for this view.
     
     //var tempAlertArray = [tempAlert]()
     
@@ -40,11 +28,14 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //
 //        tempAlertArray = [alertOne, alertTwo, alertThree, alertFour, alertFive]
         
+        // download alerts
+        queryAlerts()
+        
+        
         alertsTableView.delegate = self
         alertsTableView.dataSource = self
         
-        // load in alerts
-        queryAlerts()
+        //alertsTableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,6 +51,17 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             alertsDownloadHUD.hide(animated: true)
             if let alerts = downloadedAlerts {
                 self.alertArray = alerts
+                DispatchQueue.main.async {
+                    print("You have queried \(self.alertArray.count) alerts")
+                    print("alert Array \(self.alertArray)")
+                    print(self.alertArray[0].alertTypeDescription)
+                    print(self.alertArray[0].alertTypeID)
+                    print(self.alertArray[0].subjectId)
+                    print(self.alertArray[1].alertTypeDescription)
+                    print(self.alertArray[1].alertTypeID)
+                    print(self.alertArray[1].subjectId)
+                }
+                
             }
         }
     }
@@ -68,22 +70,33 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
      * Updates Alerts View to reflect current alerts table
      */
     func updateView(){
-       queryAlerts()
+        queryAlerts()
+        alertsTableView.reloadData()
     }
+    
+    
+    /*func updateAlerts(){
+        // update DB and alert array in case alerts are removed.
+        // alert should also be unassociated from any cage.
+    }*/
+    
     
     /* TableView Delegate Functions */
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return alertArray.count
+        return self.alertArray.count
     }
     
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell(style: UITableViewCellStyle.default , reuseIdentifier: "cell")
-        cell.textLabel?.text = alertArray[indexPath.row].alertTypeDescription
+        
+        cell.textLabel?.text = self.alertArray[indexPath.row].alertTypeDescription
+        
         return cell
     }
     
@@ -91,10 +104,13 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == UITableViewCellEditingStyle.delete {
-            alertArray.remove(at: indexPath.row)
+            self.alertArray.remove(at: indexPath.row)
             alertsTableView.reloadData()}
     }
  
+    override func viewDidAppear(_ animated: Bool) {
+        alertsTableView.reloadData()
+    }
    
 }
 
