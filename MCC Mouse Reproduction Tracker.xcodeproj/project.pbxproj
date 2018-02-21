@@ -75,7 +75,7 @@
 		EAB8201A1FACC69D002AB754 /* ColumnFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnFlowLayout.swift; sourceTree = "<group>"; };
 		EAB8201C1FAD29A6002AB754 /* QueryServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryServer.swift; sourceTree = "<group>"; };
 		EAB8201E1FAD29C6002AB754 /* Cage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cage.swift; sourceTree = "<group>"; };
-		EAD200F51FB229D500308C1A /* RackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RackViewController.swift; sourceTree = "<group>"; };
+		EAD200F51FB229D500308C1A /* RackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RackViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EAE65E471FAD43BE00ADF0A3 /* RackPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RackPageViewController.swift; sourceTree = "<group>"; };
 		EAE65E491FAFA24D00ADF0A3 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		EAFC624F1FB3D12500F22B3C /* breedingCageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = breedingCageViewController.swift; sourceTree = "<group>"; };

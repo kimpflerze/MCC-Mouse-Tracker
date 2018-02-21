@@ -279,17 +279,17 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         //Make sure all alerts are hidden prior to turning them to unhidden
         cell.maleInCageAlertIcon.isHidden = true
-        cell.maleInCageAlertIcon.image = uiColorToIconImage(color: Settings.shared.maleInCageAlertColor!)
+        cell.maleInCageAlertIcon.image = Settings.shared.maleInCageAlertIcon
         cell.pupsInCageAlertIcon.isHidden = true
-        cell.pupsInCageAlertIcon.image = uiColorToIconImage(color: Settings.shared.pupsInCageAlertColor!)
+        cell.pupsInCageAlertIcon.image = Settings.shared.pupsInCageAlertIcon
         cell.pupsToWeanAlertIcon.isHidden = true
-        cell.pupsToWeanAlertIcon.image = uiColorToIconImage(color: Settings.shared.pupsToWeanAlertColor!)
+        cell.pupsToWeanAlertIcon.image = Settings.shared.pupsToWeanAlertIcon
         cell.maleTooOldAlertIcon.isHidden = true
-        cell.maleTooOldAlertIcon.image = uiColorToIconImage(color: Settings.shared.maleTooOldAlertColor!)
+        cell.maleTooOldAlertIcon.image = Settings.shared.maleTooOldAlertIcon
         cell.FemaleTooOldAlertIcon.isHidden = true
-        cell.FemaleTooOldAlertIcon.image = uiColorToIconImage(color: Settings.shared.femaleTooOldAlertColor!)
+        cell.FemaleTooOldAlertIcon.image = Settings.shared.femaleTooOldAlertIcon
         cell.cageWithOrderAlertIcon.isHidden = true
-        cell.cageWithOrderAlertIcon.image = uiColorToIconImage(color: Settings.shared.cageWithOrderAlertColor!)
+        cell.cageWithOrderAlertIcon.image = Settings.shared.cageWithOrderAlertIcon
         
         
         if let alerts = cell.cage?.alerts {
@@ -488,10 +488,6 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }
         }
     }
-    
-    func highlightCages() {
-        
-    }
             
     //User logout action - with alert
     @IBAction func logoutButtonPressed(_ sender: Any) {
@@ -643,67 +639,33 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         for male in breedingMales {
             switch Settings.shared.maleLifeSpanUnit {
             case 1?:
+                print("  Male Lifespan Unit: Days")
                 if let theDOB = male.dob {
                     let currentDate = Date()
+                    print("Max of two dates: \(max(currentDate.interval(ofComponent: .day, fromDate: theDOB), Settings.shared.maleLifeSpanNumber!))")
                     if max(currentDate.interval(ofComponent: .day, fromDate: theDOB), Settings.shared.maleLifeSpanNumber!) != Settings.shared.maleLifeSpanNumber! {
-//                        QueryServer.shared.getBreedingCageBy(id: male.currentCageId, completion: { (cage, error) in
-//                            DispatchQueue.main.async {
-//                                for breedingCage in self.breedingCages {
-//                                    if cage?.id == breedingCage.id {
-//                                        breedingCage.shouldHighlightCage = true
-//                                    }
-//                                }
-//                                self.rackCollectionView.reloadData()
-//                            }
-//                        })
+                        getCageOfMouseWith(cageID: male.currentCageId)
                     }
                 }
             case 2?:
                 if let theDOB = male.dob {
                     let currentDate = Date()
                     if max(currentDate.interval(ofComponent: .weekOfMonth, fromDate: theDOB), Settings.shared.maleLifeSpanNumber!) != Settings.shared.maleLifeSpanNumber! {
-//                        QueryServer.shared.getBreedingCageBy(id: male.currentCageId, completion: { (cage, error) in
-//                            DispatchQueue.main.async {
-//                                for breedingCage in self.breedingCages {
-//                                    if cage?.id == breedingCage.id {
-//                                        breedingCage.shouldHighlightCage = true
-//                                    }
-//                                }
-//                                self.rackCollectionView.reloadData()
-//                            }
-//                        })
+                        getCageOfMouseWith(cageID: male.currentCageId)
                     }
                 }
             case 3?:
                 if let theDOB = male.dob {
                     let currentDate = Date()
                     if max(currentDate.interval(ofComponent: .month, fromDate: theDOB), Settings.shared.maleLifeSpanNumber!) != Settings.shared.maleLifeSpanNumber! {
-//                        QueryServer.shared.getBreedingCageBy(id: male.currentCageId, completion: { (cage, error) in
-//                            DispatchQueue.main.async {
-//                                for breedingCage in self.breedingCages {
-//                                    if cage?.id == breedingCage.id {
-//                                        breedingCage.shouldHighlightCage = true
-//                                    }
-//                                }
-//                                self.rackCollectionView.reloadData()
-//                            }
-//                        })
+                        getCageOfMouseWith(cageID: male.currentCageId)
                     }
                 }
             case 4?:
                 if let theDOB = male.dob {
                     let currentDate = Date()
                     if max(currentDate.interval(ofComponent: .year, fromDate: theDOB), Settings.shared.maleLifeSpanNumber!) != Settings.shared.maleLifeSpanNumber! {
-//                        QueryServer.shared.getBreedingCageBy(id: male.currentCageId, completion: { (cage, error) in
-//                            DispatchQueue.main.async {
-//                                for breedingCage in self.breedingCages {
-//                                    if cage?.id == breedingCage.id {
-//                                        breedingCage.shouldHighlightCage = true
-//                                    }
-//                                }
-//                                self.rackCollectionView.reloadData()
-//                            }
-//                        })
+                        getCageOfMouseWith(cageID: male.currentCageId)
                     }
                 }
             default:
@@ -711,6 +673,19 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 
             }
         }
+    }
+    
+    func getCageOfMouseWith(cageID: String) {
+        QueryServer.shared.getBreedingCageBy(id: cageID, completion: { (cage, error) in
+            DispatchQueue.main.async {
+                for breedingCage in self.breedingCages {
+                    if cage?.id == cageID {
+                        breedingCage.shouldHighlightCage = true
+                    }
+                }
+                self.rackCollectionView.reloadData()
+            }
+        })
     }
     
     func femaleTooOldFilter() {

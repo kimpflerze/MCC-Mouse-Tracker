@@ -25,8 +25,8 @@ class ViewController: UIViewController {
         loginButton.layer.cornerRadius = 10
         loginButton.layer.masksToBounds = true
         
-        print("*****I turned off auto-layout UIConstraintBasedLayoutLogUnsatisfiable in the ViewController.swift viewDidLoad function!*****")
-        UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
+//        print("*****I turned off auto-layout UIConstraintBasedLayoutLogUnsatisfiable in the ViewController.swift viewDidLoad function!*****")
+//        UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
     }
 
     override func didReceiveMemoryWarning() {

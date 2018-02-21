@@ -322,22 +322,22 @@ class QueryServer: NSObject {
                 
                 //Alert colors information
                 if let theMaleInCageAlertIconColor = downloadedSettings["MaleInCageColor"] as? Int {
-                    Settings.shared.maleInCageAlertColor = self.textColorToUIColor(textColor: String(theMaleInCageAlertIconColor))
+                    Settings.shared.maleInCageAlertIcon = self.textColorToIcon(textColor: String(theMaleInCageAlertIconColor))
                 }
                 if let thePupsInCageAlertIconColor = downloadedSettings["PupsInCageColor"] as? Int {
-                    Settings.shared.pupsInCageAlertColor = self.textColorToUIColor(textColor: String(thePupsInCageAlertIconColor))
+                    Settings.shared.pupsInCageAlertIcon = self.textColorToIcon(textColor: String(thePupsInCageAlertIconColor))
                 }
                 if let thePupsToWeanAlertIconColor = downloadedSettings["PupsToWeanColor"] as? Int {
-                    Settings.shared.pupsToWeanAlertColor = self.textColorToUIColor(textColor: String(thePupsToWeanAlertIconColor))
+                    Settings.shared.pupsToWeanAlertIcon = self.textColorToIcon(textColor: String(thePupsToWeanAlertIconColor))
                 }
                 if let theMaleTooOldAlertIconColor = downloadedSettings["MaleTooOldColor"] as? Int {
-                    Settings.shared.maleTooOldAlertColor = self.textColorToUIColor(textColor: String(theMaleTooOldAlertIconColor))
+                    Settings.shared.maleTooOldAlertIcon = self.textColorToIcon(textColor: String(theMaleTooOldAlertIconColor))
                 }
                 if let theFemaleTooOldAlertIconColor = downloadedSettings["FemaleTooOldColor"] as? Int {
-                    Settings.shared.femaleTooOldAlertColor = self.textColorToUIColor(textColor: String(theFemaleTooOldAlertIconColor))
+                    Settings.shared.femaleTooOldAlertIcon = self.textColorToIcon(textColor: String(theFemaleTooOldAlertIconColor))
                 }
                 if let theCageWithOrderAlertIconColor = downloadedSettings["CageWithOrderColor"] as? Int {
-                    Settings.shared.cageWithOrderAlertColor = self.textColorToUIColor(textColor: String(theCageWithOrderAlertIconColor))
+                    Settings.shared.cageWithOrderAlertIcon = self.textColorToIcon(textColor: String(theCageWithOrderAlertIconColor))
                 }
                 
                 //Financial information
@@ -380,27 +380,27 @@ class QueryServer: NSObject {
         })
     }
     
-    func textColorToUIColor(textColor: String) -> UIColor {
+    func textColorToIcon(textColor: String) -> UIImage {
         switch textColor {
         case "0":
-            return UIColor.red
+            return #imageLiteral(resourceName: "RedDot")
         case "1":
-            return UIColor.orange
+            return #imageLiteral(resourceName: "OrangeDot")
         case "2":
-            return UIColor.yellow
+            return #imageLiteral(resourceName: "YellowDot")
         case "3":
-            return UIColor.green
+            return #imageLiteral(resourceName: "GreenDot")
         case "4":
-            return UIColor.cyan
+            return #imageLiteral(resourceName: "CyanDot")
         case "5":
-            return UIColor.blue
+            return #imageLiteral(resourceName: "BlueDot")
         case "6":
-            return UIColor.purple
+            return #imageLiteral(resourceName: "PurpleDot")
         case "7":
-            return UIColor.magenta
+            return #imageLiteral(resourceName: "PinkDot")
         default:
-            print("TextToUIColor - Default was hit!")
-            return UIColor.black
+            print("textColorToIcon - Default was hit!")
+            return #imageLiteral(resourceName: "XIcon")
         }
     }
     

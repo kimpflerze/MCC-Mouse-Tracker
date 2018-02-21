@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -198,48 +199,48 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="gwF-vu-zBY" userLabel="Alerts Stack View">
-                                                    <rect key="frame" x="184" y="10" width="14" height="99"/>
+                                                <stackView opaque="NO" contentMode="scaleAspectFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="2" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gwF-vu-zBY" userLabel="Alerts Stack View">
+                                                    <rect key="frame" x="183" y="10" width="15" height="100"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TVo-1K-sff" userLabel="MaleInCage">
-                                                            <rect key="frame" x="0.0" y="0.0" width="14" height="14"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TVo-1K-sff" userLabel="MaleInCage">
+                                                            <rect key="frame" x="0.0" y="0.0" width="15" height="15"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="14" id="oRO-i1-6fo"/>
-                                                                <constraint firstAttribute="height" constant="14" id="uGg-XB-SGp"/>
+                                                                <constraint firstAttribute="width" secondItem="TVo-1K-sff" secondAttribute="height" multiplier="1:1" id="Qsk-bD-nfA"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8qI-ho-R4g" userLabel="PupsInCage">
-                                                            <rect key="frame" x="0.0" y="17" width="14" height="14"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8qI-ho-R4g" userLabel="PupsInCage">
+                                                            <rect key="frame" x="0.0" y="17" width="15" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="8qI-ho-R4g" secondAttribute="height" multiplier="1:1" id="Ikt-sf-BCJ"/>
+                                                            </constraints>
                                                         </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4m7-Lb-3bd" userLabel="PupsToWean">
-                                                            <rect key="frame" x="0.0" y="34" width="14" height="14"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4m7-Lb-3bd" userLabel="PupsToWean">
+                                                            <rect key="frame" x="0.0" y="34" width="15" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="4m7-Lb-3bd" secondAttribute="height" multiplier="1:1" id="FET-Zp-Evz"/>
+                                                            </constraints>
                                                         </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EnU-hl-N9v" userLabel="MaleTooOld">
-                                                            <rect key="frame" x="0.0" y="51" width="14" height="14"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EnU-hl-N9v" userLabel="MaleTooOld">
+                                                            <rect key="frame" x="0.0" y="51" width="15" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="EnU-hl-N9v" secondAttribute="height" multiplier="1:1" id="VPq-yH-5zy"/>
+                                                            </constraints>
                                                         </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c3D-fj-zWE" userLabel="FemaleTooOld">
-                                                            <rect key="frame" x="0.0" y="68" width="14" height="14"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c3D-fj-zWE" userLabel="FemaleTooOld">
+                                                            <rect key="frame" x="0.0" y="68" width="15" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="c3D-fj-zWE" secondAttribute="height" multiplier="1:1" id="BfW-Ft-uVp"/>
+                                                            </constraints>
                                                         </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aSu-bp-vmy" userLabel="CageWithOrder">
-                                                            <rect key="frame" x="0.0" y="85" width="14" height="14"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aSu-bp-vmy" userLabel="CageWithOrder">
+                                                            <rect key="frame" x="0.0" y="85" width="15" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="aSu-bp-vmy" secondAttribute="height" multiplier="1:1" id="BBs-sb-vL5"/>
+                                                            </constraints>
                                                         </imageView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="EnU-hl-N9v" firstAttribute="height" secondItem="TVo-1K-sff" secondAttribute="height" id="2eH-NT-dxA"/>
-                                                        <constraint firstItem="c3D-fj-zWE" firstAttribute="leading" secondItem="TVo-1K-sff" secondAttribute="leading" id="59m-lA-UIO"/>
-                                                        <constraint firstItem="4m7-Lb-3bd" firstAttribute="leading" secondItem="TVo-1K-sff" secondAttribute="leading" id="JNe-Sd-2hJ"/>
-                                                        <constraint firstItem="aSu-bp-vmy" firstAttribute="leading" secondItem="TVo-1K-sff" secondAttribute="leading" id="LbQ-1H-1bL"/>
-                                                        <constraint firstItem="c3D-fj-zWE" firstAttribute="height" secondItem="TVo-1K-sff" secondAttribute="height" id="RWC-RY-kbB"/>
-                                                        <constraint firstItem="4m7-Lb-3bd" firstAttribute="height" secondItem="TVo-1K-sff" secondAttribute="height" id="SYn-FE-fFx"/>
-                                                        <constraint firstItem="8qI-ho-R4g" firstAttribute="height" secondItem="TVo-1K-sff" secondAttribute="height" id="UpO-Nd-lB0"/>
-                                                        <constraint firstItem="aSu-bp-vmy" firstAttribute="width" secondItem="TVo-1K-sff" secondAttribute="width" id="Y12-3o-BOJ"/>
-                                                        <constraint firstItem="aSu-bp-vmy" firstAttribute="height" secondItem="TVo-1K-sff" secondAttribute="height" id="dVS-hX-1MZ"/>
-                                                        <constraint firstItem="c3D-fj-zWE" firstAttribute="width" secondItem="TVo-1K-sff" secondAttribute="width" id="e8v-t8-ncj"/>
-                                                        <constraint firstItem="8qI-ho-R4g" firstAttribute="leading" secondItem="TVo-1K-sff" secondAttribute="leading" id="fTo-XL-2wB"/>
-                                                        <constraint firstItem="4m7-Lb-3bd" firstAttribute="width" secondItem="TVo-1K-sff" secondAttribute="width" id="fsQ-pZ-ltH"/>
-                                                        <constraint firstItem="EnU-hl-N9v" firstAttribute="width" secondItem="TVo-1K-sff" secondAttribute="width" id="fy0-vH-BuJ"/>
-                                                        <constraint firstItem="EnU-hl-N9v" firstAttribute="leading" secondItem="TVo-1K-sff" secondAttribute="leading" id="lgZ-nE-grl"/>
-                                                        <constraint firstItem="8qI-ho-R4g" firstAttribute="width" secondItem="TVo-1K-sff" secondAttribute="width" id="sbV-QH-BBt"/>
+                                                        <constraint firstAttribute="width" constant="15" id="7yI-fH-w2T"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
