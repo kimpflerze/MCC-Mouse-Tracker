@@ -83,6 +83,9 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         
         //Filling informatin for an existing cage
         if let theCage = cage {
+            print("********************************")
+            print("Breeding Cage ID: \(theCage.id)")
+            print("********************************")
             rackNoTextField.text = String(theCage.rack)
             columnNoTextField.text = String(theCage.column)
             rowNoTextField.text = String(theCage.row)

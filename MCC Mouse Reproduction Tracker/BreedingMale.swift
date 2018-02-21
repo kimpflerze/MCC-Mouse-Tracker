@@ -15,6 +15,10 @@ class BreedingMale: NSObject {
     var currentCageId = ""
     var dob: Date?
     var active = false
+    var alerts = [Alert]()
+    
+    //Attributes for filter functionality
+    var shouldHighlightMale = false
     
     init(maleInfo: [String : Any]) {
         
@@ -29,6 +33,13 @@ class BreedingMale: NSObject {
         }
         if let theActive = maleInfo["Active"] as? Bool {
             active = theActive
+        }
+        if let theAlerts = maleInfo["Alerts"] as? [[String : Any]] {
+            for alert in theAlerts {
+                let temporaryAlert = Alert(alertInfo: alert)
+                debugPrint(temporaryAlert.id)
+                alerts.append(temporaryAlert)
+            }
         }
         
         //Most likely will have to update the date once we have the new server hosted by MCC.
