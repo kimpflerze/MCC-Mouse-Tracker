@@ -353,7 +353,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func datePickerValueChanged(sender:UIDatePicker) {
+    @objc func datePickerValueChanged(sender:UIDatePicker) {
         
 //        let dateFormatter = DateFormatter()
 //

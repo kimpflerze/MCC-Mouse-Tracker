@@ -40,7 +40,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="W3v-nA-x5c" userLabel="Password TextField">
                                 <rect key="frame" x="259" y="587" width="250" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="250" id="IwL-bI-tJk"/>
+                                    <constraint firstAttribute="width" priority="750" constant="250" id="IwL-bI-tJk"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
@@ -118,6 +118,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q9a-6N-mVW">
                                 <rect key="frame" x="75" y="979" width="115" height="30"/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.75294117650000003" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="115" id="1jv-ma-m8z"/>
+                                </constraints>
                                 <state key="normal" title="Cancel Scanning">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -126,8 +129,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Kj-W9-Syv">
-                                <rect key="frame" x="597" y="979" width="96" height="30"/>
+                                <rect key="frame" x="593" y="979" width="100" height="30"/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.75294117650000003" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="wLj-LT-dxc"/>
+                                </constraints>
                                 <state key="normal" title="Confirm Code">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>

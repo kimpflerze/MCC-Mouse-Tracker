@@ -317,7 +317,20 @@ class QueryServer: NSObject {
                 
                 //Alert advance information
                 if let theBreedingAlertAdvance = downloadedSettings["BreedingAlertAdvance"], let theBreedingAlertAdvanceUnit = downloadedSettings["BreedingAlertAdvanceUnit"] {
-//                    Settings.shared.breeding
+                    Settings.shared.maleInCageAlertAdvanceNumber = theBreedingAlertAdvance as? Int
+                    Settings.shared.maleInCageAlertAdvanceUnit = theBreedingAlertAdvanceUnit as? Int
+                }
+                if let theOldFemaleAlertAdvance = downloadedSettings["OldFemaleAlertAdvance"], let theOldFemaleAlertAdvanceUnit = downloadedSettings["OldFemaleAlertAdvanceUnit"] {
+                    Settings.shared.femaleTooOldAlertAdvanceNumber = theOldFemaleAlertAdvance as? Int
+                    Settings.shared.femaleTooOldAlertAdvanceUnit = theOldFemaleAlertAdvanceUnit as? Int
+                }
+                if let theOldMaleAlertAdvance = downloadedSettings["OldMaleAlertAdvance"], let theOldMaleAlertAdvanceUnit = downloadedSettings["OldMaleAlertAdvanceUnit"] {
+                    Settings.shared.maleTooOldAlertAdvanceNumber = theOldMaleAlertAdvance as? Int
+                    Settings.shared.maleTooOldAlertAdvanceUnit = theOldMaleAlertAdvanceUnit as? Int
+                }
+                if let thePupsToWeanAlertAdvance = downloadedSettings["WeaningAlertAdvance"], let thePupsToWeanAlertAdvanceUnit = downloadedSettings["WeaningAlertAdvanceUnit"] {
+                    Settings.shared.pupsToWeanAlertAdvanceNumber = thePupsToWeanAlertAdvance as? Int
+                    Settings.shared.pupsToWeanAlertAdvanceUnit = thePupsToWeanAlertAdvanceUnit as? Int
                 }
                 
                 //Alert colors information

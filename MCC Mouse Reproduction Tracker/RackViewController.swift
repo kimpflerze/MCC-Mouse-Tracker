@@ -296,7 +296,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
             for alert in alerts {
                 switch alert.alertTypeID {
                 case "1":
-                    print("Pups To Wean Alert On Cage With ID: \(cell.cage?.id)")
+                    print("Pups To Wean Alert On Cage With ID: \(cell.cage?.id ?? "nil")")
                     cell.pupsToWeanAlertIcon.isHidden = false
                     break
                 case "2":
@@ -543,6 +543,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         applyFilter()
         donePicker()
         showMenu()
+//        shouldApplyFiltering = false
     }
     
     func showFailureToFindScannedID(failureCount: Int) {

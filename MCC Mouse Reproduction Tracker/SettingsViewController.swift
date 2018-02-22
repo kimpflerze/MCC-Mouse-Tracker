@@ -161,6 +161,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         
         //Query for settings just in case there are any changes
         let downloadSettingsHUD = MBProgressHUD.showAdded(to: view, animated: true)
+        downloadSettingsHUD.detailsLabel.text = "Checking for settings updates..."
         QueryServer.shared.getSettings {
             downloadSettingsHUD.hide(animated: true)
             DispatchQueue.main.async {
@@ -198,6 +199,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
                 if let theCostPerCage = Settings.shared.costPerCagePerDay {
                     self.cageCostTextField.text = "$" + String(theCostPerCage)
                 }
+                
+                //Alert Advance information
                 if let theMaleInCageAlertAdvanceNumber = Settings.shared.maleInCageAlertAdvanceNumber, let theMaleInCageAlertAdvanceUnit = Settings.shared.maleInCageAlertAdvanceUnit {
                     self.maleInCageAlertAdvanceTextField.text = String(theMaleInCageAlertAdvanceNumber) + " " + self.timeUnitNumberToString(timeUnit: theMaleInCageAlertAdvanceUnit)
                 }
@@ -213,6 +216,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
                 if let theFemaleTooOldAlertAdvanceNumber = Settings.shared.femaleTooOldAlertAdvanceNumber, let theFemaleTooOldAlertAdvanceUnit = Settings.shared.femaleTooOldAlertAdvanceUnit {
                     self.femaleTooOldAlertAdvanceTextField.text = String(theFemaleTooOldAlertAdvanceNumber) + " " + self.timeUnitNumberToString(timeUnit: theFemaleTooOldAlertAdvanceUnit)
                 }
+                
                 self.cageWithOrderAlertAdvanceTextField.text = "This may not even be needed! Discuss with group!"
                 
                 //Alert color setting on viewDidLoad
@@ -443,7 +447,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             parameters["FemaleLifespan"] = String(theFemaleLifespanNumber)
             parameters["FemaleLifespanUnit"] = String(timeUnitStringToNumber(timeUnit: theFemaleLifespanUnit))
         }
-        /*
         if(pupsToWeanAlertAdvanceTextField.text != nil && pupsToWeanAlertAdvanceTextField.text != "") {
             guard let thePupsToWeanAlertAdvanceInfo = pupsToWeanAlertAdvanceTextField.text?.components(separatedBy: " ") else {
                 print("Failed to split text")
@@ -527,8 +530,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
                 }
             }
         }
- */
-        
         
         let updatingSettingsHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
         updatingSettingsHUD.detailsLabel.text = "Updating settings..."
@@ -706,7 +707,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         return true
     }
     
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == weaningPeriodTextField {
             return false; //do not show keyboard nor cursor
         }
