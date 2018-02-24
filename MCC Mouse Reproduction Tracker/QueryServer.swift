@@ -229,25 +229,40 @@ class QueryServer: NSObject {
     }
     
     
-    //Litter log queries - Incomplete, need individual log retrieval queries
-    func getAllLitterLogs(completion: @escaping (_ cages: [Cage]?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/litterlog") else {
+    //Litter log queries
+    func getAllLitterLogs(completion: @escaping (_ litterLog: [LitterLog]?, _ error: Error?) -> Void) {
+        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/litterlog/") else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
             if let result = response.value as? [[String : Any]] {
-                var cages = [Cage]()
+                var litterLogs = [LitterLog]()
                 for item in result {
-                    let cage = Cage(rackInfo: item)
-                    cages.append(cage)
+                    let litter = LitterLog(logInfo: item)
+                    litterLogs.append(litter)
                 }
-                completion(cages, nil)
+                completion(litterLogs, nil)
             }
             else {
                 completion(nil, response.error)
             }
         })
         
+    }
+    
+    func getLitterLogBy(id: String, completion: @escaping (_ log: LitterLog?, _ error: Error?) -> Void) {
+        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/litterlog/\(id)") else {
+            return
+        }
+        Alamofire.request(url).responseJSON(completionHandler: { (response) in
+            if let result = response.value as? [String : Any] {
+                let litter = LitterLog(logInfo: result)
+                completion(litter, nil)
+            }
+            else {
+                completion(nil, response.error)
+            }
+        })
     }
     
     //Alerts queries - Possibly incomplete, could need specific alert retrieval queries
@@ -564,6 +579,35 @@ class QueryServer: NSObject {
         }
         
         let parameters: Parameters = ["Id" : theId, "Active": theIsActive, "MotherCageId": theMotherCageId, "CurrentCageId": theCurrentCageId, "DOB": theDOB]
+        let headers: HTTPHeaders = ["Content-Type":"application/json"]
+        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (response) in
+            completion(response.error?.localizedDescription)
+        })
+    }
+    
+    func createLitterLogEntry(id: String?, motherCageId: String?, fatherId: String?, dob: String?, completion: @escaping (_ error: String?) -> Void) {
+        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/litterlog") else {
+            completion("Issue with URL in createLitterLogEntry function of QueryServer.swift!")
+            return
+        }
+        guard let theId = id else {
+            completion("Issue with Id in createLitterLogEntry function of QueryServer.swift!")
+            return
+        }
+        guard let theMotherCageId = motherCageId else {
+            completion("Issue with motherCageId in createLitterLogEntry function of QueryServer.swift!")
+            return
+        }
+        guard let theFatherId = fatherId else  {
+            completion("Issue with fatherId in createLitterLogEntry function of QueryServer.swift!")
+            return
+        }
+        guard let theDob = dob else {
+            completion("Issue with DOB in createLitterLogEntry function of QueryServer.swift!")
+            return
+        }
+        
+        let parameters: Parameters = ["Id": theId, "MotherCageId": theMotherCageId, "FatherId": theFatherId, "DOB": theDob]
         let headers: HTTPHeaders = ["Content-Type":"application/json"]
         Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (response) in
             completion(response.error?.localizedDescription)

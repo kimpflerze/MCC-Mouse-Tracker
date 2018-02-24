@@ -31,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "397"
             endingLineNumber = "397"
-            landmarkName = "textColorToIcon(textColor:)"
+            landmarkName = "getSettings(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
