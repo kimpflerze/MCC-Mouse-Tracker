@@ -171,6 +171,7 @@
     <Compile Include="Controllers\QrCodeController.cs" />
     <Compile Include="Controllers\SellingCageController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Creators\AlertCreator.cs" />
     <Compile Include="Creators\BreedingCageCreator.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Creators\ParentCageLookupCreator.cs" />
     <Compile Include="Creators\SellingCageCreator.cs" />
     <Compile Include="Creators\SettingsCreator.cs" />
+    <Compile Include="Creators\StatisticsCreator.cs" />
     <Compile Include="Creators\TransactionCreator.cs" />
     <Compile Include="DataAccess\IBaseRepository.cs" />
     <Compile Include="DataAccess\MouseTrackDbContext.cs" />
@@ -198,6 +200,7 @@
     <Compile Include="Entities\GenericCageEntity.cs" />
     <Compile Include="Entities\SellingCageEntity.cs" />
     <Compile Include="Entities\SettingsEntity.cs" />
+    <Compile Include="Entities\StatisticsEntity.cs" />
     <Compile Include="Entities\Test\TestEntity.cs" />
     <Compile Include="Entities\Transaction\TransactionEntity.cs" />
     <Compile Include="Entities\Transaction\TransactionEventEntity.cs" />
@@ -224,6 +227,8 @@
     <Compile Include="FilterProviders\ParentCageLookup\ParentCageLookupFilterProvider.cs" />
     <Compile Include="FilterProviders\Settings\ISettingsFilterProvider.cs" />
     <Compile Include="FilterProviders\Settings\SettingsFilterProvider.cs" />
+    <Compile Include="FilterProviders\Statistics\IStatisticsFilterProvider.cs" />
+    <Compile Include="FilterProviders\Statistics\StatisticsFilterProvider.cs" />
     <Compile Include="FilterProviders\Transaction\ITransactionFilterProvider.cs" />
     <Compile Include="FilterProviders\Transaction\TransactionFilterProvider.cs" />
     <Compile Include="Global.asax.cs">
@@ -251,6 +256,8 @@
     <Compile Include="Patchers\ParentCageLookup\ParentCageLookupPatcher.cs" />
     <Compile Include="Patchers\Settings\ISettingsPatcher.cs" />
     <Compile Include="Patchers\Settings\SettingsPatcher.cs" />
+    <Compile Include="Patchers\Statistics\IStatisticsPatcher.cs" />
+    <Compile Include="Patchers\Statistics\StatisticsPatcher.cs" />
     <Compile Include="Patchers\Transaction\ITransactionPatcher.cs" />
     <Compile Include="Patchers\Transaction\TransactionPatcher.cs" />
     <Compile Include="Profiles\AlertProfile.cs" />
@@ -264,6 +271,7 @@
     <Compile Include="Profiles\ParentCageLookupProfile.cs" />
     <Compile Include="Profiles\SellingCageProfile.cs" />
     <Compile Include="Profiles\SettingsProfile.cs" />
+    <Compile Include="Profiles\StatisticsProfile.cs" />
     <Compile Include="Profiles\TransactionProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Alert\AlertService.cs" />
@@ -288,6 +296,8 @@
     <Compile Include="Service\ParentCageLookup\ParentCageLookupService.cs" />
     <Compile Include="Service\Settings\ISettingsService.cs" />
     <Compile Include="Service\Settings\SettingsService.cs" />
+    <Compile Include="Service\Statistics\IStatisticsService.cs" />
+    <Compile Include="Service\Statistics\StatisticsService.cs" />
     <Compile Include="Service\Transaction\ITransactionService.cs" />
     <Compile Include="Service\Transaction\TransactionService.cs" />
     <Compile Include="Shared\MouseApiConstants.cs" />
@@ -313,6 +323,8 @@
     <Compile Include="Validator\ParentCageLookup\ParentCageLookupValidator.cs" />
     <Compile Include="Validator\Settings\ISettingsValidator.cs" />
     <Compile Include="Validator\Settings\SettingsValidator.cs" />
+    <Compile Include="Validator\Statistics\IStatisticsValidator.cs" />
+    <Compile Include="Validator\Statistics\StatisticsValidator.cs" />
     <Compile Include="Validator\Transaction\ITransactionValidator.cs" />
     <Compile Include="Validator\Transaction\TransactionValidator.cs" />
     <Compile Include="ViewModels\AlertModel.cs" />
@@ -325,6 +337,7 @@
     <Compile Include="ViewModels\ParentCageLookupModel.cs" />
     <Compile Include="ViewModels\SellingCageModel.cs" />
     <Compile Include="ViewModels\SettingsModel.cs" />
+    <Compile Include="ViewModels\StatisticsModel.cs" />
     <Compile Include="ViewModels\TransactionModel.cs" />
   </ItemGroup>
   <ItemGroup>

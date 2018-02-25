@@ -9,7 +9,7 @@ namespace MouseApi.ViewModels
         public int Protocol { get; set; }        
         public string PrincipalInvestigator { get; set; }        
         public string Charged { get; set; }        
-        public DateTime DeliveryDate { get; set; }       
+        public string DeliveryDate { get; set; }       
         public int MaleMice { get; set; }      
         public int FemaleMice { get; set; }        
         public int Gender { get; set; }        

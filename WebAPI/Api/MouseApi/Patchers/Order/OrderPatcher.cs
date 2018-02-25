@@ -8,7 +8,19 @@ namespace MouseApi.Patchers.Order
     {
         public override OrderEntity Patch(OrderEntity oldEntity, IEnumerable<KeyValuePair<string, string>> patchedProperties)
         {
-            throw new NotImplementedException();
+            foreach (var property in patchedProperties)
+            {
+                switch (property.Key)
+                {
+                    case "charged":
+                        oldEntity.Charged = Int32.Parse(property.Value);
+                        break;
+                    case "active":
+                        oldEntity.Active = Int32.Parse(property.Value);
+                        break;
+                }
+            }
+            return oldEntity;
         }
     }
 }

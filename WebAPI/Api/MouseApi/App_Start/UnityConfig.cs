@@ -13,6 +13,7 @@ using MouseApi.FilterProviders.LitterLog;
 using MouseApi.FilterProviders.Order;
 using MouseApi.FilterProviders.ParentCageLookup;
 using MouseApi.FilterProviders.Settings;
+using MouseApi.FilterProviders.Statistics;
 using MouseApi.FilterProviders.Transaction;
 using MouseApi.Patchers.Alert;
 using MouseApi.Patchers.BreedingMale;
@@ -22,6 +23,7 @@ using MouseApi.Patchers.LitterLog;
 using MouseApi.Patchers.Order;
 using MouseApi.Patchers.ParentCageLookup;
 using MouseApi.Patchers.Settings;
+using MouseApi.Patchers.Statistics;
 using MouseApi.Patchers.Transaction;
 using MouseApi.Profiles;
 using MouseApi.Service.Alert;
@@ -32,6 +34,7 @@ using MouseApi.Service.LitterLog;
 using MouseApi.Service.Order;
 using MouseApi.Service.ParentCageLookup;
 using MouseApi.Service.Settings;
+using MouseApi.Service.Statistics;
 using MouseApi.Service.Transaction;
 using MouseApi.Validator.Alert;
 using MouseApi.Validator.Breeder;
@@ -41,6 +44,7 @@ using MouseApi.Validator.LitterLog;
 using MouseApi.Validator.Order;
 using MouseApi.Validator.ParentCageLookup;
 using MouseApi.Validator.Settings;
+using MouseApi.Validator.Statistics;
 using MouseApi.Validator.Transaction;
 using System.Web.Http;
 using Unity.WebApi;
@@ -72,6 +76,7 @@ namespace MouseApi
                         container.RegisterType<ISettingsFilterProvider, SettingsFilterProvider>();
                         container.RegisterType<IOrderFilterProvider, OrderFilterProvider>();
                         container.RegisterType<ICagesForOrderFilterProvider, CagesForOrderFilterProvider>();
+                        container.RegisterType<IStatisticsFilterProvider, StatisticsFilterProvider>();
 
             #endregion
 
@@ -89,6 +94,7 @@ namespace MouseApi
             container.RegisterType<ISettingsPatcher, SettingsPatcher>();
             container.RegisterType<IOrderPatcher, OrderPatcher>();
             container.RegisterType<ICagesForOrderPatcher, CagesForOrderPatcher>();
+            container.RegisterType<IStatisticsPatcher, StatisticsPatcher>();
 
             #endregion
 
@@ -106,6 +112,7 @@ namespace MouseApi
             container.RegisterType<ITransactionValidator, TransactionValidator>();
             container.RegisterType<IOrderValidator, OrderValidator>();
             container.RegisterType<ICagesForOrderValidator, CagesForOrderValidator>();
+            container.RegisterType<IStatisticsValidator, StatisticsValidator>();
 
             #endregion
 
@@ -122,6 +129,7 @@ namespace MouseApi
             container.RegisterType<IBaseRepository<SettingsEntity>, BaseRepository<SettingsEntity>>();
             container.RegisterType<IBaseRepository<OrderEntity>, BaseRepository<OrderEntity>>();
             container.RegisterType<IBaseRepository<CagesForOrderEntity>, BaseRepository<CagesForOrderEntity>>();
+            container.RegisterType<IBaseRepository<StatisticsEntity>, BaseRepository<StatisticsEntity>>();
             #endregion
 
 
@@ -137,6 +145,7 @@ namespace MouseApi
             container.RegisterType<ISettingsService, SettingsService>();
             container.RegisterType<IOrderService, OrderService>();
             container.RegisterType<ICagesForOrderService, CagesForOrderService>();
+            container.RegisterType<IStatisticsService, StatisticsService>();
             #endregion
 
 
@@ -155,6 +164,7 @@ namespace MouseApi
                     cfg.AddProfile<SettingsProfile>();
                     cfg.AddProfile<OrderProfile>();
                     cfg.AddProfile<CagesForOrderProfile>();
+                    cfg.AddProfile<StatisticsProfile>();
                 } )));
 #endregion
 

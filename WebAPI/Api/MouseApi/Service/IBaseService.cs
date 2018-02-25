@@ -5,7 +5,7 @@ namespace MouseApi.Service
 {
     public interface IBaseService<TEntity> where TEntity : class
     {
-        IEnumerable<TEntity> Get(IEnumerable<KeyValuePair<string, string>> queryParams);
+        IEnumerable<TEntity> Get(IEnumerable<KeyValuePair<string, string>> queryParams = null);
         Task<IEnumerable<TEntity>> GetAsync();
         TEntity Find(params object[] keyValues);
         Task<TEntity> FindAsync(params object[] keyValues);

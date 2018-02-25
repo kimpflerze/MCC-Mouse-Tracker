@@ -31,5 +31,6 @@ namespace MouseApi.DataAccess
         public virtual DbSet<TestEntity> TestEntities { get; set; }
         public DbSet<OrderEntity> Orders { get; set; }
         public DbSet<CagesForOrderEntity> CagesForOrder { get; set; }
+        public DbSet<StatisticsEntity> Statistics { get; set; }
     }
 }
