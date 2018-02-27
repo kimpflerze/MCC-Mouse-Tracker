@@ -11,7 +11,6 @@ import MBProgressHUD
 
 class RackViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    
     var delegate : RackViewControllerDelegate?
     
     //Collection Views
@@ -100,6 +99,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         setRackViewLayout()
         
         NotificationCenter.default.addObserver(self, selector: #selector(setRackViewLayout), name: NSNotification.Name(rawValue: "updatedSettings"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshRackView), name: NSNotification.Name(rawValue: "updatedSettings"), object: nil)
         
         //Query for all breeding cages
         let breedingCageDownloadHUD = MBProgressHUD.showAdded(to: view, animated: true)
@@ -439,7 +439,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     //Function to refresh the cage information in the collection view - with completion alert!
-    func refreshRackView() {
+    @objc func refreshRackView() {
         //Query for all breeding cages
         let breedingCageDownloadHUD = MBProgressHUD.showAdded(to: view, animated: true)
         breedingCageDownloadHUD.detailsLabel.text = "Refreshing breeding cages..."

@@ -730,20 +730,23 @@ class QueryServer: NSObject {
         
     }
     
-    func updateSettings(parameters: [String : String], completion: @escaping (_ error: String?) -> Void) {
-        let templateURL = "https://mouseapi.azurewebsites.net/api/settings"
-        var urlComponents = URLComponents(string: templateURL)
-        var queryItems = [URLQueryItem]()
+    func updateSettings(parameters: [String : Double], completion: @escaping (_ error: String?) -> Void) {
+        let templateURL = "https://mouseapi.azurewebsites.net/api/settings/1"
         
-        let keys = parameters.keys
-        for key in keys {
-            queryItems.append(URLQueryItem(name: key, value: parameters[key]!))
-        }
+//        var urlComponents = URLComponents(string: templateURL)
+//        var queryItems = [URLQueryItem]()
         
-        urlComponents?.queryItems = queryItems
-        if let url = urlComponents?.url {
-            Alamofire.request(url, method: .put, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
+//        let keys = parameters.keys
+//        for key in keys {
+//            queryItems.append(URLQueryItem(name: key, value: parameters[key]!))
+//        }
+        
+//        urlComponents?.queryItems = queryItems
+        if let url = URL(string: templateURL) {
+            let headers: HTTPHeaders = ["Content-Type":"application/json"]
+            Alamofire.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (response) in
                 debugPrint(response)
+                print(NSString(data: (response.request?.httpBody)!, encoding: String.Encoding.utf8.rawValue))
                 completion(response.error?.localizedDescription)
             })
         }

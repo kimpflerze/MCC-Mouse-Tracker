@@ -364,35 +364,38 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
     
     @IBAction func pressedDoneButton(_ sender: UIButton) {
         print("[TO-DO] Tell George to make the settings table support PATCH statements, not just PUT!")
-        var parameters = [String : String]()
+        var parameters = [String : Double]()
+        
+        parameters["Id"] = 1
+        
         if(numRacksTextField.text != nil && numRacksTextField.text != "") {
             if let racksNumber = Int(numRacksTextField.text!) {
-                parameters["Racks"] = String(racksNumber)
+                parameters["Racks"] = Double(racksNumber)
             }
         }
         if(numRowsTextField.text != nil && numRowsTextField.text != "") {
             if let rowsNumber = Int(numRowsTextField.text!) {
-                parameters["Rows"] = String(rowsNumber)
+                parameters["Rows"] = Double(rowsNumber)
             }
         }
         if(numColumnsTextField.text != nil && numColumnsTextField.text != "") {
             if let columnsNumber = Int(numColumnsTextField.text!) {
-                parameters["Columns"] = String(columnsNumber)
+                parameters["Columns"] = Double(columnsNumber)
             }
         }
         if(maleCostTextField.text != nil && maleCostTextField.text != "") {
-            if let maleCost = Int(maleCostTextField.text!) {
-                parameters["MaleCost"] = String(maleCost)
+            if let maleCost = Double(maleCostTextField.text!.replacingOccurrences(of: "$", with: "")) {
+                parameters["MaleCost"] = Double(maleCost)
             }
         }
         if(femaleCostTextField.text != nil && femaleCostTextField.text != "") {
-            if let femaleCost = Int(femaleCostTextField.text!) {
-                parameters["FemaleCost"] = String(femaleCost)
+            if let femaleCost = Double(femaleCostTextField.text!.replacingOccurrences(of: "$", with: "")) {
+                parameters["FemaleCost"] = Double(femaleCost)
             }
         }
         if(cageCostTextField.text != nil && cageCostTextField.text != "") {
-            if let cageCost = Int(cageCostTextField.text!) {
-                parameters["CageCost"] = String(cageCost)
+            if let cageCost = Double(cageCostTextField.text!.replacingOccurrences(of: "$", with: "")) {
+                parameters["CageCost"] = Double(cageCost)
             }
         }
         
@@ -404,8 +407,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
             let theWeaningPeriodNumber = theWeaningPeriod[0]
             let theWeaningPeriodUnit = theWeaningPeriod[1]
-            parameters["WeaningPeriod"] = String(theWeaningPeriodNumber)
-            parameters["WeaningPeriodUnit"] = String(timeUnitStringToNumber(timeUnit: theWeaningPeriodUnit))
+            parameters["WeaningPeriod"] = Double(theWeaningPeriodNumber)
+            parameters["WeaningPeriodUnit"] = Double(timeUnitStringToNumber(timeUnit: theWeaningPeriodUnit))
         }
         if(breedingPeriodTextField.text != nil && breedingPeriodTextField.text != "") {
             guard let theBreedingPeriod = breedingPeriodTextField.text?.components(separatedBy: " ") else {
@@ -414,8 +417,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
             let theBreedingPeriodNumber = theBreedingPeriod[0]
             let theBreedingPeriodUnit = theBreedingPeriod[1]
-            parameters["BreedingPeriod"] = String(theBreedingPeriodNumber)
-            parameters["BreedingPeriodUnit"] = String(timeUnitStringToNumber(timeUnit: theBreedingPeriodUnit))
+            parameters["BreedingPeriod"] = Double(theBreedingPeriodNumber)
+            parameters["BreedingPeriodUnit"] = Double(timeUnitStringToNumber(timeUnit: theBreedingPeriodUnit))
         }
         if(gestationPeriodTextField.text != nil && gestationPeriodTextField.text != "") {
             guard let theGestationPeriod = gestationPeriodTextField.text?.components(separatedBy: " ") else {
@@ -424,8 +427,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
             let theGestationPeriodNumber = theGestationPeriod[0]
             let theGestationPeriodUnit = theGestationPeriod[1]
-            parameters["GestationPeriod"] = String(theGestationPeriodNumber)
-            parameters["GestationPeriodUnit"] = String(timeUnitStringToNumber(timeUnit: theGestationPeriodUnit))
+            parameters["GestationPeriod"] = Double(theGestationPeriodNumber)
+            parameters["GestationPeriodUnit"] = Double(timeUnitStringToNumber(timeUnit: theGestationPeriodUnit))
         }
         if(maleLifeSpanTextField.text != nil && maleLifeSpanTextField.text != "") {
             guard let theMaleLifespan = maleLifeSpanTextField.text?.components(separatedBy: " ") else {
@@ -434,8 +437,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
             let theMaleLifespanNumber = theMaleLifespan[0]
             let theMaleLifespanUnit = theMaleLifespan[1]
-            parameters["MaleLifespan"] = String(theMaleLifespanNumber)
-            parameters["MaleLifespanUnit"] = String(timeUnitStringToNumber(timeUnit: theMaleLifespanUnit))
+            parameters["MaleLifespan"] = Double(theMaleLifespanNumber)
+            parameters["MaleLifespanUnit"] = Double(timeUnitStringToNumber(timeUnit: theMaleLifespanUnit))
         }
         if(femaleLifeSpanTextField.text != nil && femaleLifeSpanTextField.text != "") {
             guard let theFemaleLifespan = femaleLifeSpanTextField.text?.components(separatedBy: " ") else {
@@ -444,8 +447,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
             let theFemaleLifespanNumber = theFemaleLifespan[0]
             let theFemaleLifespanUnit = theFemaleLifespan[1]
-            parameters["FemaleLifespan"] = String(theFemaleLifespanNumber)
-            parameters["FemaleLifespanUnit"] = String(timeUnitStringToNumber(timeUnit: theFemaleLifespanUnit))
+            parameters["FemaleLifespan"] = Double(theFemaleLifespanNumber)
+            parameters["FemaleLifespanUnit"] = Double(timeUnitStringToNumber(timeUnit: theFemaleLifespanUnit))
         }
         if(pupsToWeanAlertAdvanceTextField.text != nil && pupsToWeanAlertAdvanceTextField.text != "") {
             guard let thePupsToWeanAlertAdvanceInfo = pupsToWeanAlertAdvanceTextField.text?.components(separatedBy: " ") else {
@@ -454,8 +457,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
             let thePupsToWeanAlertAdvanceNumber = thePupsToWeanAlertAdvanceInfo[0]
             let thePupsToWeanAlertAdvanceUnit = thePupsToWeanAlertAdvanceInfo[1]
-            parameters["WeaningAlertAdvance"] = String(thePupsToWeanAlertAdvanceNumber)
-            parameters["WeaningAlertAdvanceUnit"] = String(timeUnitStringToNumber(timeUnit: thePupsToWeanAlertAdvanceUnit))
+            parameters["WeaningAlertAdvance"] = Double(thePupsToWeanAlertAdvanceNumber)
+            parameters["WeaningAlertAdvanceUnit"] = Double(timeUnitStringToNumber(timeUnit: thePupsToWeanAlertAdvanceUnit))
         }
         if(maleTooOldAlertAdvanceTextField.text != nil && maleTooOldAlertAdvanceTextField.text != "") {
             guard let theMaleTooOldAlertAdvanceInfo = maleTooOldAlertAdvanceTextField.text?.components(separatedBy: " ") else {
@@ -464,8 +467,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
             let theMaleTooOldAlertAdvanceNumber = theMaleTooOldAlertAdvanceInfo[0]
             let theMaleTooOldAlertAdvanceUnit = theMaleTooOldAlertAdvanceInfo[1]
-            parameters["OldMaleAlertAdvance"] = String(theMaleTooOldAlertAdvanceNumber)
-            parameters["OldMaleAlertAdvanceUnit"] = String(timeUnitStringToNumber(timeUnit: theMaleTooOldAlertAdvanceUnit))
+            parameters["OldMaleAlertAdvance"] = Double(theMaleTooOldAlertAdvanceNumber)
+            parameters["OldMaleAlertAdvanceUnit"] = Double(timeUnitStringToNumber(timeUnit: theMaleTooOldAlertAdvanceUnit))
         }
         if(femaleTooOldAlertAdvanceTextField.text != nil && femaleTooOldAlertAdvanceTextField.text != "") {
             guard let theFemaleTooOldAlertAdvanceInfo = femaleTooOldAlertAdvanceTextField.text?.components(separatedBy: " ") else {
@@ -474,8 +477,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
             let theFemaleTooOldAlertAdvanceNumber = theFemaleTooOldAlertAdvanceInfo[0]
             let theFemaleTooOldAlertAdvanceUnit = theFemaleTooOldAlertAdvanceInfo[1]
-            parameters["OldFemaleAlertAdvance"] = String(theFemaleTooOldAlertAdvanceNumber)
-            parameters["OldFemaleAlertAdvanceUnit"] = String(timeUnitStringToNumber(timeUnit: theFemaleTooOldAlertAdvanceUnit))
+            parameters["OldFemaleAlertAdvance"] = Double(theFemaleTooOldAlertAdvanceNumber)
+            parameters["OldFemaleAlertAdvanceUnit"] = Double(timeUnitStringToNumber(timeUnit: theFemaleTooOldAlertAdvanceUnit))
         }
         if(maleInCageAlertAdvanceTextField.text != nil && maleInCageAlertAdvanceTextField.text != "") {
             guard let theMaleInCageAlertAdvanceInfo = maleInCageAlertAdvanceTextField.text?.components(separatedBy: " ") else {
@@ -484,52 +487,16 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
             let theMaleInCageAlertAdvanceNumber = theMaleInCageAlertAdvanceInfo[0]
             let theMaleInCageAlertAdvanceUnit = theMaleInCageAlertAdvanceInfo[1]
-            parameters["BreedingAlertAdvance"] = String(theMaleInCageAlertAdvanceNumber)
-            parameters["BreedingAlertAdvanceUnit"] = String(timeUnitStringToNumber(timeUnit: theMaleInCageAlertAdvanceUnit))
+            parameters["BreedingAlertAdvance"] = Double(theMaleInCageAlertAdvanceNumber)
+            parameters["BreedingAlertAdvanceUnit"] = Double(timeUnitStringToNumber(timeUnit: theMaleInCageAlertAdvanceUnit))
         }
         
-        for aButton in maleInCageAlertColorButtonCollection {
-            if aButton.alpha != 0.3 {
-                if let currentImage = aButton.currentImage {
-                    parameters["MaleInCageColor"] = iconImageToColorIndex(icon: currentImage)
-                }
-            }
-        }
-        for aButton in pupsInCageAlertColorButtonCollection {
-            if aButton.alpha != 0.3 {
-                if let currentImage = aButton.currentImage {
-                    parameters["PupsInCageColor"] = iconImageToColorIndex(icon: currentImage)
-                }
-            }
-        }
-        for aButton in pupsToWeanAlertColorButtonCollection {
-            if aButton.alpha != 0.3 {
-                if let currentImage = aButton.currentImage {
-                    parameters["PupsToWeanColor"] = iconImageToColorIndex(icon: currentImage)
-                }
-            }
-        }
-        for aButton in maleTooOldAlertColorButtonCollection {
-            if aButton.alpha != 0.3 {
-                if let currentImage = aButton.currentImage {
-                    parameters["MaleTooOldColor"] = iconImageToColorIndex(icon: currentImage)
-                }
-            }
-        }
-        for aButton in femaleTooOldAlertColorButtonCollection {
-            if aButton.alpha != 0.3 {
-                if let currentImage = aButton.currentImage {
-                    parameters["FemaleTooOldColor"] = iconImageToColorIndex(icon: currentImage)
-                }
-            }
-        }
-        for aButton in cageWithOrderAlertColorButtonCollection {
-            if aButton.alpha != 0.3 {
-                if let currentImage = aButton.currentImage {
-                    parameters["CageWithOrderColor"] = iconImageToColorIndex(icon: currentImage)
-                }
-            }
-        }
+        parameters["MaleInCageColor"] = Double(maleInCageAlertColor)
+        parameters["PupsInCageColor"] = Double(pupsInCageAlertColor)
+        parameters["PupsToWeanColor"] = Double(pupsToWeanAlertColor)
+        parameters["MaleTooOldColor"] = Double(maleTooOldAlertColor)
+        parameters["FemaleTooOldColor"] = Double(femaleTooOldAlertColor)
+        parameters["CageWithOrderColor"] = Double(cageWithOrderAlertColor)
         
         let updatingSettingsHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
         updatingSettingsHUD.detailsLabel.text = "Updating settings..."
@@ -547,27 +514,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         
     }
     
-    func iconImageToColorIndex(icon: UIImage) -> String {
-        switch icon {
-        case #imageLiteral(resourceName: "RedDot"):
-            return "0"
-        case #imageLiteral(resourceName: "OrangeDot"):
-            return "1"
-        case #imageLiteral(resourceName: "YellowDot"):
-            return "2"
-        case #imageLiteral(resourceName: "GreenDot"):
-            return "3"
-        case #imageLiteral(resourceName: "CyanDot"):
-            return "4"
-        case #imageLiteral(resourceName: "BlueDot"):
-            return "5"
-        case #imageLiteral(resourceName: "PurpleDot"):
-            return "6"
-        default:
-            return "Error! Couldnt convert icon to color index!"
-        }
-    }
-    
     @IBAction func maleInCageColorSelectionButtonPressed(_ sender: UIButton) {
         for aButton in maleInCageAlertColorButtonCollection {
             if aButton.tag != sender.tag {
@@ -575,6 +521,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
             else {
                 aButton.alpha = 1
+                maleInCageAlertColor = String(aButton.tag)
             }
         }
     }
@@ -586,6 +533,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
             else {
                 aButton.alpha = 1
+                pupsInCageAlertColor = String(aButton.tag)
             }
         }
     }
@@ -597,6 +545,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
             else {
                 aButton.alpha = 1
+                pupsToWeanAlertColor = String(aButton.tag)
             }
         }
     }
@@ -608,6 +557,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
             else {
                 aButton.alpha = 1
+                maleTooOldAlertColor = String(aButton.tag)
             }
         }
     }
@@ -619,6 +569,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
             else {
                 aButton.alpha = 1
+                femaleTooOldAlertColor = String(aButton.tag)
             }
         }
     }
@@ -630,6 +581,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
             else {
                 aButton.alpha = 1
+                cageWithOrderAlertColor = String(aButton.tag)
             }
         }
     }
