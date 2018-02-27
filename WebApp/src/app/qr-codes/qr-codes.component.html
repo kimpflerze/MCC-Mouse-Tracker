@@ -1,0 +1,19 @@
+<div class="container-fluid">
+  <div class="qrcode-container col-lg-5 col-lg-offset-3 mat-elevation-z8">
+    <button (click)="generateQrCodes()" class="qrcode-button btn btn-default">
+      <span class="qrcode-icon glyphicon glyphicon-qrcode" aria-hidden="true"></span>
+    </button>
+
+    <button (click)="generateQrCodes('red')" class="qrcode-button btn btn-default">
+      <span class="qrcode-icon qrcode-red glyphicon glyphicon-qrcode" aria-hidden="true"></span>
+    </button>
+
+    <button (click)="generateQrCodes('green')" class="qrcode-button btn btn-default">
+      <span class="qrcode-icon qrcode-green glyphicon glyphicon-qrcode" aria-hidden="true"></span>
+    </button>
+
+    <button (click)="generateQrCodes('blue')" class="qrcode-button btn btn-default">
+      <span class="qrcode-icon qrcode-blue glyphicon glyphicon-qrcode" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+  <div class="panel panel-default">
+      
+    <div class="panel-heading">
+
+        <div class="row">
+            <div class="col-lg-9">
+                <h4>Order Details</h4>
+            </div>
+            <div class="col-lg-3 checkbox-column">
+                <mat-checkbox labelPosition="before" [checked]="order.Charged == 'Yes'" (change)="order.Charged = $event.checked ? 'Yes' : 'No'" class="example-margin">Charged</mat-checkbox>
+            </div>
+        </div>
+
+    </div> 
+
+    <div class="panel-body">
+
+        <div class="row">
+            <div class="col-lg-5">
+                <label>Lab: </label>  
+                <span class="field-value">{{order.Lab}}</span> 
+            </div>
+
+            <div class="col-lg-5 col-lg-offset-2">
+                <label>Protocol: </label>  
+                <span class="field-value">{{order.Protocol}}</span> 
+            </div>
+        </div>
+
+        <div class="row panel-row">
+            <div class="col-lg-5">
+                <label>PI: </label>  
+                <span class="field-value">{{order.PrincipalInvestigator}}</span> 
+            </div>
+
+            <div class="col-lg-5 col-lg-offset-2">
+                <label>Date: </label>  
+                <span class="field-value">{{order.DeliveryDate | date}}</span> 
+            </div>
+        </div>
+
+        <mat-divider class="order-details-divider"></mat-divider>
+
+        <div class="row panel-row">
+            <div class="col-lg-5">
+                <label>Male Mice: </label>  
+                <span class="field-value">{{order.MaleMice}}</span> 
+            </div>
+
+            <div class="col-lg-5 col-lg-offset-2">
+                <label>Female Mice: </label>  
+                <span class="field-value">{{order.FemaleMice}}</span> 
+            </div>
+        </div>
+
+        <mat-divider class="order-details-divider"></mat-divider>
+
+        <div class="row panel-row">
+            <div class="col-lg-5">
+                <label>Address: </label>  
+                <span class="field-value">{{order.Address}}</span> 
+            </div>
+
+            <div *ngIf="order.Room != null" class="col-lg-5 col-lg-offset-2">
+                <label>Room Number: </label>  
+                <span class="field-value">{{order.Room}}</span> 
+            </div>
+        </div>
+
+    </div>
+
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-lg-3">
+                <button class="btn btn-default" (click)="saveChanges(order.Id, order.Charged)">Save Changes</button>
+            </div>
+            <div class="col-lg-3 col-lg-offset-6">
+                <button (click)="removeOrder(order.Id)" class="btn btn-default">Remove Order</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

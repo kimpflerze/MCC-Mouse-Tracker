@@ -1,0 +1,15 @@
+.panel-row {
+    margin-top: 15px;
+  }
+
+  .add-order-row {
+    margin-top: 15px;
+  }
+
+  .invalid-field {
+    border: 3px solid #a94442; /* red */
+  }
+  
+  .error-text {
+    color: red;
+  }

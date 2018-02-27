@@ -1,0 +1,326 @@
+<div class="container-fluid settings-container">
+
+    <form #form="ngForm" (submit)="submitForm(form)" novalidate>    
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Cage Configuration<span class="panel-icon glyphicon glyphicon-th"></span></div>
+
+                <div class="panel-body">
+
+                    <div class="col-lg-3">  
+
+                    <label for="basic-url">Number of Rows</label>
+                    <div class="input-group">
+                        <input #rows="ngModel" required class="form-control" name="rows" type="number" [(ngModel)]='model.Rows'>
+                    </div>
+                    <div *ngIf="rows.invalid && (rows.touched || rows.dirty)"><p class="error-text">Required</p></div>
+
+                </div>
+
+                <div class="col-lg-3">
+                    <label for="basic-url">Number of Columns</label>
+                    <div class="input-group">
+                        <input required #columns="ngModel" class="form-control" name="columns" type="number" [(ngModel)]='model.Columns'>
+                    </div>
+                    <div *ngIf="columns.invalid && (columns.touched || columns.dirty)"><p class="error-text">Required</p></div>
+                </div>
+
+                <div class="col-lg-3">
+                    <label for="basic-url">Number of Racks</label>
+                    <div class="input-group">
+                        <input required #racks="ngModel" class="form-control" name="racks" type="number" [(ngModel)]='model.Racks'>
+                    </div>
+                    <div *ngIf="racks.invalid && (racks.touched || racks.dirty)"><p class="error-text">Required</p></div>
+                </div>
+                    
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Price Configuration<span class="panel-icon glyphicon glyphicon-usd"></span></div> 
+            <div class="panel-body">
+                <div class="col-lg-3">  
+        
+                    <label>Cage Cost</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input #cageCost="ngModel" required class="form-control" name="cageCost" type="number" [(ngModel)]='model.CageCost'>
+                    </div>
+                    <div *ngIf="cageCost.invalid && (cageCost.touched || cageCost.dirty)"><p class="error-text">Required</p></div>
+        
+                </div>
+        
+                <div class="col-lg-3">
+                    <label>Male Cost</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input #maleCost="ngModel" required class="form-control" name="maleCost" type="number" [(ngModel)]='model.MaleCost'>
+                    </div>
+                    <div *ngIf="maleCost.invalid && (maleCost.touched || maleCost.dirty)"><p class="error-text">Required</p></div>
+                </div>
+        
+                <div class="col-lg-3">
+                    <label>Female Cost</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input #femaleCost="ngModel" required class="form-control" name="femaleCost" type="number" [(ngModel)]='model.FemaleCost'>
+                    </div>
+                    <div *ngIf="femaleCost.invalid && (femaleCost.touched || femaleCost.dirty)"><p class="error-text">Required</p></div>
+                </div>          
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Alert Configuration<span class="panel-icon glyphicon glyphicon-bell"></span></div>   
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-3">    
+                            <label>Weaning Period</label>
+                            <div class="input-group">
+                                <input required #weaningPeriod="ngModel" class="form-control" name="weaningPeriod" type="number" [(ngModel)]='model.WeaningPeriod'>
+                                <span class="select-addon input-group-addon"></span> 
+                                        <mat-select class="time-units form-control" name="weaningPeriodUnit" [(ngModel)]="model.WeaningPeriodUnit">
+                                        <mat-option [value]="1">Days</mat-option>
+                                        <mat-option [value]="2">Weeks</mat-option>
+                                        <mat-option [value]="3">Months</mat-option>
+                                        <mat-option [value]="4">Years</mat-option>
+                                        </mat-select> 
+                            </div>
+                            <div *ngIf="weaningPeriod.invalid && (weaningPeriod.touched || weaningPeriod.dirty)"><p class="error-text">Required</p></div>         
+                        </div>
+                
+                        <div class="col-lg-3">    
+                            <label>Gestation Period</label>
+                            <div class="input-group">
+                                <input required #gestationPeriod="ngModel" class="form-control" name="gestationPeriod" type="number" [(ngModel)]='model.GestationPeriod'>
+                                <span class="select-addon input-group-addon"></span> 
+                                    <mat-select class="time-units form-control" name="gestationPeriodUnit" [(ngModel)]="model.GestationPeriodUnit">
+                                        <mat-option [value]="1">Days</mat-option>
+                                        <mat-option [value]="2">Weeks</mat-option>
+                                        <mat-option [value]="3">Months</mat-option>
+                                        <mat-option [value]="4">Years</mat-option>
+                                    </mat-select> 
+                            </div>
+                            <div *ngIf="gestationPeriod.invalid && (gestationPeriod.touched || gestationPeriod.dirty)"><p class="error-text">Required</p></div>         
+                        </div>
+
+                        <div class="col-lg-3">    
+                            <label>Breeding Period</label>
+                            <div class="input-group">
+                                <input required #breedingPeriod="ngModel" class="form-control" name="breedingPeriod" type="number" [(ngModel)]='model.BreedingPeriod'>
+                                <span class="select-addon input-group-addon"></span> 
+                                    <mat-select class="time-units form-control" name="breedingPeriodUnit" [(ngModel)]="model.BreedingPeriodUnit">
+                                        <mat-option [value]="1">Days</mat-option>
+                                        <mat-option [value]="2">Weeks</mat-option>
+                                        <mat-option [value]="3">Months</mat-option>
+                                        <mat-option [value]="4">Years</mat-option>
+                                    </mat-select> 
+                            </div>
+                            <div *ngIf="breedingPeriod.invalid && (breedingPeriod.touched || breedingPeriod.dirty)"><p class="error-text">Required</p></div>         
+                        </div>
+
+                    </div>
+
+                    <div class="row settings-row">
+
+                        <div class="col-lg-3">    
+                            <label>Male Lifespan</label>
+                            <div class="input-group">
+                                <input required #maleLifespan="ngModel" class="form-control" name="maleLifespan" type="number" [(ngModel)]='model.MaleLifespan'>
+                                <span class="select-addon input-group-addon"></span> 
+                                    <mat-select class="time-units form-control" name="maleLifespanUnit" [(ngModel)]="model.MaleLifespanUnit">
+                                        <mat-option [value]="1">Days</mat-option>
+                                        <mat-option [value]="2">Weeks</mat-option>
+                                        <mat-option [value]="3">Months</mat-option>
+                                        <mat-option [value]="4">Years</mat-option>
+                                    </mat-select> 
+                            </div>
+                            <div *ngIf="maleLifespan.invalid && (maleLifespan.touched || maleLifespan.dirty)"><p class="error-text">Required</p></div>         
+                        </div>
+
+                        <div class="col-lg-3">    
+                            <label>Female Lifespan</label>
+                            <div class="input-group">
+                                <input #femaleLifespan="ngModel" required class="form-control" name="femaleLifespan" type="number" [(ngModel)]='model.FemaleLifespan'>
+                                <span class="select-addon input-group-addon"></span> 
+                                    <mat-select class="time-units form-control" name="femaleLifespanUnit" [(ngModel)]="model.FemaleLifespanUnit">
+                                        <mat-option [value]="1">Days</mat-option>
+                                        <mat-option [value]="2">Weeks</mat-option>
+                                        <mat-option [value]="3">Months</mat-option>
+                                        <mat-option [value]="4">Years</mat-option>
+                                    </mat-select> 
+                            </div>  
+                            <div *ngIf="femaleLifespan.invalid && (femaleLifespan.touched || femaleLifespan.dirty)"><p class="error-text">Required</p></div>       
+                        </div>
+
+                    </div>
+
+                    <mat-divider class="settings-row"></mat-divider>
+
+                    <div class="row settings-row">
+
+                        <div class="col-lg-3">    
+                            <label>Weaning Alert Advance</label>
+                            <div class="input-group">
+                                <input required #weaningAlertAdvance="ngModel" class="form-control" name="weaningAlertAdvance" type="number" [(ngModel)]='model.WeaningAlertAdvance'>
+                                <span class="select-addon input-group-addon"></span> 
+                                    <mat-select class="time-units form-control" name="weaningAlertAdvanceUnit" [(ngModel)]="model.WeaningAlertAdvanceUnit">
+                                        <mat-option [value]="1">Days</mat-option>
+                                        <mat-option [value]="2">Weeks</mat-option>
+                                        <mat-option [value]="3">Months</mat-option>
+                                        <mat-option [value]="4">Years</mat-option>
+                                    </mat-select> 
+                            </div>
+                            <div *ngIf="weaningAlertAdvance.invalid && (weaningAlertAdvance.touched || weaningAlertAdvance.dirty)"><p class="error-text">Required</p></div>                
+                        </div>
+
+                        <div class="col-lg-3">    
+                            <label>Old Female Alert Advance</label>
+                            <div class="input-group">
+                                <input #oldFemaleAlertAdvance="ngModel" required class="form-control" name="oldFemaleAlertAdvance" type="number" [(ngModel)]='model.OldFemaleAlertAdvance'>
+                                <span class="select-addon input-group-addon"></span> 
+                                    <mat-select class="time-units form-control" name="oldFemaleAlertAdvanceUnit" [(ngModel)]="model.OldFemaleAlertAdvanceUnit">
+                                        <mat-option [value]="1">Days</mat-option>
+                                        <mat-option [value]="2">Weeks</mat-option>
+                                        <mat-option [value]="3">Months</mat-option>
+                                        <mat-option [value]="4">Years</mat-option>
+                                    </mat-select> 
+                            </div>  
+                            <div *ngIf="oldFemaleAlertAdvance.invalid && (oldFemaleAlertAdvance.touched || oldFemaleAlertAdvance.dirty)"><p class="error-text">Required</p></div>                  
+                        </div>
+
+                        <div class="col-lg-3">    
+                            <label>Old Male Alert Advance</label>
+                            <div class="input-group">
+                                <input required #oldMaleAlertAdvance="ngModel" class="form-control" name="oldMaleAlertAdvance" type="number" [(ngModel)]='model.OldMaleAlertAdvance'>
+                                <span class="select-addon input-group-addon"></span> 
+                                    <mat-select class="time-units form-control" name="oldMaleAlertAdvanceUnit" [(ngModel)]="model.OldMaleAlertAdvanceUnit">
+                                        <mat-option [value]="1">Days</mat-option>
+                                        <mat-option [value]="2">Weeks</mat-option>
+                                        <mat-option [value]="3">Months</mat-option>
+                                        <mat-option [value]="4">Years</mat-option>
+                                    </mat-select> 
+                            </div> 
+                            <div *ngIf="oldMaleAlertAdvance.invalid && (oldMaleAlertAdvance.touched || oldMaleAlertAdvance.dirty)"><p class="error-text">Required</p></div>                          
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Color Configuration<span class="panel-icon glyphicon glyphicon-tint"></span></div>   
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-2">    
+                            <label>Male In Cage</label>
+                            <div class="input-group">
+                                        <mat-select class="color-input form-control" name="maleInCageColor" [(ngModel)]="model.MaleInCageColor">
+                                        <mat-option [value]="1">Red<span class="red-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="2">Orange<span class="orange-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="3">Yellow<span class="yellow-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="4">Green<span class="green-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="5">Light Blue<span class="lightblue-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="6">Blue<span class="blue-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="7">Purple<span class="purple-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="8">Pink<span class="pink-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        </mat-select> 
+                            </div>
+                        </div>
+                
+                        <div class="col-lg-2">
+                            <label>Pups In Cage</label>
+                            <div class="input-group">
+                                        <mat-select class="color-input form-control" name="pupsInCageColor" [(ngModel)]="model.PupsInCageColor">
+                                        <mat-option [value]="1">Red<span class="red-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="2">Orange<span class="orange-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="3">Yellow<span class="yellow-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="4">Green<span class="green-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="5">Light Blue<span class="lightblue-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="6">Blue<span class="blue-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="7">Purple<span class="purple-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="8">Pink<span class="pink-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        </mat-select> 
+                            </div>         
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label>Pups To Wean</label>
+                            <div class="input-group">
+                                        <mat-select class="color-input form-control" name="pupsToWeanColor" [(ngModel)]="model.PupsToWeanColor">
+                                        <mat-option [value]="1">Red<span class="red-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="2">Orange<span class="orange-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="3">Yellow<span class="yellow-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="4">Green<span class="green-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="5">Light Blue<span class="lightblue-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="6">Blue<span class="blue-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="7">Purple<span class="purple-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="8">Pink<span class="pink-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        </mat-select> 
+                            </div>         
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label>Male Too Old</label>
+                            <div class="input-group">
+                                        <mat-select class="color-input form-control" name="maleTooOldColor" [(ngModel)]="model.MaleTooOldColor">
+                                        <mat-option [value]="1">Red<span class="red-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="2">Orange<span class="orange-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="3">Yellow<span class="yellow-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="4">Green<span class="green-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="5">Light Blue<span class="lightblue-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="6">Blue<span class="blue-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="7">Purple<span class="purple-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="8">Pink<span class="pink-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        </mat-select> 
+                            </div>         
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label>Female Too Old</label>
+                            <div class="input-group">
+                                        <mat-select class="color-input form-control" name="femaleTooOldColor" [(ngModel)]="model.FemaleTooOldColor">
+                                        <mat-option [value]="1">Red<span class="red-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="2">Orange<span class="orange-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="3">Yellow<span class="yellow-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="4">Green<span class="green-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="5">Light Blue<span class="lightblue-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="6">Blue<span class="blue-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="7">Purple<span class="purple-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="8">Pink<span class="pink-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        </mat-select> 
+                            </div>         
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label>Cage With Order</label>
+                            <div class="input-group">
+                                        <mat-select class="color-input form-control" name="cageWithOrderColor" [(ngModel)]="model.CageWithOrderColor">
+                                        <mat-option [value]="1">Red<span class="red-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="2">Orange<span class="orange-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="3">Yellow<span class="yellow-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="4">Green<span class="green-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="5">Light Blue<span class="lightblue-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="6">Blue<span class="blue-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="7">Purple<span class="purple-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        <mat-option [value]="8">Pink<span class="pink-select color-select glyphicon glyphicon-tint"></span></mat-option>
+                                        </mat-select> 
+                            </div>         
+                        </div>
+
+                    </div>
+                </div>
+        </div>
+
+    <div class="col-lg-4 col-lg-offset-4 submit-button">
+        <button [disabled]="form.invalid" class="panel-button btn" type="submit"> 
+                <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save Changes
+        </button>
+    </div>
+
+    </form>
+
+
+  </div>
+
+
+

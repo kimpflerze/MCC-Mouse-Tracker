@@ -1,0 +1,77 @@
+.select-addon {
+  width: 0px;
+  padding: 0px;
+  border: 0px;
+}
+
+.time-units {
+  width: 90px;
+}
+
+.color-input {
+  width: 120px;
+}
+
+.settings-row {
+  margin-top: 15px;
+}
+
+.settings-container {
+  padding-top: 15px;
+  overflow-x: hidden;
+}
+
+.panel-icon {
+  float: right;
+  padding-top: 3px;
+}
+
+.ng-invalid:not(form)  {
+  border: 3px solid #a94442; /* red */
+}
+
+.error-text {
+  color: red;
+}
+
+.submit-button {
+  padding-bottom: 30px;
+}
+
+.red-select {
+  color: red;
+}
+
+.orange-select {
+  color: orange;
+}
+
+.yellow-select { 
+  color: yellow;
+}
+
+.green-select {
+  color: green;
+}
+
+.lightblue-select {
+  color: skyblue;
+}
+
+.blue-select {
+  color: blue;
+}
+
+.purple-select {
+  color: purple;
+}
+
+.pink-select {
+  color: pink;
+}
+
+.color-select {
+  padding-left: 10px;
+  padding-top: 13px;
+  float: right;
+}

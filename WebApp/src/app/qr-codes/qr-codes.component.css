@@ -1,0 +1,23 @@
+.qrcode-icon {
+    font-size: 48px;
+}
+
+.qrcode-red {
+    color: red;
+}
+
+.qrcode-green {
+    color: green;
+}
+
+.qrcode-blue {
+    color: blue;
+}
+
+.qrcode-button {
+    margin: 12px;
+}
+
+.qrcode-container {
+    margin-top: 30px;
+}
