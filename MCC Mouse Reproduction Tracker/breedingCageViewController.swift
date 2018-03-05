@@ -39,8 +39,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var QR_code_btn: UIButton!
     @IBOutlet weak var add_male_btn: UIButton!
     @IBOutlet weak var done_btn: UIButton!
-//    @IBOutlet weak var addParentDOBButton: UIButton!
-//    @IBOutlet weak var addParentCageButton: UIButton!
     @IBOutlet weak var scanParentInformationButton: UIButton!
 
     // TextFields
@@ -62,6 +60,9 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         print("[TO-DO] Add functionality for the AddLitter button!")
         
         super.viewDidLoad()
+        // determine if litter in cage
+            // if yes set button to "Wean Cage"
+            // if no set button to "Add Litter"
         
         parentDOBTableView.dataSource = self
         parentDOBTableView.delegate = self
@@ -81,7 +82,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         
         //Populate information from passed cage here!
         
-        //Filling informatin for an existing cage
+        //Filling information for an existing cage
         if let theCage = cage {
             rackNoTextField.text = String(theCage.rack)
             columnNoTextField.text = String(theCage.column)
@@ -138,8 +139,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }
         })
-        
-    }
+    } // end viewDidLoad()
     
     func validationSuccessful() {
         /* save textfield information database */
@@ -448,13 +448,21 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                 parentCageTableView.reloadData()
             }
         }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         parentDOBTableView.reloadData()
         parentCageTableView.reloadData()
     }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let destinationVC = segue.destination as? CageAlertsViewController {
+            destinationVC.cageAlertArray = (cage?.alerts)!
+        }
+    }
+
     
     /************************** VALIDATION RULES **************************/
     
@@ -482,7 +490,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     /***********************************************************************/
-    
 }
 
 extension breedingCageViewController: QRScannerControllerDelegate {

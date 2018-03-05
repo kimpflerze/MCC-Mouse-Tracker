@@ -336,11 +336,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
        stockCageDOBTableView.reloadData()}
         
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        stockCageDOBTableView.reloadData()
-    }
-
+   
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         var result = true
         validator.validateField(textField){ error in
@@ -387,6 +383,17 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
             textField.inputView = datePickerView
             
             datePickerView.addTarget(self, action: #selector(breedingCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        stockCageDOBTableView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let destinationVC = segue.destination as? CageAlertsViewController {
+            destinationVC.cageAlertArray = (cage?.alerts)!
         }
     }
     

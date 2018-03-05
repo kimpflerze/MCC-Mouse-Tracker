@@ -376,6 +376,12 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         parentCageIDTableView.reloadData()
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let destinationVC = segue.destination as? CageAlertsViewController {
+            destinationVC.cageAlertArray = (breedingMaleCurrentCage?.alerts)!
+        }
+    }
     /*************************** VALIDATION RULES **************************/
     
     /**
