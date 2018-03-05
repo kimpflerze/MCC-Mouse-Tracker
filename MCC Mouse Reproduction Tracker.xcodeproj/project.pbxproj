@@ -32,6 +32,7 @@
 		EAFC62541FB3D12700F22B3C /* stockCageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFC62511FB3D12600F22B3C /* stockCageViewController.swift */; };
 		EAFC62561FB3DD7700F22B3C /* ParentCage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFC62551FB3DD7700F22B3C /* ParentCage.swift */; };
 		EAFC62581FB53D0900F22B3C /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFC62571FB53D0900F22B3C /* Alert.swift */; };
+		F4B298AB204DBE7E007874E5 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B298AA204DBE7E007874E5 /* StatisticsViewController.swift */; };
 		F4DB13E9202C8A7500DEFED9 /* Statistics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4DB13E8202C8A7500DEFED9 /* Statistics.storyboard */; };
 		F4DB13EB202C8B7D00DEFED9 /* Alerts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4DB13EA202C8B7D00DEFED9 /* Alerts.storyboard */; };
 		F4DB13ED202C978900DEFED9 /* AlertsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DB13EC202C978900DEFED9 /* AlertsViewController.swift */; };
@@ -89,6 +90,7 @@
 		EAFC62511FB3D12600F22B3C /* stockCageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = stockCageViewController.swift; sourceTree = "<group>"; };
 		EAFC62551FB3DD7700F22B3C /* ParentCage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCage.swift; sourceTree = "<group>"; };
 		EAFC62571FB53D0900F22B3C /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		F4B298AA204DBE7E007874E5 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		F4DB13E8202C8A7500DEFED9 /* Statistics.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Statistics.storyboard; sourceTree = "<group>"; };
 		F4DB13EA202C8B7D00DEFED9 /* Alerts.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Alerts.storyboard; sourceTree = "<group>"; };
 		F4DB13EC202C978900DEFED9 /* AlertsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsViewController.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				EAE65E471FAD43BE00ADF0A3 /* RackPageViewController.swift */,
 				F4DB13EC202C978900DEFED9 /* AlertsViewController.swift */,
 				F4F6CBF42041DDDB00AC01C9 /* CageAlertsViewController.swift */,
+				F4B298AA204DBE7E007874E5 /* StatisticsViewController.swift */,
 				EA9E84BF1FA6CB8400FDE9AB /* Assets.xcassets */,
 				EA9E84C11FA6CB8400FDE9AB /* LaunchScreen.storyboard */,
 				EA9E84C41FA6CB8400FDE9AB /* Info.plist */,
@@ -422,6 +425,7 @@
 				EAFC62581FB53D0900F22B3C /* Alert.swift in Sources */,
 				EA2AFE4F2042078400A7313B /* LitterLog.swift in Sources */,
 				EA62C6301FA6F16E0044C464 /* QRScannerController.swift in Sources */,
+				F4B298AB204DBE7E007874E5 /* StatisticsViewController.swift in Sources */,
 				EAB8201B1FACC69D002AB754 /* ColumnFlowLayout.swift in Sources */,
 				EAB8201D1FAD29A6002AB754 /* QueryServer.swift in Sources */,
 				EAE65E4A1FAFA24D00ADF0A3 /* Settings.swift in Sources */,
