@@ -1,0 +1,11 @@
+.dialog-message {
+    text-align: center;
+}
+
+.dialog-buttons {
+    padding-top: 50px;
+}
+
+.right-btn {
+    float: right;
+}

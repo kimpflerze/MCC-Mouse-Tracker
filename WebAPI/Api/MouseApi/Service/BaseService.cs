@@ -36,9 +36,9 @@ namespace MouseApi.Service
 
         }
 
-        public virtual IEnumerable<TEntity> Get(IEnumerable<KeyValuePair<string,string>> queryParams)
+        public virtual IEnumerable<TEntity> Get(IEnumerable<KeyValuePair<string,string>> queryParams = null)
         {
-            if (queryParams.Count() > 0)
+            if (queryParams?.Count() > 0)
             {
                 return _provider.Filter(_repository.Get(), queryParams);
             }

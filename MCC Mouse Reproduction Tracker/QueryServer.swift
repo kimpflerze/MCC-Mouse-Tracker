@@ -229,25 +229,40 @@ class QueryServer: NSObject {
     }
     
     
-    //Litter log queries - Incomplete, need individual log retrieval queries
-    func getAllLitterLogs(completion: @escaping (_ cages: [Cage]?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/litterlog") else {
+    //Litter log queries
+    func getAllLitterLogs(completion: @escaping (_ litterLog: [LitterLog]?, _ error: Error?) -> Void) {
+        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/litterlog/") else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
             if let result = response.value as? [[String : Any]] {
-                var cages = [Cage]()
+                var litterLogs = [LitterLog]()
                 for item in result {
-                    let cage = Cage(rackInfo: item)
-                    cages.append(cage)
+                    let litter = LitterLog(logInfo: item)
+                    litterLogs.append(litter)
                 }
-                completion(cages, nil)
+                completion(litterLogs, nil)
             }
             else {
                 completion(nil, response.error)
             }
         })
         
+    }
+    
+    func getLitterLogBy(id: String, completion: @escaping (_ log: LitterLog?, _ error: Error?) -> Void) {
+        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/litterlog/\(id)") else {
+            return
+        }
+        Alamofire.request(url).responseJSON(completionHandler: { (response) in
+            if let result = response.value as? [String : Any] {
+                let litter = LitterLog(logInfo: result)
+                completion(litter, nil)
+            }
+            else {
+                completion(nil, response.error)
+            }
+        })
     }
     
     //Alerts queries - Possibly incomplete, could need specific alert retrieval queries
@@ -317,27 +332,40 @@ class QueryServer: NSObject {
                 
                 //Alert advance information
                 if let theBreedingAlertAdvance = downloadedSettings["BreedingAlertAdvance"], let theBreedingAlertAdvanceUnit = downloadedSettings["BreedingAlertAdvanceUnit"] {
-//                    Settings.shared.breeding
+                    Settings.shared.maleInCageAlertAdvanceNumber = theBreedingAlertAdvance as? Int
+                    Settings.shared.maleInCageAlertAdvanceUnit = theBreedingAlertAdvanceUnit as? Int
+                }
+                if let theOldFemaleAlertAdvance = downloadedSettings["OldFemaleAlertAdvance"], let theOldFemaleAlertAdvanceUnit = downloadedSettings["OldFemaleAlertAdvanceUnit"] {
+                    Settings.shared.femaleTooOldAlertAdvanceNumber = theOldFemaleAlertAdvance as? Int
+                    Settings.shared.femaleTooOldAlertAdvanceUnit = theOldFemaleAlertAdvanceUnit as? Int
+                }
+                if let theOldMaleAlertAdvance = downloadedSettings["OldMaleAlertAdvance"], let theOldMaleAlertAdvanceUnit = downloadedSettings["OldMaleAlertAdvanceUnit"] {
+                    Settings.shared.maleTooOldAlertAdvanceNumber = theOldMaleAlertAdvance as? Int
+                    Settings.shared.maleTooOldAlertAdvanceUnit = theOldMaleAlertAdvanceUnit as? Int
+                }
+                if let thePupsToWeanAlertAdvance = downloadedSettings["WeaningAlertAdvance"], let thePupsToWeanAlertAdvanceUnit = downloadedSettings["WeaningAlertAdvanceUnit"] {
+                    Settings.shared.pupsToWeanAlertAdvanceNumber = thePupsToWeanAlertAdvance as? Int
+                    Settings.shared.pupsToWeanAlertAdvanceUnit = thePupsToWeanAlertAdvanceUnit as? Int
                 }
                 
                 //Alert colors information
                 if let theMaleInCageAlertIconColor = downloadedSettings["MaleInCageColor"] as? Int {
-                    Settings.shared.maleInCageAlertColor = self.textColorToUIColor(textColor: String(theMaleInCageAlertIconColor))
+                    Settings.shared.maleInCageAlertIcon = self.textColorToIcon(textColor: String(theMaleInCageAlertIconColor))
                 }
                 if let thePupsInCageAlertIconColor = downloadedSettings["PupsInCageColor"] as? Int {
-                    Settings.shared.pupsInCageAlertColor = self.textColorToUIColor(textColor: String(thePupsInCageAlertIconColor))
+                    Settings.shared.pupsInCageAlertIcon = self.textColorToIcon(textColor: String(thePupsInCageAlertIconColor))
                 }
                 if let thePupsToWeanAlertIconColor = downloadedSettings["PupsToWeanColor"] as? Int {
-                    Settings.shared.pupsToWeanAlertColor = self.textColorToUIColor(textColor: String(thePupsToWeanAlertIconColor))
+                    Settings.shared.pupsToWeanAlertIcon = self.textColorToIcon(textColor: String(thePupsToWeanAlertIconColor))
                 }
                 if let theMaleTooOldAlertIconColor = downloadedSettings["MaleTooOldColor"] as? Int {
-                    Settings.shared.maleTooOldAlertColor = self.textColorToUIColor(textColor: String(theMaleTooOldAlertIconColor))
+                    Settings.shared.maleTooOldAlertIcon = self.textColorToIcon(textColor: String(theMaleTooOldAlertIconColor))
                 }
                 if let theFemaleTooOldAlertIconColor = downloadedSettings["FemaleTooOldColor"] as? Int {
-                    Settings.shared.femaleTooOldAlertColor = self.textColorToUIColor(textColor: String(theFemaleTooOldAlertIconColor))
+                    Settings.shared.femaleTooOldAlertIcon = self.textColorToIcon(textColor: String(theFemaleTooOldAlertIconColor))
                 }
                 if let theCageWithOrderAlertIconColor = downloadedSettings["CageWithOrderColor"] as? Int {
-                    Settings.shared.cageWithOrderAlertColor = self.textColorToUIColor(textColor: String(theCageWithOrderAlertIconColor))
+                    Settings.shared.cageWithOrderAlertIcon = self.textColorToIcon(textColor: String(theCageWithOrderAlertIconColor))
                 }
                 
                 //Financial information
@@ -380,27 +408,27 @@ class QueryServer: NSObject {
         })
     }
     
-    func textColorToUIColor(textColor: String) -> UIColor {
+    func textColorToIcon(textColor: String) -> UIImage {
         switch textColor {
         case "0":
-            return UIColor.red
+            return #imageLiteral(resourceName: "RedDot")
         case "1":
-            return UIColor.orange
+            return #imageLiteral(resourceName: "OrangeDot")
         case "2":
-            return UIColor.yellow
+            return #imageLiteral(resourceName: "YellowDot")
         case "3":
-            return UIColor.green
+            return #imageLiteral(resourceName: "GreenDot")
         case "4":
-            return UIColor.cyan
+            return #imageLiteral(resourceName: "CyanDot")
         case "5":
-            return UIColor.blue
+            return #imageLiteral(resourceName: "BlueDot")
         case "6":
-            return UIColor.purple
+            return #imageLiteral(resourceName: "PurpleDot")
         case "7":
-            return UIColor.magenta
+            return #imageLiteral(resourceName: "PinkDot")
         default:
-            print("TextToUIColor - Default was hit!")
-            return UIColor.black
+            print("textColorToIcon - Default was hit!")
+            return #imageLiteral(resourceName: "XIcon")
         }
     }
     
@@ -557,6 +585,35 @@ class QueryServer: NSObject {
         })
     }
     
+    func createLitterLogEntry(id: String?, motherCageId: String?, fatherId: String?, dob: String?, completion: @escaping (_ error: String?) -> Void) {
+        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/litterlog") else {
+            completion("Issue with URL in createLitterLogEntry function of QueryServer.swift!")
+            return
+        }
+        guard let theId = id else {
+            completion("Issue with Id in createLitterLogEntry function of QueryServer.swift!")
+            return
+        }
+        guard let theMotherCageId = motherCageId else {
+            completion("Issue with motherCageId in createLitterLogEntry function of QueryServer.swift!")
+            return
+        }
+        guard let theFatherId = fatherId else  {
+            completion("Issue with fatherId in createLitterLogEntry function of QueryServer.swift!")
+            return
+        }
+        guard let theDob = dob else {
+            completion("Issue with DOB in createLitterLogEntry function of QueryServer.swift!")
+            return
+        }
+        
+        let parameters: Parameters = ["Id": theId, "MotherCageId": theMotherCageId, "FatherId": theFatherId, "DOB": theDob]
+        let headers: HTTPHeaders = ["Content-Type":"application/json"]
+        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (response) in
+            completion(response.error?.localizedDescription)
+        })
+    }
+    
 //End POST Queries
    
 //Start PATCH Queries
@@ -673,20 +730,23 @@ class QueryServer: NSObject {
         
     }
     
-    func updateSettings(parameters: [String : String], completion: @escaping (_ error: String?) -> Void) {
-        let templateURL = "https://mouseapi.azurewebsites.net/api/settings"
-        var urlComponents = URLComponents(string: templateURL)
-        var queryItems = [URLQueryItem]()
+    func updateSettings(parameters: [String : Double], completion: @escaping (_ error: String?) -> Void) {
+        let templateURL = "https://mouseapi.azurewebsites.net/api/settings/1"
         
-        let keys = parameters.keys
-        for key in keys {
-            queryItems.append(URLQueryItem(name: key, value: parameters[key]!))
-        }
+//        var urlComponents = URLComponents(string: templateURL)
+//        var queryItems = [URLQueryItem]()
         
-        urlComponents?.queryItems = queryItems
-        if let url = urlComponents?.url {
-            Alamofire.request(url, method: .put, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
+//        let keys = parameters.keys
+//        for key in keys {
+//            queryItems.append(URLQueryItem(name: key, value: parameters[key]!))
+//        }
+        
+//        urlComponents?.queryItems = queryItems
+        if let url = URL(string: templateURL) {
+            let headers: HTTPHeaders = ["Content-Type":"application/json"]
+            Alamofire.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (response) in
                 debugPrint(response)
+                print(NSString(data: (response.request?.httpBody)!, encoding: String.Encoding.utf8.rawValue))
                 completion(response.error?.localizedDescription)
             })
         }

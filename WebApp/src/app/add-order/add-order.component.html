@@ -1,0 +1,96 @@
+<form #form="ngForm" (submit)="submitForm(form)" novalidate>
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">Add New Order</div> 
+
+            <div class="panel-body">
+
+                <div class="row">
+
+                    <div class="col-lg-4">    
+                    <label>Lab</label>
+                    <div class="input-group">
+                        <input [class.invalid-field]="lab.invalid && lab.touched" #lab="ngModel" required class="form-control" name="lab" type="text" [(ngModel)]='model.Lab'>
+                        <div *ngIf="lab.invalid && lab.touched"><p class="error-text">Required</p></div>
+                    </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <label>Principal Investigator</label>
+                        <div class="input-group">
+                            <input [class.invalid-field]="principalInvestigator.invalid && principalInvestigator.touched" #principalInvestigator="ngModel" required class="form-control" name="principalInvestigator" type="text" [(ngModel)]='model.PrincipalInvestigator'>
+                            <div *ngIf="principalInvestigator.invalid && principalInvestigator.touched"><p class="error-text">Required</p></div>
+                        </div>
+                    </div> 
+                
+                    <div class="col-lg-4">
+                        <label>Protocol Number</label>
+                        <div class="input-group">
+                            <input [class.invalid-field]="protocol.invalid && protocol.touched" #protocol="ngModel" required class="form-control" name="protocol" type="number" [(ngModel)]='model.Protocol'>
+                            <div *ngIf="protocol.invalid && protocol.touched"><p class="error-text">Required</p></div>
+                        </div>
+                    </div> 
+
+                </div>   
+                
+                <mat-divider class="add-order-row"></mat-divider>
+
+                <div class="row panel-row">
+
+                    <div class="col-lg-4">
+                        <label>Number of Male Mice</label>
+                        <div class="input-group">
+                            <input [class.invalid-field]="maleMice.invalid && maleMice.touched" #maleMice="ngModel" required class="form-control" name="maleMice" type="number" [(ngModel)]='model.MaleMice'>
+                            <div *ngIf="maleMice.invalid && maleMice.touched"><p class="error-text">Required</p></div>  
+                        </div>
+                    </div>
+      
+                    <div class="col-lg-4">
+                        <label>Number of Female Mice</label>
+                        <div class="input-group">
+                            <input [class.invalid-field]="femaleMice.invalid && femaleMice.touched" #femaleMice="ngModel" required class="form-control" name="femaleMice" type="number" [(ngModel)]='model.FemaleMice'>
+                            <div *ngIf="femaleMice.invalid && femaleMice.touched"><p class="error-text">Required</p></div>  
+                        </div>
+                    </div> 
+
+                </div> 
+
+                <mat-divider class="add-order-row"></mat-divider>
+
+                <div class="row panel-row"> 
+
+                    <div class="col-lg-4">
+                        <label>Delivery Date</label>
+                        <div class="input-group">
+                            <input [class.invalid-field]="deliveryDate.invalid && deliveryDate.touched" #deliveryDate="ngModel" required class="form-control" name="deliveryDate" type="date" [(ngModel)]='model.DeliveryDate'>
+                            <div *ngIf="deliveryDate.invalid && deliveryDate.touched"><p class="error-text">Required</p></div>  
+                        </div>
+                    </div>
+        
+                    <div class="col-lg-4">
+                        <label>Address</label>
+                        <div class="input-group">
+                            <input [class.invalid-field]="address.invalid && address.touched" #address="ngModel" required class="form-control" name="address" type="text" [(ngModel)]='model.Address'>
+                            <div *ngIf="address.invalid && address.touched"><p class="error-text">Required</p></div>  
+                        </div>
+                    </div> 
+
+                    <div class="col-lg-4">
+                        <label>Room No. (optional)</label>
+                        <div class="input-group">
+                            <input class="form-control" name="room" type="text" [(ngModel)]='model.Room'>
+                        </div>
+                    </div>
+
+                </div> 
+
+            </div>
+    </div>
+
+    <button [disabled]="form.invalid" class="btn btn-default" (click)="submit()" mat-dialog-close>Add Order</button>
+
+</form>
+
+
+

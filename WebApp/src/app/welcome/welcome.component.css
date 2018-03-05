@@ -1,0 +1,49 @@
+.list-value {
+    float: right;
+    padding-right: 12px;
+}
+
+.list-key {
+    width: 50%;
+}
+
+.dashboard-card-footer {
+    padding: 0;
+}
+
+.dashboard-card-container {
+    padding-top: 20px;
+}
+
+.dashboard-panel {
+    background-color: gold;
+    border-color: rgb(41, 41, 41);
+}
+
+.dashboard-footer {
+    background-color: gold;
+}
+
+.qrcode-icon {
+    font-size: 48px;
+}
+
+.qrcode-red {
+    color: red;
+}
+
+.qrcode-green {
+    color: green;
+}
+
+.qrcode-blue {
+    color: blue;
+}
+
+.qrcode-button {
+    margin: 12px;
+}
+
+.qrcode-container {
+    margin-top: 30px;
+}

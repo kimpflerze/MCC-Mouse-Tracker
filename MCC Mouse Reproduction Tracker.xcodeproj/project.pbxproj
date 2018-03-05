@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BDF828FD48CD5981E1FB881E /* Pods_MCC_Mouse_Reproduction_Tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94346DC2A98292DE00C7E8E /* Pods_MCC_Mouse_Reproduction_Tracker.framework */; };
 		EA2601C71FB7AB2C00127D57 /* BreedingMale.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2601C61FB7AB2C00127D57 /* BreedingMale.swift */; };
+		EA2AFE4F2042078400A7313B /* LitterLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2AFE4E2042078400A7313B /* LitterLog.swift */; };
 		EA62C62E1FA6DA420044C464 /* RackViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA62C62D1FA6DA420044C464 /* RackViewCell.swift */; };
 		EA62C6301FA6F16E0044C464 /* QRScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA62C62F1FA6F16E0044C464 /* QRScannerController.swift */; };
 		EA9BEE2E1FC60CDD00C537B4 /* CageViews.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA9BEE2D1FC60CDD00C537B4 /* CageViews.storyboard */; };
@@ -59,6 +60,7 @@
 		ADC17CFBF0CE0D312BC0BF49 /* Pods-MCC Mouse Reproduction Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MCC Mouse Reproduction Tracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MCC Mouse Reproduction Tracker/Pods-MCC Mouse Reproduction Tracker.debug.xcconfig"; sourceTree = "<group>"; };
 		D94346DC2A98292DE00C7E8E /* Pods_MCC_Mouse_Reproduction_Tracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MCC_Mouse_Reproduction_Tracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA2601C61FB7AB2C00127D57 /* BreedingMale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedingMale.swift; sourceTree = "<group>"; };
+		EA2AFE4E2042078400A7313B /* LitterLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LitterLog.swift; sourceTree = "<group>"; };
 		EA62C62D1FA6DA420044C464 /* RackViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RackViewCell.swift; sourceTree = "<group>"; };
 		EA62C62F1FA6F16E0044C464 /* QRScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScannerController.swift; sourceTree = "<group>"; };
 		EA9BEE2D1FC60CDD00C537B4 /* CageViews.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CageViews.storyboard; sourceTree = "<group>"; };
@@ -79,7 +81,7 @@
 		EAB8201A1FACC69D002AB754 /* ColumnFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnFlowLayout.swift; sourceTree = "<group>"; };
 		EAB8201C1FAD29A6002AB754 /* QueryServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryServer.swift; sourceTree = "<group>"; };
 		EAB8201E1FAD29C6002AB754 /* Cage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cage.swift; sourceTree = "<group>"; };
-		EAD200F51FB229D500308C1A /* RackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RackViewController.swift; sourceTree = "<group>"; };
+		EAD200F51FB229D500308C1A /* RackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RackViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EAE65E471FAD43BE00ADF0A3 /* RackPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RackPageViewController.swift; sourceTree = "<group>"; };
 		EAE65E491FAFA24D00ADF0A3 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		EAFC624F1FB3D12500F22B3C /* breedingCageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = breedingCageViewController.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				EA9E84B81FA6CB8400FDE9AB /* AppDelegate.swift */,
+				EA2AFE4E2042078400A7313B /* LitterLog.swift */,
 				EA2601C61FB7AB2C00127D57 /* BreedingMale.swift */,
 				EAD200F51FB229D500308C1A /* RackViewController.swift */,
 				EAE65E491FAFA24D00ADF0A3 /* Settings.swift */,
@@ -275,7 +278,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Kimpfler Williams Novak";
 				TargetAttributes = {
 					EA9E84B41FA6CB8400FDE9AB = {
@@ -417,6 +420,7 @@
 				EAFC62541FB3D12700F22B3C /* stockCageViewController.swift in Sources */,
 				EAFC62531FB3D12700F22B3C /* addMaleViewController.swift in Sources */,
 				EAFC62581FB53D0900F22B3C /* Alert.swift in Sources */,
+				EA2AFE4F2042078400A7313B /* LitterLog.swift in Sources */,
 				EA62C6301FA6F16E0044C464 /* QRScannerController.swift in Sources */,
 				EAB8201B1FACC69D002AB754 /* ColumnFlowLayout.swift in Sources */,
 				EAB8201D1FAD29A6002AB754 /* QueryServer.swift in Sources */,
@@ -496,7 +500,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -504,7 +510,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -547,7 +557,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -555,7 +567,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -592,7 +608,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KimpflerWilliamsNovak.MCC-Mouse-Reproduction-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -609,7 +625,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KimpflerWilliamsNovak.MCC-Mouse-Reproduction-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -625,7 +641,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KimpflerWilliamsNovak.MCC-Mouse-Reproduction-TrackerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MCC Mouse Reproduction Tracker.app/MCC Mouse Reproduction Tracker";
 			};
@@ -641,7 +657,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KimpflerWilliamsNovak.MCC-Mouse-Reproduction-TrackerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MCC Mouse Reproduction Tracker.app/MCC Mouse Reproduction Tracker";
 			};
@@ -656,7 +672,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KimpflerWilliamsNovak.MCC-Mouse-Reproduction-TrackerUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = "MCC Mouse Reproduction Tracker";
 			};
@@ -671,7 +687,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KimpflerWilliamsNovak.MCC-Mouse-Reproduction-TrackerUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = "MCC Mouse Reproduction Tracker";
 			};

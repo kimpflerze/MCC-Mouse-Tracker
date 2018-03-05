@@ -1,0 +1,23 @@
+.field-value {
+    float: right;
+}
+
+.field-key {
+    float: left;
+}
+
+.order-details-divider {
+    margin-top: 15px;
+}
+
+.panel-row {
+    margin-top: 15px;
+}
+
+.charged-checkbox {
+    padding-top: 10px;
+}
+
+.checkbox-column {
+    padding-top: 8px;
+}

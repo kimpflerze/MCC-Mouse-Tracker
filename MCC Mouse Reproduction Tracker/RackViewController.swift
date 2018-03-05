@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-class RackViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class RackViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var delegate : RackViewControllerDelegate?
     
@@ -18,6 +18,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     //Views
     @IBOutlet weak var menuView: UIView!
+    @IBOutlet weak var filterView: UIView!
     
     //Image Views
     @IBOutlet weak var UserIcon: UIImageView!
@@ -32,6 +33,10 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var ordersButton: UIButton!
     @IBOutlet weak var scanCodeButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
+    @IBOutlet weak var beginFilterButton: UIButton!
+    
+    //Textfields
+    @IBOutlet weak var filterByTextField: UITextField!
     
     
     //Settings Information
@@ -46,6 +51,11 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     //Rack Number - Used by RackPageView Controller for Navigation Controller Title
     var rackNumber = 0
     
+    //Filtering options
+    var filterOption = ["Clear Filters", "Breeding Cages", "Breeding Males", "Selling Cages", "Male Too Old", "Female Too Old", "Cages Assosciated With An Order", "Pups In Cage", "Pups To Wean"]
+    
+    var shouldApplyFiltering = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("[TO-DO] Fix male in cage icon moving around after refreshing view")
@@ -56,6 +66,31 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         //Visual changes to the menu
         menuView.layer.cornerRadius = 0
         menuView.clipsToBounds = true
+        filterView.layer.cornerRadius = 10
+        filterView.clipsToBounds = true
+        
+        filterByTextField.delegate = self
+    
+        let filterByTextFieldPickerView = UIPickerView()
+        
+        filterByTextFieldPickerView.delegate = self
+        filterByTextField.inputView = filterByTextFieldPickerView
+        
+        //Toolbar to allow for dismissal of the picker views
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.blue
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(SettingsViewController.donePicker))
+        
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        //Assigning the toolbard created above to all of the textfields that use a pickerview.
+        filterByTextField.inputAccessoryView = toolBar
+        
         
         
         //Setting username and email to signify user
@@ -65,6 +100,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         setRackViewLayout()
         
         NotificationCenter.default.addObserver(self, selector: #selector(setRackViewLayout), name: NSNotification.Name(rawValue: "updatedSettings"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshRackView), name: NSNotification.Name(rawValue: "updatedSettings"), object: nil)
         
         //Query for all breeding cages
         let breedingCageDownloadHUD = MBProgressHUD.showAdded(to: view, animated: true)
@@ -182,7 +218,27 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }  
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return filterOption.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return filterOption[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        filterByTextField.text = filterOption[pickerView.selectedRow(inComponent: 0)]
+    }
+    
+    @objc func donePicker() {
+        self.view.endEditing(true)
+    }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -224,23 +280,24 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         //Make sure all alerts are hidden prior to turning them to unhidden
         cell.maleInCageAlertIcon.isHidden = true
-        cell.maleInCageAlertIcon.image = uiColorToIconImage(color: Settings.shared.maleInCageAlertColor!)
+        cell.maleInCageAlertIcon.image = Settings.shared.maleInCageAlertIcon
         cell.pupsInCageAlertIcon.isHidden = true
-        cell.pupsInCageAlertIcon.image = uiColorToIconImage(color: Settings.shared.pupsInCageAlertColor!)
+        cell.pupsInCageAlertIcon.image = Settings.shared.pupsInCageAlertIcon
         cell.pupsToWeanAlertIcon.isHidden = true
-        cell.pupsToWeanAlertIcon.image = uiColorToIconImage(color: Settings.shared.pupsToWeanAlertColor!)
+        cell.pupsToWeanAlertIcon.image = Settings.shared.pupsToWeanAlertIcon
         cell.maleTooOldAlertIcon.isHidden = true
-        cell.maleTooOldAlertIcon.image = uiColorToIconImage(color: Settings.shared.maleTooOldAlertColor!)
+        cell.maleTooOldAlertIcon.image = Settings.shared.maleTooOldAlertIcon
         cell.FemaleTooOldAlertIcon.isHidden = true
-        cell.FemaleTooOldAlertIcon.image = uiColorToIconImage(color: Settings.shared.femaleTooOldAlertColor!)
+        cell.FemaleTooOldAlertIcon.image = Settings.shared.femaleTooOldAlertIcon
         cell.cageWithOrderAlertIcon.isHidden = true
-        cell.cageWithOrderAlertIcon.image = uiColorToIconImage(color: Settings.shared.cageWithOrderAlertColor!)
+        cell.cageWithOrderAlertIcon.image = Settings.shared.cageWithOrderAlertIcon
+        
         
         if let alerts = cell.cage?.alerts {
             for alert in alerts {
                 switch alert.alertTypeID {
                 case "1":
-                    print("Case one")
+                    print("Pups To Wean Alert On Cage With ID: \(cell.cage?.id ?? "nil")")
                     cell.pupsToWeanAlertIcon.isHidden = false
                     break
                 case "2":
@@ -263,19 +320,22 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         //Extra check specific to breeding cages to display the "maleInCage" icon!
         if cell.cage?.maleInCage == true {
-//            cell.maleInCageAlertIcon.image = self.uiColorToIconImage(color: Settings.shared.maleInCageAlertColor!)
             cell.maleInCageAlertIcon.isHidden = false
         }
         else {
             cell.maleInCageAlertIcon.isHidden = true
         }
+ 
         
         //Check to change opacity of cages when filtering
-        if cell.cage?.shouldHighlightCage == false || cell.cage?.id == nil {
+        if  (cell.cage?.shouldHighlightCage == false && shouldApplyFiltering == true) || cell.cage?.id == nil {
+            cell.alpha = 0.3
+        }
+        else if (cell.cage?.shouldHighlightCage == true) {
             cell.alpha = 1
         }
         else  {
-            cell.alpha = 0.3
+            cell.alpha = 1
         }
         
         return cell
@@ -361,6 +421,9 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
         else {
             menuView.isHidden = true
+            if(filterView.isHidden == false) {
+                filterView.isHidden = true
+            }
         }
     }
     
@@ -377,7 +440,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     //Function to refresh the cage information in the collection view - with completion alert!
-    func refreshRackView() {
+    @objc func refreshRackView() {
         //Query for all breeding cages
         let breedingCageDownloadHUD = MBProgressHUD.showAdded(to: view, animated: true)
         breedingCageDownloadHUD.detailsLabel.text = "Refreshing breeding cages..."
@@ -426,10 +489,6 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }
         }
     }
-    
-    func highlightCages() {
-        
-    }
             
     //User logout action - with alert
     @IBAction func logoutButtonPressed(_ sender: Any) {
@@ -476,6 +535,22 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
+    @IBAction func filterButtonPRessed(_ sender: UIButton) {
+        if(filterView.isHidden == true) {
+            filterView.isHidden = false
+        }
+        else {
+            filterView.isHidden = true
+        }
+    }
+    
+    @IBAction func beginFilterButtonPressed(_ sender: UIButton) {
+        applyFilter()
+        donePicker()
+        showMenu()
+//        shouldApplyFiltering = false
+    }
+    
     func showFailureToFindScannedID(failureCount: Int) {
         if (failureCount == 3) {
             let failureAlert = UIAlertController(title: "Failure to Locate Cage", message: "QR Code's value does not exist in the database. Please try again.", preferredStyle: .alert)
@@ -483,6 +558,180 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
             failureAlert.addAction(cancelAction)
             self.present(failureAlert, animated: true, completion: nil)
         }
+    }
+    
+    //Filtering functions
+    func applyFilter() {
+        clearFilters()
+        shouldApplyFiltering = true
+        //The switch case numbers match the alert type indexing used by the DB
+        if let theFilterOption = filterByTextField.text {
+            switch theFilterOption {
+            case "Breeding Cages":
+                breedingCagesFilter()
+            case "Breeding Males":
+                breedingMalesFilter()
+            case "Selling Cages":
+                sellingCagesFilter()
+            case "Male Too Old":
+                maleTooOldFilter()
+            case "Female Too Old":
+                femaleTooOldFilter()
+            case "Cages Assosciated With An Order":
+                cagesWithOrderFilter()
+            case "Pups In Cage":
+                pupsInCageFilter()
+            case "Pups To Wean":
+                pupsToWeanFilter()
+            case "Clear Filters":
+                clearFilters()
+            default:
+                print("Error! Unknown filter option!")
+            }
+        }
+    }
+    
+    func clearFilters() {
+        print("clearFilters applied!")
+        for cage in breedingCages {
+            cage.shouldHighlightCage = false
+        }
+        for cage in sellingCages {
+            cage.shouldHighlightCage = false
+        }
+        for male in breedingMales {
+            male.shouldHighlightMale = false
+        }
+        shouldApplyFiltering = false
+        self.rackCollectionView.reloadData()
+    }
+    
+    func breedingCagesFilter() {
+        print("breedingCagesFilter applied!")
+        for cage in breedingCages {
+            print("breedingCageID: \(cage.id)")
+            cage.shouldHighlightCage = true
+        }
+        self.rackCollectionView.reloadData()
+    }
+    
+    func breedingMalesFilter() {
+        print("breedingMalesFilter applied!")
+        for male in breedingMales {
+            male.shouldHighlightMale = true
+            QueryServer.shared.getBreedingCageBy(id: male.currentCageId, completion: { (cage, error) in
+                DispatchQueue.main.async {
+                    for breedingCage in self.breedingCages {
+                        if cage?.id == breedingCage.id {
+                            breedingCage.shouldHighlightCage = true
+                        }
+                    }
+                    self.rackCollectionView.reloadData()
+                }
+            })
+        }
+    }
+    
+    func sellingCagesFilter() {
+        print("sellingCagesFilter applied!")
+        for cage in sellingCages {
+            cage.shouldHighlightCage = true
+        }
+        self.rackCollectionView.reloadData()
+    }
+    
+    func maleTooOldFilter() {
+        print("maleTooOldFilter applied!")
+        for male in breedingMales {
+            switch Settings.shared.maleLifeSpanUnit {
+            case 1?:
+                print("  Male Lifespan Unit: Days")
+                if let theDOB = male.dob {
+                    let currentDate = Date()
+                    print("Max of two dates: \(max(currentDate.interval(ofComponent: .day, fromDate: theDOB), Settings.shared.maleLifeSpanNumber!))")
+                    if max(currentDate.interval(ofComponent: .day, fromDate: theDOB), Settings.shared.maleLifeSpanNumber!) != Settings.shared.maleLifeSpanNumber! {
+                        getCageOfMouseWith(cageID: male.currentCageId)
+                    }
+                }
+            case 2?:
+                if let theDOB = male.dob {
+                    let currentDate = Date()
+                    if max(currentDate.interval(ofComponent: .weekOfMonth, fromDate: theDOB), Settings.shared.maleLifeSpanNumber!) != Settings.shared.maleLifeSpanNumber! {
+                        getCageOfMouseWith(cageID: male.currentCageId)
+                    }
+                }
+            case 3?:
+                if let theDOB = male.dob {
+                    let currentDate = Date()
+                    if max(currentDate.interval(ofComponent: .month, fromDate: theDOB), Settings.shared.maleLifeSpanNumber!) != Settings.shared.maleLifeSpanNumber! {
+                        getCageOfMouseWith(cageID: male.currentCageId)
+                    }
+                }
+            case 4?:
+                if let theDOB = male.dob {
+                    let currentDate = Date()
+                    if max(currentDate.interval(ofComponent: .year, fromDate: theDOB), Settings.shared.maleLifeSpanNumber!) != Settings.shared.maleLifeSpanNumber! {
+                        getCageOfMouseWith(cageID: male.currentCageId)
+                    }
+                }
+            default:
+                print("Error! Unable to determine male life span unit! Please reset that value in the settings!")
+                
+            }
+        }
+    }
+    
+    func getCageOfMouseWith(cageID: String) {
+        QueryServer.shared.getBreedingCageBy(id: cageID, completion: { (cage, error) in
+            DispatchQueue.main.async {
+                for breedingCage in self.breedingCages {
+                    if cage?.id == cageID {
+                        breedingCage.shouldHighlightCage = true
+                    }
+                }
+                self.rackCollectionView.reloadData()
+            }
+        })
+    }
+    
+    func femaleTooOldFilter() {
+        print("femaleTooOldFilter applied!")
+        for cage in breedingCages {
+            for alert in cage.alerts {
+//                if alert.alertTypeID =
+            }
+        }
+        for cage in sellingCages {
+            for alert in cage.alerts {
+//                if alert.alertTypeID =
+            }
+        }
+    }
+    
+    func cagesWithOrderFilter() {
+        print("cagesWithOrderFilter applied!")
+        print("[TO-DO] Make orders object and query to retrieve the information! Get george to make this endpoint!")
+    }
+    
+    func pupsInCageFilter() {
+        print("pupsInCageFilter applied!")
+        for cage in breedingCages {
+            for alert in cage.alerts {
+//                if alert.alertTypeID =
+            }
+        }
+    }
+    
+    func pupsToWeanFilter() {
+        print("pupsToWeanFilter applied!")
+        for cage in breedingCages {
+            for alert in cage.alerts {
+                if alert.alertTypeID == String(1) {
+                    cage.shouldHighlightCage = true
+                }
+            }
+        }
+        self.rackCollectionView.reloadData()
     }
     
 }
@@ -600,6 +849,16 @@ extension RackViewController: DetailViewControllerDelegate {
         controller.dismiss(animated: true) {
             self.refreshRackView()
         }
+    }
+}
+
+extension Date {
+    func interval(ofComponent comp: Calendar.Component, fromDate date: Date) -> Int {
+        let currentCalendar = Calendar.current
+        guard let start = currentCalendar.ordinality(of: comp, in: .era, for: date) else { return 0 }
+        guard let end = currentCalendar.ordinality(of: comp, in: .era, for: self) else { return 0 }
+        
+        return end - start
     }
 }
 

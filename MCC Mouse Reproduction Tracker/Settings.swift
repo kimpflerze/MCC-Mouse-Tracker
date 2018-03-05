@@ -42,12 +42,12 @@ class Settings: NSObject {
     var costPerCagePerDay : Double?
     
     //Alert color settings
-    var maleInCageAlertColor : UIColor?
-    var pupsInCageAlertColor : UIColor?
-    var pupsToWeanAlertColor : UIColor?
-    var maleTooOldAlertColor : UIColor?
-    var femaleTooOldAlertColor: UIColor?
-    var cageWithOrderAlertColor : UIColor?
+    var maleInCageAlertIcon : UIImage?
+    var pupsInCageAlertIcon : UIImage?
+    var pupsToWeanAlertIcon : UIImage?
+    var maleTooOldAlertIcon : UIImage?
+    var femaleTooOldAlertIcon: UIImage?
+    var cageWithOrderAlertIcon : UIImage?
     
     //Alert advance settings
     var maleInCageAlertAdvanceNumber : Int?

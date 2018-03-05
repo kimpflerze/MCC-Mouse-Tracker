@@ -1,0 +1,52 @@
+<div class="container-fluid">
+    <div class="col-lg-3">
+      <h2>Orders</h2>
+    </div>
+    <div class="col-lg-offset-11">
+      <button (click)="addOrderClick()" class="btn btn-success addOrderButton"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        Add Order</button>
+    </div>
+</div>
+
+<div class="container-fluid mat-elevation-z8">
+<mat-table #table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="Lab">
+        <mat-header-cell *matHeaderCellDef>Lab </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{order.Lab}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Protocol">
+        <mat-header-cell *matHeaderCellDef>Protocol </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{order.Protocol}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="DeliveryDate">
+        <mat-header-cell *matHeaderCellDef>Date </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{order.DeliveryDate | date}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="MaleMice">
+        <mat-header-cell *matHeaderCellDef>Male Mice </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{order.MaleMice}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="FemaleMice">
+        <mat-header-cell *matHeaderCellDef>Female Mice </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{order.FemaleMice}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Charged">
+        <mat-header-cell *matHeaderCellDef>Charged </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{order.Charged}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Button">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let order"> <button (click)="orderDetailClick(order)" mat-raised-button color="primary">Details</button> </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>

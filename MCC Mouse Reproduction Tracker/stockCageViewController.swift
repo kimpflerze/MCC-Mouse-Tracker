@@ -96,7 +96,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                 
                 miceCountTextField.text = String(theCage.numMice)
                 
-                if(theCage.id != "" || theCage.id != nil) {
+                if(theCage.id != "") {
                     cageHasId.image = #imageLiteral(resourceName: "CheckIcon")
                 }
                 else {
