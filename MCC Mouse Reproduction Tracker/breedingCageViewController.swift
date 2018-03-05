@@ -28,6 +28,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     var newCageId: String?
     var didSelectScanParentInformationButton = false
     var originalCageActiveState: Bool?
+    var doesLitterExist: Bool?
     
     var delegate: DetailViewControllerDelegate?
     
@@ -60,10 +61,8 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         print("[TO-DO] Add functionality for the AddLitter button!")
         
         super.viewDidLoad()
-        // determine if litter in cage
-            // if yes set button to "Wean Cage"
-            // if no set button to "Add Litter"
         
+        // Set TableView and Textfield Delegates
         parentDOBTableView.dataSource = self
         parentDOBTableView.delegate = self
         
@@ -73,9 +72,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         parentDOBTextField.delegate = self
         parentCageTextField.delegate = self
         
-        //Register textfields for validation
-//        validator.registerField(parentDOBTextField, rules: [RequiredRule(),ValidDateRule()])
-//        validator.registerField(parentCageTextField, rules: [RequiredRule(), NumericRule()])
+        // Register textfields for validation
         validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(columnNoTextField, rules: [RequiredRule(), NumericRule()])
@@ -114,22 +111,16 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                         if(parentDOBList.contains(dateAsString) == false) {
                             parentDOBList.append(dateAsString)
                             parentDOBTableView.reloadData()
-                        }
-                    }
-                }
-                
+                        }}}
                 //Filling parent cage ID information
                 for parentCage in theCage.parentCages {
                     if(!parentCageList.contains(parentCage.parentCageId)) {
                         parentCageList.append(parentCage.parentCageId)
                         parentCageTableView.reloadData()
-                    }
-                }
-            }
+                    }}}
             else {
                 cageHasId.image = #imageLiteral(resourceName: "XIcon")
-            }
-        }
+            }}
         
         //Quick query to determine if male is in cage for purpose of add_male_btn title clarity!
         QueryServer.shared.getBreedingMaleBy(cageId: (cage?.id)!, completion: { (downloadedMale, error) in
@@ -140,8 +131,20 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                 else {
                     self.add_male_btn.setTitle("Add Male", for: .normal)
                 }
-            }
-        })
+            }})
+        
+        // Quick query to determin if cage has a litter or not
+        QueryServer.shared.getLitterLogBy(id: (cage?.id)!, completion: { (litterLog, error) in
+            DispatchQueue.main.async {
+                if (litterLog != nil) {
+                    self.add_litter_btn.setTitle("Wean Litter", for: .normal)
+                    self.doesLitterExist = true
+                }else {
+                    self.add_litter_btn.setTitle("Add Litter", for: .normal)
+                    self.doesLitterExist = false
+                }
+            }})
+        
     } // end viewDidLoad()
     
     func validationSuccessful() {
@@ -193,7 +196,18 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func pressed_add_litter_btn(_ sender: UIButton) {
-        
+        if doesLitterExist! {
+            // we have a litter so we are choosing to wean a litter
+                // create an alert
+                // remove litter from cage
+                // change button title
+        } else {
+            // we do not have a litter so we are choosing to add a litter
+                // add a litter to cage
+                // change button title
+            
+        }
+        //update cage best way possible.
     }
     
     @IBAction func pressed_add_male_btn(_ sender: UIButton) {
