@@ -28,7 +28,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     var newCageId: String?
     var didSelectScanParentInformationButton = false
     var originalCageActiveState: Bool?
-    var doesLitterExist: Bool?
     
     var delegate: DetailViewControllerDelegate?
     
@@ -133,18 +132,15 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }})
         
-        // Quick query to determin if cage has a litter or not
-        QueryServer.shared.getLitterLogBy(id: (cage?.id)!, completion: { (litterLog, error) in
-            DispatchQueue.main.async {
-                if (litterLog != nil) {
-                    self.add_litter_btn.setTitle("Wean Litter", for: .normal)
-                    self.doesLitterExist = true
-                }else {
-                    self.add_litter_btn.setTitle("Add Litter", for: .normal)
-                    self.doesLitterExist = false
-                }
-            }})
-        
+        // Check if there is a litter in the cage or not.
+        if (self.cage?.litterInCage)! {
+            // litter exists already; only option is to wean it
+            self.add_litter_btn.setTitle("Wean Litter", for: .normal)
+        }else {
+            // litter does not exist so we can add one.
+            self.add_litter_btn.setTitle("Add Litter", for: .normal)
+        }
+        print("TODO: fix issue with add/wean litter; something to do with the litter id associated with the cage.")
     } // end viewDidLoad()
     
     func validationSuccessful() {
@@ -196,18 +192,40 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func pressed_add_litter_btn(_ sender: UIButton) {
-        if doesLitterExist! {
-            // we have a litter so we are choosing to wean a litter
-                // create an alert
-                // remove litter from cage
-                // change button title
-        } else {
-            // we do not have a litter so we are choosing to add a litter
-                // add a litter to cage
-                // change button title
+        if (cage?.litterInCage)! {
+            // litter exists in cage so we must wean the litter
+            QueryServer.shared.getLitterLogBy(id: "Litter\(String(describing: cage?.numLittersFromCage)))", completion: { (litterLog, error) in
+                DispatchQueue.main.async {
+                    print("Litter weaned:")
+                    if litterLog != nil {
+                        litterLog?.dob = nil
+                        self.cage?.litterInCage = false
+                        self.add_litter_btn.titleLabel?.text = "Add Litter"
+                        print(" true")
+                    }else {
+                        print(" false")
+                        print("Error weaning litter in breedingCage:\(String(describing: self.cage?.id))")
+                    }
+                }})
             
+        } else {
+            // No litter exists in cage so we must add a litter
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM-dd-yyyy hh:mm:ss a"
+            self.cage?.litterDOB = Date()
+            self.cage?.numLittersFromCage += 1
+            QueryServer.shared.createLitterLogEntry(id: "Litter\(String(describing: cage?.numLittersFromCage)))", motherCageId: cage?.id, fatherId: breedingMale?.id, dob: formatter.string(from: (self.cage?.litterDOB!)!), completion: { (success) in
+                DispatchQueue.main.async {
+                    self.cage?.litterInCage = true
+                    self.add_litter_btn.titleLabel?.text = "Wean Litter"
+                    print("Litter created:")
+                    if (success != nil) {
+                        print(" true")
+                    } else {
+                        print(" false")
+                    }
+                }})
         }
-        //update cage best way possible.
     }
     
     @IBAction func pressed_add_male_btn(_ sender: UIButton) {
