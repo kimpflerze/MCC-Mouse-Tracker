@@ -524,14 +524,15 @@ class QueryServer: NSObject {
             completion("Issue with NUMBEROFMICE in createNewSellingCage function of QueryServer.swift!")
             return
         }
-        guard let theParentCagesId = parentCagesId, parentCagesId?.count != 0 else {
-            completion("Issue with PARENTCAGEID in createNewSellingCage function of QueryServer.swift!")
-            return
-        }
         guard let theParentCagesDOB = parentsCagesDOB, parentsCagesDOB?.count != 0 else {
             completion("Issue with PARENTCAGEDOB in createNewSellingCage function of QueryServer.swift!")
             return
         }
+        var theParentCagesId = [String]()
+        for date in theParentCagesDOB {
+            theParentCagesId.append("Selling Cage - Lineage Lost On Creation")
+        }
+        
         
         var theParents = [[String : String]]()
         
@@ -547,6 +548,8 @@ class QueryServer: NSObject {
         let parameters: Parameters = ["Id" : theId, "Row": theRow, "Column": theColumn, "Rack": theRack, "Active": theIsActive, "ParentCages": theParents, "Gender": theGender, "NumberOfMice": theNumberOfMice]
         let headers: HTTPHeaders = ["Content-Type":"application/json"]
         Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (response) in
+            print("=================================================")
+            debugPrint(response)
             completion(response.error?.localizedDescription)
         })
     }
@@ -656,7 +659,7 @@ class QueryServer: NSObject {
     }
     
     //Update selling cage
-    func updateSellingCageWith(id: String?, row: String?, column: String?, rack: String?, isActive: String?, numberOfMice: String?, completion: @escaping (_ error: String?) -> Void) {
+    func updateSellingCageWith(id: String?, row: String?, column: String?, rack: String?, isActive: String?, numberOfMice: String?, genderOfMice: String?, cageIdList: [String]?, cageDOBList: [String]?, completion: @escaping (_ error: String?) -> Void) {
         let templateURL = "https://mouseapi.azurewebsites.net/api/sellingcage/"
         guard let theId = id else {
             return
@@ -679,6 +682,9 @@ class QueryServer: NSObject {
         }
         if let theNumberOfMice = numberOfMice {
             queryItems.append(URLQueryItem(name: "numberOfMice", value: String(theNumberOfMice)))
+        }
+        if let theCageGender = genderOfMice {
+            queryItems.append(URLQueryItem(name: "gender", value: String(theCageGender)))
         }
         
         urlComponents?.queryItems = queryItems

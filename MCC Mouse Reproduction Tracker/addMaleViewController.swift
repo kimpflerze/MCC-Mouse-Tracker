@@ -66,6 +66,21 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         parentCageIDTableView.dataSource = self
         parentCageIDTableView.delegate = self
         
+        //Toolbar to allow for dismissal of the picker views
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.blue
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(addMaleViewController.donePicker))
+        
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        //Assigning the toolbard created above to all of the textfields that use a pickerview.
+        maleDOBTextField.inputAccessoryView = toolBar
+        
         textfieldValidationRegistration()
         
         //Populate information from passed cage here!
@@ -109,6 +124,10 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
                 cageHasId.image = #imageLiteral(resourceName: "XIcon")
             }
         }
+    }
+    
+    @objc func donePicker() {
+        self.view.endEditing(true)
     }
     
     func textfieldValidationRegistration() {

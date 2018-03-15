@@ -26,6 +26,8 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     var newCageId: String?
     var genderFlag = 0;
     var originalCageActiveState: Bool?
+    var originalCageGenderWasMale: Bool?
+    var dobInCageListWasAltered = false
     
     var delegate: DetailViewControllerDelegate?
     
@@ -66,6 +68,21 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         stockCageDOBTableView.dataSource = self
         stockCageDOBTableView.delegate = self
         
+        //Toolbar to allow for dismissal of the picker views
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.blue
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(donePicker))
+        let addDateButton = UIBarButtonItem(title: "Add Date", style: UIBarButtonItemStyle.plain, target: self, action: #selector(addDateToDOBTableView))
+        toolBar.setItems([doneButton, addDateButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        //Assigning the toolbard created above to all of the textfields that use a pickerview.
+        stockCageDOBTextField.inputAccessoryView = toolBar
+        
         //Register textfields for validation
         validator.registerField(stockCageDOBTextField, rules: [RequiredRule(),ValidDateRule()])
         validator.registerField(miceCountTextField, rules: [RequiredRule(), NumericRule()])
@@ -90,6 +107,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
             if(isNewCage == false) {
                 //Setting the "active" switch to "off" if the cage is not an activly used cage.
                 originalCageActiveState = theCage.isActive
+                originalCageGenderWasMale = theCage.isMaleOnlyCage
                 if(theCage.isActive == false) {
                     cageActiveSwitch.setOn(false, animated: false)
                 }
@@ -163,9 +181,21 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         print("textField validation failed!!")
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @objc func donePicker() {
+        self.view.endEditing(true)
+    }
+    
+    @objc func addDateToDOBTableView() {
+        print("***In addDateToDOBTableView function!")
+        if stockCageDOBTextField.text != "" || stockCageDOBTextField.text != nil {
+            print("***1")
+            if let date = stockCageDOBTextField.text {
+                print("***2 : \(date)")
+                dobInCageListWasAltered = true
+                stockCageDOBList.append(date)
+                stockCageDOBTableView.reloadData()
+            }
+        }
     }
     
     @IBAction func genderFlagSegmentedControlTapped(_ sender: UISegmentedControl) {
@@ -226,7 +256,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                         else {
                             numericalStringCageIsActive = "0"
                         }
-                        QueryServer.shared.updateSellingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: numericalStringCageIsActive, numberOfMice: self.miceCountTextField.text, completion: { (response) in
+                        QueryServer.shared.updateSellingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: numericalStringCageIsActive, numberOfMice: self.miceCountTextField.text, genderOfMice: String(self.genderFlag), cageIdList: self.stockCageParentCageIdList, cageDOBList: self.stockCageDOBList, completion: { (response) in
                             updateHUD.hide(animated: true)
                             let updateAlert = UIAlertController(title: "Update Cage", message: "The cage information was successfully udpated!", preferredStyle: .alert)
                             let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (response) in
@@ -249,7 +279,10 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         guard let theCage = cage else {
             return false
         }
-        if originalCageActiveState != self.cage?.isActive || rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) {
+        if originalCageActiveState != self.cage?.isActive || rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) ||
+            miceCountTextField.text != String(theCage.numMice) ||
+            (originalCageGenderWasMale! && genderFlagSegmentControl.selectedSegmentIndex == 0) ||
+            dobInCageListWasAltered {
             print("Something didnt match!")
             return true
         }
@@ -259,7 +292,6 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     /* //Depreciated, no longer using addButtons
      @IBAction func pressed_addStockCageDOBButton(_ sender: UIButton) {
         print("pressed add stock cage DOB button")
- 
         if(stockCageDOBTextField.text != "")
         {
             stockCageDOBList.append(stockCageDOBTextField.text!)
@@ -280,7 +312,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         
         sender.inputView = datePickerView
         
-        datePickerView.addTarget(self, action: #selector(breedingCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        datePickerView.addTarget(self, action: #selector(stockCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
     }
     
     @IBAction func cageActiveSwitchFlipped(_ sender: UISwitch) {
@@ -302,16 +334,8 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     }
     
     
-    func datePickerValueChanged(sender:UIDatePicker) {
-        
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateStyle = DateFormatter.Style.short
-        
-        dateFormatter.timeStyle = DateFormatter.Style.none
-        
-        stockCageDOBTextField.text = dateFormatter.string(from: sender.date)
-        /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
+    @objc func datePickerValueChanged(sender:UIDatePicker) {
+        stockCageDOBTextField.text = sender.date.toString()
     }
     
 
@@ -382,7 +406,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
             
             textField.inputView = datePickerView
             
-            datePickerView.addTarget(self, action: #selector(breedingCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+            datePickerView.addTarget(self, action: #selector(stockCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
         }
     }
     

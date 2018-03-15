@@ -71,7 +71,25 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         parentDOBTextField.delegate = self
         parentCageTextField.delegate = self
         
-        // Register textfields for validation
+        //Toolbar to allow for dismissal of the picker views
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.blue
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(SettingsViewController.donePicker))
+        
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        //Assigning the toolbard created above to all of the textfields that use a pickerview.
+        parentDOBTextField.inputAccessoryView = toolBar
+        parentCageTextField.inputAccessoryView = toolBar
+        
+        //Register textfields for validation
+//        validator.registerField(parentDOBTextField, rules: [RequiredRule(),ValidDateRule()])
+//        validator.registerField(parentCageTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(columnNoTextField, rules: [RequiredRule(), NumericRule()])
@@ -142,6 +160,10 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         }
         print("TODO: fix issue with add/wean litter; something to do with the litter id associated with the cage.")
     } // end viewDidLoad()
+    
+    @objc func donePicker() {
+        self.view.endEditing(true)
+    }
     
     func validationSuccessful() {
         /* save textfield information database */
@@ -425,13 +447,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @objc func datePickerValueChanged(sender:UIDatePicker) {
-        //        let dateFormatter = DateFormatter()
-        //
-        //        dateFormatter.dateStyle = DateFormatter.Style.short
-        //
-        //        dateFormatter.timeStyle = DateFormatter.Style.none
         parentDOBTextField.text = sender.date.toString()
-        /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
     }
     
     
