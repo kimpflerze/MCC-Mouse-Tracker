@@ -58,7 +58,6 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("[TO-DO] Fix male in cage icon moving around after refreshing view")
         
         rackCollectionView.delegate = self
         rackCollectionView.dataSource = self
@@ -95,7 +94,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         //Setting username and email to signify user
         userNameLabel.text = Settings.shared.userName
-        emailLabel.text = Settings.shared.email
+//        emailLabel.text = Settings.shared.email
         
         setRackViewLayout()
         
@@ -295,21 +294,22 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         if let alerts = cell.cage?.alerts {
             for alert in alerts {
+                print("Rack View Cage Alert Detection:")
                 switch alert.alertTypeID {
                 case "1":
-                    print("Pups To Wean Alert On Cage With ID: \(cell.cage?.id ?? "nil")")
+                    print("     Pups To Wean Alert On Cage With ID: \(cell.cage?.id ?? "nil")")
                     cell.pupsToWeanAlertIcon.isHidden = false
                     break
                 case "2":
-                    print("Case two")
+                    print("     Male Too Old Alert On Cage With ID: \(cell.cage?.id ?? "nil")")
                     cell.maleTooOldAlertIcon.isHidden = false
                     break
                 case "3":
-                    print("Case three")
+                    print("     Female Too Old Alert On Cage With ID: \(cell.cage?.id ?? "nil")")
                     cell.FemaleTooOldAlertIcon.isHidden = false
                     break
                 case "4":
-                    print("Case four")
+                    print("     Cage With Order Alert On Cage With ID: \(cell.cage?.id ?? "nil")")
                     cell.cageWithOrderAlertIcon.isHidden = false
                     break
                 default:
@@ -515,7 +515,6 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     //Incomplete alerts button, need alerts view!
     @IBAction func alertsButtonPressed(_ sender: UIButton) {
-        print("[TO_DO] Complete alerts button in RackViewController.swift!")
         showMenu()
         
         let alertViewStoryboard = UIStoryboard(name: "Alerts", bundle: .main)
@@ -526,7 +525,6 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     //Incomplete settings button, need settings view!
     @IBAction func settingsButtonPressed(_ sender: UIButton) {
-        print("[TO-DO] Complete settings button in RackViewController.swift!")
         showMenu()
         
         let cageViewStoryboard = UIStoryboard(name: "CageViews", bundle: .main)
@@ -564,6 +562,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func applyFilter() {
         clearFilters()
         shouldApplyFiltering = true
+        print("Applying Filter!")
         //The switch case numbers match the alert type indexing used by the DB
         if let theFilterOption = filterByTextField.text {
             switch theFilterOption {
@@ -586,13 +585,13 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
             case "Clear Filters":
                 clearFilters()
             default:
-                print("Error! Unknown filter option!")
+                print("     Error! Unknown filter option!")
             }
         }
     }
     
     func clearFilters() {
-        print("clearFilters applied!")
+        print("All Filters Cleared!")
         for cage in breedingCages {
             cage.shouldHighlightCage = false
         }
@@ -607,7 +606,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func breedingCagesFilter() {
-        print("breedingCagesFilter applied!")
+        print("     BreedingCagesFilter Applied!")
         for cage in breedingCages {
             print("breedingCageID: \(cage.id)")
             cage.shouldHighlightCage = true
@@ -616,7 +615,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func breedingMalesFilter() {
-        print("breedingMalesFilter applied!")
+        print("     BreedingMalesFilter Applied!")
         for male in breedingMales {
             male.shouldHighlightMale = true
             QueryServer.shared.getBreedingCageBy(id: male.currentCageId, completion: { (cage, error) in
@@ -633,7 +632,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func sellingCagesFilter() {
-        print("sellingCagesFilter applied!")
+        print("     SellingCagesFilter Applied!")
         for cage in sellingCages {
             cage.shouldHighlightCage = true
         }
@@ -641,7 +640,15 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func maleTooOldFilter() {
-        print("maleTooOldFilter applied!")
+        print("     MaleTooOldFilter Applied!")
+        for male in breedingMales {
+            for alert in male.alerts {
+                if alert.alertTypeID == " " {
+                    getCageOfMouseWith(cageID: male.id)
+                }
+            }
+        }
+        /*
         for male in breedingMales {
             switch Settings.shared.maleLifeSpanUnit {
             case 1?:
@@ -679,8 +686,10 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 
             }
         }
+ */
     }
     
+    //Utility function
     func getCageOfMouseWith(cageID: String) {
         QueryServer.shared.getBreedingCageBy(id: cageID, completion: { (cage, error) in
             DispatchQueue.main.async {
@@ -695,35 +704,49 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func femaleTooOldFilter() {
-        print("femaleTooOldFilter applied!")
-        for cage in breedingCages {
-            for alert in cage.alerts {
-//                if alert.alertTypeID =
+        print("     FemaleTooOldFilter Applied!")
+        for breedingCage in breedingCages {
+            for alert in breedingCage.alerts {
+                if alert.alertTypeID == "3" {
+                    breedingCage.shouldHighlightCage = true
+                }
             }
         }
-        for cage in sellingCages {
-            for alert in cage.alerts {
-//                if alert.alertTypeID =
-            }
-        }
+
+        self.rackCollectionView.reloadData()
     }
     
     func cagesWithOrderFilter() {
-        print("cagesWithOrderFilter applied!")
-        print("[TO-DO] Make orders object and query to retrieve the information! Get george to make this endpoint!")
+        print("     CagesWithOrderFilter Applied!")
+        for sellingCage in sellingCages {
+            if sellingCage.markedForOrder {
+                sellingCage.shouldHighlightCage = true
+            }
+        }
+        
+        self.rackCollectionView.reloadData()
     }
     
     func pupsInCageFilter() {
-        print("pupsInCageFilter applied!")
-        for cage in breedingCages {
-            for alert in cage.alerts {
-//                if alert.alertTypeID =
+        print("     PupsInCageFilter Applied!")
+        QueryServer.shared.getAllLitterLogs { (litterLogs, error) in
+            DispatchQueue.main.async {
+                if let theLitterLogs = litterLogs {
+                    for log in litterLogs! {
+                        for breedingCage in self.breedingCages {
+                            if log.motherCageId == breedingCage.id {
+                                breedingCage.shouldHighlightCage = true
+                            }
+                        }
+                    }
+                    self.rackCollectionView.reloadData()
+                }
             }
         }
     }
     
     func pupsToWeanFilter() {
-        print("pupsToWeanFilter applied!")
+        print("     PupsToWeanFilter Applied!")
         for cage in breedingCages {
             for alert in cage.alerts {
                 if alert.alertTypeID == String(1) {
@@ -741,7 +764,8 @@ extension RackViewController: QRScannerControllerDelegate {
     
     //Function below presents proper view controller depending on scanned cage's type
     func qrScannerController(controller: QRScannerController, didScanQRCodeWith value: String) {
-        print("Cage ID Recieved from Scanner! Id: \(value)")
+        print("QR Scanner Return:")
+        print("     Cage ID Recieved from Scanner! Id: \(value)")
         controller.dismiss(animated: true) {
             var responseFailureCounter = 0
             //Check if returned ID is a breeding cage

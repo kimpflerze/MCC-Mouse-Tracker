@@ -71,7 +71,7 @@ class QueryServer: NSObject {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
-            debugPrint(response)
+//            debugPrint(response)
             if let result = response.value as? [String : Any] {
                 var cage = Cage(rackInfo: result)
                 cage.isBreeding = true
@@ -293,10 +293,8 @@ class QueryServer: NSObject {
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
             if let downloadedSettings = response.value as? [String : Any] {
-                print("[TO-DO] Complete getSettings query in QueryServer.swift!")
-                
                 print("==Downloaded Settings==")
-                debugPrint(response)
+//                debugPrint(response)
                 
                 //Mouse information
                 if let theBreedingPeriod = downloadedSettings["BreedingPeriod"] {
@@ -402,7 +400,7 @@ class QueryServer: NSObject {
  
             }
             else {
-                print("Error downloading settings in QueryServer.swift")
+                print("  Error downloading settings in QueryServer.swift")
                 completion()
             }
         })
@@ -427,7 +425,7 @@ class QueryServer: NSObject {
         case "7":
             return #imageLiteral(resourceName: "PinkDot")
         default:
-            print("textColorToIcon - Default was hit!")
+            print("     textColorToIcon - Default was hit!")
             return #imageLiteral(resourceName: "XIcon")
         }
     }
@@ -549,7 +547,7 @@ class QueryServer: NSObject {
         let headers: HTTPHeaders = ["Content-Type":"application/json"]
         Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (response) in
             print("=================================================")
-            debugPrint(response)
+//            debugPrint(response)
             completion(response.error?.localizedDescription)
         })
     }
@@ -629,7 +627,7 @@ class QueryServer: NSObject {
         }
         
         var urlComponents = URLComponents(string: templateURL+theId)
-        debugPrint("urlComponents = \(String(describing: urlComponents))")
+//        debugPrint("urlComponents = \(String(describing: urlComponents))")
         var queryItems = [URLQueryItem]()
         
         if let theRow = row {
@@ -645,13 +643,13 @@ class QueryServer: NSObject {
             queryItems.append(URLQueryItem(name: "active", value: String(theIsActive)))
         }
         
-        debugPrint("Queryitems = \(String(describing:queryItems))")
+//        debugPrint("Queryitems = \(String(describing:queryItems))")
         
         urlComponents?.queryItems = queryItems
         
         if let url = urlComponents?.url {
             Alamofire.request(url, method: .patch, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
-                debugPrint(response)
+//                debugPrint(response)
                 completion(response.error?.localizedDescription)
             })
         }
@@ -691,7 +689,7 @@ class QueryServer: NSObject {
         
         if let url = urlComponents?.url {
             Alamofire.request(url, method: .patch, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
-                debugPrint(response)
+//                debugPrint(response)
                 completion(response.error?.localizedDescription)
             })
         }
@@ -719,7 +717,7 @@ class QueryServer: NSObject {
         
         if let url = urlComponents?.url {
             Alamofire.request(url, method: .patch, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
-                debugPrint(response)
+//                debugPrint(response)
                 
                 if response.response?.statusCode == 200 {
                     completion(nil)
@@ -751,8 +749,8 @@ class QueryServer: NSObject {
         if let url = URL(string: templateURL) {
             let headers: HTTPHeaders = ["Content-Type":"application/json"]
             Alamofire.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (response) in
-                debugPrint(response)
-                print(NSString(data: (response.request?.httpBody)!, encoding: String.Encoding.utf8.rawValue))
+//                debugPrint(response)
+//                print(NSString(data: (response.request?.httpBody)!, encoding: String.Encoding.utf8.rawValue))
                 completion(response.error?.localizedDescription)
             })
         }

@@ -13,8 +13,8 @@ class Settings: NSObject {
     static let shared = Settings()
     
     //Any settings that the app will pull from the database go here, initialize them below
-    var userName = "username"
-    var email = "password"
+    var userName = "Username"
+    var email = "email"
     
     //Rack information
     var numRacks : Int?

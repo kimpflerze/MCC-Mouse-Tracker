@@ -177,9 +177,9 @@
 				EAFC62571FB53D0900F22B3C /* Alert.swift */,
 				EAB8201E1FAD29C6002AB754 /* Cage.swift */,
 				EAFC62551FB3DD7700F22B3C /* ParentCage.swift */,
-				EA62C62D1FA6DA420044C464 /* RackViewCell.swift */,
 				EAB8201A1FACC69D002AB754 /* ColumnFlowLayout.swift */,
 				EA9E84BC1FA6CB8400FDE9AB /* Main.storyboard */,
+				EA62C62D1FA6DA420044C464 /* RackViewCell.swift */,
 				EA9BEE2D1FC60CDD00C537B4 /* CageViews.storyboard */,
 				F4DB13E8202C8A7500DEFED9 /* Statistics.storyboard */,
 				F4DB13EA202C8B7D00DEFED9 /* Alerts.storyboard */,
@@ -286,7 +286,7 @@
 				TargetAttributes = {
 					EA9E84B41FA6CB8400FDE9AB = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 8B4QBLLSCD;
+						DevelopmentTeam = A5Q224W4VJ;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
@@ -606,12 +606,15 @@
 			baseConfigurationReference = ADC17CFBF0CE0D312BC0BF49 /* Pods-MCC Mouse Reproduction Tracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 8B4QBLLSCD;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A5Q224W4VJ;
 				INFOPLIST_FILE = "MCC Mouse Reproduction Tracker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KimpflerWilliamsNovak.MCC-Mouse-Reproduction-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -623,12 +626,15 @@
 			baseConfigurationReference = 079B346EE825F7DDFD3E639B /* Pods-MCC Mouse Reproduction Tracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 8B4QBLLSCD;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A5Q224W4VJ;
 				INFOPLIST_FILE = "MCC Mouse Reproduction Tracker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.KimpflerWilliamsNovak.MCC-Mouse-Reproduction-Tracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -15,12 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        /*
-        QueryServer.shared.getBreedingCage(id: "17b2a16c7833411a9d780cffe74d1224") { (cage, error) in
-            debugPrint(cage)
-        }
-        */
         
         return true
     }

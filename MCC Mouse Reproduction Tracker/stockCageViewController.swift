@@ -63,8 +63,6 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("[TO-DO] Add/fix button to allow setting DOB of mice int he cage!")
-        
         stockCageDOBTableView.dataSource = self
         stockCageDOBTableView.delegate = self
         
@@ -219,9 +217,6 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     }
     
     @IBAction func pressed_done_btn(_ sender: UIButton) {
-        print("[TO-DO] Complete pushing new information to database in stockCageViewController.swift")
-        print("[TO_DO] Complete idiot proofing for done button in stockCageViewController.swift")
-        
         validator.validate(self)
 
         

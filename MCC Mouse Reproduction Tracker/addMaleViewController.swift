@@ -61,8 +61,6 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("[TO-DO] Complete inserting information for existing breeding males in addMaleViewController.swift")
-        
         parentCageIDTableView.dataSource = self
         parentCageIDTableView.delegate = self
         
@@ -156,7 +154,6 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         columnNoTextField.layer.borderWidth = 1.0
         
         wasValidationSuccessful = true
-        print("textField validation successful!!")
     }
     
     func validationFailed(_ errors: [(Validatable, ValidationError)]) {
@@ -170,7 +167,6 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
             error.errorLabel?.isHidden = false
         }
         wasValidationSuccessful = false
-        print("textField validation failed!!")
     }
     
     func hasInformationChanged() -> Bool {
@@ -194,7 +190,6 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func pressed_done_btn(_ sender: UIButton) {
-        print("[TO-DO] Complete pushing new information to database in addMaleViewController.swift")
         validator.validate(self)
         
 
@@ -205,9 +200,8 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
             //New male, insert into database
             let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
             doneButtonHUD.detailsLabel.text = "Sending information..."
-            print("[TO-DO] Prevent pushing new breeding male if information is missing!")
             QueryServer.shared.createNewBreedingMale(id: newMaleId, isActive: 1, motherCageId: parentCageIDList.first, DOB: maleDOBTextField.text, currentCageId: breedingMaleCurrentCage?.id, completion: { (error) in
-                debugPrint(error)
+//                debugPrint(error)
                 doneButtonHUD.hide(animated: true)
                 self.delegate?.detailViewControllerDidSave(controller: self)
             })
@@ -317,7 +311,6 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
                 // Field validation was successful
                 textField.layer.borderColor = UIColor.green.cgColor
                 textField.layer.borderWidth = 0.5
-                print("textField validation successful!!")
                 result = true
             } else {
                 // Validation error occurred
@@ -431,7 +424,8 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
 }
 extension addMaleViewController: QRScannerControllerDelegate {
     func qrScannerController(controller: QRScannerController, didScanQRCodeWith value: String) {
-        print("ID Recieved from Scanner! Id: \(value)")
+        print("Add Male View Controller:")
+        print("     ID Recieved from Scanner! Id: \(value)")
         controller.dismiss(animated: true) {
             //Find the cage object
             if(self.lastPressedScanButton == 0) {

@@ -22,6 +22,7 @@ class Cage: NSObject {
     // Selling specific attributes
     var isMaleOnlyCage: Bool?
     var numMice = 0
+    var markedForOrder = false
     
     //Breeding specific attributes
     var litterDOB: Date?
@@ -92,6 +93,9 @@ class Cage: NSObject {
         if let maleOnlyCage = rackInfo["Gender"] as? Bool {
             isMaleOnlyCage = maleOnlyCage
         }
+        if let theMarkedForOrder = rackInfo["MarkedForOrder"] as? Bool {
+            markedForOrder = theMarkedForOrder
+        }
         if let theNumMiceInCage = rackInfo["NumberOfMice"] as? Int {
             numMice = theNumMiceInCage
         }
@@ -101,7 +105,6 @@ class Cage: NSObject {
             litterDateString = litterDateString.substring(to: litterIndex)
             litterDateString = litterDateString.replacingOccurrences(of: "T", with: " ")
             if let theLitterDOB = formatter.date(from: litterDateString) {
-                print("[TO_DO] LitterDOB in Cage.swift still needs to be completed!")
                 //Seems that the server is returning boolean value when it should be a date!
                 
                 litterDOB = theLitterDOB
@@ -114,7 +117,7 @@ class Cage: NSObject {
         if let theAlerts = rackInfo["Alerts"] as? [[String : Any]] {
             for alert in theAlerts {
                 let temporaryAlert = Alert(alertInfo: alert)
-                debugPrint(temporaryAlert.id)
+//                debugPrint(temporaryAlert.id)
                 alerts.append(temporaryAlert)
             }
         }

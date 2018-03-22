@@ -56,9 +56,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var parentCageTableView: UITableView!
     
     override func viewDidLoad() {
-        print("[TO-DO] Add functionality for ScanParentInfo button!")
-        print("[TO-DO] Add functionality for the AddLitter button!")
-        
         super.viewDidLoad()
         
         // Set TableView and Textfield Delegates
@@ -112,7 +109,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                     cageHasId.image = #imageLiteral(resourceName: "CheckIcon")
                 }
                 else {
-                    print("[TO-DO] Correct XIcon not showing in breedingCageViewController.swift")
                     cageHasId.image = #imageLiteral(resourceName: "XIcon")
                 }
                 
@@ -287,9 +283,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func pressed_done_btn(_ sender: UIButton) {
-        print("[TO-DO] Complete pushing new information to database in breedingCageViewController.swift")
-        print("[TO_DO] Complete idiot proofing for done button in breedingCageViewController.swift")
-        
         validator.validate(self)
 
         if(wasValidationSuccessful) {
@@ -306,7 +299,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         }
         else {
             //Existing cage, update its information
-            print("[TO-DO] Fix this validator POD in all classes where its used! Its funky.")
             if (!hasInformationChanged() /*|| !(wasValidationSuccessful)*/) {
                 print("Dismissed existing breeding cage without pushing changes!")
                 dismiss(animated: true, completion: nil)
@@ -554,7 +546,6 @@ extension breedingCageViewController: QRScannerControllerDelegate {
                 QueryServer.shared.getBreedingCageBy(id: value, completion: { (cage, error) in
                     downloadParentCageHUD.hide(animated: true)
                     
-                    print("[TO-DO] Complete add parent info scanning in BreedingCageViewController.swift")
                     //                    parentDOBList.append(cage?.parentCages.)
                     //                    for parent in cage?.parentCages {
                     //                        parentCageList.append(parent)
