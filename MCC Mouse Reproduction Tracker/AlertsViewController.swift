@@ -16,10 +16,12 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var alertsTableView: UITableView!
     var alertArray = [Alert]()
 
+    let dateFormatter = DateFormatter()
+    
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
         alertsTableView.delegate = self
         alertsTableView.dataSource = self
         
@@ -35,16 +37,16 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func queryAlerts() {
         let alertsDownloadHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
         alertsDownloadHUD.detailsLabel.text = "Downloading alerts ..."
-        print("downloading alerts ...")
+       // print("downloading alerts ...")
         QueryServer.shared.getAlerts{(downloadedAlerts, error) in
             alertsDownloadHUD.hide(animated: true)
             if let alerts = downloadedAlerts {
                 self.alertArray = alerts
                 DispatchQueue.main.async {
-                    print("You have queried \(self.alertArray.count) alerts")
+                   // print("You have queried \(self.alertArray.count) alerts")
                 }
             } else {
-                print("There are no alerts at this time.")
+               // print("There are no alerts at this time.")
             }
         }
     }
@@ -55,7 +57,7 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func updateView(){
         queryAlerts()
         alertsTableView.reloadData()
-        print("updated View")
+        //print("updated View")
     }
 
     
@@ -72,8 +74,12 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell(style: UITableViewCellStyle.default , reuseIdentifier: "cell")
-       
-            cell.textLabel?.text = self.alertArray[indexPath.row].alertTypeDescription
+        let alert = self.alertArray[indexPath.row]
+        if let date = alert.alertDate {
+             cell.textLabel?.text = "\t \(alert.subjectId): \(alert.alertTypeDescription) \t Date:\(dateFormatter.string(from: date))"
+        }else{
+            cell.textLabel?.text = "\t \(alert.subjectId): \(alert.alertTypeDescription) \t Date: N/A"
+        }
         return cell
     }
     
@@ -88,7 +94,7 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func exitButtonPressed(_ sender: UIButton) {
-        // close screen and return to rackview
+        self.dismiss(animated: true, completion: nil)
     }
     
    

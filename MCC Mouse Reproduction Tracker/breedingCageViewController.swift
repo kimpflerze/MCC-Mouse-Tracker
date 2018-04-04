@@ -56,8 +56,8 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var parentCageTableView: UITableView!
     
     override func viewDidLoad() {
-        print("[TO-DO] Add functionality for ScanParentInfo button!")
-        print("[TO-DO] Add functionality for the AddLitter button!")
+        //print("[TO-DO] Add functionality for ScanParentInfo button!")
+        //print("[TO-DO] Add functionality for the AddLitter button!")
         
         super.viewDidLoad()
         
@@ -80,9 +80,9 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         
         //Filling information for an existing cage
         if let theCage = cage {
-            print("********************************")
-            print("Breeding Cage ID: \(theCage.id)")
-            print("********************************")
+            //print("********************************")
+            //print("Breeding Cage ID: \(theCage.id)")
+            //print("********************************")
             rackNoTextField.text = String(theCage.rack)
             columnNoTextField.text = String(theCage.column)
             rowNoTextField.text = String(theCage.row)
@@ -94,7 +94,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                     cageHasId.image = #imageLiteral(resourceName: "CheckIcon")
                 }
                 else {
-                    print("[TO-DO] Correct XIcon not showing in breedingCageViewController.swift")
+                    //print("[TO-DO] Correct XIcon not showing in breedingCageViewController.swift")
                     cageHasId.image = #imageLiteral(resourceName: "XIcon")
                 }
                 
@@ -140,7 +140,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
             // litter does not exist so we can add one.
             self.add_litter_btn.setTitle("Add Litter", for: .normal)
         }
-        print("TODO: fix issue with add/wean litter; something to do with the litter id associated with the cage.")
+        //print("TODO: fix issue with add/wean litter; something to do with the litter id associated with the cage.")
     } // end viewDidLoad()
     
     func validationSuccessful() {
@@ -161,7 +161,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         columnNoTextField.layer.borderWidth = 1.0
         
         wasValidationSuccessful = true
-        print("textField validation successful!!")
+        //print("textField validation successful!!")
     }
     
     func validationFailed(_ errors: [(Validatable, ValidationError)]) {
@@ -175,7 +175,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
             error.errorLabel?.isHidden = false
         }
         wasValidationSuccessful = false
-        print("textField validation failed!!")
+        //print("textField validation failed!!")
     }
     
     override func didReceiveMemoryWarning() {
@@ -192,9 +192,32 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func pressed_add_litter_btn(_ sender: UIButton) {
-        if (cage?.litterInCage)! {
+        if (self.cage?.litterInCage)! {
             // litter exists in cage so we must wean the litter
-            QueryServer.shared.getLitterLogBy(id: "Litter\(String(describing: cage?.numLittersFromCage)))", completion: { (litterLog, error) in
+            print("Have a litter; must wean it.")
+            var cageLitters = [LitterLog]()
+            //get all cages and filter by mother.id and father.id
+            QueryServer.shared.getAllLitterLogs { (litterLogList, error) in
+                DispatchQueue.main.async {
+                    if !((litterLogList?.isEmpty)!) {
+                        for litter in (litterLogList)! {
+                            if litter.fatherId == self.breedingMale?.id && litter.motherCageId == self.cage?.id {
+                                cageLitters.append(litter)
+                                print("added litter \(litter.id)")
+                            }}
+                    }else {
+                        print("Error finding litter in breedingCage:\(String(describing: self.cage?.id))")
+                    }
+            }}
+            
+           // get litter with dob closest to current date
+            //(sort it from closest to least closest)!!!
+            print("cage has \(cageLitters.count) litters")
+            if cageLitters.count > 1 {
+            cageLitters.sorted(by: {($0.dob?.timeIntervalSince1970)! < ($1.dob?.timeIntervalSince1970)!})
+            }
+            
+            QueryServer.shared.getLitterLogBy(id: cageLitters[0].id, completion: { (litterLog, error) in
                 DispatchQueue.main.async {
                     print("Litter weaned:")
                     if litterLog != nil {
@@ -208,19 +231,32 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                     }
                 }})
             
+            /*
+             // Helpful code
+                 self.breedingCages = self.breedingCages.map({ (cage) -> Cage in
+                 let newCage = cage
+                 newCage.maleInCage = theMales.contains(where: { (male) -> Bool in
+                 cage.maleInCage = true
+                 return male.currentCageId == cage.id
+                 })
+                 return newCage
+             })
+             */
+            
         } else {
             // No litter exists in cage so we must add a litter
+            print("No litter; must add one.")
             let formatter = DateFormatter()
             formatter.dateFormat = "MM-dd-yyyy hh:mm:ss a"
             self.cage?.litterDOB = Date()
             self.cage?.numLittersFromCage += 1
-            QueryServer.shared.createLitterLogEntry(id: "Litter\(String(describing: cage?.numLittersFromCage)))", motherCageId: cage?.id, fatherId: breedingMale?.id, dob: formatter.string(from: (self.cage?.litterDOB!)!), completion: { (success) in
+            QueryServer.shared.createLitterLogEntry(motherCageId: cage?.id, completion: { (success) in
                 DispatchQueue.main.async {
-                    self.cage?.litterInCage = true
-                    self.add_litter_btn.titleLabel?.text = "Wean Litter"
                     print("Litter created:")
                     if (success != nil) {
-                        print(" true")
+                    self.cage?.litterInCage = true
+                    self.add_litter_btn.titleLabel?.text = "Wean Litter"
+                    print(" true")
                     } else {
                         print(" false")
                     }
@@ -234,14 +270,14 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
             QueryServer.shared.getBreedingMaleBy(cageId: (cage?.id)!, completion: { (downloadedMale, error) in
                 DispatchQueue.main.async {
                     if(downloadedMale == nil) {
-                        print("Is new male!")
+                        //print("Is new male!")
                         addMaleVC.isNewMale = true
                         addMaleVC.breedingMaleCurrentCage = self.cage
                         addMaleVC.delegate = self.delegate
                         self.present(addMaleVC, animated: true, completion: nil)
                     }
                     else {
-                        print("Is not new male!")
+                        //print("Is not new male!")
                         addMaleVC.isNewMale = false
                         addMaleVC.breedingMale = downloadedMale
                         addMaleVC.breedingMaleCurrentCage = self.cage
@@ -258,15 +294,15 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
             return false
         }
         if originalCageActiveState != self.cage?.isActive || rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) {
-            print("Something didnt match!")
+            //print("Something didnt match!")
             return true
         }
         return hasTableViewChanged
     }
     
     @IBAction func pressed_done_btn(_ sender: UIButton) {
-        print("[TO-DO] Complete pushing new information to database in breedingCageViewController.swift")
-        print("[TO_DO] Complete idiot proofing for done button in breedingCageViewController.swift")
+        //print("[TO-DO] Complete pushing new information to database in breedingCageViewController.swift")
+        //print("[TO_DO] Complete idiot proofing for done button in breedingCageViewController.swift")
         
         validator.validate(self)
 
@@ -284,13 +320,13 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         }
         else {
             //Existing cage, update its information
-            print("[TO-DO] Fix this validator POD in all classes where its used! Its funky.")
+            //print("[TO-DO] Fix this validator POD in all classes where its used! Its funky.")
             if (!hasInformationChanged() /*|| !(wasValidationSuccessful)*/) {
-                print("Dismissed existing breeding cage without pushing changes!")
+                //print("Dismissed existing breeding cage without pushing changes!")
                 dismiss(animated: true, completion: nil)
             }
             else {
-                print("In else statement, information has changed in BreedingCageViewController!")
+                //print("In else statement, information has changed in BreedingCageViewController!")
                 let updateConfirmAlert = UIAlertController(title: "Confirm Update", message: "Cage information has been changed, do you wish to save these changes?", preferredStyle: .alert)
                 let confirmUpdateAction  = UIAlertAction(title: "Confirm", style: .default, handler: { (placeholder) in
                     let updateHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -371,7 +407,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                 // Field validation was successful
                 textField.layer.borderColor = UIColor.green.cgColor
                 textField.layer.borderWidth = 0.5
-                print("textField validation successful!!")
+                //print("textField validation successful!!")
                 result = true
             } else {
                 // Validation error occurred
@@ -414,7 +450,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                 // Field validation was successful
                 textField.layer.borderColor = UIColor.green.cgColor
                 textField.layer.borderWidth = 0.5
-                print("textField validation successful!!")
+                //print("textField validation successful!!")
             } else {
                 // Validation error occurred
                 print(error?.errorMessage ?? textField.text! + "is an invalid entry")
@@ -529,7 +565,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
 
 extension breedingCageViewController: QRScannerControllerDelegate {
     func qrScannerController(controller: QRScannerController, didScanQRCodeWith value: String) {
-        print("ID Recieved from Scanner! Id: \(value)")
+        //print("ID Recieved from Scanner! Id: \(value)")
         controller.dismiss(animated: true) {
             //Find the cage object
             if(self.didSelectScanParentInformationButton) {
@@ -538,7 +574,7 @@ extension breedingCageViewController: QRScannerControllerDelegate {
                 QueryServer.shared.getBreedingCageBy(id: value, completion: { (cage, error) in
                     downloadParentCageHUD.hide(animated: true)
                     
-                    print("[TO-DO] Complete add parent info scanning in BreedingCageViewController.swift")
+                    //print("[TO-DO] Complete add parent info scanning in BreedingCageViewController.swift")
                     //                    parentDOBList.append(cage?.parentCages.)
                     //                    for parent in cage?.parentCages {
                     //                        parentCageList.append(parent)

@@ -44,7 +44,7 @@ class StatisticsViewController: UIViewController {
      * When button is pressed return to the rackView.
      */
     @IBAction func exitButtonPressed(_ sender: UIButton) {
-        //return to rackView
+         self.dismiss(animated: true, completion: nil)
     }
     
 

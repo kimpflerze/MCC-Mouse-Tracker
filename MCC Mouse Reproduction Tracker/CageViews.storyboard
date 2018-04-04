@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-        </array>
-        <array key="HiraginoKakuGothic.ttc">
-            <string>HiraginoSans-W3</string>
-            <string>HiraginoSans-W6</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Stock Cage View Controller-->
         <scene sceneID="RC0-7D-SWP">
@@ -661,18 +652,6 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XtW-Hh-jqz">
-                                                <rect key="frame" x="338" y="922" width="150" height="50"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="25q-Kn-wk5"/>
-                                                    <constraint firstAttribute="width" constant="150" id="XZN-py-1wa"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="24"/>
-                                                <state key="normal" title="Move Male"/>
-                                                <connections>
-                                                    <action selector="moveMaleButtonPressed:" destination="c0G-rr-ea1" eventType="touchUpInside" id="TFF-sz-z2P"/>
-                                                </connections>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ar-bY-a5a" userLabel="cageAlertBell">
                                                 <rect key="frame" x="610" y="32" width="40" height="40"/>
                                                 <constraints>
@@ -688,7 +667,6 @@
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="7G1-yO-I94" firstAttribute="leading" secondItem="qkp-yl-viM" secondAttribute="leading" id="2Et-8c-yMO"/>
-                                            <constraint firstItem="XtW-Hh-jqz" firstAttribute="top" secondItem="1yx-ae-lbz" secondAttribute="bottom" constant="40" id="2PY-yr-teh"/>
                                             <constraint firstItem="iYi-Dz-qXI" firstAttribute="trailing" secondItem="BJe-kO-HiO" secondAttribute="trailing" id="2mh-cg-Fya"/>
                                             <constraint firstItem="1yx-ae-lbz" firstAttribute="leading" secondItem="6Xf-cZ-YJb" secondAttribute="leading" id="3Yl-YL-9XM"/>
                                             <constraint firstAttribute="trailing" secondItem="A3P-Db-Mh9" secondAttribute="trailing" constant="50" id="3bu-EP-W2e"/>
@@ -713,7 +691,6 @@
                                             <constraint firstItem="A3P-Db-Mh9" firstAttribute="leading" secondItem="1yx-ae-lbz" secondAttribute="trailing" constant="40" id="NYs-wE-Xb9"/>
                                             <constraint firstItem="Jgw-hH-l8H" firstAttribute="trailing" secondItem="BJe-kO-HiO" secondAttribute="trailing" id="O72-MH-fCf"/>
                                             <constraint firstItem="WkS-2v-7Hw" firstAttribute="top" secondItem="PZq-Ep-r1G" secondAttribute="bottom" constant="20" id="Q9Z-nZ-0hX"/>
-                                            <constraint firstItem="XtW-Hh-jqz" firstAttribute="leading" secondItem="1yx-ae-lbz" secondAttribute="leading" id="RZz-Cj-e4o"/>
                                             <constraint firstItem="uOb-EK-roW" firstAttribute="top" secondItem="uPZ-es-FUf" secondAttribute="bottom" constant="40" id="Roj-fU-VHJ"/>
                                             <constraint firstAttribute="trailing" secondItem="BJe-kO-HiO" secondAttribute="trailing" constant="50" id="SB6-XC-PLA"/>
                                             <constraint firstItem="7G1-yO-I94" firstAttribute="top" secondItem="cD4-us-wM2" secondAttribute="bottom" constant="40" id="SHo-Vn-Otw"/>
@@ -789,7 +766,6 @@
                         <outlet property="doneButton" destination="PNV-SB-D3o" id="wof-1T-CJv"/>
                         <outlet property="maleActiveSwitch" destination="6Xf-cZ-YJb" id="B1e-P7-adb"/>
                         <outlet property="maleDOBTextField" destination="Jgw-hH-l8H" id="5RL-Bq-yDT"/>
-                        <outlet property="moveMaleButton" destination="XtW-Hh-jqz" id="aon-R7-20P"/>
                         <outlet property="parentCageIDScanButton" destination="WO3-z1-Ias" id="6wv-en-JAV"/>
                         <outlet property="parentCageIDTableView" destination="Bnq-Ie-o85" id="PdO-bP-QTO"/>
                         <outlet property="parentCageIDTextField" destination="CaV-9f-osF" id="J5g-EI-Y4W"/>
@@ -2415,6 +2391,6 @@
         <image name="popover_close_button" width="980" height="980"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qEe-uT-TjV"/>
+        <segue reference="Qyy-PH-ma7"/>
     </inferredMetricsTieBreakers>
 </document>

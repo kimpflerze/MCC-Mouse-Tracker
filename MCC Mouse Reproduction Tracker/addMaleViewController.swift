@@ -45,7 +45,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var doneButton: UIButton!
 //    @IBOutlet weak var addParentCageIDButton: UIButton!
     @IBOutlet weak var QRCodeButton: UIButton!
-    @IBOutlet weak var moveMaleButton: UIButton!
+
     
     //Switches
     @IBOutlet weak var maleActiveSwitch: UISwitch!
@@ -61,7 +61,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("[TO-DO] Complete inserting information for existing breeding males in addMaleViewController.swift")
+        //print("[TO-DO] Complete inserting information for existing breeding males in addMaleViewController.swift")
         
         parentCageIDTableView.dataSource = self
         parentCageIDTableView.delegate = self
@@ -96,7 +96,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
                     maleActiveSwitch.setOn(false, animated: false)
                 }
                 
-                maleDOBTextField.text = theMale.dob?.toString()
+                maleDOBTextField.text = theMale.dob?.toString(withFormat: "MM-dd-yyyy hh:mm:ss a")
                 
                 for parentCage in theMale.motherCageIds {
                     parentCageIDList.append(parentCage)
@@ -113,7 +113,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func textfieldValidationRegistration() {
         //Register textfields for validation
-        validator.registerField(parentCageIDTextField, rules: [RequiredRule(),NumericRule()])
+        //validator.registerField(parentCageIDTextField, rules: [RequiredRule(),NumericRule()])
         validator.registerField(maleDOBTextField, rules: [RequiredRule(),ValidDateRule()])
         validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
@@ -124,8 +124,8 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         maleDOBTextField.layer.borderColor = UIColor.green.cgColor
         maleDOBTextField.layer.borderWidth = 1.0
         
-        parentCageIDTextField.layer.borderColor = UIColor.green.cgColor
-        parentCageIDTextField.layer.borderWidth = 1.0
+//        parentCageIDTextField.layer.borderColor = UIColor.green.cgColor
+//        parentCageIDTextField.layer.borderWidth = 1.0
         
         rackNoTextField.layer.borderColor = UIColor.green.cgColor
         rackNoTextField.layer.borderWidth = 1.0
@@ -137,7 +137,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         columnNoTextField.layer.borderWidth = 1.0
         
         wasValidationSuccessful = true
-        print("textField validation successful!!")
+        //print("textField validation successful!!")
     }
     
     func validationFailed(_ errors: [(Validatable, ValidationError)]) {
@@ -151,7 +151,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
             error.errorLabel?.isHidden = false
         }
         wasValidationSuccessful = false
-        print("textField validation failed!!")
+        //print("textField validation failed!!")
     }
     
     func hasInformationChanged() -> Bool {
@@ -175,7 +175,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func pressed_done_btn(_ sender: UIButton) {
-        print("[TO-DO] Complete pushing new information to database in addMaleViewController.swift")
+        //print("[TO-DO] Complete pushing new information to database in addMaleViewController.swift")
         validator.validate(self)
         
 
@@ -186,7 +186,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
             //New male, insert into database
             let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
             doneButtonHUD.detailsLabel.text = "Sending information..."
-            print("[TO-DO] Prevent pushing new breeding male if information is missing!")
+            //print("[TO-DO] Prevent pushing new breeding male if information is missing!")
             QueryServer.shared.createNewBreedingMale(id: newMaleId, isActive: 1, motherCageId: parentCageIDList.first, DOB: maleDOBTextField.text, currentCageId: breedingMaleCurrentCage?.id, completion: { (error) in
                 debugPrint(error)
                 doneButtonHUD.hide(animated: true)
@@ -264,15 +264,6 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    @IBAction func moveMaleButtonPressed(_ sender: UIButton) {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        if let rackVC = mainStoryboard.instantiateViewController(withIdentifier: "RackVC") as? RackViewController {
-            
-            rackVC.delegate = self
-            self.present(rackVC, animated: true, completion: nil)
-        }
-    }
-    
     @IBAction func maleActiveSwitchFlipped(_ sender: UISwitch) {
         if maleActiveSwitch.isOn {
             self.breedingMale?.active = true
@@ -298,11 +289,11 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
                 // Field validation was successful
                 textField.layer.borderColor = UIColor.green.cgColor
                 textField.layer.borderWidth = 0.5
-                print("textField validation successful!!")
+                //print("textField validation successful!!")
                 result = true
             } else {
                 // Validation error occurred
-                print(error?.errorMessage ?? textField.text! + "is an invalid entry")
+                //print(error?.errorMessage ?? textField.text! + "is an invalid entry")
                 textField.layer.borderColor = UIColor.red.cgColor
                 textField.layer.borderWidth = 1.0
                 result = false
@@ -348,7 +339,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
 //
 //        dateFormatter.timeStyle = DateFormatter.Style.long
         
-        maleDOBTextField.text = sender.date.toString()
+        maleDOBTextField.text = sender.date.toString(withFormat: "MM-dd-yyyy hh:mm:ss a")
         /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
     }
     
@@ -385,13 +376,13 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     /*************************** VALIDATION RULES **************************/
     
     /**
-     * Matches dates with either format M/dd/yy or MM/dd/yy i.e) 7/10/17 or 07/10/17
+     * Matches dates with format MM-dd-yyyy hh:mm:ss a
      */
     class ValidDateRule: RegexRule {
         
-        static let regex = "^([1-9]|0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])[/]\\d\\d$"
+        static let regex = "^([1-9]|([012][0-9])|(3[01]))-([0]{0,1}[1-9]|1[012])-\\d\\d\\d\\d\\s[012]{0,1}[0-9]:[0-6][0-9]:[0-6][0-9]\\s(AM|am|PM|pm)$"
         
-        convenience init(message : String = "Not a valid date (format: MM/dd/yy or M/dd/yy)"){
+        convenience init(message : String = "Not a valid date (format: MM-dd-yyyy hh:mm:ss a)"){
             self.init(regex: ValidDateRule.regex, message : message)
         }
     }
@@ -412,7 +403,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
 }
 extension addMaleViewController: QRScannerControllerDelegate {
     func qrScannerController(controller: QRScannerController, didScanQRCodeWith value: String) {
-        print("ID Recieved from Scanner! Id: \(value)")
+        //print("ID Recieved from Scanner! Id: \(value)")
         controller.dismiss(animated: true) {
             //Find the cage object
             if(self.lastPressedScanButton == 0) {
@@ -456,7 +447,6 @@ extension addMaleViewController: QRScannerControllerDelegate {
                         }
                     }
                 })
-                
             }
             else {
                 self.newMaleId = value

@@ -4,7 +4,7 @@
 //
 //  Created by Adrianne Williams on 11/4/17.
 //  Copyright © 2017 Kimpfler Williams Novak. All rights reserved.
-//
+
 
 import UIKit
 import MBProgressHUD
@@ -49,7 +49,6 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     
     //Buttons
     @IBOutlet weak var doneButton: UIButton!
-    @IBOutlet weak var addDOBButton: UIButton!
     @IBOutlet weak var QRCodeButton: UIButton!
     
     //TableViews
@@ -61,13 +60,13 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("[TO-DO] Add/fix button to allow setting DOB of mice int he cage!")
+        //print("[TO-DO] Add/fix button to allow setting DOB of mice int he cage!")
         
         stockCageDOBTableView.dataSource = self
         stockCageDOBTableView.delegate = self
         
         //Register textfields for validation
-        validator.registerField(stockCageDOBTextField, rules: [RequiredRule(),ValidDateRule()])
+        validator.registerField(stockCageDOBTextField, rules: [/*RequiredRule(),*/ValidDateRule()])
         validator.registerField(miceCountTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
@@ -86,6 +85,8 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
             rackNoTextField.text = String(theCage.rack)
             columnNoTextField.text = String(theCage.column)
             rowNoTextField.text = String(theCage.row)
+            stockCageDOBTextField.text = (String(describing: theCage.createdAt.toString(withFormat: "MM-dd-yyyy hh:mm:ss a")))
+  
             
             if(isNewCage == false) {
                 //Setting the "active" switch to "off" if the cage is not an activly used cage.
@@ -115,16 +116,10 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                         if(stockCageDOBList.contains(dateAsString) == false) {
                             stockCageDOBList.append(dateAsString)
                             stockCageDOBTableView.reloadData()
-                        }
-                    }
-                }
-                
-            }
+                }}}}
             else {
                 cageHasId.image = #imageLiteral(resourceName: "XIcon")
-            }
-        }
-    }
+            }}}
     
     func validationSuccessful(){
         /* save textfield information database */
@@ -144,7 +139,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         columnNoTextField.layer.borderWidth = 1.0
         
         wasValidationSuccessful = true
-        print("textField validation successful!!")
+        //print("textField validation successful!!")
         
         /* SAVE DATA TO DATABASE AND DIRECT USER TO PROPER VIEW HERE */
     }
@@ -160,7 +155,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
             error.errorLabel?.isHidden = false
         }
         wasValidationSuccessful = false
-        print("textField validation failed!!")
+        //print("textField validation failed!!")
     }
     
     override func didReceiveMemoryWarning() {
@@ -170,11 +165,11 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     
     @IBAction func genderFlagSegmentedControlTapped(_ sender: UISegmentedControl) {
         if(genderFlagSegmentControl.selectedSegmentIndex == 0) {
-            print("Gender Flag: Male")
+            //print("Gender Flag: Male")
             genderFlag = 1
         }
         else {
-            print("Gender Flag: Female")
+            //print("Gender Flag: Female")
             genderFlag = 0
         }
     }
@@ -188,9 +183,10 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         }
     }
     
+    
     @IBAction func pressed_done_btn(_ sender: UIButton) {
-        print("[TO-DO] Complete pushing new information to database in stockCageViewController.swift")
-        print("[TO_DO] Complete idiot proofing for done button in stockCageViewController.swift")
+        //print("[TO-DO] Complete pushing new information to database in stockCageViewController.swift")
+        //print("[TO_DO] Complete idiot proofing for done button in stockCageViewController.swift")
         
         validator.validate(self)
 
@@ -210,10 +206,11 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
             else {
                 //Existing cage, update its information
                 if (!hasInformationChanged() /*|| wasValidationSuccessful)*/) {
-                    print("Dismissed existing stock cage without pushing new changes! \(!hasInformationChanged())")
+                    //print("Dismissed existing stock cage without pushing new changes! \(!hasInformationChanged())")
                     dismiss(animated: true, completion: nil)
                 }
                 else {
+                    self.stockCageDOBList.append(stockCageDOBTextField.text!)
                     let updateConfirmAlert = UIAlertController(title: "Confirm Update", message: "Cage information has been changed, do you wish to save these changes?", preferredStyle: .alert)
                     let confirmUpdateAction  = UIAlertAction(title: "Confirm", style: .default, handler: { (placeholder) in
                         let updateHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -250,25 +247,12 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
             return false
         }
         if originalCageActiveState != self.cage?.isActive || rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) {
-            print("Something didnt match!")
+            //print("Something didnt match!")
             return true
         }
         return hasTableViewChanged
     }
-    
-    /* //Depreciated, no longer using addButtons
-     @IBAction func pressed_addStockCageDOBButton(_ sender: UIButton) {
-        print("pressed add stock cage DOB button")
- 
-        if(stockCageDOBTextField.text != "")
-        {
-            stockCageDOBList.append(stockCageDOBTextField.text!)
-            print("     We added a stock cage DOB")
-            stockCageDOBTableView.reloadData()
-        }
-    }*/
-    
-    
+  
     
     @IBAction func addStockCageDOBEditing(_ sender: UITextField) {
         
@@ -302,15 +286,15 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     }
     
     
-    func datePickerValueChanged(sender:UIDatePicker) {
+    @objc func datePickerValueChanged(sender:UIDatePicker) {
         
-        let dateFormatter = DateFormatter()
+//        let dateFormatter = DateFormatter()
+//
+//        dateFormatter.dateStyle = DateFormatter.Style.long
+//
+//        dateFormatter.timeStyle = DateFormatter.Style.none
         
-        dateFormatter.dateStyle = DateFormatter.Style.short
-        
-        dateFormatter.timeStyle = DateFormatter.Style.none
-        
-        stockCageDOBTextField.text = dateFormatter.string(from: sender.date)
+        stockCageDOBTextField.text = sender.date.toString(withFormat: "MM-dd-yyyy hh:mm:ss a")
         /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
     }
     
@@ -331,9 +315,9 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
     
-    if editingStyle == UITableViewCellEditingStyle.delete {
-       stockCageDOBList.remove(at: indexPath.row)
-       stockCageDOBTableView.reloadData()}
+        if editingStyle == UITableViewCellEditingStyle.delete {
+           stockCageDOBList.remove(at: indexPath.row)
+           stockCageDOBTableView.reloadData()}
         
     }
    
@@ -344,11 +328,11 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                 // Field validation was successful
                 textField.layer.borderColor = UIColor.green.cgColor
                 textField.layer.borderWidth = 0.5
-                print("textField validation successful!!")
+                //print("textField validation successful!!")
                 result = true
             } else {
                 // Validation error occurred
-                print(error?.errorMessage ?? textField.text! + "is an invalid entry")
+               //print(error?.errorMessage ?? textField.text! + "is an invalid entry")
                 textField.layer.borderColor = UIColor.red.cgColor
                 textField.layer.borderWidth = 1.0
                 result = false
@@ -382,8 +366,12 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
             
             textField.inputView = datePickerView
             
-            datePickerView.addTarget(self, action: #selector(breedingCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+            datePickerView.addTarget(self, action: #selector(self.datePickerValueChanged), for: UIControlEvents.valueChanged)
         }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -400,14 +388,14 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     /*************************** VALIDATION RULES **************************/
     
     /**
-     * Matches dates with either format M/dd/yy or MM/dd/yy
-     * i.e) 7/10/17 or 07/10/17
+     * Matches dates with format MM-dd-yyyy hh:mm:ss a
      */
     class ValidDateRule: RegexRule {
         
-        static let regex = "^([1-9]|0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])[/]\\d\\d$"
+        static let regex = "^([1-9]|([012][0-9])|(3[01]))-([0]{0,1}[1-9]|1[012])-\\d\\d\\d\\d\\s[012]{0,1}[0-9]:[0-6][0-9]:[0-6][0-9]\\s(AM|am|PM|pm)$"
+        //"^([1-9]|0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])[-](\\d\\d\\d\\d)\\s([0-9][0-9])[:]([0-5][0-9])[:]([0-5][0-9])\\s(AM|PM)$"
         
-        convenience init(message : String = "Not a valid date (format: MM/dd/yy or M/dd/yy)"){
+        convenience init(message : String = "Not a valid date (format: MM-dd-yyyy hh:mm:ss a)"){
             self.init(regex: ValidDateRule.regex, message : message)
         }
     }
@@ -430,7 +418,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
 
 extension stockCageViewController: QRScannerControllerDelegate {
     func qrScannerController(controller: QRScannerController, didScanQRCodeWith value: String) {
-        print("ID Recieved from Scanner! Id: \(value)")
+        //print("ID Recieved from Scanner! Id: \(value)")
         controller.dismiss(animated: true) {
             //Find the cage object
             self.newCageId = value
