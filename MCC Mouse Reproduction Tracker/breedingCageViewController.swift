@@ -56,9 +56,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var parentCageTableView: UITableView!
     
     override func viewDidLoad() {
-        //print("[TO-DO] Add functionality for ScanParentInfo button!")
-        //print("[TO-DO] Add functionality for the AddLitter button!")
-        
+
         super.viewDidLoad()
         
         // Set TableView and Textfield Delegates
@@ -71,7 +69,25 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         parentDOBTextField.delegate = self
         parentCageTextField.delegate = self
         
-        // Register textfields for validation
+        //Toolbar to allow for dismissal of the picker views
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.blue
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(SettingsViewController.donePicker))
+        
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        //Assigning the toolbard created above to all of the textfields that use a pickerview.
+        parentDOBTextField.inputAccessoryView = toolBar
+        parentCageTextField.inputAccessoryView = toolBar
+        
+        //Register textfields for validation
+//        validator.registerField(parentDOBTextField, rules: [RequiredRule(),ValidDateRule()])
+//        validator.registerField(parentCageTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(columnNoTextField, rules: [RequiredRule(), NumericRule()])
@@ -94,7 +110,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                     cageHasId.image = #imageLiteral(resourceName: "CheckIcon")
                 }
                 else {
-                    //print("[TO-DO] Correct XIcon not showing in breedingCageViewController.swift")
                     cageHasId.image = #imageLiteral(resourceName: "XIcon")
                 }
                 
@@ -142,6 +157,10 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         }
         //print("TODO: fix issue with add/wean litter; something to do with the litter id associated with the cage.")
     } // end viewDidLoad()
+    
+    @objc func donePicker() {
+        self.view.endEditing(true)
+    }
     
     func validationSuccessful() {
         /* save textfield information database */
@@ -301,9 +320,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func pressed_done_btn(_ sender: UIButton) {
-        //print("[TO-DO] Complete pushing new information to database in breedingCageViewController.swift")
-        //print("[TO_DO] Complete idiot proofing for done button in breedingCageViewController.swift")
-        
+
         validator.validate(self)
 
         if(wasValidationSuccessful) {
@@ -320,7 +337,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         }
         else {
             //Existing cage, update its information
-            //print("[TO-DO] Fix this validator POD in all classes where its used! Its funky.")
+
             if (!hasInformationChanged() /*|| !(wasValidationSuccessful)*/) {
                 //print("Dismissed existing breeding cage without pushing changes!")
                 dismiss(animated: true, completion: nil)
@@ -461,13 +478,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @objc func datePickerValueChanged(sender:UIDatePicker) {
-        //        let dateFormatter = DateFormatter()
-        //
-        //        dateFormatter.dateStyle = DateFormatter.Style.short
-        //
-        //        dateFormatter.timeStyle = DateFormatter.Style.none
         parentDOBTextField.text = sender.date.toString()
-        /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
     }
     
     
@@ -573,8 +584,7 @@ extension breedingCageViewController: QRScannerControllerDelegate {
                 downloadParentCageHUD.detailsLabel.text = "Downloading parent cage's information..."
                 QueryServer.shared.getBreedingCageBy(id: value, completion: { (cage, error) in
                     downloadParentCageHUD.hide(animated: true)
-                    
-                    //print("[TO-DO] Complete add parent info scanning in BreedingCageViewController.swift")
+
                     //                    parentDOBList.append(cage?.parentCages.)
                     //                    for parent in cage?.parentCages {
                     //                        parentCageList.append(parent)

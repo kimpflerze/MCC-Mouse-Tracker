@@ -60,11 +60,24 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //print("[TO-DO] Complete inserting information for existing breeding males in addMaleViewController.swift")
-        
+
         parentCageIDTableView.dataSource = self
         parentCageIDTableView.delegate = self
+        
+        //Toolbar to allow for dismissal of the picker views
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.blue
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(addMaleViewController.donePicker))
+        
+        toolBar.setItems([doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        //Assigning the toolbard created above to all of the textfields that use a pickerview.
+        maleDOBTextField.inputAccessoryView = toolBar
         
         textfieldValidationRegistration()
         
@@ -111,6 +124,10 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    @objc func donePicker() {
+        self.view.endEditing(true)
+    }
+    
     func textfieldValidationRegistration() {
         //Register textfields for validation
         //validator.registerField(parentCageIDTextField, rules: [RequiredRule(),NumericRule()])
@@ -137,7 +154,6 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         columnNoTextField.layer.borderWidth = 1.0
         
         wasValidationSuccessful = true
-        //print("textField validation successful!!")
     }
     
     func validationFailed(_ errors: [(Validatable, ValidationError)]) {
@@ -151,7 +167,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
             error.errorLabel?.isHidden = false
         }
         wasValidationSuccessful = false
-        //print("textField validation failed!!")
+
     }
     
     func hasInformationChanged() -> Bool {
@@ -175,7 +191,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func pressed_done_btn(_ sender: UIButton) {
-        //print("[TO-DO] Complete pushing new information to database in addMaleViewController.swift")
+
         validator.validate(self)
         
 
@@ -186,9 +202,8 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
             //New male, insert into database
             let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
             doneButtonHUD.detailsLabel.text = "Sending information..."
-            //print("[TO-DO] Prevent pushing new breeding male if information is missing!")
             QueryServer.shared.createNewBreedingMale(id: newMaleId, isActive: 1, motherCageId: parentCageIDList.first, DOB: maleDOBTextField.text, currentCageId: breedingMaleCurrentCage?.id, completion: { (error) in
-                debugPrint(error)
+//                debugPrint(error)
                 doneButtonHUD.hide(animated: true)
                 self.delegate?.detailViewControllerDidSave(controller: self)
             })
@@ -289,7 +304,6 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
                 // Field validation was successful
                 textField.layer.borderColor = UIColor.green.cgColor
                 textField.layer.borderWidth = 0.5
-                //print("textField validation successful!!")
                 result = true
             } else {
                 // Validation error occurred
@@ -403,7 +417,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
 }
 extension addMaleViewController: QRScannerControllerDelegate {
     func qrScannerController(controller: QRScannerController, didScanQRCodeWith value: String) {
-        //print("ID Recieved from Scanner! Id: \(value)")
+
         controller.dismiss(animated: true) {
             //Find the cage object
             if(self.lastPressedScanButton == 0) {

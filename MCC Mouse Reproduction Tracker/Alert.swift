@@ -29,7 +29,6 @@ class Alert: NSObject {
         if let theSubjectId = alertInfo["SubjectId"] as? String {
             subjectId = theSubjectId
         }
-        print("[TO-DO] Come back and fix this date information in Alert.swift")
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         if var theAlertDate = alertInfo["AlertDate"] as? String {

@@ -282,7 +282,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         case 4:
             return "year(s)"
         default:
-            print("There was an error converting the unit for this value!")
+            print("There was an error converting time unit! [func timeUnitNumberToString()]")
         }
         return "Error: Bad Unit Value"
     }
@@ -317,7 +317,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
      * Function is called if all registered fields are validated sucessfully
      */
     func validationSuccessful(){
-        print("textField validation successful!!")
         numRacksTextField.layer.borderColor = UIColor.green.cgColor
         numRacksTextField.layer.borderWidth = 1.0
         
@@ -367,7 +366,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
     }
     
     @IBAction func pressedDoneButton(_ sender: UIButton) {
-        print("[TO-DO] Tell George to make the settings table support PATCH statements, not just PUT!")
         var parameters = [String : Double]()
         
         parameters["Id"] = 1
@@ -403,7 +401,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             }
         }
         
-        print("[TO-DO] Update period information in the SettingsViewController doneButtonPressed Method!")
         if(weaningPeriodTextField.text != nil && weaningPeriodTextField.text != "") {
             guard let theWeaningPeriod = weaningPeriodTextField.text?.components(separatedBy: " ") else {
                 print("Failed to split text")

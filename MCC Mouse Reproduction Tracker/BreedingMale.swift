@@ -37,7 +37,6 @@ class BreedingMale: NSObject {
         if let theAlerts = maleInfo["Alerts"] as? [[String : Any]] {
             for alert in theAlerts {
                 let temporaryAlert = Alert(alertInfo: alert)
-                debugPrint(temporaryAlert.id)
                 alerts.append(temporaryAlert)
             }
         }
