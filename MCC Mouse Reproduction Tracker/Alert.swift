@@ -20,15 +20,26 @@ class Alert: NSObject {
         if let theId = alertInfo["AlertId"] as? String {
             id = theId
         }
-        if let theTypeId = (alertInfo["AlertTypeId"] as? [String : Any])?["Id"] as? Int {
+        if let theTypeId = alertInfo["AlertTypeId"] as? Int {
             alertTypeID = String(theTypeId)
         }
-        if let theTypeDescription = (alertInfo["AlertType"] as? [String : Any])?["Description"] as? String {
-            alertTypeDescription = theTypeDescription
+        if let theTypeDescription = (alertInfo["AlertType"] as? [String : Any]) {
+            if let theAlertDescription = theTypeDescription["Description"] as? String {
+                alertTypeDescription = theAlertDescription
+            }
         }
         if let theSubjectId = alertInfo["SubjectId"] as? String {
             subjectId = theSubjectId
         }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy hh:mm:ss a"
+        if let theAlertDate = alertInfo["AlertDate"] as? String {
+            if let theFormattedDate = dateFormatter.date(from: theAlertDate) {
+                alertDate = theFormattedDate
+            }
+        }
+        /*
         let formatter = DateFormatter()
         formatter.dateFormat = "MM-dd-yyyy hh:mm:ss a"
         if var theAlertDate = alertInfo["AlertDate"] as? String {
@@ -40,6 +51,7 @@ class Alert: NSObject {
             }
             
         }
+        */
         
     }
     

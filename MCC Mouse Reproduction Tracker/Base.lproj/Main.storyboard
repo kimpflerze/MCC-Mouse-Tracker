@@ -351,7 +351,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cj4-OE-xyM">
-                                        <rect key="frame" x="50" y="415" width="140" height="40"/>
+                                        <rect key="frame" x="50" y="335" width="140" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="p5S-nx-kiv"/>
                                         </constraints>
@@ -377,7 +377,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zf2-Q8-O9q">
-                                        <rect key="frame" x="50" y="495" width="140" height="40"/>
+                                        <rect key="frame" x="50" y="415" width="140" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="u7a-bT-GgH"/>
                                         </constraints>
@@ -408,19 +408,10 @@
                                             <action selector="logoutButtonPressed:" destination="Dq5-Aw-gce" eventType="touchUpInside" id="5gB-RY-5gB"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8x-48-ZDs">
-                                        <rect key="frame" x="50" y="335" width="140" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="C80-jM-pZr"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="17"/>
-                                        <state key="normal" title="Orders">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="0Pc-RH-FKw"/>
+                                    <constraint firstItem="cj4-OE-xyM" firstAttribute="top" secondItem="p3E-X9-jcO" secondAttribute="bottom" constant="40" id="5QV-5E-gaW"/>
                                     <constraint firstItem="zf2-Q8-O9q" firstAttribute="leading" secondItem="TH9-ya-mog" secondAttribute="leading" id="Bz8-8i-N5C"/>
                                     <constraint firstItem="zf2-Q8-O9q" firstAttribute="top" secondItem="cj4-OE-xyM" secondAttribute="bottom" constant="40" id="CCW-Fo-eSC"/>
                                     <constraint firstItem="p3E-X9-jcO" firstAttribute="leading" secondItem="TH9-ya-mog" secondAttribute="leading" id="CtI-gN-jhS"/>
@@ -439,17 +430,12 @@
                                     <constraint firstItem="tuO-PK-XNT" firstAttribute="leading" secondItem="8Rj-Ue-gxo" secondAttribute="leading" constant="25" id="dv3-Aa-uAQ"/>
                                     <constraint firstItem="Vaf-hE-cUs" firstAttribute="leading" secondItem="tuO-PK-XNT" secondAttribute="trailing" constant="12" id="fYI-ge-bwR"/>
                                     <constraint firstItem="cj4-OE-xyM" firstAttribute="leading" secondItem="TH9-ya-mog" secondAttribute="leading" id="iYr-OL-fEL"/>
-                                    <constraint firstItem="g8x-48-ZDs" firstAttribute="top" secondItem="p3E-X9-jcO" secondAttribute="bottom" constant="40" id="iaz-ge-61u"/>
                                     <constraint firstItem="Vaf-hE-cUs" firstAttribute="bottom" secondItem="tuO-PK-XNT" secondAttribute="bottom" id="jmn-TH-Fcj"/>
-                                    <constraint firstItem="cj4-OE-xyM" firstAttribute="top" secondItem="g8x-48-ZDs" secondAttribute="bottom" constant="40" id="mj5-ZK-mXA"/>
                                     <constraint firstAttribute="trailing" secondItem="e0m-rI-yLo" secondAttribute="trailing" id="ouJ-Ct-3Px"/>
                                     <constraint firstItem="zf2-Q8-O9q" firstAttribute="width" secondItem="TH9-ya-mog" secondAttribute="width" id="qYi-Ol-z42"/>
-                                    <constraint firstItem="g8x-48-ZDs" firstAttribute="leading" secondItem="TH9-ya-mog" secondAttribute="leading" id="tQ9-OJ-tem"/>
                                     <constraint firstItem="e0m-rI-yLo" firstAttribute="top" secondItem="8Rj-Ue-gxo" secondAttribute="top" id="tU4-cF-LV9"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="g8x-48-ZDs" secondAttribute="trailing" constant="20" symbolic="YES" id="tno-6c-gjd"/>
                                     <constraint firstItem="tuO-PK-XNT" firstAttribute="top" secondItem="8Rj-Ue-gxo" secondAttribute="top" constant="40" id="vGA-DH-4n7"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cj4-OE-xyM" secondAttribute="trailing" constant="20" symbolic="YES" id="vMz-WQ-GHh"/>
-                                    <constraint firstItem="g8x-48-ZDs" firstAttribute="width" secondItem="TH9-ya-mog" secondAttribute="width" id="yON-AT-o9W"/>
                                     <constraint firstAttribute="trailing" secondItem="TH9-ya-mog" secondAttribute="trailing" constant="50" id="yQr-Ko-oiv"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="p3E-X9-jcO" secondAttribute="trailing" constant="20" symbolic="YES" id="zFF-3i-AyX"/>
                                 </constraints>
@@ -476,7 +462,6 @@
                         <outlet property="filterView" destination="3O5-rC-YjW" id="btl-QS-ptZ"/>
                         <outlet property="logoutButton" destination="Vaf-hE-cUs" id="qSB-m1-uYa"/>
                         <outlet property="menuView" destination="8Rj-Ue-gxo" id="vSS-RJ-4hG"/>
-                        <outlet property="ordersButton" destination="g8x-48-ZDs" id="vzX-8N-zl6"/>
                         <outlet property="rackCollectionView" destination="D2F-Y9-mOi" id="WnW-cy-fw2"/>
                         <outlet property="scanCodeButton" destination="cj4-OE-xyM" id="Jtq-cR-Qda"/>
                         <outlet property="settingsButton" destination="zf2-Q8-O9q" id="v8C-sC-wdR"/>

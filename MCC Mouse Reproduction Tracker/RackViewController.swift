@@ -139,47 +139,6 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
                                         DispatchQueue.main.async {
                                             self.rackCollectionView.reloadData()
                                             
-                                            /*
-                                            //Query for all alerts
-                                            let alertsDownloadHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-                                            alertsDownloadHUD.detailsLabel.text = "Downloading alerts for cages..."
-                                            QueryServer.shared.getAlerts { (downloadedAlerts, error) in
-                                                if let theAlerts = downloadedAlerts {
-                                                    for alert in theAlerts {
-                                                        
-                                                        //Setting the alert icons on all cage cells
-                                                        if let index = self.breedingCages.index(where: { (cage) -> Bool in
-                                                            return alert.subjectId == cage.id
-                                                        }) {
-                                                            switch alert.alertTypeID {
-                                                            case "1":
-                                                                self.breedingCages[index].mouseTooOld = true
-                                                            case "2":
-                                                                self.breedingCages[index].needsToBeWeaned = true
-                                                            default:
-                                                                print("Default case, should never fire")
-                                                            }
-                                                            
-                                                        }
-                                                        if let index = self.sellingCages.index(where: { (cage) -> Bool in
-                                                            return alert.subjectId == cage.id
-                                                        }) {
-                                                            switch alert.alertTypeID {
-                                                            case "1":
-                                                                self.sellingCages[index].mouseTooOld = true
-                                                            case "2":
-                                                                self.sellingCages[index].needsToBeWeaned = true
-                                                            default:
-                                                                print("Default case, should never fire")
-                                                            }
-                                                            
-                                                        }
-                                                    }
-                                                    alertsDownloadHUD.hide(animated: true)
-                                                    self.rackCollectionView.reloadData()
-                                                }
-                                            }
-                                            */
                                         }
                                     }
                                 }

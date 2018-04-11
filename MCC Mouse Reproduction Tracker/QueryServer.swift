@@ -78,7 +78,12 @@ class QueryServer: NSObject {
                 for item in result {
                     let cage = Cage(rackInfo: item)
                     
-                    print("  cage.id: \(cage.id), Row: \(cage.row), Column: \(cage.column), Rack: \(cage.rack)")
+                    print("  cage.id: \(cage.id), Row: \(cage.row), Column: \(cage.column), Rack: \(cage.rack), NumAlertsOnCage: \(cage.alerts.count)")
+                    if(cage.alerts.count > 0) {
+                        for alert in cage.alerts {
+                            print(alert)
+                        }
+                    }
                     
                     cage.isBreeding = true
                     cages.append(cage)
