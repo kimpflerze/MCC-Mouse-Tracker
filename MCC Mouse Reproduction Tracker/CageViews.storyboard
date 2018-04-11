@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
+        <array key="HiraginoKakuGothic.ttc">
+            <string>HiraginoSans-W3</string>
+            <string>HiraginoSans-W6</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Stock Cage View Controller-->
         <scene sceneID="RC0-7D-SWP">
@@ -427,7 +436,7 @@
         <!--Add Male View Controller-->
         <scene sceneID="weC-jH-Hf5">
             <objects>
-                <viewController storyboardIdentifier="BreedingMale" id="c0G-rr-ea1" customClass="addMaleViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BreedingMale" automaticallyAdjustsScrollViewInsets="NO" id="c0G-rr-ea1" customClass="addMaleViewController" customModule="MCC_Mouse_Reproduction_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qqE-Yg-t5e"/>
                         <viewControllerLayoutGuide type="bottom" id="6Yb-e9-a9P"/>
@@ -576,7 +585,7 @@
                                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="pressed_QR_Code_btn:" destination="c0G-rr-ea1" eventType="touchUpInside" id="zf6-OG-vJm"/>
+                                                    <action selector="pressed_QR_Code_btn:" destination="c0G-rr-ea1" eventType="touchUpInside" id="eO4-eu-Ew0"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan to Set Male's ID: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efW-Ow-d5z">
@@ -686,6 +695,7 @@
                                             <constraint firstItem="duO-UB-fwU" firstAttribute="leading" secondItem="qkp-yl-viM" secondAttribute="leading" id="FkE-hd-LSw"/>
                                             <constraint firstItem="O69-99-aXV" firstAttribute="leading" secondItem="qkp-yl-viM" secondAttribute="leading" id="I8L-ZF-ibs"/>
                                             <constraint firstItem="Jgw-hH-l8H" firstAttribute="leading" secondItem="6Xf-cZ-YJb" secondAttribute="leading" id="Iz2-dg-6w0"/>
+                                            <constraint firstAttribute="bottom" secondItem="f7E-Yw-VkS" secondAttribute="bottom" constant="283" id="JZa-05-lNZ"/>
                                             <constraint firstItem="WkS-2v-7Hw" firstAttribute="centerX" secondItem="PZq-Ep-r1G" secondAttribute="centerX" id="Lrf-3j-jQx"/>
                                             <constraint firstAttribute="trailing" secondItem="WO3-z1-Ias" secondAttribute="trailing" constant="50" id="MGK-et-QVL"/>
                                             <constraint firstItem="A3P-Db-Mh9" firstAttribute="leading" secondItem="1yx-ae-lbz" secondAttribute="trailing" constant="40" id="NYs-wE-Xb9"/>
@@ -734,15 +744,15 @@
                                     </imageView>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Ayu-Lg-tri" secondAttribute="bottom" id="66R-KR-kBA"/>
                                     <constraint firstAttribute="trailing" secondItem="Ayu-Lg-tri" secondAttribute="trailing" id="7Je-t8-zTt"/>
-                                    <constraint firstItem="Ayu-Lg-tri" firstAttribute="centerX" secondItem="udN-sp-1Tk" secondAttribute="centerX" id="85A-OM-qTa"/>
                                     <constraint firstItem="Ayu-Lg-tri" firstAttribute="leading" secondItem="udN-sp-1Tk" secondAttribute="leading" id="9hI-b7-KIj"/>
-                                    <constraint firstItem="Ayu-Lg-tri" firstAttribute="centerY" secondItem="udN-sp-1Tk" secondAttribute="centerY" id="LIn-YN-UFJ"/>
                                     <constraint firstItem="1EY-pW-Ywc" firstAttribute="top" secondItem="udN-sp-1Tk" secondAttribute="top" constant="1256" id="Mf8-tw-oR9"/>
+                                    <constraint firstAttribute="bottom" secondItem="1EY-pW-Ywc" secondAttribute="bottom" constant="16" id="Qqc-xB-EdU"/>
                                     <constraint firstItem="Ayu-Lg-tri" firstAttribute="width" secondItem="udN-sp-1Tk" secondAttribute="width" id="aph-uQ-eO4"/>
+                                    <constraint firstItem="Ayu-Lg-tri" firstAttribute="top" secondItem="udN-sp-1Tk" secondAttribute="top" id="gNX-Kj-0Gz"/>
                                     <constraint firstItem="1EY-pW-Ywc" firstAttribute="centerX" secondItem="udN-sp-1Tk" secondAttribute="centerX" id="izZ-j1-DD9"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="1EY-pW-Ywc" secondAttribute="bottom" constant="8" id="kjK-Gi-mku"/>
-                                    <constraint firstItem="Ayu-Lg-tri" firstAttribute="height" secondItem="udN-sp-1Tk" secondAttribute="height" id="nTa-W9-s7J"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -2391,6 +2401,6 @@
         <image name="popover_close_button" width="980" height="980"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Qyy-PH-ma7"/>
+        <segue reference="qEe-uT-TjV"/>
     </inferredMetricsTieBreakers>
 </document>

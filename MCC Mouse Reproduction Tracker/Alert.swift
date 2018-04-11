@@ -17,10 +17,10 @@ class Alert: NSObject {
     var alertDate: Date?
     
     init(alertInfo: [String : Any]) {
-        if let theId = alertInfo["Id"] as? String {
+        if let theId = alertInfo["AlertId"] as? String {
             id = theId
         }
-        if let theTypeId = (alertInfo["AlertType"] as? [String : Any])?["Id"] as? Int {
+        if let theTypeId = (alertInfo["AlertTypeId"] as? [String : Any])?["Id"] as? Int {
             alertTypeID = String(theTypeId)
         }
         if let theTypeDescription = (alertInfo["AlertType"] as? [String : Any])?["Description"] as? String {
@@ -30,7 +30,7 @@ class Alert: NSObject {
             subjectId = theSubjectId
         }
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        formatter.dateFormat = "MM-dd-yyyy hh:mm:ss a"
         if var theAlertDate = alertInfo["AlertDate"] as? String {
             let dateIndex = theAlertDate.index(theAlertDate.startIndex, offsetBy: 19)
             theAlertDate = theAlertDate.substring(to: dateIndex)
@@ -38,6 +38,7 @@ class Alert: NSObject {
             if let theFormattedAlertDate = formatter.date(from: theAlertDate) {
                 alertDate = theFormattedAlertDate
             }
+            
         }
         
     }

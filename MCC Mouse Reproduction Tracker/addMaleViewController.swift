@@ -22,8 +22,9 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     var isNewMale = false
     var newMaleId: String?
     var hasTableViewChanged = false
-    //Parent Cage ID Scan = 0
+    //Cage ID Scan (To give the Male an ID) = 0
     //Current Cage ID Scan = 1
+    //Parent Cage ID Scan = 2
     var lastPressedScanButton = -1
     var maleInTheCage = false
     var originalMaleActiveState: Bool?
@@ -71,7 +72,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         toolBar.tintColor = UIColor.blue
         toolBar.sizeToFit()
         
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(addMaleViewController.donePicker))
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(donePicker))
         
         toolBar.setItems([doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
@@ -119,6 +120,8 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
                 currentCageIDTextField.text = theMale.currentCageId
             }
             else {
+                currentCageIDTextField.text = breedingMaleCurrentCage?.id
+                currentCageIDScanButton.isUserInteractionEnabled = false
                 cageHasId.image = #imageLiteral(resourceName: "XIcon")
             }
         }
@@ -131,7 +134,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     func textfieldValidationRegistration() {
         //Register textfields for validation
         //validator.registerField(parentCageIDTextField, rules: [RequiredRule(),NumericRule()])
-        validator.registerField(maleDOBTextField, rules: [RequiredRule(),ValidDateRule()])
+        validator.registerField(maleDOBTextField, rules: [RequiredRule()])
         validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(columnNoTextField, rules: [RequiredRule(), NumericRule()])
@@ -174,7 +177,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         guard let theCage = breedingMaleCurrentCage else {
             return false
         }
-        if originalMaleActiveState != self.breedingMale?.active || rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) || currentCageIDTextField.text != String(theCage.id) {
+        if originalMaleActiveState != self.breedingMale?.active || rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) || currentCageIDTextField.text != String(theCage.id) || maleDOBTextField.text != breedingMale?.dob?.toString(withFormat: "MM-dd-yyyy hh:mm:ss a") {
             return true
         }
         return hasTableViewChanged
@@ -182,8 +185,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func pressed_QR_Code_btn(_ sender: UIButton) {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: .main)
-        if let qrVC = mainStoryboard.instantiateViewController(withIdentifier: "scanner")
-            as? QRScannerController {
+        if let qrVC = mainStoryboard.instantiateViewController(withIdentifier: "scanner") as? QRScannerController {
             lastPressedScanButton = 0
             qrVC.delegate = self
             present(qrVC, animated: true, completion: nil)
@@ -195,14 +197,14 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         validator.validate(self)
         
 
-    if wasValidationSuccessful {
+        if wasValidationSuccessful {
         
         //Depending on if isNewCage is true or false, will either update or insert into the database
         if(isNewMale) {
             //New male, insert into database
             let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
             doneButtonHUD.detailsLabel.text = "Sending information..."
-            QueryServer.shared.createNewBreedingMale(id: newMaleId, isActive: 1, motherCageId: parentCageIDList.first, DOB: maleDOBTextField.text, currentCageId: breedingMaleCurrentCage?.id, completion: { (error) in
+            QueryServer.shared.createNewBreedingMale(id: newMaleId, isActive: 1, motherCageId: parentCageIDList.first, DOB: maleDOBTextField.text, currentCageId: currentCageIDTextField.text, completion: { (error) in
 //                debugPrint(error)
                 doneButtonHUD.hide(animated: true)
                 self.delegate?.detailViewControllerDidSave(controller: self)
@@ -227,7 +229,7 @@ class addMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
                         numericalStringCageIsActive = "0"
                     }
                     
-                    QueryServer.shared.updateBreedingMaleWith(id: self.breedingMale?.id, isActive: numericalStringCageIsActive, currentCageId: self.currentCageIDTextField.text, completion: { (response) in
+                    QueryServer.shared.updateBreedingMaleWith(id: self.breedingMale?.id, isActive: numericalStringCageIsActive, currentCageId: self.currentCageIDTextField.text, dob: self.maleDOBTextField.text, completion: { (response) in
                             updateHUD.hide(animated: true)
                             let updateAlert = UIAlertController(title: "Update Cage", message: "The cage information was successfully udpated!", preferredStyle: .alert)
                             let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (response) in
@@ -420,10 +422,16 @@ extension addMaleViewController: QRScannerControllerDelegate {
 
         controller.dismiss(animated: true) {
             //Find the cage object
-            if(self.lastPressedScanButton == 0) {
+            if(self.lastPressedScanButton == 2) {
                 self.parentCageIDList.append(value)
                 self.parentCageIDTableView.reloadData()
                 self.hasTableViewChanged = true
+                QueryServer.shared.getBreedingCageBy(id: value, completion: { (cage, error) in
+                    if let theLitterDOB = cage?.litterDOB {
+                        self.maleDOBTextField.text = theLitterDOB.toString(withFormat: "MM-dd-yyyy hh:mm:ss a")
+                    }
+                })
+                
             }
             else if (self.lastPressedScanButton == 1){
             //Attempt to update breeding male current cage information
@@ -439,9 +447,13 @@ extension addMaleViewController: QRScannerControllerDelegate {
                             self.present(alert, animated: true, completion: nil)
                         }
                         else {
+                            if self.isNewMale {
+                                self.currentCageIDTextField.text = value
+                                return
+                            }
                             let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
                             hud.detailsLabel.text = "Moving male..."
-                            QueryServer.shared.updateBreedingMaleWith(id: self.breedingMale?.id, isActive: nil, currentCageId: value, completion: { (error) in
+                            QueryServer.shared.updateBreedingMaleWith(id: self.breedingMale?.id, isActive: nil, currentCageId: value, dob: self.breedingMale?.dob?.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"), completion: { (error) in
                                 hud.hide(animated: true)
                                 if let errorMessage = error {
                                     let alert = UIAlertController(title: "Error!", message: "There was an error moving this male: \(errorMessage)", preferredStyle: .alert)
@@ -484,7 +496,7 @@ extension addMaleViewController : RackViewControllerDelegate {
             else {
             let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
             hud.detailsLabel.text = "Moving male..."
-            QueryServer.shared.updateBreedingMaleWith(id: self.breedingMale?.id, isActive: nil, currentCageId: cage?.id, completion: { (error) in
+                QueryServer.shared.updateBreedingMaleWith(id: self.breedingMale?.id, isActive: nil, currentCageId: cage?.id, dob: self.breedingMale?.dob?.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"), completion: { (error) in
                 hud.hide(animated: true)
                 if let errorMessage = error {
                     let alert = UIAlertController(title: "Error!", message: "There was an error moving this male: \(errorMessage)", preferredStyle: .alert)

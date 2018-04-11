@@ -21,7 +21,7 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
+        dateFormatter.dateFormat = "MM-dd-yyyy hh:mm:ss a"
         alertsTableView.delegate = self
         alertsTableView.dataSource = self
         
@@ -76,7 +76,7 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = UITableViewCell(style: UITableViewCellStyle.default , reuseIdentifier: "cell")
         let alert = self.alertArray[indexPath.row]
         if let date = alert.alertDate {
-             cell.textLabel?.text = "\t \(alert.subjectId): \(alert.alertTypeDescription) \t Date:\(dateFormatter.string(from: date))"
+            cell.textLabel?.text = "\t \(alert.subjectId): \(alert.alertTypeDescription) \t Date:\(date.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))"
         }else{
             cell.textLabel?.text = "\t \(alert.subjectId): \(alert.alertTypeDescription) \t Date: N/A"
         }

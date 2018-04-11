@@ -16,10 +16,36 @@ class QueryServer: NSObject {
     //Timestamp referenced to determine if the current user should be timed out
     var lastActivityTimeStamp: Date?
     
+    //URLs here so that they're all in one place and easier to change.
+    var getAllBreedingCagesURL = "https://mouseapi.azurewebsites.net/api/breedingcage"
+    var getAllActiveBreedingCagesURL = "https://mouseapi.azurewebsites.net/api/breedingcage?active=1"
+    var getBreedingCageByIDURL = "https://mouseapi.azurewebsites.net/api/breedingcage/"
+    var getAllSellingCagesURL = "https://mouseapi.azurewebsites.net/api/sellingcage"
+    var getAllActiveSellingCagesURL = "https://mouseapi.azurewebsites.net/api/sellingcage?active=1"
+    var getSellingCageByIDURL = "https://mouseapi.azurewebsites.net/api/sellingcage/"
+    var getAllBreedingMalesURL = "https://mouseapi.azurewebsites.net/api/breedingmale"
+    var getAllActiveBreedingMalesURL = "https://mouseapi.azurewebsites.net/api/breedingmale?active=1"
+    var getBreedingMaleByIDURL = "https://mouseapi.azurewebsites.net/api/breedingmale/"
+    var getBreedingMaleByCageIDURL = "https://mouseapi.azurewebsites.net/api/breedingmale?currentCageId="
+    var getAllLitterLogsURL = "https://mouseapi.azurewebsites.net/api/litterlog/"
+    var getLitterLogByIDURL = "https://mouseapi.azurewebsites.net/api/litterlog/"
+    var getAlertsURL = "https://mouseapi.azurewebsites.net/api/alert"
+    var getSettingsURL = "https://mouseapi.azurewebsites.net/api/settings/1"
+    var createNewBreedingCageURL = "https://mouseapi.azurewebsites.net/api/breedingcage"
+    var createNewSellingCageURL = "https://mouseapi.azurewebsites.net/api/sellingcage"
+    var createNewBreedingMaleURL = "https://mouseapi.azurewebsites.net/api/breedingmale"
+    var createLitterLogEntryURL = "https://mouseapi.azurewebsites.net/api/litterlog"
+    var updateBreedingCageWithIDURL = "https://mouseapi.azurewebsites.net/api/breedingcage/"
+    var updateSellingCageWithIDURL = "https://mouseapi.azurewebsites.net/api/sellingcage/"
+    var updateBreedingMaleWithIDURL = "https://mouseapi.azurewebsites.net/api/breedingmale/"
+    //Reason for the "1" after settings is, the table within the database had to be specified, therefore the "1"
+    //indicates the 1 and only entry into the settings table.
+    var updateSettingsURL = "https://mouseapi.azurewebsites.net/api/settings/1"
+    
 //GET Queries
     //Breeding cages queries
     func getAllBreedingCages(completion: @escaping (_ cages: [Cage]?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/breedingcage") else {
+        guard let url = URL(string: getAllBreedingCagesURL) else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
@@ -40,7 +66,7 @@ class QueryServer: NSObject {
     }
     
     func getAllActiveBreedingCages(completion: @escaping (_ cages: [Cage]?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/breedingcage?active=1") else {
+        guard let url = URL(string: getAllActiveBreedingCagesURL) else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
@@ -67,7 +93,7 @@ class QueryServer: NSObject {
     }
     
     func getBreedingCageBy(id: String, completion: @escaping (_ cage: Cage?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/breedingcage/\(id)") else {
+        guard let url = URL(string: getBreedingCageByIDURL+id) else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
@@ -86,7 +112,7 @@ class QueryServer: NSObject {
     
     //Selling cage queries
     func getAllSellingCages(completion: @escaping (_ cages: [Cage]?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/sellingcage") else {
+        guard let url = URL(string: getAllSellingCagesURL) else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
@@ -107,7 +133,7 @@ class QueryServer: NSObject {
     }
     
     func getAllActiveSellingCages(completion: @escaping (_ cages: [Cage]?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/sellingcage?active=1") else {
+        guard let url = URL(string: getAllActiveSellingCagesURL) else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
@@ -134,7 +160,7 @@ class QueryServer: NSObject {
     }
     
     func getSellingCageBy(id: String, completion: @escaping (_ cage: Cage?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/sellingcage/\(id)") else {
+        guard let url = URL(string: getSellingCageByIDURL+id) else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
@@ -152,7 +178,7 @@ class QueryServer: NSObject {
     
     //Breeding male queries
     func getAllBreedingMales(completion: @escaping (_ cages: [Cage]?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/breedingmale") else {
+        guard let url = URL(string: getAllBreedingMalesURL) else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
@@ -172,7 +198,7 @@ class QueryServer: NSObject {
     }
     
     func getAllActiveBreedingMales(completion: @escaping (_ cages: [BreedingMale]?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/breedingmale?active=1") else {
+        guard let url = URL(string: getAllActiveBreedingMalesURL) else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
@@ -196,7 +222,7 @@ class QueryServer: NSObject {
     }
     
     func getBreedingMaleBy(id: String, completion: @escaping (_ cage: BreedingMale?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/breedingmale/\(id)") else {
+        guard let url = URL(string: getBreedingMaleByIDURL+id) else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
@@ -211,7 +237,7 @@ class QueryServer: NSObject {
     }
     
     func getBreedingMaleBy(cageId: String, completion: @escaping (_ cage: BreedingMale?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/breedingmale?currentCageId=\(cageId)") else {
+        guard let url = URL(string: getBreedingMaleByCageIDURL+cageId) else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
@@ -231,7 +257,7 @@ class QueryServer: NSObject {
     
     //Litter log queries
     func getAllLitterLogs(completion: @escaping (_ litterLog: [LitterLog]?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/litterlog/") else {
+        guard let url = URL(string: getAllLitterLogsURL) else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
@@ -251,7 +277,7 @@ class QueryServer: NSObject {
     }
     
     func getLitterLogBy(id: String, completion: @escaping (_ log: LitterLog?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/litterlog/\(id)") else {
+        guard let url = URL(string: getLitterLogByIDURL+id) else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
@@ -267,7 +293,7 @@ class QueryServer: NSObject {
     
     //Alerts queries - Possibly incomplete, could need specific alert retrieval queries
     func getAlerts(completion: @escaping (_ cages: [Alert]?, _ error: Error?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/alert") else {
+        guard let url = URL(string: getAlertsURL) else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
@@ -288,7 +314,7 @@ class QueryServer: NSObject {
 
     //Settings Query - Should only need this one query unless we add anything specific to the settings table
     func getSettings(completion: @escaping () -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/settings/1") else {
+        guard let url = URL(string: getSettingsURL) else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
@@ -436,7 +462,7 @@ class QueryServer: NSObject {
 //POST queries
     
     func createNewBreedingCage(id: String?, row: Int?, column: Int?, rack: Int?, isActive: Int?, parentsCagesDOB: [String]?, parentCagesId: [String]?, completion: @escaping (_ error: String?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/breedingcage") else {
+        guard let url = URL(string: createNewBreedingCageURL) else {
             completion("Issue with URL in createNewBreedingCage function of QueryServer.swift!")
             return
         }
@@ -461,6 +487,7 @@ class QueryServer: NSObject {
             completion("Issue with ACTIVE in createNewBreedingCage function of QueryServer.swift!")
             return
         }
+        print("Number of parentCages in list of parent cages passed to QueryServer: \(parentCagesId?.count)")
         guard let theParentCagesId = parentCagesId, parentCagesId?.count != 0 else {
             completion("Issue with PARENTCAGEID in createNewBreedingCage function of QueryServer.swift!")
             return
@@ -474,8 +501,8 @@ class QueryServer: NSObject {
         
         for i in 0..<theParentCagesId.count {
             for j in 0..<theParentCagesDOB.count {
-                if j == j {
-                    let parent: [String : String] = ["Id" : theParentCagesId[i] , "DOB" : theParentCagesDOB[j]]
+                if i == j {
+                    let parent: [String : String] = ["ParentCageId" : theParentCagesId[i] , "DOB" : theParentCagesDOB[j]]
                     parents.append(parent)
                 }
             }
@@ -489,7 +516,7 @@ class QueryServer: NSObject {
     }
     
     func createNewSellingCage(id: String?, row: Int?, column: Int?, rack: Int?, isActive: Int?, parentsCagesDOB: [String]?, parentCagesId: [String]?, gender: Int?, numberOfMice: Int?, completion: @escaping (_ error: String?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/sellingcage") else {
+        guard let url = URL(string: createNewSellingCageURL) else {
             completion("Issue with URL in createNewSellingCage function of QueryServer.swift!")
             return
         }
@@ -553,7 +580,7 @@ class QueryServer: NSObject {
     }
     
     func createNewBreedingMale(id: String?, isActive: Int?, motherCageId: String?, DOB: String?, currentCageId: String?, completion: @escaping (_ error: String?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/breedingmale") else {
+        guard let url = URL(string: createNewBreedingMaleURL) else {
             completion("Issue with URL in createNewSellingCage function of QueryServer.swift!")
             return
         }
@@ -587,7 +614,7 @@ class QueryServer: NSObject {
     }
     
     func createLitterLogEntry(motherCageId: String?, completion: @escaping (_ error: String?) -> Void) {
-        guard let url = URL(string: "https://mouseapi.azurewebsites.net/api/litterlog") else {
+        guard let url = URL(string: createLitterLogEntryURL) else {
             completion("Issue with URL in createLitterLogEntry function of QueryServer.swift!")
             return
         }
@@ -610,12 +637,11 @@ class QueryServer: NSObject {
     
     //Update breeding cage
     func updateBreedingCageWith(id: String?, row: String?, column: String?, rack: String?, isActive: String?, completion: @escaping (_ error: String?) -> Void) {
-        let templateURL = "https://mouseapi.azurewebsites.net/api/breedingcage/"
         guard let theId = id else {
             return
         }
         
-        var urlComponents = URLComponents(string: templateURL+theId)
+        var urlComponents = URLComponents(string: updateBreedingCageWithIDURL+theId)
 //        debugPrint("urlComponents = \(String(describing: urlComponents))")
         var queryItems = [URLQueryItem]()
         
@@ -647,12 +673,11 @@ class QueryServer: NSObject {
     
     //Update selling cage
     func updateSellingCageWith(id: String?, row: String?, column: String?, rack: String?, isActive: String?, numberOfMice: String?, genderOfMice: String?, cageIdList: [String]?, cageDOBList: [String]?, completion: @escaping (_ error: String?) -> Void) {
-        let templateURL = "https://mouseapi.azurewebsites.net/api/sellingcage/"
         guard let theId = id else {
             return
         }
         
-        var urlComponents = URLComponents(string: templateURL+theId)
+        var urlComponents = URLComponents(string: updateSellingCageWithIDURL+theId)
         var queryItems = [URLQueryItem]()
         
         if let theRow = row {
@@ -686,27 +711,29 @@ class QueryServer: NSObject {
     }
     
     //Update breeding male
-    func updateBreedingMaleWith(id: String?, isActive: String?, currentCageId: String?, completion: @escaping (_ error: String?) -> Void) {
-        let templateURL = "https://mouseapi.azurewebsites.net/api/breedingmale/"
+    func updateBreedingMaleWith(id: String?, isActive: String?, currentCageId: String?, dob: String?, completion: @escaping (_ error: String?) -> Void) {
         guard let theId = id else {
             return
         }
         
-        var urlComponents = URLComponents(string: templateURL+theId)
+        var urlComponents = URLComponents(string: updateBreedingMaleWithIDURL+theId)
         var queryItems = [URLQueryItem]()
         
         if let theIsActive = isActive {
-            queryItems.append(URLQueryItem(name: "active", value: String(theIsActive)))
+            queryItems.append(URLQueryItem(name: "Active", value: String(theIsActive)))
         }
         if let theCurrentCageId = currentCageId {
-            queryItems.append(URLQueryItem(name: "currentCageId", value: String(theCurrentCageId)))
+            queryItems.append(URLQueryItem(name: "CurrentCageId", value: String(theCurrentCageId)))
+        }
+        if let theDob = dob {
+            queryItems.append(URLQueryItem(name: "DOB", value: theDob))
         }
         
         urlComponents?.queryItems = queryItems
         
         if let url = urlComponents?.url {
             Alamofire.request(url, method: .patch, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
-//                debugPrint(response)
+                debugPrint(response)
                 
                 if response.response?.statusCode == 200 {
                     completion(nil)
@@ -724,22 +751,9 @@ class QueryServer: NSObject {
     }
     
     func updateSettings(parameters: [String : Double], completion: @escaping (_ error: String?) -> Void) {
-        let templateURL = "https://mouseapi.azurewebsites.net/api/settings/1"
-        
-//        var urlComponents = URLComponents(string: templateURL)
-//        var queryItems = [URLQueryItem]()
-        
-//        let keys = parameters.keys
-//        for key in keys {
-//            queryItems.append(URLQueryItem(name: key, value: parameters[key]!))
-//        }
-        
-//        urlComponents?.queryItems = queryItems
-        if let url = URL(string: templateURL) {
+        if let url = URL(string: updateSettingsURL) {
             let headers: HTTPHeaders = ["Content-Type":"application/json"]
             Alamofire.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (response) in
-//                debugPrint(response)
-//                print(NSString(data: (response.request?.httpBody)!, encoding: String.Encoding.utf8.rawValue))
                 completion(response.error?.localizedDescription)
             })
         }

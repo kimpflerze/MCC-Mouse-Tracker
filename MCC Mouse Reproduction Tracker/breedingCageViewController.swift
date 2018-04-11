@@ -76,7 +76,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         toolBar.tintColor = UIColor.blue
         toolBar.sizeToFit()
         
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(SettingsViewController.donePicker))
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(donePicker))
         
         toolBar.setItems([doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
@@ -96,9 +96,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         
         //Filling information for an existing cage
         if let theCage = cage {
-            //print("********************************")
-            //print("Breeding Cage ID: \(theCage.id)")
-            //print("********************************")
             rackNoTextField.text = String(theCage.rack)
             columnNoTextField.text = String(theCage.column)
             rowNoTextField.text = String(theCage.row)
@@ -160,6 +157,23 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     
     @objc func donePicker() {
         self.view.endEditing(true)
+        
+        //Check to see if parentDOB/parentCageID textfields are empty
+        if let newParentDOB = parentDOBTextField.text {
+            if newParentDOB != "" {
+                parentDOBTextField.text = ""
+                parentDOBList.append(newParentDOB)
+                parentDOBTableView.reloadData()
+            }
+        }
+        
+        if let newParentCageID = parentCageTextField.text {
+            if newParentCageID != "" {
+                parentCageTextField.text = ""
+                parentCageList.append(newParentCageID)
+                parentCageTableView.reloadData()
+            }
+        }
     }
     
     func validationSuccessful() {
@@ -203,6 +217,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func pressed_QR_Code_btn(_ sender: UIButton) {
+        didSelectScanParentInformationButton = false
         let mainStoryboard = UIStoryboard(name: "Main", bundle: .main)
         if let qrVC = mainStoryboard.instantiateViewController(withIdentifier: "scanner") as? QRScannerController {
             qrVC.delegate = self
@@ -248,7 +263,8 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                         print(" false")
                         print("Error weaning litter in breedingCage:\(String(describing: self.cage?.id))")
                     }
-                }})
+                }
+            })
             
             /*
              // Helpful code
@@ -322,27 +338,34 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     @IBAction func pressed_done_btn(_ sender: UIButton) {
 
         validator.validate(self)
+        
+        print("=====Breeding Cage Creation/Update Information=====")
+        print("wasValidationSuccessful: \(wasValidationSuccessful)")
+        print("isNewCage: \(isNewCage)")
 
         if(wasValidationSuccessful) {
         //Depending on if isNewCage is true or false, will either update or insert into the database
         if(isNewCage) {
+            print("     *New breeding cage is being created!*")
             //New cage, insert into database
             let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
             doneButtonHUD.detailsLabel.text = "Sending information..."
             QueryServer.shared.createNewBreedingCage(id: newCageId, row: Int(rowNoTextField.text!), column: Int(columnNoTextField.text!), rack: Int(rackNoTextField.text!), isActive: 1, parentsCagesDOB: parentDOBList, parentCagesId: parentCageList, completion: { (error) in
-                debugPrint(error ?? "There was an error!")
+                debugPrint(error)
                 doneButtonHUD.hide(animated: true)
                 self.delegate?.detailViewControllerDidSave(controller: self)
             })
         }
         else {
+            print("     *Existing breeding cage is being updated!*")
             //Existing cage, update its information
 
             if (!hasInformationChanged() /*|| !(wasValidationSuccessful)*/) {
-                //print("Dismissed existing breeding cage without pushing changes!")
+                print("         *No information has changed, dismissing view!*")
                 dismiss(animated: true, completion: nil)
             }
             else {
+                print("         *Information has changed, proceeding with updating!*")
                 //print("In else statement, information has changed in BreedingCageViewController!")
                 let updateConfirmAlert = UIAlertController(title: "Confirm Update", message: "Cage information has been changed, do you wish to save these changes?", preferredStyle: .alert)
                 let confirmUpdateAction  = UIAlertAction(title: "Confirm", style: .default, handler: { (placeholder) in
@@ -378,9 +401,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
   
     
     @IBAction func addParentDOBEditing(_ sender: UITextField) {
-        
-        /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
-        
         let datePickerView:UIDatePicker = UIDatePicker()
         
         datePickerView.datePickerMode = UIDatePickerMode.dateAndTime
@@ -535,6 +555,26 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     override func viewDidAppear(_ animated: Bool) {
         parentDOBTableView.reloadData()
         parentCageTableView.reloadData()
+        
+        QueryServer.shared.getBreedingMaleBy(cageId: (cage?.id)!, completion: { (downloadedMale, error) in
+            DispatchQueue.main.async {
+                if(downloadedMale != nil) {
+                    self.add_male_btn.setTitle("View Male", for: .normal)
+                }
+                else {
+                    self.add_male_btn.setTitle("Add Male", for: .normal)
+                }
+            }
+        })
+        
+        //Make sure that this "Litter in Cage" Variable is being updated on each press of the add litter button!
+        if (self.cage?.litterInCage)! {
+            // litter exists already; only option is to wean it
+            self.add_litter_btn.setTitle("Wean Litter", for: .normal)
+        }else {
+            // litter does not exist so we can add one.
+            self.add_litter_btn.setTitle("Add Litter", for: .normal)
+        }
     }
     
     
@@ -584,13 +624,13 @@ extension breedingCageViewController: QRScannerControllerDelegate {
                 downloadParentCageHUD.detailsLabel.text = "Downloading parent cage's information..."
                 QueryServer.shared.getBreedingCageBy(id: value, completion: { (cage, error) in
                     downloadParentCageHUD.hide(animated: true)
-
-                    //                    parentDOBList.append(cage?.parentCages.)
-                    //                    for parent in cage?.parentCages {
-                    //                        parentCageList.append(parent)
-                    //                    }
-                    //
-                    //                    parentCageList.append(contentsOf: cage?.parentCages)
+                    
+                    self.parentCageList.append((cage?.id)!)
+                    self.parentDOBList.append((cage?.createdAt.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))!)
+                    DispatchQueue.main.async {
+                        self.parentCageTableView.reloadData()
+                        self.parentDOBTableView.reloadData()
+                    }
                 })
             }
             else {

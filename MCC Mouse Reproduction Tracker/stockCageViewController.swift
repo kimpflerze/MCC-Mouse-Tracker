@@ -81,7 +81,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         stockCageDOBTextField.inputAccessoryView = toolBar
         
         //Register textfields for validation
-        validator.registerField(stockCageDOBTextField, rules: [/*RequiredRule(),*/ValidDateRule()])
+//        validator.registerField(stockCageDOBTextField, rules: [/*RequiredRule(),*/ValidDateRule()])
         validator.registerField(miceCountTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
@@ -185,6 +185,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
             if let date = stockCageDOBTextField.text {
                 print("***2 : \(date)")
                 dobInCageListWasAltered = true
+                stockCageDOBTextField.text = nil
                 stockCageDOBList.append(date)
                 stockCageDOBTableView.reloadData()
             }
@@ -221,11 +222,18 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                 //New cage, insert into database
                 let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
                 doneButtonHUD.detailsLabel.text = "Sending information..."
-                QueryServer.shared.createNewSellingCage(id: newCageId, row: Int(rowNoTextField.text!), column: Int(columnNoTextField.text!), rack: Int(rackNoTextField.text!), isActive: 1, parentsCagesDOB: stockCageDOBList, parentCagesId: stockCageParentCageIdList, gender: genderFlag, numberOfMice: Int(miceCountTextField.text!), completion: { (error) in
-                    debugPrint(error)
-                    doneButtonHUD.hide(animated: true)
-                    self.delegate?.detailViewControllerDidSave(controller: self)
-                })
+                if stockCageDOBList.count > 0 {
+                    QueryServer.shared.createNewSellingCage(id: newCageId, row: Int(rowNoTextField.text!), column: Int(columnNoTextField.text!), rack: Int(rackNoTextField.text!), isActive: 1, parentsCagesDOB: stockCageDOBList, parentCagesId: stockCageParentCageIdList, gender: genderFlag, numberOfMice: Int(miceCountTextField.text!), completion: { (error) in
+                        debugPrint(error)
+                        doneButtonHUD.hide(animated: true)
+                        self.delegate?.detailViewControllerDidSave(controller: self)
+                    })
+                }
+                else {
+//                    let noDOBAlert = UIAlertController(title: "No DOBs Provided", message: "Please enter the DOB of the mice ", preferredStyle: <#T##UIAlertControllerStyle#>)
+                    
+                    //UNFINISHED CODE!! READ THE BUG LIST ON MY STICKIES FOR WHAT TO DO HERE!
+                }
             }
             else {
                 //Existing cage, update its information
