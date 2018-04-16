@@ -624,12 +624,16 @@ extension breedingCageViewController: QRScannerControllerDelegate {
                 downloadParentCageHUD.detailsLabel.text = "Downloading parent cage's information..."
                 QueryServer.shared.getBreedingCageBy(id: value, completion: { (cage, error) in
                     downloadParentCageHUD.hide(animated: true)
-                    
-                    self.parentCageList.append((cage?.id)!)
-                    self.parentDOBList.append((cage?.createdAt.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))!)
-                    DispatchQueue.main.async {
-                        self.parentCageTableView.reloadData()
-                        self.parentDOBTableView.reloadData()
+                    if let theDownloadedCage = cage {
+                        self.parentCageList.append(theDownloadedCage.id)
+                        //Store the actual parent's DOBs! This is done for inbreeding check!
+                        for parent in theDownloadedCage.parentCages {
+                            self.parentDOBList.append((parent.dob?.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))!)
+                        }
+                        DispatchQueue.main.async {
+                            self.parentCageTableView.reloadData()
+                            self.parentDOBTableView.reloadData()
+                        }
                     }
                 })
             }

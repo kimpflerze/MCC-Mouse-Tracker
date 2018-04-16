@@ -28,6 +28,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     var originalCageActiveState: Bool?
     var originalCageGenderWasMale: Bool?
     var dobInCageListWasAltered = false
+    var wasSetIdScanButtonPressedLast = false
     
     var delegate: DetailViewControllerDelegate?
     
@@ -52,6 +53,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     //Buttons
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var QRCodeButton: UIButton!
+    @IBOutlet weak var scanDOBButton: UIButton!
     
     //TableViews
     @IBOutlet weak var stockCageDOBTableView: UITableView!
@@ -205,6 +207,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     
     
     @IBAction func pressed_QR_Code_btn(_ sender: UIButton) {
+        wasSetIdScanButtonPressedLast = true
         let mainStoryboard = UIStoryboard(name: "Main", bundle: .main)
         if let qrVC = mainStoryboard.instantiateViewController(withIdentifier: "scanner") as? QRScannerController {
             qrVC.delegate = self
@@ -212,6 +215,14 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         }
     }
     
+    @IBAction func pressedScanDOBButton(_ sender: UIButton) {
+        wasSetIdScanButtonPressedLast = false
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: .main)
+        if let qrVC = mainStoryboard.instantiateViewController(withIdentifier: "scanner") as? QRScannerController {
+            qrVC.delegate = self
+            present(qrVC, animated: true, completion: nil)
+        }
+    }
     
     @IBAction func pressed_done_btn(_ sender: UIButton) {
         validator.validate(self)
@@ -230,9 +241,8 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                     })
                 }
                 else {
-//                    let noDOBAlert = UIAlertController(title: "No DOBs Provided", message: "Please enter the DOB of the mice ", preferredStyle: <#T##UIAlertControllerStyle#>)
-                    
-                    //UNFINISHED CODE!! READ THE BUG LIST ON MY STICKIES FOR WHAT TO DO HERE!
+                    let noDOBAlert = UIAlertController(title: "No DOBs Provided", message: "Please input DOBs for this cage's mice!", preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
                 }
             }
             else {
@@ -283,16 +293,12 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
             miceCountTextField.text != String(theCage.numMice) ||
             (originalCageGenderWasMale! && genderFlagSegmentControl.selectedSegmentIndex == 0) ||
             dobInCageListWasAltered {
-            print("Something didnt match!")
             return true
         }
         return hasTableViewChanged
     }
     
     @IBAction func addStockCageDOBEditing(_ sender: UITextField) {
-        
-        /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
-        
         let datePickerView:UIDatePicker = UIDatePicker()
         
         datePickerView.datePickerMode = UIDatePickerMode.dateAndTime
@@ -322,16 +328,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     
     
     @objc func datePickerValueChanged(sender:UIDatePicker) {
-        
-//        let dateFormatter = DateFormatter()
-//
-//        dateFormatter.dateStyle = DateFormatter.Style.long
-//
-//        dateFormatter.timeStyle = DateFormatter.Style.none
-        
         stockCageDOBTextField.text = sender.date.toString(withFormat: "MM-dd-yyyy hh:mm:ss a")
-        /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
-
     }
     
 
@@ -454,11 +451,39 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
 
 extension stockCageViewController: QRScannerControllerDelegate {
     func qrScannerController(controller: QRScannerController, didScanQRCodeWith value: String) {
-        //print("ID Recieved from Scanner! Id: \(value)")
-        controller.dismiss(animated: true) {
-            //Find the cage object
-            self.newCageId = value
-            self.cageHasId.image = #imageLiteral(resourceName: "CheckIcon")
+        if wasSetIdScanButtonPressedLast {
+            controller.dismiss(animated: true) {
+                //Find the cage object
+                self.newCageId = value
+                self.cageHasId.image = #imageLiteral(resourceName: "CheckIcon")
+            }
+        }
+        else {
+            controller.dismiss(animated: true) {
+                QueryServer.shared.getBreedingCageBy(id: value, completion: { (breedingCage, error) in
+                    QueryServer.shared.getSellingCageBy(id: value, completion: { (sellingCage, error) in
+                        if let theBreedingCage = breedingCage {
+                            if let theLitterDOB = theBreedingCage.litterDOB {
+                                self.stockCageDOBList.append(theLitterDOB.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))
+                            }
+                        }
+                        if let theSellingCage = sellingCage {
+//                            if let theSellingCagesDOBs = theSellingCage
+                            
+                            /*
+                                I left off writing code to allow the selling cages to retain the DOBs in the database. My idea is to just
+                                have the StockCageParentDOBs hold this information, so ill have to refactor it and make sure it works properly.
+                                Im not sure if I am currently pushing any "parent information" to the database for stock cages so make sure
+                                that is happening as well!
+                            */
+                        }
+                    })
+                })
+                
+                DispatchQueue.main.async {
+                    self.stockCageDOBTableView.reloadData()
+                }
+            }
         }
     }
 }

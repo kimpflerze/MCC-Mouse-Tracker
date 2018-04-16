@@ -511,7 +511,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func showFailureToFindScannedID(failureCount: Int) {
         if (failureCount == 3) {
             let failureAlert = UIAlertController(title: "Failure to Locate Cage", message: "QR Code's value does not exist in the database. Please try again.", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             failureAlert.addAction(cancelAction)
             self.present(failureAlert, animated: true, completion: nil)
         }
@@ -778,50 +778,6 @@ extension RackViewController: QRScannerControllerDelegate {
                     self.showFailureToFindScannedID(failureCount: responseFailureCounter)
                 }
             })
-            
-            
-            
-            //Find the cage object
-            /*
-            let allCages = self.breedingCages + self.sellingCages
-            if let index = allCages.index(where: { (cage) -> Bool in
-                return cage.id == value
-            }) {
-                let cage = allCages[index]
-                if(cage.isBreeding) {
-                    let cageViewStoryboard = UIStoryboard(name: "CageViews", bundle: .main)
-                    if let breedingVC = cageViewStoryboard.instantiateViewController(withIdentifier: "BreedingCage") as? breedingCageViewController {
-                        breedingVC.cage = cage
-                        self.present(breedingVC, animated: true, completion: nil)
-                    }
-                }
-                else {
-                    let cageViewStoryboard = UIStoryboard(name: "CageViews", bundle: .main)
-                    if let sellingVC = cageViewStoryboard.instantiateViewController(withIdentifier: "SellingCage") as? stockCageViewController {
-                        sellingVC.cage = cage
-                        self.present(sellingVC, animated: true, completion: nil)
-                    }
-                }
-
-            }
-            else {
-                if let index = self.breedingMales.index(where: { (male) -> Bool in
-                    return male.id == value
-                }) {
-                    let male = self.breedingMales[index]
-                    let cageViewStoryboard = UIStoryboard(name: "CageViews", bundle: .main)
-                    if let breedingMaleVC = cageViewStoryboard.instantiateViewController(withIdentifier: "BreedingMale") as? addMaleViewController {
-                        breedingMaleVC.breedingMale = male
-                        if let indexTwo = self.breedingCages.index(where: { (cage) -> Bool in
-                            return cage.id == male.currentCageId
-                        }) {
-                            breedingMaleVC.breedingMaleCurrentCage = self.breedingCages[indexTwo]
-                            self.present(breedingMaleVC, animated: true, completion:  nil)
-                        }
-                    }
-                }
-            }
-            */
         }
     }
 }
