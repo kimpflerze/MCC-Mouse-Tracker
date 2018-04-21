@@ -126,8 +126,7 @@ extension RackPageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if let vc = pageViewController.viewControllers?[0] as? RackViewController{
             currentPage = vc
-            updateNavigationControllerTitle(
-            )
+            updateNavigationControllerTitle()
         }
     }
     

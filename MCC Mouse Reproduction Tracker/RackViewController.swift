@@ -434,12 +434,12 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
                             return newCage
                         })
                         DispatchQueue.main.async {
-                                    self.rackCollectionView.reloadData()
-                                }
-                        
-                            }
-                            
+                            self.rackCollectionView.reloadData()
                         }
+                        
+                    }
+                    
+                }
                 
                 let refreshCollectionViewAlert = UIAlertController(title: "Data Refreshed", message: "The cage data was refreshed successfully.", preferredStyle: .alert)
                 let cancelAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)

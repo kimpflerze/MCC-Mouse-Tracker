@@ -17,30 +17,31 @@ class QueryServer: NSObject {
     var lastActivityTimeStamp: Date?
     
     //URLs here so that they're all in one place and easier to change.
-    var getAllBreedingCagesURL = "https://mouseapi.azurewebsites.net/api/breedingcage"
-    var getAllActiveBreedingCagesURL = "https://mouseapi.azurewebsites.net/api/breedingcage?active=1"
-    var getBreedingCageByIDURL = "https://mouseapi.azurewebsites.net/api/breedingcage/"
-    var getAllSellingCagesURL = "https://mouseapi.azurewebsites.net/api/sellingcage"
-    var getAllActiveSellingCagesURL = "https://mouseapi.azurewebsites.net/api/sellingcage?active=1"
-    var getSellingCageByIDURL = "https://mouseapi.azurewebsites.net/api/sellingcage/"
-    var getAllBreedingMalesURL = "https://mouseapi.azurewebsites.net/api/breedingmale"
-    var getAllActiveBreedingMalesURL = "https://mouseapi.azurewebsites.net/api/breedingmale?active=1"
-    var getBreedingMaleByIDURL = "https://mouseapi.azurewebsites.net/api/breedingmale/"
-    var getBreedingMaleByCageIDURL = "https://mouseapi.azurewebsites.net/api/breedingmale?currentCageId="
-    var getAllLitterLogsURL = "https://mouseapi.azurewebsites.net/api/litterlog/"
-    var getLitterLogByIDURL = "https://mouseapi.azurewebsites.net/api/litterlog/"
-    var getAlertsURL = "https://mouseapi.azurewebsites.net/api/alert"
-    var getSettingsURL = "https://mouseapi.azurewebsites.net/api/settings/1"
-    var createNewBreedingCageURL = "https://mouseapi.azurewebsites.net/api/breedingcage"
-    var createNewSellingCageURL = "https://mouseapi.azurewebsites.net/api/sellingcage"
-    var createNewBreedingMaleURL = "https://mouseapi.azurewebsites.net/api/breedingmale"
-    var createLitterLogEntryURL = "https://mouseapi.azurewebsites.net/api/litterlog"
-    var updateBreedingCageWithIDURL = "https://mouseapi.azurewebsites.net/api/breedingcage/"
-    var updateSellingCageWithIDURL = "https://mouseapi.azurewebsites.net/api/sellingcage/"
-    var updateBreedingMaleWithIDURL = "https://mouseapi.azurewebsites.net/api/breedingmale/"
+    let getAllBreedingCagesURL = "https://mouseapi.azurewebsites.net/api/breedingcage"
+    let getAllActiveBreedingCagesURL = "https://mouseapi.azurewebsites.net/api/breedingcage?active=1"
+    let getBreedingCageByIDURL = "https://mouseapi.azurewebsites.net/api/breedingcage/"
+    let getAllSellingCagesURL = "https://mouseapi.azurewebsites.net/api/sellingcage"
+    let getAllActiveSellingCagesURL = "https://mouseapi.azurewebsites.net/api/sellingcage?active=1"
+    let getSellingCageByIDURL = "https://mouseapi.azurewebsites.net/api/sellingcage/"
+    let getAllBreedingMalesURL = "https://mouseapi.azurewebsites.net/api/breedingmale"
+    let getAllActiveBreedingMalesURL = "https://mouseapi.azurewebsites.net/api/breedingmale?active=1"
+    let getBreedingMaleByIDURL = "https://mouseapi.azurewebsites.net/api/breedingmale/"
+    let getBreedingMaleByCageIDURL = "https://mouseapi.azurewebsites.net/api/breedingmale?currentCageId="
+    let getAllLitterLogsURL = "https://mouseapi.azurewebsites.net/api/litterlog/"
+    let getLitterLogByIDURL = "https://mouseapi.azurewebsites.net/api/litterlog/"
+    let getAlertsURL = "https://mouseapi.azurewebsites.net/api/alert"
+    let getSettingsURL = "https://mouseapi.azurewebsites.net/api/settings/1"
+    let createNewBreedingCageURL = "https://mouseapi.azurewebsites.net/api/breedingcage"
+    let createNewSellingCageURL = "https://mouseapi.azurewebsites.net/api/sellingcage"
+    let createNewBreedingMaleURL = "https://mouseapi.azurewebsites.net/api/breedingmale"
+    let createLitterLogEntryURL = "https://mouseapi.azurewebsites.net/api/litterlog"
+    let updateBreedingCageWithIDURL = "https://mouseapi.azurewebsites.net/api/breedingcage/"
+    let updateSellingCageWithIDURL = "https://mouseapi.azurewebsites.net/api/sellingcage/"
+    let updateSellingCageDOBWithIDURL = "https://mouseapi.azurewebsites.net/api/breedingfemale"
+    let updateBreedingMaleWithIDURL = "https://mouseapi.azurewebsites.net/api/breedingmale/"
     //Reason for the "1" after settings is, the table within the database had to be specified, therefore the "1"
     //indicates the 1 and only entry into the settings table.
-    var updateSettingsURL = "https://mouseapi.azurewebsites.net/api/settings/1"
+    let updateSettingsURL = "https://mouseapi.azurewebsites.net/api/settings/1"
     
 //GET Queries
     //Breeding cages queries
@@ -560,7 +561,7 @@ class QueryServer: NSObject {
         }
         var theParentCagesId = [String]()
         for date in theParentCagesDOB {
-            theParentCagesId.append("Selling Cage - Lineage Lost On Creation")
+            theParentCagesId.append(theId)
         }
         
         
@@ -568,7 +569,7 @@ class QueryServer: NSObject {
         
         for i in 0..<theParentCagesId.count {
             for j in 0..<theParentCagesDOB.count {
-                if j == j {
+                if i == j {
                     let parent: [String : String] = ["Id" : theParentCagesId[i] , "DOB" : theParentCagesDOB[j]]
                     theParents.append(parent)
                 }
@@ -712,6 +713,76 @@ class QueryServer: NSObject {
                 completion(response.error?.localizedDescription)
             })
         }
+        
+    }
+    
+    func updateSellingCageDOBsWith(id: String?, dobs: [String]?, completion: @escaping (_ error: String?) -> Void) {
+        guard let theId = id else {
+            return
+        }
+        
+        guard let theDOBs = dobs, dobs?.count != 0 else {
+            completion("Issue with PARENTCAGEDOB in createNewSellingCage function of QueryServer.swift!")
+            return
+        }
+        var theIds = [String]()
+        for date in theDOBs {
+            theIds.append(theId)
+        }
+        
+        var theParents = [[String : String]]()
+        
+        for i in 0..<theIds.count {
+            for j in 0..<theDOBs.count {
+                if i == j {
+                    let parent: [String : String] = ["Id" : theIds[i] , "DOB" : theDOBs[j]]
+                    theParents.append(parent)
+                }
+            }
+        }
+
+        updateSellingCageDOBsOne(id: theId, parents: theParents) { (error) in
+            completion(error)
+        }
+        
+    }
+    
+    private func updateSellingCageDOBsOne(id: String, parents: [[String : String]],  completion: @escaping (_ error: String?) -> Void) {
+        if parents.count <= 0 {
+            completion(nil)
+        }
+        else {
+            var theParents = parents
+            let parent = theParents.removeFirst()
+            updateSellingCageDOBWithTwo(id: id, parent: parent) { (error) in
+                self.updateSellingCageDOBsOne(id: id, parents: theParents, completion: completion)
+            }
+        }
+    }
+    
+    private func updateSellingCageDOBWithTwo(id: String?, parent: [String : String], completion: @escaping (_ error: String?) -> Void) {
+        guard let url = URL(string: updateSellingCageDOBWithIDURL) else {
+            completion("Error, badly formatted URL!")
+            return
+        }
+        
+        guard let theId = id else {
+            completion("Error, bad Id!")
+            return
+        }
+        guard let theParentDOB = parent["DOB"] else {
+            completion("Error, bad parent DOB!")
+            return
+        }
+        
+        let parameters: Parameters = ["ParentCageId" : theId,
+                                      "DOB" : theParentDOB,
+                                      "CurrentCageId" : theId]
+        
+        Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
+            debugPrint(response)
+            completion(response.error?.localizedDescription)
+        })
         
     }
     

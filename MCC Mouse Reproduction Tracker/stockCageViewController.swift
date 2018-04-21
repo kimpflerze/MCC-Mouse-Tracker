@@ -17,7 +17,8 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     let validator = Validator()
     
     var stockCageDOBList = [String]()
-    var stockCageParentCageIdList = [String]()
+    var stockCageNewDOBList = [String]()
+    var stockCageIDList = [String]()
     
     //Variables for the current view to operate
     var cage: Cage?
@@ -27,7 +28,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     var genderFlag = 0;
     var originalCageActiveState: Bool?
     var originalCageGenderWasMale: Bool?
-    var dobInCageListWasAltered = false
+    var hasDOBListBeenAltered = false
     var wasSetIdScanButtonPressedLast = false
     
     var delegate: DetailViewControllerDelegate?
@@ -95,14 +96,15 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         if let theCage = cage {
             //Filling information into stockCageParentCageIdList in preparation for POST statement
             for parentCage in theCage.parentCages {
-                stockCageParentCageIdList.append(parentCage.currentCageId)
+                stockCageIDList.append(parentCage.id)
+                stockCageDOBList.append((parentCage.dob?.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))!)
             }
             
             //Autofilling text fields
             rackNoTextField.text = String(theCage.rack)
             columnNoTextField.text = String(theCage.column)
             rowNoTextField.text = String(theCage.row)
-            stockCageDOBTextField.text = (String(describing: theCage.createdAt.toString(withFormat: "MM-dd-yyyy hh:mm:ss a")))
+//            stockCageDOBTextField.text = (String(describing: theCage.createdAt.toString(withFormat: "MM-dd-yyyy hh:mm:ss a")))
   
             
             if(isNewCage == false) {
@@ -130,9 +132,10 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                 }
                 
                 for parentCage in theCage.parentCages {
-                    if let dateAsString = parentCage.dob?.toString() {
+                    if let dateAsString = parentCage.dob?.toString(withFormat: "MM-dd-yyyy hh:mm:ss a") {
                         if(stockCageDOBList.contains(dateAsString) == false) {
                             stockCageDOBList.append(dateAsString)
+                            stockCageIDList.append(parentCage.id)
                             stockCageDOBTableView.reloadData()
                 }}}}
             else {
@@ -181,12 +184,9 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     }
     
     @objc func addDateToDOBTableView() {
-        print("***In addDateToDOBTableView function!")
         if stockCageDOBTextField.text != "" || stockCageDOBTextField.text != nil {
-            print("***1")
             if let date = stockCageDOBTextField.text {
-                print("***2 : \(date)")
-                dobInCageListWasAltered = true
+                hasDOBListBeenAltered = true
                 stockCageDOBTextField.text = nil
                 stockCageDOBList.append(date)
                 stockCageDOBTableView.reloadData()
@@ -196,11 +196,9 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     
     @IBAction func genderFlagSegmentedControlTapped(_ sender: UISegmentedControl) {
         if(genderFlagSegmentControl.selectedSegmentIndex == 0) {
-            //print("Gender Flag: Male")
             genderFlag = 1
         }
         else {
-            //print("Gender Flag: Female")
             genderFlag = 0
         }
     }
@@ -234,7 +232,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                 let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
                 doneButtonHUD.detailsLabel.text = "Sending information..."
                 if stockCageDOBList.count > 0 {
-                    QueryServer.shared.createNewSellingCage(id: newCageId, row: Int(rowNoTextField.text!), column: Int(columnNoTextField.text!), rack: Int(rackNoTextField.text!), isActive: 1, parentsCagesDOB: stockCageDOBList, parentCagesId: stockCageParentCageIdList, gender: genderFlag, numberOfMice: Int(miceCountTextField.text!), completion: { (error) in
+                    QueryServer.shared.createNewSellingCage(id: newCageId, row: Int(rowNoTextField.text!), column: Int(columnNoTextField.text!), rack: Int(rackNoTextField.text!), isActive: 1, parentsCagesDOB: stockCageDOBList, parentCagesId: stockCageIDList, gender: genderFlag, numberOfMice: Int(miceCountTextField.text!), completion: { (error) in
                         debugPrint(error)
                         doneButtonHUD.hide(animated: true)
                         self.delegate?.detailViewControllerDidSave(controller: self)
@@ -243,6 +241,8 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                 else {
                     let noDOBAlert = UIAlertController(title: "No DOBs Provided", message: "Please input DOBs for this cage's mice!", preferredStyle: .alert)
                     let cancelAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                    noDOBAlert.addAction(cancelAction)
+                    present(noDOBAlert, animated: true, completion: nil)
                 }
             }
             else {
@@ -252,7 +252,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                     dismiss(animated: true, completion: nil)
                 }
                 else {
-                    self.stockCageDOBList.append(stockCageDOBTextField.text!)
+//                    self.stockCageDOBList.append(stockCageDOBTextField.text!)
                     let updateConfirmAlert = UIAlertController(title: "Confirm Update", message: "Cage information has been changed, do you wish to save these changes?", preferredStyle: .alert)
                     let confirmUpdateAction  = UIAlertAction(title: "Confirm", style: .default, handler: { (placeholder) in
                         let updateHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -265,14 +265,15 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                         else {
                             numericalStringCageIsActive = "0"
                         }
-                        QueryServer.shared.updateSellingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: numericalStringCageIsActive, numberOfMice: self.miceCountTextField.text, genderOfMice: String(self.genderFlag), cageIdList: self.stockCageParentCageIdList, cageDOBList: self.stockCageDOBList, completion: { (response) in
-                            updateHUD.hide(animated: true)
-                            let updateAlert = UIAlertController(title: "Update Cage", message: "The cage information was successfully udpated!", preferredStyle: .alert)
-                            let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (response) in
-                                self.delegate?.detailViewControllerDidSave(controller: self)
-                            })
-                            updateAlert.addAction(confirmAction)
-                            self.present(updateAlert, animated: true, completion: nil)
+                        QueryServer.shared.updateSellingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: numericalStringCageIsActive, numberOfMice: self.miceCountTextField.text, genderOfMice: String(self.genderFlag), cageIdList: self.stockCageIDList, cageDOBList: self.stockCageDOBList, completion: { (response) in
+                            if self.hasDOBListBeenAltered {
+                                QueryServer.shared.updateSellingCageDOBsWith(id: self.cage?.id, dobs: self.stockCageNewDOBList, completion: { (error) in
+                                    self.presentCageUpdatedAlert(hud: updateHUD)
+                                })
+                            }
+                            else {
+                                self.presentCageUpdatedAlert(hud: updateHUD)
+                            }
                         })
                     })
                     let cancelUpdateAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -284,6 +285,16 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         }
     } //end pressed_done_btn()
     
+    func presentCageUpdatedAlert(hud: MBProgressHUD) {
+        hud.hide(animated: true)
+        let updateAlert = UIAlertController(title: "Update Cage", message: "The cage information was successfully udpated!", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (response) in
+            self.delegate?.detailViewControllerDidSave(controller: self)
+        })
+        updateAlert.addAction(confirmAction)
+        self.present(updateAlert, animated: true, completion: nil)
+    }
+    
     func hasInformationChanged() -> Bool {
         guard let theCage = cage else {
             return false
@@ -292,7 +303,7 @@ class stockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         if originalCageActiveState != self.cage?.isActive || rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) ||
             miceCountTextField.text != String(theCage.numMice) ||
             (originalCageGenderWasMale! && genderFlagSegmentControl.selectedSegmentIndex == 0) ||
-            dobInCageListWasAltered {
+            hasDOBListBeenAltered {
             return true
         }
         return hasTableViewChanged
@@ -460,29 +471,49 @@ extension stockCageViewController: QRScannerControllerDelegate {
         }
         else {
             controller.dismiss(animated: true) {
+                self.hasDOBListBeenAltered = true
                 QueryServer.shared.getBreedingCageBy(id: value, completion: { (breedingCage, error) in
                     QueryServer.shared.getSellingCageBy(id: value, completion: { (sellingCage, error) in
                         if let theBreedingCage = breedingCage {
                             if let theLitterDOB = theBreedingCage.litterDOB {
-                                self.stockCageDOBList.append(theLitterDOB.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))
+                                if self.isNewCage {
+                                    if !(self.stockCageDOBList.contains(theLitterDOB.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))) {
+                                        self.stockCageDOBList.append(theLitterDOB.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))
+                                    }
+                                }
+                                else {
+                                    if !(self.stockCageNewDOBList.contains(theLitterDOB.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))) {
+                                        self.stockCageDOBList.append(theLitterDOB.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))
+                                        self.stockCageNewDOBList.append(theLitterDOB.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))
+                                    }
+                                }
+                                
                             }
                         }
                         if let theSellingCage = sellingCage {
-//                            if let theSellingCagesDOBs = theSellingCage
-                            
-                            /*
-                                I left off writing code to allow the selling cages to retain the DOBs in the database. My idea is to just
-                                have the StockCageParentDOBs hold this information, so ill have to refactor it and make sure it works properly.
-                                Im not sure if I am currently pushing any "parent information" to the database for stock cages so make sure
-                                that is happening as well!
-                            */
+                            for cage in theSellingCage.parentCages {
+                                if let theCage = self.cage {
+                                    for parentCage in theCage.parentCages {
+                                        if self.isNewCage {
+                                            if !(self.stockCageDOBList.contains((parentCage.dob?.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))!)) {
+                                                self.stockCageDOBList.append((parentCage.dob?.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))!)
+                                            }
+                                        }
+                                        else {
+                                            if !(self.stockCageNewDOBList.contains((parentCage.dob?.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))!)) {
+                                                self.stockCageDOBList.append((parentCage.dob?.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))!)
+                                                self.stockCageNewDOBList.append((parentCage.dob?.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))!)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        DispatchQueue.main.async {
+                            self.stockCageDOBTableView.reloadData()
                         }
                     })
                 })
-                
-                DispatchQueue.main.async {
-                    self.stockCageDOBTableView.reloadData()
-                }
             }
         }
     }

@@ -100,13 +100,8 @@ class Cage: NSObject {
             numMice = theNumMiceInCage
         }
         
-        if var litterDateString = rackInfo["LitterDOB"] as? String {
-            let litterIndex = litterDateString.index(litterDateString.startIndex, offsetBy: 19)
-            litterDateString = litterDateString.substring(to: litterIndex)
-            litterDateString = litterDateString.replacingOccurrences(of: "T", with: " ")
+        if let litterDateString = rackInfo["LitterDOB"] as? String {
             if let theLitterDOB = formatter.date(from: litterDateString) {
-                //Seems that the server is returning boolean value when it should be a date!
-                
                 litterDOB = theLitterDOB
             }
         }
