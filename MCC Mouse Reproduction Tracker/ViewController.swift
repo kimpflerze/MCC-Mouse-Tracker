@@ -75,6 +75,7 @@ class ViewController: UIViewController {
         
         //Query the server here to confirm login credentials, 
         
+        Settings.shared.userName = inputUserName
         
         //Temporary segue just for testing purposes, should be a check for the login information here!
         let downloadSettingsHUD = MBProgressHUD.showAdded(to: view, animated: true)

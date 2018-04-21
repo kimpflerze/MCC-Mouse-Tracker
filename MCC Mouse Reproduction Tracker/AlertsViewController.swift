@@ -15,9 +15,6 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var alertsTableView: UITableView!
     var alertArray = [Alert]()
-    var breedingCages = [Cage]()
-    var sellingCages = [Cage]()
-    var breedingMales = [BreedingMale]()
 
     let dateFormatter = DateFormatter()
     
@@ -34,12 +31,12 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func findMalesCurrentCage(malesCurrentCageID: String) -> Cage {
         var malesCurrentCage: Cage?
-        for cage in breedingCages {
+        for cage in RackUtility.shared.breedingCages {
             if cage.id == malesCurrentCageID {
                 malesCurrentCage = cage
             }
         }
-        for cage in sellingCages {
+        for cage in RackUtility.shared.sellingCages {
             if cage.id == malesCurrentCageID {
                 malesCurrentCage = cage
             }
@@ -62,10 +59,13 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if let alerts = downloadedAlerts {
                 self.alertArray = alerts
                 DispatchQueue.main.async {
-                   self.queryForMice()
+                    self.alertsTableView.reloadData()
                 }
             } else {
-               // print("There are no alerts at this time.")
+                let noAlertsController = UIAlertController(title: "No Alerts Available", message: "No alerts in the system at this time!", preferredStyle: .alert)
+                let continueAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                noAlertsController.addAction(continueAction)
+                self.present(noAlertsController, animated: true, completion: nil)
             }
         }
     }
@@ -76,29 +76,7 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func updateView(){
         queryAlerts()
         alertsTableView.reloadData()
-        //print("updated View")
     }
-    
-    func queryForMice(){
-        QueryServer.shared.getAllActiveBreedingCages { (breedingCages, breedingCagesError) in
-            QueryServer.shared.getAllActiveSellingCages(completion: { (sellingCages, sellingCagesError) in
-                QueryServer.shared.getAllActiveBreedingMales(completion: { (breedingMales, breedingMalesError) in
-                    DispatchQueue.main.async {
-                        if let downloadedBreedingCages = breedingCages {
-                            self.breedingCages = downloadedBreedingCages
-                        }
-                        if let downloadedSellingCages = sellingCages {
-                            self.sellingCages = downloadedSellingCages
-                        }
-                        if let downloadedBreedingMales = breedingMales {
-                            self.breedingMales = downloadedBreedingMales
-                        }
-                    }
-                })
-            })
-        }
-    }
-
     
     /* TableView Delegate Functions */
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -111,49 +89,36 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.default , reuseIdentifier: "cell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let alert = self.alertArray[indexPath.row]
         if let date = alert.alertDate {
-            cell.textLabel?.text = "ID: \(alert.subjectId);  Alert: \(alert.alertTypeDescription);  Date: \(date.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))"
+            cell.textLabel?.text = "Alert: \(alert.alertTypeDescription);  Date: \(date.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))"
         }else{
-            cell.textLabel?.text = "\t \(alert.subjectId): \(alert.alertTypeDescription) \t Date: N/A"
+            cell.textLabel?.text = "Alert: \(alert.alertTypeDescription);  Date: N/A"
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Unfinished, speak to George about how to remove alerts once they've been handled
-        let cell = tableView.cellForRow(at: indexPath)
-        if let cellText = cell?.textLabel?.text {
-            let cellTextSplitOnColon = cellText.split(separator: ";")
-            let cellTextSplitOnSpace = cellTextSplitOnColon[0].split(separator: " ")
-            let extractedCageId = String(cellTextSplitOnSpace[1])
-            if extractedCageId != "" {
-                for cage in breedingCages {
-                    if cage.id == extractedCageId {
-                        displayBreedingCage(cage: cage)
-                        return
-                    }
-                }
-                for cage in sellingCages {
-                    if cage.id == extractedCageId {
-                        displaySellingCage(cage: cage)
-                        return
-                    }
-                }
-                for male in breedingMales {
-                    let malesCurrentCage = findMalesCurrentCage(malesCurrentCageID: extractedCageId)
-                    if malesCurrentCage.id == extractedCageId {
-                        displayBreedingMale(male: male)
-                        return
-                    }
-                }
+        let alert = alertArray[indexPath.row]
+        for cage in RackUtility.shared.breedingCages {
+            if cage.id == alert.subjectId {
+                displayBreedingCage(cage: cage)
+                return
             }
-            else {
-                let failedIDExtractionAlert = UIAlertController(title: "No Subject ID!", message: "There was an error with the subject ID for the alert you selected!", preferredStyle: .alert)
-                let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                failedIDExtractionAlert.addAction(cancelAction)
-                present(failedIDExtractionAlert, animated: true, completion: nil)
+        }
+        for cage in RackUtility.shared.sellingCages {
+            if cage.id == alert.subjectId {
+                displaySellingCage(cage: cage)
+                return
+            }
+        }
+        for male in RackUtility.shared.breedingMales {
+            let malesCurrentCage = findMalesCurrentCage(malesCurrentCageID: alert.subjectId)
+            if malesCurrentCage.id == alert.subjectId {
+                displayBreedingMale(male: male)
+                return
             }
         }
     }
@@ -169,7 +134,7 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func displaySellingCage(cage: Cage) {
         let cageViewStoryboard = UIStoryboard(name: "CageViews", bundle: .main)
-        if let sellingVC = cageViewStoryboard.instantiateViewController(withIdentifier: "SellingCage") as? stockCageViewController {
+        if let sellingVC = cageViewStoryboard.instantiateViewController(withIdentifier: "SellingCage") as? StockCageViewController {
             sellingVC.delegate = self
             sellingVC.cage = cage
             self.present(sellingVC, animated: true, completion: nil)
@@ -178,7 +143,7 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func displayBreedingMale(male: BreedingMale) {
         let cageViewStoryboard = UIStoryboard(name: "CageViews", bundle: .main)
-        if let breedingMaleVC = cageViewStoryboard.instantiateViewController(withIdentifier: "BreedingMale") as? addMaleViewController {
+        if let breedingMaleVC = cageViewStoryboard.instantiateViewController(withIdentifier: "BreedingMale") as? AddMaleViewController {
             breedingMaleVC.delegate = self
             breedingMaleVC.breedingMale = male
             self.present(breedingMaleVC, animated: true, completion:  nil)

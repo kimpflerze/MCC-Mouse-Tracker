@@ -73,11 +73,11 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         cageCostTextField.delegate = self
         
         maleInCageAlertAdvanceTextField.delegate = self
-        pupsInCageAlertAdvanceTextField.delegate = self
+//        pupsInCageAlertAdvanceTextField.delegate = self
         pupsToWeanAlertAdvanceTextField.delegate = self
         maleTooOldAlertAdvanceTextField.delegate = self
         femaleTooOldAlertAdvanceTextField.delegate = self
-        cageWithOrderAlertAdvanceTextField.delegate = self
+//        cageWithOrderAlertAdvanceTextField.delegate = self
         
         validator.registerField(numRacksTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(numRowsTextField, rules: [RequiredRule(), NumericRule()])
@@ -95,11 +95,11 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         let maleLifeSpanPickerView = UIPickerView()
         let femaleLifeSpanPickerView = UIPickerView()
         let maleInCageAlertAdvancePickerView = UIPickerView()
-        let pupsInCageAlertAdvancePickerView = UIPickerView()
+//        let pupsInCageAlertAdvancePickerView = UIPickerView()
         let pupsToWeanAlertAdvancePickerView = UIPickerView()
         let maleTooOldAlertAdvancePickerView = UIPickerView()
         let femaleTooOldAlertAdvancePickerView = UIPickerView()
-        let cageWithOrderAlertAdvancePickerView = UIPickerView()
+//        let cageWithOrderAlertAdvancePickerView = UIPickerView()
         
         weaningPickerView.delegate = self
             weaningPickerView.tag = 0
@@ -113,16 +113,16 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             femaleLifeSpanPickerView.tag = 4
         maleInCageAlertAdvancePickerView.delegate = self
             maleInCageAlertAdvancePickerView.tag = 5
-        pupsInCageAlertAdvancePickerView.delegate = self
-            pupsInCageAlertAdvancePickerView.tag = 6
+//        pupsInCageAlertAdvancePickerView.delegate = self
+//            pupsInCageAlertAdvancePickerView.tag = 6
         pupsToWeanAlertAdvancePickerView.delegate = self
             pupsToWeanAlertAdvancePickerView.tag = 7
         maleTooOldAlertAdvancePickerView.delegate = self
             maleTooOldAlertAdvancePickerView.tag = 8
         femaleTooOldAlertAdvancePickerView.delegate = self
             femaleTooOldAlertAdvancePickerView.tag = 9
-        cageWithOrderAlertAdvancePickerView.delegate = self
-            cageWithOrderAlertAdvancePickerView.tag = 10
+//        cageWithOrderAlertAdvancePickerView.delegate = self
+//            cageWithOrderAlertAdvancePickerView.tag = 10
         
         weaningPeriodTextField.inputView = weaningPickerView
         breedingPeriodTextField.inputView = breedingPickerView
@@ -130,11 +130,11 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         maleLifeSpanTextField.inputView = maleLifeSpanPickerView
         femaleLifeSpanTextField.inputView = femaleLifeSpanPickerView
         maleInCageAlertAdvanceTextField.inputView = maleInCageAlertAdvancePickerView
-        pupsInCageAlertAdvanceTextField.inputView = pupsInCageAlertAdvancePickerView
+//        pupsInCageAlertAdvanceTextField.inputView = pupsInCageAlertAdvancePickerView
         pupsToWeanAlertAdvanceTextField.inputView = pupsToWeanAlertAdvancePickerView
         maleTooOldAlertAdvanceTextField.inputView = maleTooOldAlertAdvancePickerView
         femaleTooOldAlertAdvanceTextField.inputView = femaleTooOldAlertAdvancePickerView
-        cageWithOrderAlertAdvanceTextField.inputView = cageWithOrderAlertAdvancePickerView
+//        cageWithOrderAlertAdvanceTextField.inputView = cageWithOrderAlertAdvancePickerView
         
         //Toolbar to allow for dismissal of the picker views
         let toolBar = UIToolbar()
@@ -155,11 +155,11 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         maleLifeSpanTextField.inputAccessoryView = toolBar
         femaleLifeSpanTextField.inputAccessoryView = toolBar
         maleInCageAlertAdvanceTextField.inputAccessoryView = toolBar
-        pupsInCageAlertAdvanceTextField.inputAccessoryView = toolBar
+//        pupsInCageAlertAdvanceTextField.inputAccessoryView = toolBar
         pupsToWeanAlertAdvanceTextField.inputAccessoryView = toolBar
         maleTooOldAlertAdvanceTextField.inputAccessoryView = toolBar
         femaleTooOldAlertAdvanceTextField.inputAccessoryView = toolBar
-        cageWithOrderAlertAdvanceTextField.inputAccessoryView = toolBar
+//        cageWithOrderAlertAdvanceTextField.inputAccessoryView = toolBar
         
         //Query for settings just in case there are any changes
         let downloadSettingsHUD = MBProgressHUD.showAdded(to: view, animated: true)
@@ -219,7 +219,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
                     self.femaleTooOldAlertAdvanceTextField.text = String(theFemaleTooOldAlertAdvanceNumber) + " " + self.timeUnitNumberToString(timeUnit: theFemaleTooOldAlertAdvanceUnit)
                 }
                 
-                self.cageWithOrderAlertAdvanceTextField.text = "This may not even be needed! Discuss with group!"
+//                self.cageWithOrderAlertAdvanceTextField.text = "This may not even be needed! Discuss with group!"
                 
                 //Alert color setting on viewDidLoad
                 if let theMaleInCageAlertIcon = Settings.shared.maleInCageAlertIcon {

@@ -25,12 +25,10 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     //Labels
     @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
     
     //Buttons
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var alertsButton: UIButton!
-    @IBOutlet weak var ordersButton: UIButton!
     @IBOutlet weak var scanCodeButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var beginFilterButton: UIButton!
@@ -43,11 +41,6 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var numColumns = Settings.shared.numColumns
     var numRows = Settings.shared.numRows
     
-    //Downloaded Cages - Cages downloaded below
-    var breedingCages = [Cage]()
-    var sellingCages = [Cage]()
-    var breedingMales = [BreedingMale]()
-    
     //Rack Number - Used by RackPageView Controller for Navigation Controller Title
     var rackNumber = 0
     
@@ -58,6 +51,8 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        userNameLabel.text = Settings.shared.userName
         
         rackCollectionView.delegate = self
         rackCollectionView.dataSource = self
@@ -93,7 +88,12 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         
         //Setting username and email to signify user
-        userNameLabel.text = Settings.shared.userName
+        if Settings.shared.userName != "" {
+            userNameLabel.text = Settings.shared.userName
+        }
+        else {
+            userNameLabel.text = "Username"
+        }
 //        emailLabel.text = Settings.shared.email
         
         setRackViewLayout()
@@ -101,53 +101,30 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         NotificationCenter.default.addObserver(self, selector: #selector(setRackViewLayout), name: NSNotification.Name(rawValue: "updatedSettings"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshRackView), name: NSNotification.Name(rawValue: "updatedSettings"), object: nil)
         
-        //Query for all breeding cages
-        let breedingCageDownloadHUD = MBProgressHUD.showAdded(to: view, animated: true)
-        breedingCageDownloadHUD.detailsLabel.text = "Downloading breeding cages..."
-        
-        QueryServer.shared.getAllActiveBreedingCages { (downloadedCages, error) in
-            breedingCageDownloadHUD.hide(animated: true)
-            if let theCages = downloadedCages {
-                self.breedingCages = theCages
-                DispatchQueue.main.async {
-                    
-                    //Query for all selling cages
-                    let sellingCageDownloadHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-                    sellingCageDownloadHUD.detailsLabel.text = "Downloading selling cages..."
-                    
-                    QueryServer.shared.getAllActiveSellingCages { (downloadedCages, error) in
-                        sellingCageDownloadHUD.hide(animated: true)
-                        if let theCages = downloadedCages {
-                            self.sellingCages = theCages
-                            DispatchQueue.main.async {
-                                
-                                //Query for all breeding males
-                                let breedingMaleDownloadHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-                                breedingMaleDownloadHUD.detailsLabel.text = "Downloading breeding males..."
-                                QueryServer.shared.getAllActiveBreedingMales { (downloadedMales, error) in
-                                    breedingMaleDownloadHUD.hide(animated: true)
-                                    if let theMales = downloadedMales {
-                                        self.breedingMales = theMales
-                                        self.breedingCages = self.breedingCages.map({ (cage) -> Cage in
-                                            let newCage = cage
-                                            newCage.maleInCage = theMales.contains(where: { (male) -> Bool in
-                                                cage.maleInCage = true
-                                                return male.currentCageId == cage.id
-                                            })
-                                            return newCage
-                                        })
-                                        DispatchQueue.main.async {
-                                            self.rackCollectionView.reloadData()
-                                            
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+        //NEW STUFF HERE USING RACK UTILITY!
+        if RackUtility.shared.firstDownloadComplete == false {
+            let mouseInformationDownloadingHUD = MBProgressHUD.showAdded(to: view, animated: true)
+            mouseInformationDownloadingHUD.detailsLabel.text = "Downloading mouse information..."
+            
+            RackUtility.shared.downloadMouseInformation { (success, error) in
+                self.rackCollectionView.reloadData()
+                mouseInformationDownloadingHUD.hide(animated: true)
             }
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        logoutButton.layer.borderWidth = 2
+        logoutButton.layer.borderColor = UIColor.white.cgColor
+        logoutButton.layer.cornerRadius = 5
+        logoutButton.layer.masksToBounds = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.rackCollectionView.reloadData()
     }
     
     func uiColorToIconImage(color: UIColor) -> UIImage {
@@ -223,17 +200,17 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         cell.cage = nil
         
         //Check what type of cage should be put into what column/row
-        if let index = breedingCages.index(where: { (cage) -> Bool in
+        if let index = RackUtility.shared.breedingCages.index(where: { (cage) -> Bool in
             return cage.row == row + 1 && cage.column == column + 1 && cage.rack == self.rackNumber + 1
         }) {
             cell.cageTypeIcon.image = #imageLiteral(resourceName: "BreedingIconBackground")
-            cell.cage = breedingCages[index]
+            cell.cage = RackUtility.shared.breedingCages[index]
         }
-        else if let index = sellingCages.index(where: { (cage) -> Bool in
+        else if let index = RackUtility.shared.sellingCages.index(where: { (cage) -> Bool in
             return cage.row == row + 1 && cage.column == column + 1 && cage.rack == self.rackNumber + 1
         }) {
             cell.cageTypeIcon.image = #imageLiteral(resourceName: "SellingIconBackground")
-            cell.cage = sellingCages[index]
+            cell.cage = RackUtility.shared.sellingCages[index]
         }
         
         //Make sure all alerts are hidden prior to turning them to unhidden
@@ -323,7 +300,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }
             else {
                 let cageViewStoryboard = UIStoryboard(name: "CageViews", bundle: .main)
-                if let sellingVC = cageViewStoryboard.instantiateViewController(withIdentifier: "SellingCage") as? stockCageViewController {
+                if let sellingVC = cageViewStoryboard.instantiateViewController(withIdentifier: "SellingCage") as? StockCageViewController {
                     sellingVC.cage = theCage
                     sellingVC.isNewCage = false
                     sellingVC.delegate = self
@@ -357,7 +334,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }
             let sellingAction = UIAlertAction(title: "Selling", style: .default) { (alert) in
                 let cageViewStoryboard = UIStoryboard(name: "CageViews", bundle: .main)
-                if let sellingVC = cageViewStoryboard.instantiateViewController(withIdentifier: "SellingCage") as? stockCageViewController {
+                if let sellingVC = cageViewStoryboard.instantiateViewController(withIdentifier: "SellingCage") as? StockCageViewController {
                     sellingVC.cage = cage
                     sellingVC.isNewCage = true
                     sellingVC.delegate = self
@@ -402,11 +379,19 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @objc func refreshRackView() {
         //Query for all breeding cages
         let breedingCageDownloadHUD = MBProgressHUD.showAdded(to: view, animated: true)
-        breedingCageDownloadHUD.detailsLabel.text = "Refreshing breeding cages..."
+        breedingCageDownloadHUD.detailsLabel.text = "Refreshing mouse information..."
+        
+        RackUtility.shared.downloadMouseInformation { (success, error) in
+            self.rackCollectionView.reloadData()
+            breedingCageDownloadHUD.hide(animated: true)
+        }
+        
+        
+        /*
         QueryServer.shared.getAllActiveBreedingCages { (downloadedCages, error) in
             breedingCageDownloadHUD.hide(animated: true)
             if let theCages = downloadedCages {
-                self.breedingCages = theCages
+                RackUtility.shared.breedingCages = theCages
             }
             
             //Query for all selling cages
@@ -415,7 +400,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
             QueryServer.shared.getAllActiveSellingCages { (downloadedCages, error) in
                 sellingCageDownloadHUD.hide(animated: true)
                 if let theCages = downloadedCages {
-                    self.sellingCages = theCages
+                    RackUtility.shared.sellingCages = theCages
                 }
                 
                 //Query for all breeding males
@@ -424,8 +409,8 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 QueryServer.shared.getAllActiveBreedingMales { (downloadedMales, error) in
                     breedingMaleDownloadHUD.hide(animated: true)
                     if let theMales = downloadedMales {
-                        self.breedingMales = theMales
-                        self.breedingCages = self.breedingCages.map({ (cage) -> Cage in
+                        RackUtility.shared.breedingMales = theMales
+                        RackUtility.shared.breedingCages = RackUtility.shared.breedingCages.map({ (cage) -> Cage in
                             let newCage = cage
                             newCage.maleInCage = theMales.contains(where: { (male) -> Bool in
                                 cage.maleInCage = true
@@ -447,6 +432,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 self.present(refreshCollectionViewAlert, animated: true, completion: nil)
             }
         }
+        */
     }
             
     //User logout action - with alert
@@ -551,13 +537,13 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func clearFilters() {
         print("All Filters Cleared!")
-        for cage in breedingCages {
+        for cage in RackUtility.shared.breedingCages {
             cage.shouldHighlightCage = false
         }
-        for cage in sellingCages {
+        for cage in RackUtility.shared.sellingCages {
             cage.shouldHighlightCage = false
         }
-        for male in breedingMales {
+        for male in RackUtility.shared.breedingMales {
             male.shouldHighlightMale = false
         }
         shouldApplyFiltering = false
@@ -566,7 +552,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func breedingCagesFilter() {
         print("     BreedingCagesFilter Applied!")
-        for cage in breedingCages {
+        for cage in RackUtility.shared.breedingCages {
             print("breedingCageID: \(cage.id)")
             cage.shouldHighlightCage = true
         }
@@ -575,11 +561,11 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func breedingMalesFilter() {
         print("     BreedingMalesFilter Applied!")
-        for male in breedingMales {
+        for male in RackUtility.shared.breedingMales {
             male.shouldHighlightMale = true
             QueryServer.shared.getBreedingCageBy(id: male.currentCageId, completion: { (cage, error) in
                 DispatchQueue.main.async {
-                    for breedingCage in self.breedingCages {
+                    for breedingCage in RackUtility.shared.breedingCages {
                         if cage?.id == breedingCage.id {
                             breedingCage.shouldHighlightCage = true
                         }
@@ -592,7 +578,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func sellingCagesFilter() {
         print("     SellingCagesFilter Applied!")
-        for cage in sellingCages {
+        for cage in RackUtility.shared.sellingCages {
             cage.shouldHighlightCage = true
         }
         self.rackCollectionView.reloadData()
@@ -600,7 +586,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func maleTooOldFilter() {
         print("     MaleTooOldFilter Applied!")
-        for male in breedingMales {
+        for male in RackUtility.shared.breedingMales {
             for alert in male.alerts {
                 if alert.alertTypeID == " " {
                     getCageOfMouseWith(cageID: male.id)
@@ -652,7 +638,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func getCageOfMouseWith(cageID: String) {
         QueryServer.shared.getBreedingCageBy(id: cageID, completion: { (cage, error) in
             DispatchQueue.main.async {
-                for breedingCage in self.breedingCages {
+                for breedingCage in RackUtility.shared.breedingCages {
                     if cage?.id == cageID {
                         breedingCage.shouldHighlightCage = true
                     }
@@ -664,7 +650,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func femaleTooOldFilter() {
         print("     FemaleTooOldFilter Applied!")
-        for breedingCage in breedingCages {
+        for breedingCage in RackUtility.shared.breedingCages {
             for alert in breedingCage.alerts {
                 if alert.alertTypeID == "3" {
                     breedingCage.shouldHighlightCage = true
@@ -677,7 +663,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func cagesWithOrderFilter() {
         print("     CagesWithOrderFilter Applied!")
-        for sellingCage in sellingCages {
+        for sellingCage in RackUtility.shared.sellingCages {
             if sellingCage.markedForOrder {
                 sellingCage.shouldHighlightCage = true
             }
@@ -692,7 +678,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
             DispatchQueue.main.async {
                 if let theLitterLogs = litterLogs {
                     for log in litterLogs! {
-                        for breedingCage in self.breedingCages {
+                        for breedingCage in RackUtility.shared.breedingCages {
                             if log.motherCageId == breedingCage.id {
                                 breedingCage.shouldHighlightCage = true
                             }
@@ -706,7 +692,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func pupsToWeanFilter() {
         print("     PupsToWeanFilter Applied!")
-        for cage in breedingCages {
+        for cage in RackUtility.shared.breedingCages {
             for alert in cage.alerts {
                 if alert.alertTypeID == String(1) {
                     cage.shouldHighlightCage = true
@@ -747,7 +733,7 @@ extension RackViewController: QRScannerControllerDelegate {
                 if let theCage = cage {
                     //Found the cage
                     let cageViewStoryboard = UIStoryboard(name: "CageViews", bundle: .main)
-                    if let sellingVC = cageViewStoryboard.instantiateViewController(withIdentifier: "SellingCage") as? stockCageViewController {
+                    if let sellingVC = cageViewStoryboard.instantiateViewController(withIdentifier: "SellingCage") as? StockCageViewController {
                         sellingVC.delegate = self
                         sellingVC.cage = theCage
                         self.present(sellingVC, animated: true, completion: nil)
@@ -762,13 +748,13 @@ extension RackViewController: QRScannerControllerDelegate {
                 if let theMale = male {
                     //Found the male
                     let cageViewStoryboard = UIStoryboard(name: "CageViews", bundle: .main)
-                    if let breedingMaleVC = cageViewStoryboard.instantiateViewController(withIdentifier: "BreedingMale") as? addMaleViewController {
+                    if let breedingMaleVC = cageViewStoryboard.instantiateViewController(withIdentifier: "BreedingMale") as? AddMaleViewController {
                         breedingMaleVC.delegate = self
                         breedingMaleVC.breedingMale = male
-                        if let indexTwo = self.breedingCages.index(where: { (cage) -> Bool in
+                        if let indexTwo = RackUtility.shared.breedingCages.index(where: { (cage) -> Bool in
                             return cage.id == theMale.currentCageId
                         }) {
-                            breedingMaleVC.breedingMaleCurrentCage = self.breedingCages[indexTwo]
+                            breedingMaleVC.breedingMaleCurrentCage = RackUtility.shared.breedingCages[indexTwo]
                             self.present(breedingMaleVC, animated: true, completion:  nil)
                         }
                     }
