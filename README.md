@@ -1,6 +1,14 @@
 # MCC-Mouse-Tracker
 Mouse breeding tracking application for Massey Cancer Center.
 
+## Installation Instructions
+
+[WebApi Installation Instructions](./WebAPI/Api/readme.md) 
+
+[Web Application Installation Instructions](./WebApp/README.md)
+
+
+
 ## 2-17 API Deploy Notes
 
 The following properties have been added to the response of the /settings endpoint:
