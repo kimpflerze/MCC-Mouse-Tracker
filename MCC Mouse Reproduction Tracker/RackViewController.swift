@@ -46,7 +46,6 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     //Filtering options
     var filterOption = ["Clear Filters", "Breeding Cages", "Breeding Males", "Selling Cages", "Male Too Old", "Female Too Old", "Cages Assosciated With An Order", "Pups In Cage", "Pups To Wean"]
-    
     var shouldApplyFiltering = false
     
     override func viewDidLoad() {
@@ -63,6 +62,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         filterView.layer.cornerRadius = 10
         filterView.clipsToBounds = true
         
+        //Filtering textfield setup
         filterByTextField.delegate = self
     
         let filterByTextFieldPickerView = UIPickerView()
@@ -70,7 +70,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         filterByTextFieldPickerView.delegate = self
         filterByTextField.inputView = filterByTextFieldPickerView
         
-        //Toolbar to allow for dismissal of the picker views
+        //Toolbar to allow for dismissal of picker views
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
@@ -84,24 +84,23 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         //Assigning the toolbard created above to all of the textfields that use a pickerview.
         filterByTextField.inputAccessoryView = toolBar
-        
-        
-        
-        //Setting username and email to signify user
+
+        //Setting username and email to signify user - Login functionality not actually implemented!
         if Settings.shared.userName != "" {
             userNameLabel.text = Settings.shared.userName
         }
         else {
             userNameLabel.text = "Username"
         }
-//        emailLabel.text = Settings.shared.email
         
+        //Begin generating RackView (Main view of application that resembles one side of carts containing cages in the clean room)
         setRackViewLayout()
         
+        //NotificationCenter setup to allow restructuring of RackView on settings update
         NotificationCenter.default.addObserver(self, selector: #selector(setRackViewLayout), name: NSNotification.Name(rawValue: "updatedSettings"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshRackView), name: NSNotification.Name(rawValue: "updatedSettings"), object: nil)
         
-        //NEW STUFF HERE USING RACK UTILITY!
+        //Pulling mouse information for use across the whole application
         if RackUtility.shared.firstDownloadComplete == false {
             let mouseInformationDownloadingHUD = MBProgressHUD.showAdded(to: view, animated: true)
             mouseInformationDownloadingHUD.detailsLabel.text = "Downloading mouse information..."
@@ -116,6 +115,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        //Visual changes to make logout button more apparent as an interactable button
         logoutButton.layer.borderWidth = 2
         logoutButton.layer.borderColor = UIColor.white.cgColor
         logoutButton.layer.cornerRadius = 5
@@ -149,12 +149,8 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
             return #imageLiteral(resourceName: "XIcon")
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
+    //Functions for setting up/dismissing filtering picker view
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -175,6 +171,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.view.endEditing(true)
     }
     
+    //Functions for setting up RackView
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -230,22 +227,18 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         if let alerts = cell.cage?.alerts {
             for alert in alerts {
-                print("Rack View Cage Alert Detection:")
                 switch alert.alertTypeID {
                 case "1":
-                    print("     Pups To Wean Alert On Cage With ID: \(cell.cage?.id ?? "nil")")
                     cell.pupsToWeanAlertIcon.isHidden = false
+                    cell.cage?.litterInCage = true
                     break
                 case "2":
-                    print("     Male Too Old Alert On Cage With ID: \(cell.cage?.id ?? "nil")")
                     cell.maleTooOldAlertIcon.isHidden = false
                     break
                 case "3":
-                    print("     Female Too Old Alert On Cage With ID: \(cell.cage?.id ?? "nil")")
                     cell.FemaleTooOldAlertIcon.isHidden = false
                     break
                 case "4":
-                    print("     Cage With Order Alert On Cage With ID: \(cell.cage?.id ?? "nil")")
                     cell.cageWithOrderAlertIcon.isHidden = false
                     break
                 default:
@@ -261,7 +254,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         else {
             cell.maleInCageAlertIcon.isHidden = true
         }
- 
+        
         
         //Check to change opacity of cages when filtering
         if  (cell.cage?.shouldHighlightCage == false && shouldApplyFiltering == true) || cell.cage?.id == nil {
@@ -338,7 +331,6 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     sellingVC.cage = cage
                     sellingVC.isNewCage = true
                     sellingVC.delegate = self
-                    //Dont forget the sellingVC delegate just like the breedingVC!
                     self.present(sellingVC, animated: true, completion: nil)
                 }
             }
@@ -363,8 +355,8 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
+    //Function to use custom layout (ColumnFlowLayout.swift) created for RackView
     @objc func setRackViewLayout() {
-        //Setting collection view layout
         let columnLayout = ColumnFlowLayout(
             cellsPerRow: Settings.shared.numColumns!,
             minimumInteritemSpacing: 20,
@@ -377,65 +369,16 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     //Function to refresh the cage information in the collection view - with completion alert!
     @objc func refreshRackView() {
-        //Query for all breeding cages
-        let breedingCageDownloadHUD = MBProgressHUD.showAdded(to: view, animated: true)
-        breedingCageDownloadHUD.detailsLabel.text = "Refreshing mouse information..."
+        let refreshingMouseInformationDownloadHUD = MBProgressHUD.showAdded(to: view, animated: true)
+        refreshingMouseInformationDownloadHUD.detailsLabel.text = "Refreshing mouse information..."
         
         RackUtility.shared.downloadMouseInformation { (success, error) in
             self.rackCollectionView.reloadData()
-            breedingCageDownloadHUD.hide(animated: true)
+            refreshingMouseInformationDownloadHUD.hide(animated: true)
         }
-        
-        
-        /*
-        QueryServer.shared.getAllActiveBreedingCages { (downloadedCages, error) in
-            breedingCageDownloadHUD.hide(animated: true)
-            if let theCages = downloadedCages {
-                RackUtility.shared.breedingCages = theCages
-            }
-            
-            //Query for all selling cages
-            let sellingCageDownloadHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-            breedingCageDownloadHUD.detailsLabel.text = "Refreshing selling cages..."
-            QueryServer.shared.getAllActiveSellingCages { (downloadedCages, error) in
-                sellingCageDownloadHUD.hide(animated: true)
-                if let theCages = downloadedCages {
-                    RackUtility.shared.sellingCages = theCages
-                }
-                
-                //Query for all breeding males
-                let breedingMaleDownloadHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-                breedingMaleDownloadHUD.detailsLabel.text = "Downloading breeding males..."
-                QueryServer.shared.getAllActiveBreedingMales { (downloadedMales, error) in
-                    breedingMaleDownloadHUD.hide(animated: true)
-                    if let theMales = downloadedMales {
-                        RackUtility.shared.breedingMales = theMales
-                        RackUtility.shared.breedingCages = RackUtility.shared.breedingCages.map({ (cage) -> Cage in
-                            let newCage = cage
-                            newCage.maleInCage = theMales.contains(where: { (male) -> Bool in
-                                cage.maleInCage = true
-                                return male.currentCageId == cage.id
-                            })
-                            return newCage
-                        })
-                        DispatchQueue.main.async {
-                            self.rackCollectionView.reloadData()
-                        }
-                        
-                    }
-                    
-                }
-                
-                let refreshCollectionViewAlert = UIAlertController(title: "Data Refreshed", message: "The cage data was refreshed successfully.", preferredStyle: .alert)
-                let cancelAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-                refreshCollectionViewAlert.addAction(cancelAction)
-                self.present(refreshCollectionViewAlert, animated: true, completion: nil)
-            }
-        }
-        */
     }
             
-    //User logout action - with alert
+    //Actions for buttons on the menu
     @IBAction func logoutButtonPressed(_ sender: Any) {
         let logoutConfirmationAlert = UIAlertController(title: "Logout", message: "Are you sure you want to logout?", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "Confirm", style: .default) { (alert) in
@@ -458,7 +401,6 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
-    //Incomplete alerts button, need alerts view!
     @IBAction func alertsButtonPressed(_ sender: UIButton) {
         showMenu()
         
@@ -468,7 +410,6 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
-    //Incomplete settings button, need settings view!
     @IBAction func settingsButtonPressed(_ sender: UIButton) {
         showMenu()
         
@@ -491,7 +432,6 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         applyFilter()
         donePicker()
         showMenu()
-//        shouldApplyFiltering = false
     }
     
     func showFailureToFindScannedID(failureCount: Int) {
@@ -508,7 +448,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         clearFilters()
         shouldApplyFiltering = true
         print("Applying Filter!")
-        //The switch case numbers match the alert type indexing used by the DB
+        //The switch case numbers match the alert type indexing used by the database
         if let theFilterOption = filterByTextField.text {
             switch theFilterOption {
             case "Breeding Cages":
@@ -535,6 +475,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
+    //Begin filtering logic fuctions
     func clearFilters() {
         print("All Filters Cleared!")
         for cage in RackUtility.shared.breedingCages {
@@ -593,48 +534,9 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 }
             }
         }
-        /*
-        for male in breedingMales {
-            switch Settings.shared.maleLifeSpanUnit {
-            case 1?:
-                print("  Male Lifespan Unit: Days")
-                if let theDOB = male.dob {
-                    let currentDate = Date()
-                    print("Max of two dates: \(max(currentDate.interval(ofComponent: .day, fromDate: theDOB), Settings.shared.maleLifeSpanNumber!))")
-                    if max(currentDate.interval(ofComponent: .day, fromDate: theDOB), Settings.shared.maleLifeSpanNumber!) != Settings.shared.maleLifeSpanNumber! {
-                        getCageOfMouseWith(cageID: male.currentCageId)
-                    }
-                }
-            case 2?:
-                if let theDOB = male.dob {
-                    let currentDate = Date()
-                    if max(currentDate.interval(ofComponent: .weekOfMonth, fromDate: theDOB), Settings.shared.maleLifeSpanNumber!) != Settings.shared.maleLifeSpanNumber! {
-                        getCageOfMouseWith(cageID: male.currentCageId)
-                    }
-                }
-            case 3?:
-                if let theDOB = male.dob {
-                    let currentDate = Date()
-                    if max(currentDate.interval(ofComponent: .month, fromDate: theDOB), Settings.shared.maleLifeSpanNumber!) != Settings.shared.maleLifeSpanNumber! {
-                        getCageOfMouseWith(cageID: male.currentCageId)
-                    }
-                }
-            case 4?:
-                if let theDOB = male.dob {
-                    let currentDate = Date()
-                    if max(currentDate.interval(ofComponent: .year, fromDate: theDOB), Settings.shared.maleLifeSpanNumber!) != Settings.shared.maleLifeSpanNumber! {
-                        getCageOfMouseWith(cageID: male.currentCageId)
-                    }
-                }
-            default:
-                print("Error! Unable to determine male life span unit! Please reset that value in the settings!")
-                
-            }
-        }
- */
     }
     
-    //Utility function
+    //Misc. utility function
     func getCageOfMouseWith(cageID: String) {
         QueryServer.shared.getBreedingCageBy(id: cageID, completion: { (cage, error) in
             DispatchQueue.main.async {
@@ -677,7 +579,7 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         QueryServer.shared.getAllLitterLogs { (litterLogs, error) in
             DispatchQueue.main.async {
                 if let theLitterLogs = litterLogs {
-                    for log in litterLogs! {
+                    for log in theLitterLogs {
                         for breedingCage in RackUtility.shared.breedingCages {
                             if log.motherCageId == breedingCage.id {
                                 breedingCage.shouldHighlightCage = true
@@ -712,6 +614,7 @@ extension RackViewController: QRScannerControllerDelegate {
         print("QR Scanner Return:")
         print("     Cage ID Recieved from Scanner! Id: \(value)")
         controller.dismiss(animated: true) {
+            //responseFailureCounter used to track if there was no breeding cage, selling cage, or breeding male found with the returned ID
             var responseFailureCounter = 0
             //Check if returned ID is a breeding cage
             QueryServer.shared.getBreedingCageBy(id: value, completion: { (cage, error) in

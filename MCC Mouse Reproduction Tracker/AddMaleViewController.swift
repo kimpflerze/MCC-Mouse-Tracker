@@ -83,7 +83,7 @@ class AddMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         textfieldValidationRegistration()
         
         //Populate information from passed cage here!
-        //Filling informatin for an existing cage
+        //Filling information for an existing cage
         if let theCage = breedingMaleCurrentCage {
             rackNoTextField.text = String(theCage.rack)
             columnNoTextField.text = String(theCage.column)
@@ -138,7 +138,6 @@ class AddMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func textfieldValidationRegistration() {
         //Register textfields for validation
-        //validator.registerField(parentCageIDTextField, rules: [RequiredRule(),NumericRule()])
         validator.registerField(maleDOBTextField, rules: [RequiredRule()])
         validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
@@ -148,9 +147,6 @@ class AddMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     func validationSuccessful() {
         maleDOBTextField.layer.borderColor = UIColor.green.cgColor
         maleDOBTextField.layer.borderWidth = 1.0
-        
-//        parentCageIDTextField.layer.borderColor = UIColor.green.cgColor
-//        parentCageIDTextField.layer.borderWidth = 1.0
         
         rackNoTextField.layer.borderColor = UIColor.green.cgColor
         rackNoTextField.layer.borderWidth = 1.0
@@ -214,14 +210,13 @@ class AddMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
                     let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
                     doneButtonHUD.detailsLabel.text = "Sending information..."
                     QueryServer.shared.createNewBreedingMale(id: self.newMaleId, isActive: 1, motherCageId: self.parentCageIDList.first, DOB: self.maleDOBTextField.text, currentCageId: self.currentCageIDTextField.text, completion: { (error) in
-                        //                debugPrint(error)
                         doneButtonHUD.hide(animated: true)
                         self.delegate?.detailViewControllerDidSave(controller: self)
                     })
                 }
                 else {
                     //Existing cage, update its information
-                    if(!self.hasInformationChanged() /*|| !(wasValidationSuccessful)*/) {
+                    if(!self.hasInformationChanged()) {
                         self.dismiss(animated: true, completion: nil)
                     }
                     else {
@@ -261,12 +256,10 @@ class AddMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         doneButtonPressedAlert.addAction(continueAndSaveAction)
         doneButtonPressedAlert.addAction(cancelAction)
         present(doneButtonPressedAlert, animated: true, completion: nil)
-    } // end pressedDoneButton()
+    }
     
     
     @IBAction func maleDOBEditing(_ sender: UITextField) {
-        
-        /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
         
         let datePickerView:UIDatePicker = UIDatePicker()
         
@@ -323,7 +316,6 @@ class AddMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
                 result = true
             } else {
                 // Validation error occurred
-                //print(error?.errorMessage ?? textField.text! + "is an invalid entry")
                 textField.layer.borderColor = UIColor.red.cgColor
                 textField.layer.borderWidth = 1.0
                 result = false
@@ -362,15 +354,7 @@ class AddMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @objc func datePickerValueChanged(sender:UIDatePicker) {
-        
-//        let dateFormatter = DateFormatter()
-//
-//        dateFormatter.dateStyle = DateFormatter.Style.long
-//
-//        dateFormatter.timeStyle = DateFormatter.Style.long
-        
         maleDOBTextField.text = sender.date.toString(withFormat: "MM-dd-yyyy hh:mm:ss a")
-        /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

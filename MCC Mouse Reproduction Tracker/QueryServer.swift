@@ -13,7 +13,7 @@ class QueryServer: NSObject {
     
     static let shared = QueryServer()
     
-    //Timestamp referenced to determine if the current user should be timed out
+    //Timestamp referenced to determine if the current user should be timed out - User timeout not implemented because login was not implemented!
     var lastActivityTimeStamp: Date?
     
     //URLs here so that they're all in one place and easier to change.
@@ -72,17 +72,13 @@ class QueryServer: NSObject {
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
             if let result = response.value as? [[String : Any]] {
-                
-                print("==Downloaded Breeding Cages==")
-                
                 var cages = [Cage]()
                 for item in result {
                     let cage = Cage(rackInfo: item)
                     
-                    print("  cage.id: \(cage.id), Row: \(cage.row), Column: \(cage.column), Rack: \(cage.rack), NumAlertsOnCage: \(cage.alerts.count)")
                     if(cage.alerts.count > 0) {
                         for alert in cage.alerts {
-                            print(alert)
+//                            print(alert)
                         }
                     }
                     
@@ -103,7 +99,6 @@ class QueryServer: NSObject {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
-//            debugPrint(response)
             if let result = response.value as? [String : Any] {
                 var cage = Cage(rackInfo: result)
                 cage.isBreeding = true
@@ -144,14 +139,11 @@ class QueryServer: NSObject {
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
             if let result = response.value as? [[String : Any]] {
-                print("==Downloaded Selling Cages==")
                 
                 var cages = [Cage]()
                 for item in result {
                     let cage = Cage(rackInfo: item)
-                    
-                    print("  cage.id: \(cage.id), Row: \(cage.row), Column: \(cage.column), Rack: \(cage.rack)")
-                    
+
                     cage.isBreeding = false
                     cages.append(cage)
                 }
@@ -210,12 +202,9 @@ class QueryServer: NSObject {
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
             if let result = response.value as? [[String : Any]] {
                 
-                print("==Downloaded Breeding Males==")
-                
                 var males = [BreedingMale]()
                 for item in result {
                     let male = BreedingMale(maleInfo: item)
-                    print("  BreedingMale CurrentCageId: \(male.currentCageId), BreedingMaleID: \(male.id)")
                     males.append(male)
                 }
                 completion(males, nil)
@@ -267,6 +256,9 @@ class QueryServer: NSObject {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
+            print("=====getAllLitterLogsResponse=====")
+            debugPrint(response)
+            print("==================================")
             if let result = response.value as? [[String : Any]] {
                 var litterLogs = [LitterLog]()
                 for item in result {
@@ -325,8 +317,6 @@ class QueryServer: NSObject {
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
             if let downloadedSettings = response.value as? [String : Any] {
-                print("==Downloaded Settings==")
-//                debugPrint(response)
                 
                 //Mouse information
                 if let theBreedingPeriod = downloadedSettings["BreedingPeriod"] {
@@ -401,19 +391,17 @@ class QueryServer: NSObject {
                 //Financial information
                 if let theCageCost = downloadedSettings["CageCost"] {
                     Settings.shared.costPerCagePerDay = theCageCost as? Double
-                    print("  Cost of Cage per Day: \(Settings.shared.costPerCagePerDay!)")
                 }
                 
                 if let theFemaleMousePrice = downloadedSettings["FemaleCost"] {
                     Settings.shared.costPerFemaleMouse = theFemaleMousePrice as? Double
-                    print("  Cost per Female: \(Settings.shared.costPerFemaleMouse!)")
                 }
                 
                 if let theMaleMousePrice = downloadedSettings["MaleCost"] {
                     Settings.shared.costPerMaleMouse = theMaleMousePrice as? Double
-                    print("  Cost per Male: \(Settings.shared.costPerMaleMouse!)")
                 }
                 
+                print("=====Size of Cage Racks Information=====")
                 //Mouse storage information
                 if let theColumns = downloadedSettings["Columns"] {
                     Settings.shared.numColumns = theColumns as? Int
@@ -427,7 +415,7 @@ class QueryServer: NSObject {
                     Settings.shared.numRows = theNumRows as? Int
                     print("  Num Racks: \(Settings.shared.numRows!)")
                 }
-                
+                print("=========================================")
                 completion()
  
             }
@@ -493,7 +481,6 @@ class QueryServer: NSObject {
             completion("Issue with ACTIVE in createNewBreedingCage function of QueryServer.swift!")
             return
         }
-        print("Number of parentCages in list of parent cages passed to QueryServer: \(parentCagesId?.count)")
         guard let theParentCagesId = parentCagesId, parentCagesId?.count != 0 else {
             completion("Issue with PARENTCAGEID in createNewBreedingCage function of QueryServer.swift!")
             return
@@ -579,8 +566,6 @@ class QueryServer: NSObject {
         let parameters: Parameters = ["Id" : theId, "Row": theRow, "Column": theColumn, "Rack": theRack, "Active": theIsActive, "ParentCages": theParents, "Gender": theGender, "NumberOfMice": theNumberOfMice]
         let headers: HTTPHeaders = ["Content-Type":"application/json"]
         Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (response) in
-            print("=================================================")
-//            debugPrint(response)
             completion(response.error?.localizedDescription)
         })
     }
@@ -642,13 +627,12 @@ class QueryServer: NSObject {
 //Start PATCH Queries
     
     //Update breeding cage
-    func updateBreedingCageWith(id: String?, row: String?, column: String?, rack: String?, isActive: String?, completion: @escaping (_ error: String?) -> Void) {
+    func updateBreedingCageWith(id: String?, row: String?, column: String?, rack: String?, isActive: String?, weaned: String?, completion: @escaping (_ error: String?) -> Void) {
         guard let theId = id else {
             return
         }
         
         var urlComponents = URLComponents(string: updateBreedingCageWithIDURL+theId)
-//        debugPrint("urlComponents = \(String(describing: urlComponents))")
         var queryItems = [URLQueryItem]()
         
         if let theRow = row {
@@ -663,14 +647,14 @@ class QueryServer: NSObject {
         if let theIsActive = isActive {
             queryItems.append(URLQueryItem(name: "active", value: String(theIsActive)))
         }
-        
-//        debugPrint("Queryitems = \(String(describing:queryItems))")
+        if let theWeaned = weaned {
+            queryItems.append(URLQueryItem(name: "weaned", value: theWeaned))
+        }
         
         urlComponents?.queryItems = queryItems
         
         if let url = urlComponents?.url {
             Alamofire.request(url, method: .patch, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
-//                debugPrint(response)
                 completion(response.error?.localizedDescription)
             })
         }
@@ -709,7 +693,6 @@ class QueryServer: NSObject {
         
         if let url = urlComponents?.url {
             Alamofire.request(url, method: .patch, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
-//                debugPrint(response)
                 completion(response.error?.localizedDescription)
             })
         }
@@ -780,7 +763,6 @@ class QueryServer: NSObject {
                                       "CurrentCageId" : theId]
         
         Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
-            debugPrint(response)
             completion(response.error?.localizedDescription)
         })
         
@@ -810,7 +792,6 @@ class QueryServer: NSObject {
         if let url = urlComponents?.url {
             Alamofire.request(url, method: .patch, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
                 debugPrint(response)
-                
                 if response.response?.statusCode == 200 {
                     completion(nil)
                 }

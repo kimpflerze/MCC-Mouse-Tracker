@@ -9,10 +9,10 @@
 import UIKit
 import MBProgressHUD
 
+//This controller handles the small alerts popup on the breeding cage/selling cage/breeding male views!
 class CageAlertsViewController: UIViewController , UITableViewDelegate, UITableViewDataSource {
 
     /* Variables */
-    
     var cageAlertArray = [Alert]()
     @IBOutlet weak var cageAlertsTableView: UITableView!
     
@@ -22,14 +22,7 @@ class CageAlertsViewController: UIViewController , UITableViewDelegate, UITableV
         cageAlertsTableView.dataSource = self
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-   
-    
     /* TableView Delegate Functions */
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

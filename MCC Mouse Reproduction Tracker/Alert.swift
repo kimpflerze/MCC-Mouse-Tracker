@@ -39,20 +39,5 @@ class Alert: NSObject {
                 alertDate = theFormattedDate
             }
         }
-        /*
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM-dd-yyyy hh:mm:ss a"
-        if var theAlertDate = alertInfo["AlertDate"] as? String {
-            let dateIndex = theAlertDate.index(theAlertDate.startIndex, offsetBy: 19)
-            theAlertDate = theAlertDate.substring(to: dateIndex)
-            theAlertDate = theAlertDate.replacingOccurrences(of: "T", with: " ")
-            if let theFormattedAlertDate = formatter.date(from: theAlertDate) {
-                alertDate = theFormattedAlertDate
-            }
-            
-        }
-        */
-        
     }
-    
 }

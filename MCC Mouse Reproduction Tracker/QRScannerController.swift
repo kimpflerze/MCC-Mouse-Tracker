@@ -54,11 +54,6 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
             let captureMetadataOutput = AVCaptureMetadataOutput()
             captureSession?.addOutput(captureMetadataOutput)
             
-            //Turn on flash if available on device
-            if captureDevice?.hasFlash == true {
-                captureDevice?.flashMode = .on
-            }
-            
             // Set delegate and use the default dispatch queue to execute the call back
             captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             captureMetadataOutput.metadataObjectTypes = supportedCodeTypes
@@ -95,14 +90,7 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
     // MARK: - AVCaptureMetadataOutputObjectsDelegate Methods
-    
     func metadataOutput(_ captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         
         // Check if the metadataObjects array is not nil and it contains at least one object.
@@ -128,7 +116,6 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
                 }
             }
         }
-        
     }
     
     @IBAction func cancelScanningButtonPressed(_ sender: UIButton) {

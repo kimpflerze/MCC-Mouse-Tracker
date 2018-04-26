@@ -14,6 +14,7 @@ class RackUtility: NSObject {
     var breedingCages = [Cage]()
     var sellingCages = [Cage]()
     var breedingMales = [BreedingMale]()
+    var litterLogs = [LitterLog]()
     
     var firstDownloadComplete = false
     
@@ -40,8 +41,16 @@ class RackUtility: NSObject {
                                             return newCage
                                         })
                                         DispatchQueue.main.async {
-                                            self.firstDownloadComplete = true
-                                            completion(true, nil)
+                                            
+                                            QueryServer.shared.getAllLitterLogs(completion: { (litterLogs, error) in
+                                                if let theLitterLogs = litterLogs {
+                                                    self.litterLogs = theLitterLogs
+                                                    DispatchQueue.main.async {
+                                                        self.firstDownloadComplete = true
+                                                        completion(true, nil)
+                                                    }
+                                                }
+                                            })
                                         }
                                     }
                                 }

@@ -9,15 +9,6 @@
 import UIKit
 
 class LitterLog: NSObject {
-
-    /*
-     {
-     "Id": "Litter1",
-     "MotherCageId": "BreedingCage1",
-     "FatherId": "Male1",
-     "DOB": "2/10/2018 12:00:00 PM"
-     }
- */
     
     var id = ""
     var motherCageId = ""
@@ -42,5 +33,4 @@ class LitterLog: NSObject {
             }
         }
     }
-    
 }

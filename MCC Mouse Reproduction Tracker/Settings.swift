@@ -20,6 +20,7 @@ class Settings: NSObject {
     var numRacks : Int?
     var numColumns : Int?
     var numRows : Int?
+    
     //Mouse breeding/lifetime information
     var weaningPeriodNumber : Int?
     var weaningPeriodUnit : Int?

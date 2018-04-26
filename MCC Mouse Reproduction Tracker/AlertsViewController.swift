@@ -44,16 +44,9 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return malesCurrentCage!
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
     func queryAlerts() {
         let alertsDownloadHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
         alertsDownloadHUD.detailsLabel.text = "Downloading alerts ..."
-       // print("downloading alerts ...")
         QueryServer.shared.getAlerts{(downloadedAlerts, error) in
             alertsDownloadHUD.hide(animated: true)
             if let alerts = downloadedAlerts {
@@ -100,7 +93,6 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //Unfinished, speak to George about how to remove alerts once they've been handled
         let alert = alertArray[indexPath.row]
         for cage in RackUtility.shared.breedingCages {
             if cage.id == alert.subjectId {
@@ -152,10 +144,9 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func detailViewControllerDidSave(controller: UIViewController) {
         controller.dismiss(animated: true)
-        //Minor detail, get selected row to deselect once controller is dismissed!
     }
     
-    /* Unable to remove alerts from the tableView*/
+    /* Unable to remove alerts from the tableView due to way the alerts were implemented in the database schema*/
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .none
     }

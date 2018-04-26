@@ -8,6 +8,7 @@
 
 import UIKit
 
+//Statistics view was not implemented in the application, statistics only viewable on the website!
 class StatisticsViewController: UIViewController {
     
     // UI Variables
@@ -34,11 +35,6 @@ class StatisticsViewController: UIViewController {
         
         /* Load Statistics information s*/
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     /*
      * When button is pressed return to the rackView.
@@ -46,16 +42,5 @@ class StatisticsViewController: UIViewController {
     @IBAction func exitButtonPressed(_ sender: UIButton) {
          self.dismiss(animated: true, completion: nil)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -56,7 +56,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var parentCageTableView: UITableView!
     
     override func viewDidLoad() {
-
         super.viewDidLoad()
         
         // Set TableView and Textfield Delegates
@@ -86,16 +85,13 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         parentCageTextField.inputAccessoryView = toolBar
         
         //Register textfields for validation
-//        validator.registerField(parentDOBTextField, rules: [RequiredRule(),ValidDateRule()])
-//        validator.registerField(parentCageTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(columnNoTextField, rules: [RequiredRule(), NumericRule()])
         
-        //Populate information from passed cage here!
-        
-        //Filling information for an existing cage
+        //Filling information that we have for this cage
         if let theCage = cage {
+            print("ViewDidLoad: Cage ID \(String(describing: self.cage?.id))   LitterInCage: \(String(describing: self.cage?.litterInCage))  NumLittersFromCage: \(String(describing: self.cage?.numLittersFromCage))  LitterDOB: \(String(describing: self.cage?.litterDOB))")
             rackNoTextField.text = String(theCage.rack)
             columnNoTextField.text = String(theCage.column)
             rowNoTextField.text = String(theCage.row)
@@ -147,7 +143,8 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                 else {
                     self.add_male_btn.setTitle("Add Male", for: .normal)
                 }
-            }})
+            }
+        })
         
         // Check if there is a litter in the cage or not.
         if (self.cage?.litterInCage)! {
@@ -157,8 +154,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
             // litter does not exist so we can add one.
             self.add_litter_btn.setTitle("Add Litter", for: .normal)
         }
-        //print("TODO: fix issue with add/wean litter; something to do with the litter id associated with the cage.")
-    } // end viewDidLoad()
+    }
     
     @objc func donePicker() {
         self.view.endEditing(true)
@@ -182,7 +178,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func validationSuccessful() {
-        /* save textfield information database */
         parentCageTextField.layer.borderColor = UIColor.green.cgColor
         parentCageTextField.layer.borderWidth = 1.0
         
@@ -199,7 +194,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         columnNoTextField.layer.borderWidth = 1.0
         
         wasValidationSuccessful = true
-        //print("textField validation successful!!")
     }
     
     func validationFailed(_ errors: [(Validatable, ValidationError)]) {
@@ -209,16 +203,10 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                 field.layer.borderColor = UIColor.red.cgColor
                 field.layer.borderWidth = 1.0
             }
-            error.errorLabel?.text = error.errorMessage // works if you added labels
+            error.errorLabel?.text = error.errorMessage
             error.errorLabel?.isHidden = false
         }
         wasValidationSuccessful = false
-        //print("textField validation failed!!")
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func pressedQRCodeButton(_ sender: UIButton) {
@@ -231,76 +219,26 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func pressedAddLitterButton(_ sender: UIButton) {
-        if (self.cage?.litterInCage)! {
+        print("Beginning: Cage ID \(self.cage?.id)   LitterInCage: \(self.cage?.litterInCage)  NumLittersFromCage: \(self.cage?.numLittersFromCage)  LitterDOB: \(self.cage?.litterDOB)")
+        if (self.cage?.litterInCage)! == true {
             // litter exists in cage so we must wean the litter
             print("Have a litter; must wean it.")
-            var cageLitters = [LitterLog]()
-            //get all cages and filter by mother.id and father.id
-            QueryServer.shared.getAllLitterLogs { (litterLogList, error) in
+            QueryServer.shared.updateBreedingCageWith(id: self.cage?.id, row: String(describing: self.cage?.row), column: String(describing: self.cage?.column), rack: String(describing: self.cage?.rack), isActive: nil, weaned: "1", completion: { (response) in
                 DispatchQueue.main.async {
-                    if !((litterLogList?.isEmpty)!) {
-                        for litter in (litterLogList)! {
-                            if litter.fatherId == self.breedingMale?.id && litter.motherCageId == self.cage?.id {
-                                cageLitters.append(litter)
-                                print("added litter \(litter.id)")
-                            }}
-                    }else {
-                        print("Error finding litter in breedingCage:\(String(describing: self.cage?.id))")
-                    }
-            }}
-            
-           // get litter with dob closest to current date
-            //(sort it from closest to least closest)!!!
-            print("cage has \(cageLitters.count) litters")
-            if cageLitters.count > 1 {
-            cageLitters.sorted(by: {($0.dob?.timeIntervalSince1970)! < ($1.dob?.timeIntervalSince1970)!})
-            }
-            
-            QueryServer.shared.getLitterLogBy(id: cageLitters[0].id, completion: { (litterLog, error) in
-                DispatchQueue.main.async {
-                    print("Litter weaned:")
-                    if litterLog != nil {
-                        litterLog?.dob = nil
-                        self.cage?.litterInCage = false
-                        self.add_litter_btn.titleLabel?.text = "Add Litter"
-                        print(" true")
-                    }else {
-                        print(" false")
-                        print("Error weaning litter in breedingCage:\(String(describing: self.cage?.id))")
-                    }
+                    self.cage?.litterInCage = false
+                    self.add_litter_btn.titleLabel?.text = "Add Litter"
                 }
             })
-            
-            /*
-             // Helpful code
-                 self.breedingCages = self.breedingCages.map({ (cage) -> Cage in
-                 let newCage = cage
-                 newCage.maleInCage = theMales.contains(where: { (male) -> Bool in
-                 cage.maleInCage = true
-                 return male.currentCageId == cage.id
-                 })
-                 return newCage
-             })
-             */
-            
         } else {
             // No litter exists in cage so we must add a litter
             print("No litter; must add one.")
-            let formatter = DateFormatter()
-            formatter.dateFormat = "MM-dd-yyyy hh:mm:ss a"
-            self.cage?.litterDOB = Date()
-            self.cage?.numLittersFromCage += 1
-            QueryServer.shared.createLitterLogEntry(motherCageId: cage?.id, completion: { (success) in
+            QueryServer.shared.createLitterLogEntry(motherCageId: cage?.id, completion: { (response) in
                 DispatchQueue.main.async {
                     print("Litter created:")
-                    if (success != nil) {
                     self.cage?.litterInCage = true
-                    self.add_litter_btn.titleLabel?.text = "Wean Litter"
-                    print(" true")
-                    } else {
-                        print(" false")
-                    }
-                }})
+                    self.add_litter_btn.titleLabel?.text = "Wean Cage"
+                }
+            })
         }
     }
     
@@ -334,7 +272,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
             return false
         }
         if originalCageActiveState != self.cage?.isActive || rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) {
-            //print("Something didnt match!")
             return true
         }
         return hasTableViewChanged
@@ -349,34 +286,23 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         let continueAndSaveAction = UIAlertAction(title: "Save and Continue", style: .default) { (action) in
             self.validator.validate(self)
             
-            print("=====Breeding Cage Creation/Update Information=====")
-            print("wasValidationSuccessful: \(self.wasValidationSuccessful)")
-            print("isNewCage: \(self.isNewCage)")
-            
             if(self.wasValidationSuccessful) {
                 //Depending on if isNewCage is true or false, will either update or insert into the database
                 if(self.isNewCage) {
-                    print("     *New breeding cage is being created!*")
                     //New cage, insert into database
                     let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-                    doneButtonHUD.detailsLabel.text = "Sending information..."
                     QueryServer.shared.createNewBreedingCage(id: self.newCageId, row: Int(self.rowNoTextField.text!), column: Int(self.columnNoTextField.text!), rack: Int(self.rackNoTextField.text!), isActive: 1, parentsCagesDOB: self.parentDOBList, parentCagesId: self.parentCageList, completion: { (error) in
-                        debugPrint(error)
                         doneButtonHUD.hide(animated: true)
                         self.delegate?.detailViewControllerDidSave(controller: self)
                     })
                 }
                 else {
-                    print("     *Existing breeding cage is being updated!*")
                     //Existing cage, update its information
                     
-                    if (!self.hasInformationChanged() /*|| !(wasValidationSuccessful)*/) {
-                        print("         *No information has changed, dismissing view!*")
+                    if (!self.hasInformationChanged()) {
                         self.dismiss(animated: true, completion: nil)
                     }
                     else {
-                        print("         *Information has changed, proceeding with updating!*")
-                        //print("In else statement, information has changed in BreedingCageViewController!")
                         let updateConfirmAlert = UIAlertController(title: "Confirm Update", message: "Cage information has been changed, do you wish to save these changes?", preferredStyle: .alert)
                         let confirmUpdateAction  = UIAlertAction(title: "Confirm", style: .default, handler: { (placeholder) in
                             let updateHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -389,7 +315,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                             else {
                                 numericalStringCageIsActive = "0"
                             }
-                            QueryServer.shared.updateBreedingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: numericalStringCageIsActive, completion: { (response) in
+                            QueryServer.shared.updateBreedingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: numericalStringCageIsActive, weaned: nil, completion: { (response) in
                                 updateHUD.hide(animated: true)
                                 let updateAlert = UIAlertController(title: "Update Cage", message: "The cage information was successfully udpated!", preferredStyle: .alert)
                                 let confirmAction = UIAlertAction(title: "Ok", style: .default, handler: { (response) in
@@ -404,7 +330,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                         updateConfirmAlert.addAction(cancelUpdateAction)
                         self.present(updateConfirmAlert, animated: true, completion: nil)
                     }
-                    //Temporary dismiss! Will be removed once updating is implemented
                 }
             } // end if validation was successful check
         }
@@ -412,7 +337,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         doneButtonPressedAlert.addAction(continueAndSaveAction)
         doneButtonPressedAlert.addAction(cancelAction)
         present(doneButtonPressedAlert, animated: true, completion: nil)
-    }//end pressed_done_btn() function
+    }
   
     
     @IBAction func addParentDOBEditing(_ sender: UITextField) {
@@ -478,21 +403,16 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         return true
     }
     
-    /**
-     * Displays a Date picker when the parentDOBTextField starts to be edited.
-     */
+    //Displays a Date picker when the parentDOBTextField starts to be edited.
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == parentDOBTextField {
-            /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
-            
             let datePickerView:UIDatePicker = UIDatePicker()
             
             datePickerView.datePickerMode = UIDatePickerMode.date
             
             textField.inputView = datePickerView
             
-            datePickerView.addTarget(self, action:
-                #selector(breedingCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+            datePickerView.addTarget(self, action: #selector(breedingCageViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
         }
     }
     
@@ -502,7 +422,6 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                 // Field validation was successful
                 textField.layer.borderColor = UIColor.green.cgColor
                 textField.layer.borderWidth = 0.5
-                //print("textField validation successful!!")
             } else {
                 // Validation error occurred
                 print(error?.errorMessage ?? textField.text! + "is an invalid entry")

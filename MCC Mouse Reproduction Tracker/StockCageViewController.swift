@@ -84,13 +84,10 @@ class StockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         stockCageDOBTextField.inputAccessoryView = toolBar
         
         //Register textfields for validation
-//        validator.registerField(stockCageDOBTextField, rules: [/*RequiredRule(),*/ValidDateRule()])
         validator.registerField(miceCountTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rackNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(rowNoTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(columnNoTextField, rules: [RequiredRule(), NumericRule()])
-        
-        //Checking if the cage being manipulated is a new one or existing
         
         //Filling information for an existing cage
         if let theCage = cage {
@@ -104,8 +101,6 @@ class StockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
             rackNoTextField.text = String(theCage.rack)
             columnNoTextField.text = String(theCage.column)
             rowNoTextField.text = String(theCage.row)
-//            stockCageDOBTextField.text = (String(describing: theCage.createdAt.toString(withFormat: "MM-dd-yyyy hh:mm:ss a")))
-  
             
             if(isNewCage == false) {
                 //Disabling interaction with some buttons for existing cages
@@ -146,7 +141,6 @@ class StockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
             }}}
     
     func validationSuccessful(){
-        /* save textfield information database */
         stockCageDOBTextField.layer.borderColor = UIColor.green.cgColor
         stockCageDOBTextField.layer.borderWidth = 1.0
         
@@ -163,9 +157,6 @@ class StockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         columnNoTextField.layer.borderWidth = 1.0
         
         wasValidationSuccessful = true
-        //print("textField validation successful!!")
-        
-        /* SAVE DATA TO DATABASE AND DIRECT USER TO PROPER VIEW HERE */
     }
     
     func validationFailed(_ errors:[(Validatable ,ValidationError)]) {
@@ -179,7 +170,6 @@ class StockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
             error.errorLabel?.isHidden = false
         }
         wasValidationSuccessful = false
-        //print("textField validation failed!!")
     }
     
     @objc func donePicker() {
@@ -242,7 +232,6 @@ class StockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                     doneButtonHUD.detailsLabel.text = "Sending information..."
                     if self.stockCageDOBList.count > 0 {
                         QueryServer.shared.createNewSellingCage(id: self.newCageId, row: Int(self.rowNoTextField.text!), column: Int(self.columnNoTextField.text!), rack: Int(self.rackNoTextField.text!), isActive: 1, parentsCagesDOB: self.stockCageDOBList, parentCagesId: self.stockCageIDList, gender: self.genderFlag, numberOfMice: Int(self.miceCountTextField.text!), completion: { (error) in
-                            debugPrint(error)
                             doneButtonHUD.hide(animated: true)
                             self.delegate?.detailViewControllerDidSave(controller: self)
                         })
@@ -257,11 +246,9 @@ class StockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                 else {
                     //Existing cage, update its information
                     if (!self.hasInformationChanged() /*|| wasValidationSuccessful)*/) {
-                        //print("Dismissed existing stock cage without pushing new changes! \(!hasInformationChanged())")
                         self.dismiss(animated: true, completion: nil)
                     }
                     else {
-                        //                    self.stockCageDOBList.append(stockCageDOBTextField.text!)
                         let updateConfirmAlert = UIAlertController(title: "Confirm Update", message: "Cage information has been changed, do you wish to save these changes?", preferredStyle: .alert)
                         let confirmUpdateAction  = UIAlertAction(title: "Confirm", style: .default, handler: { (placeholder) in
                             let updateHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -297,7 +284,7 @@ class StockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         doneButtonPressedAlert.addAction(continueAndSaveAction)
         doneButtonPressedAlert.addAction(cancelAction)
         present(doneButtonPressedAlert, animated: true, completion: nil)
-    } //end pressed_done_btn()
+    }
     
     func presentCageUpdatedAlert(hud: MBProgressHUD) {
         hud.hide(animated: true)
@@ -356,12 +343,9 @@ class StockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         stockCageDOBTextField.text = sender.date.toString(withFormat: "MM-dd-yyyy hh:mm:ss a")
     }
     
-
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return stockCageDOBList.count
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -370,13 +354,11 @@ class StockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
         return cell
     }
     
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-    
         if editingStyle == UITableViewCellEditingStyle.delete {
            stockCageDOBList.remove(at: indexPath.row)
-           stockCageDOBTableView.reloadData()}
-        
+           stockCageDOBTableView.reloadData()
+        }
     }
    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -386,11 +368,9 @@ class StockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                 // Field validation was successful
                 textField.layer.borderColor = UIColor.green.cgColor
                 textField.layer.borderWidth = 0.5
-                //print("textField validation successful!!")
                 result = true
             } else {
                 // Validation error occurred
-               //print(error?.errorMessage ?? textField.text! + "is an invalid entry")
                 textField.layer.borderColor = UIColor.red.cgColor
                 textField.layer.borderWidth = 1.0
                 result = false
@@ -415,8 +395,6 @@ class StockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
      * starts to be edited.
      */
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        /* https://blog.apoorvmote.com/change-textfield-input-to-datepicker/ */
-        
         if textField == stockCageDOBTextField {
             let datePickerView:UIDatePicker = UIDatePicker()
             
@@ -437,7 +415,6 @@ class StockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if let destinationVC = segue.destination as? CageAlertsViewController {
             destinationVC.cageAlertArray = (cage?.alerts)!
         }
@@ -491,6 +468,8 @@ extension StockCageViewController: QRScannerControllerDelegate {
                         if let theBreedingCage = breedingCage {
                             if let theLitterDOB = theBreedingCage.litterDOB {
                                 if self.isNewCage {
+                                    //Instead of using LitterDOB, add all LitterLogs to RackUtility functionality. Then here, search for motherCageId in litterLogs that matches the current
+                                    //cages ID. Once we find matches, store in an array, then sort to find most recent. Then append THAT logs DOB here instead of the cages LitterDOB.
                                     if !(self.stockCageDOBList.contains(theLitterDOB.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))) {
                                         self.stockCageDOBList.append(theLitterDOB.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))
                                     }

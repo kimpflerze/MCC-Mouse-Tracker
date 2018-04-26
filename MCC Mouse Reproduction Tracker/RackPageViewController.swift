@@ -50,11 +50,6 @@ class RackPageViewController: UIPageViewController, UIPageViewControllerDelegate
         
         updateNavigationControllerTitle()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func updateNavigationControllerTitle() {
         self.navigationItem.title = "Rack View \(currentPage!.rackNumber + 1)"

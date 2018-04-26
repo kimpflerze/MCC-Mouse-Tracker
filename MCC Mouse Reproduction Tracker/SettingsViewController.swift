@@ -73,11 +73,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         cageCostTextField.delegate = self
         
         maleInCageAlertAdvanceTextField.delegate = self
-//        pupsInCageAlertAdvanceTextField.delegate = self
         pupsToWeanAlertAdvanceTextField.delegate = self
         maleTooOldAlertAdvanceTextField.delegate = self
         femaleTooOldAlertAdvanceTextField.delegate = self
-//        cageWithOrderAlertAdvanceTextField.delegate = self
         
         validator.registerField(numRacksTextField, rules: [RequiredRule(), NumericRule()])
         validator.registerField(numRowsTextField, rules: [RequiredRule(), NumericRule()])
@@ -95,11 +93,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         let maleLifeSpanPickerView = UIPickerView()
         let femaleLifeSpanPickerView = UIPickerView()
         let maleInCageAlertAdvancePickerView = UIPickerView()
-//        let pupsInCageAlertAdvancePickerView = UIPickerView()
         let pupsToWeanAlertAdvancePickerView = UIPickerView()
         let maleTooOldAlertAdvancePickerView = UIPickerView()
         let femaleTooOldAlertAdvancePickerView = UIPickerView()
-//        let cageWithOrderAlertAdvancePickerView = UIPickerView()
         
         weaningPickerView.delegate = self
             weaningPickerView.tag = 0
@@ -113,16 +109,12 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
             femaleLifeSpanPickerView.tag = 4
         maleInCageAlertAdvancePickerView.delegate = self
             maleInCageAlertAdvancePickerView.tag = 5
-//        pupsInCageAlertAdvancePickerView.delegate = self
-//            pupsInCageAlertAdvancePickerView.tag = 6
         pupsToWeanAlertAdvancePickerView.delegate = self
             pupsToWeanAlertAdvancePickerView.tag = 7
         maleTooOldAlertAdvancePickerView.delegate = self
             maleTooOldAlertAdvancePickerView.tag = 8
         femaleTooOldAlertAdvancePickerView.delegate = self
             femaleTooOldAlertAdvancePickerView.tag = 9
-//        cageWithOrderAlertAdvancePickerView.delegate = self
-//            cageWithOrderAlertAdvancePickerView.tag = 10
         
         weaningPeriodTextField.inputView = weaningPickerView
         breedingPeriodTextField.inputView = breedingPickerView
@@ -130,11 +122,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         maleLifeSpanTextField.inputView = maleLifeSpanPickerView
         femaleLifeSpanTextField.inputView = femaleLifeSpanPickerView
         maleInCageAlertAdvanceTextField.inputView = maleInCageAlertAdvancePickerView
-//        pupsInCageAlertAdvanceTextField.inputView = pupsInCageAlertAdvancePickerView
         pupsToWeanAlertAdvanceTextField.inputView = pupsToWeanAlertAdvancePickerView
         maleTooOldAlertAdvanceTextField.inputView = maleTooOldAlertAdvancePickerView
         femaleTooOldAlertAdvanceTextField.inputView = femaleTooOldAlertAdvancePickerView
-//        cageWithOrderAlertAdvanceTextField.inputView = cageWithOrderAlertAdvancePickerView
         
         //Toolbar to allow for dismissal of the picker views
         let toolBar = UIToolbar()
@@ -155,11 +145,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         maleLifeSpanTextField.inputAccessoryView = toolBar
         femaleLifeSpanTextField.inputAccessoryView = toolBar
         maleInCageAlertAdvanceTextField.inputAccessoryView = toolBar
-//        pupsInCageAlertAdvanceTextField.inputAccessoryView = toolBar
         pupsToWeanAlertAdvanceTextField.inputAccessoryView = toolBar
         maleTooOldAlertAdvanceTextField.inputAccessoryView = toolBar
         femaleTooOldAlertAdvanceTextField.inputAccessoryView = toolBar
-//        cageWithOrderAlertAdvanceTextField.inputAccessoryView = toolBar
         
         //Query for settings just in case there are any changes
         let downloadSettingsHUD = MBProgressHUD.showAdded(to: view, animated: true)
@@ -219,8 +207,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
                     self.femaleTooOldAlertAdvanceTextField.text = String(theFemaleTooOldAlertAdvanceNumber) + " " + self.timeUnitNumberToString(timeUnit: theFemaleTooOldAlertAdvanceUnit)
                 }
                 
-//                self.cageWithOrderAlertAdvanceTextField.text = "This may not even be needed! Discuss with group!"
-                
                 //Alert color setting on viewDidLoad
                 if let theMaleInCageAlertIcon = Settings.shared.maleInCageAlertIcon {
                     for aButton in self.maleInCageAlertColorButtonCollection {
@@ -264,9 +250,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
                         }
                     }
                 }
-                
-                
-                
             }
         }
     }
@@ -282,7 +265,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         case 4:
             return "year(s)"
         default:
-            print("There was an error converting time unit! [func timeUnitNumberToString()]")
+            print("There was an error converting time unit!")
         }
         return "Error: Bad Unit Value"
     }
@@ -307,15 +290,8 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
     @objc func donePicker() {
         self.view.endEditing(true)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-    /**
-     * Function is called if all registered fields are validated sucessfully
-     */
+    //Function is called if all registered fields are validated sucessfully
     func validationSuccessful(){
         numRacksTextField.layer.borderColor = UIColor.green.cgColor
         numRacksTextField.layer.borderWidth = 1.0
@@ -336,12 +312,9 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         cageCostTextField.layer.borderWidth = 1.0
         
         wasValidationSuccessful = true
-        /* SAVE DATA TO DATABASE */
     }
     
-    /**
-     * Function is called if any registered field validation fails.
-     */
+    //Function is called if any registered field validation fails.
     func validationFailed(_ errors:[(Validatable ,ValidationError)]) {
         // turn the fields to red
         for (field, error) in errors {
@@ -362,7 +335,6 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
     @IBAction func pressedSaveButton(_ sender: UIButton) {
         //validate fields
         validator.validate(self)
-        
     }
     
     @IBAction func pressedDoneButton(_ sender: UIButton) {
@@ -370,148 +342,160 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         
         parameters["Id"] = 1
         
-        if(numRacksTextField.text != nil && numRacksTextField.text != "") {
-            if let racksNumber = Int(numRacksTextField.text!) {
-                parameters["Racks"] = Double(racksNumber)
-            }
+        let doneButtonPressedAlert = UIAlertController(title: "Are you sure?", message: "What would you like to do?", preferredStyle: .alert)
+        let continueWithoutSavingAction = UIAlertAction(title: "Continue Without Saving", style: .destructive) { (action) in
+            self.dismiss(animated: true, completion: nil)
         }
-        if(numRowsTextField.text != nil && numRowsTextField.text != "") {
-            if let rowsNumber = Int(numRowsTextField.text!) {
-                parameters["Rows"] = Double(rowsNumber)
-            }
-        }
-        if(numColumnsTextField.text != nil && numColumnsTextField.text != "") {
-            if let columnsNumber = Int(numColumnsTextField.text!) {
-                parameters["Columns"] = Double(columnsNumber)
-            }
-        }
-        if(maleCostTextField.text != nil && maleCostTextField.text != "") {
-            if let maleCost = Double(maleCostTextField.text!.replacingOccurrences(of: "$", with: "")) {
-                parameters["MaleCost"] = Double(maleCost)
-            }
-        }
-        if(femaleCostTextField.text != nil && femaleCostTextField.text != "") {
-            if let femaleCost = Double(femaleCostTextField.text!.replacingOccurrences(of: "$", with: "")) {
-                parameters["FemaleCost"] = Double(femaleCost)
-            }
-        }
-        if(cageCostTextField.text != nil && cageCostTextField.text != "") {
-            if let cageCost = Double(cageCostTextField.text!.replacingOccurrences(of: "$", with: "")) {
-                parameters["CageCost"] = Double(cageCost)
-            }
-        }
-        
-        if(weaningPeriodTextField.text != nil && weaningPeriodTextField.text != "") {
-            guard let theWeaningPeriod = weaningPeriodTextField.text?.components(separatedBy: " ") else {
-                print("Failed to split text")
-                return
-            }
-            let theWeaningPeriodNumber = theWeaningPeriod[0]
-            let theWeaningPeriodUnit = theWeaningPeriod[1]
-            parameters["WeaningPeriod"] = Double(theWeaningPeriodNumber)
-            parameters["WeaningPeriodUnit"] = Double(timeUnitStringToNumber(timeUnit: theWeaningPeriodUnit))
-        }
-        if(breedingPeriodTextField.text != nil && breedingPeriodTextField.text != "") {
-            guard let theBreedingPeriod = breedingPeriodTextField.text?.components(separatedBy: " ") else {
-                print("Failed to split text")
-                return
-            }
-            let theBreedingPeriodNumber = theBreedingPeriod[0]
-            let theBreedingPeriodUnit = theBreedingPeriod[1]
-            parameters["BreedingPeriod"] = Double(theBreedingPeriodNumber)
-            parameters["BreedingPeriodUnit"] = Double(timeUnitStringToNumber(timeUnit: theBreedingPeriodUnit))
-        }
-        if(gestationPeriodTextField.text != nil && gestationPeriodTextField.text != "") {
-            guard let theGestationPeriod = gestationPeriodTextField.text?.components(separatedBy: " ") else {
-                print("Failed to split text")
-                return
-            }
-            let theGestationPeriodNumber = theGestationPeriod[0]
-            let theGestationPeriodUnit = theGestationPeriod[1]
-            parameters["GestationPeriod"] = Double(theGestationPeriodNumber)
-            parameters["GestationPeriodUnit"] = Double(timeUnitStringToNumber(timeUnit: theGestationPeriodUnit))
-        }
-        if(maleLifeSpanTextField.text != nil && maleLifeSpanTextField.text != "") {
-            guard let theMaleLifespan = maleLifeSpanTextField.text?.components(separatedBy: " ") else {
-                print("Failed to split text")
-                return
-            }
-            let theMaleLifespanNumber = theMaleLifespan[0]
-            let theMaleLifespanUnit = theMaleLifespan[1]
-            parameters["MaleLifespan"] = Double(theMaleLifespanNumber)
-            parameters["MaleLifespanUnit"] = Double(timeUnitStringToNumber(timeUnit: theMaleLifespanUnit))
-        }
-        if(femaleLifeSpanTextField.text != nil && femaleLifeSpanTextField.text != "") {
-            guard let theFemaleLifespan = femaleLifeSpanTextField.text?.components(separatedBy: " ") else {
-                print("Failed to split text")
-                return
-            }
-            let theFemaleLifespanNumber = theFemaleLifespan[0]
-            let theFemaleLifespanUnit = theFemaleLifespan[1]
-            parameters["FemaleLifespan"] = Double(theFemaleLifespanNumber)
-            parameters["FemaleLifespanUnit"] = Double(timeUnitStringToNumber(timeUnit: theFemaleLifespanUnit))
-        }
-        if(pupsToWeanAlertAdvanceTextField.text != nil && pupsToWeanAlertAdvanceTextField.text != "") {
-            guard let thePupsToWeanAlertAdvanceInfo = pupsToWeanAlertAdvanceTextField.text?.components(separatedBy: " ") else {
-                print("Failed to split text")
-                return
-            }
-            let thePupsToWeanAlertAdvanceNumber = thePupsToWeanAlertAdvanceInfo[0]
-            let thePupsToWeanAlertAdvanceUnit = thePupsToWeanAlertAdvanceInfo[1]
-            parameters["WeaningAlertAdvance"] = Double(thePupsToWeanAlertAdvanceNumber)
-            parameters["WeaningAlertAdvanceUnit"] = Double(timeUnitStringToNumber(timeUnit: thePupsToWeanAlertAdvanceUnit))
-        }
-        if(maleTooOldAlertAdvanceTextField.text != nil && maleTooOldAlertAdvanceTextField.text != "") {
-            guard let theMaleTooOldAlertAdvanceInfo = maleTooOldAlertAdvanceTextField.text?.components(separatedBy: " ") else {
-                print("Failed to split text")
-                return
-            }
-            let theMaleTooOldAlertAdvanceNumber = theMaleTooOldAlertAdvanceInfo[0]
-            let theMaleTooOldAlertAdvanceUnit = theMaleTooOldAlertAdvanceInfo[1]
-            parameters["OldMaleAlertAdvance"] = Double(theMaleTooOldAlertAdvanceNumber)
-            parameters["OldMaleAlertAdvanceUnit"] = Double(timeUnitStringToNumber(timeUnit: theMaleTooOldAlertAdvanceUnit))
-        }
-        if(femaleTooOldAlertAdvanceTextField.text != nil && femaleTooOldAlertAdvanceTextField.text != "") {
-            guard let theFemaleTooOldAlertAdvanceInfo = femaleTooOldAlertAdvanceTextField.text?.components(separatedBy: " ") else {
-                print("Failed to split text")
-                return
-            }
-            let theFemaleTooOldAlertAdvanceNumber = theFemaleTooOldAlertAdvanceInfo[0]
-            let theFemaleTooOldAlertAdvanceUnit = theFemaleTooOldAlertAdvanceInfo[1]
-            parameters["OldFemaleAlertAdvance"] = Double(theFemaleTooOldAlertAdvanceNumber)
-            parameters["OldFemaleAlertAdvanceUnit"] = Double(timeUnitStringToNumber(timeUnit: theFemaleTooOldAlertAdvanceUnit))
-        }
-        if(maleInCageAlertAdvanceTextField.text != nil && maleInCageAlertAdvanceTextField.text != "") {
-            guard let theMaleInCageAlertAdvanceInfo = maleInCageAlertAdvanceTextField.text?.components(separatedBy: " ") else {
-                print("Failed to split text")
-                return
-            }
-            let theMaleInCageAlertAdvanceNumber = theMaleInCageAlertAdvanceInfo[0]
-            let theMaleInCageAlertAdvanceUnit = theMaleInCageAlertAdvanceInfo[1]
-            parameters["BreedingAlertAdvance"] = Double(theMaleInCageAlertAdvanceNumber)
-            parameters["BreedingAlertAdvanceUnit"] = Double(timeUnitStringToNumber(timeUnit: theMaleInCageAlertAdvanceUnit))
-        }
-        
-        parameters["MaleInCageColor"] = Double(maleInCageAlertColor)
-        parameters["PupsInCageColor"] = Double(pupsInCageAlertColor)
-        parameters["PupsToWeanColor"] = Double(pupsToWeanAlertColor)
-        parameters["MaleTooOldColor"] = Double(maleTooOldAlertColor)
-        parameters["FemaleTooOldColor"] = Double(femaleTooOldAlertColor)
-        parameters["CageWithOrderColor"] = Double(cageWithOrderAlertColor)
-        
-        let updatingSettingsHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-        updatingSettingsHUD.detailsLabel.text = "Updating settings..."
-        QueryServer.shared.updateSettings(parameters: parameters) { (error) in
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let continueAndSaveAction = UIAlertAction(title: "Save and Continue", style: .default) { (action) in
             
-            updatingSettingsHUD.detailsLabel.text = "Downloading settings..."
-            QueryServer.shared.getSettings {
-                DispatchQueue.main.async {
-                    updatingSettingsHUD.hide(animated: true)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updatedSettings"), object: nil)
-                    self.dismiss(animated: true, completion: nil)
+            if(self.numRacksTextField.text != nil && self.numRacksTextField.text != "") {
+                if let racksNumber = Int(self.numRacksTextField.text!) {
+                    parameters["Racks"] = Double(racksNumber)
+                }
+            }
+            if(self.numRowsTextField.text != nil && self.numRowsTextField.text != "") {
+                if let rowsNumber = Int(self.numRowsTextField.text!) {
+                    parameters["Rows"] = Double(rowsNumber)
+                }
+            }
+            if(self.numColumnsTextField.text != nil && self.numColumnsTextField.text != "") {
+                if let columnsNumber = Int(self.numColumnsTextField.text!) {
+                    parameters["Columns"] = Double(columnsNumber)
+                }
+            }
+            if(self.maleCostTextField.text != nil && self.maleCostTextField.text != "") {
+                if let maleCost = Double(self.maleCostTextField.text!.replacingOccurrences(of: "$", with: "")) {
+                    parameters["MaleCost"] = Double(maleCost)
+                }
+            }
+            if(self.femaleCostTextField.text != nil && self.femaleCostTextField.text != "") {
+                if let femaleCost = Double(self.femaleCostTextField.text!.replacingOccurrences(of: "$", with: "")) {
+                    parameters["FemaleCost"] = Double(femaleCost)
+                }
+            }
+            if(self.cageCostTextField.text != nil && self.cageCostTextField.text != "") {
+                if let cageCost = Double(self.cageCostTextField.text!.replacingOccurrences(of: "$", with: "")) {
+                    parameters["CageCost"] = Double(cageCost)
+                }
+            }
+            
+            if(self.weaningPeriodTextField.text != nil && self.weaningPeriodTextField.text != "") {
+                guard let theWeaningPeriod = self.weaningPeriodTextField.text?.components(separatedBy: " ") else {
+                    print("Failed to split text")
+                    return
+                }
+                let theWeaningPeriodNumber = theWeaningPeriod[0]
+                let theWeaningPeriodUnit = theWeaningPeriod[1]
+                parameters["WeaningPeriod"] = Double(theWeaningPeriodNumber)
+                parameters["WeaningPeriodUnit"] = Double(self.timeUnitStringToNumber(timeUnit: theWeaningPeriodUnit))
+            }
+            if(self.breedingPeriodTextField.text != nil && self.breedingPeriodTextField.text != "") {
+                guard let theBreedingPeriod = self.breedingPeriodTextField.text?.components(separatedBy: " ") else {
+                    print("Failed to split text")
+                    return
+                }
+                let theBreedingPeriodNumber = theBreedingPeriod[0]
+                let theBreedingPeriodUnit = theBreedingPeriod[1]
+                parameters["BreedingPeriod"] = Double(theBreedingPeriodNumber)
+                parameters["BreedingPeriodUnit"] = Double(self.timeUnitStringToNumber(timeUnit: theBreedingPeriodUnit))
+            }
+            if(self.gestationPeriodTextField.text != nil && self.gestationPeriodTextField.text != "") {
+                guard let theGestationPeriod = self.gestationPeriodTextField.text?.components(separatedBy: " ") else {
+                    print("Failed to split text")
+                    return
+                }
+                let theGestationPeriodNumber = theGestationPeriod[0]
+                let theGestationPeriodUnit = theGestationPeriod[1]
+                parameters["GestationPeriod"] = Double(theGestationPeriodNumber)
+                parameters["GestationPeriodUnit"] = Double(self.timeUnitStringToNumber(timeUnit: theGestationPeriodUnit))
+            }
+            if(self.maleLifeSpanTextField.text != nil && self.maleLifeSpanTextField.text != "") {
+                guard let theMaleLifespan = self.maleLifeSpanTextField.text?.components(separatedBy: " ") else {
+                    print("Failed to split text")
+                    return
+                }
+                let theMaleLifespanNumber = theMaleLifespan[0]
+                let theMaleLifespanUnit = theMaleLifespan[1]
+                parameters["MaleLifespan"] = Double(theMaleLifespanNumber)
+                parameters["MaleLifespanUnit"] = Double(self.timeUnitStringToNumber(timeUnit: theMaleLifespanUnit))
+            }
+            if(self.femaleLifeSpanTextField.text != nil && self.femaleLifeSpanTextField.text != "") {
+                guard let theFemaleLifespan = self.femaleLifeSpanTextField.text?.components(separatedBy: " ") else {
+                    print("Failed to split text")
+                    return
+                }
+                let theFemaleLifespanNumber = theFemaleLifespan[0]
+                let theFemaleLifespanUnit = theFemaleLifespan[1]
+                parameters["FemaleLifespan"] = Double(theFemaleLifespanNumber)
+                parameters["FemaleLifespanUnit"] = Double(self.timeUnitStringToNumber(timeUnit: theFemaleLifespanUnit))
+            }
+            if(self.pupsToWeanAlertAdvanceTextField.text != nil && self.pupsToWeanAlertAdvanceTextField.text != "") {
+                guard let thePupsToWeanAlertAdvanceInfo = self.pupsToWeanAlertAdvanceTextField.text?.components(separatedBy: " ") else {
+                    print("Failed to split text")
+                    return
+                }
+                let thePupsToWeanAlertAdvanceNumber = thePupsToWeanAlertAdvanceInfo[0]
+                let thePupsToWeanAlertAdvanceUnit = thePupsToWeanAlertAdvanceInfo[1]
+                parameters["WeaningAlertAdvance"] = Double(thePupsToWeanAlertAdvanceNumber)
+                parameters["WeaningAlertAdvanceUnit"] = Double(self.timeUnitStringToNumber(timeUnit: thePupsToWeanAlertAdvanceUnit))
+            }
+            if(self.maleTooOldAlertAdvanceTextField.text != nil && self.maleTooOldAlertAdvanceTextField.text != "") {
+                guard let theMaleTooOldAlertAdvanceInfo = self.maleTooOldAlertAdvanceTextField.text?.components(separatedBy: " ") else {
+                    print("Failed to split text")
+                    return
+                }
+                let theMaleTooOldAlertAdvanceNumber = theMaleTooOldAlertAdvanceInfo[0]
+                let theMaleTooOldAlertAdvanceUnit = theMaleTooOldAlertAdvanceInfo[1]
+                parameters["OldMaleAlertAdvance"] = Double(theMaleTooOldAlertAdvanceNumber)
+                parameters["OldMaleAlertAdvanceUnit"] = Double(self.timeUnitStringToNumber(timeUnit: theMaleTooOldAlertAdvanceUnit))
+            }
+            if(self.femaleTooOldAlertAdvanceTextField.text != nil && self.femaleTooOldAlertAdvanceTextField.text != "") {
+                guard let theFemaleTooOldAlertAdvanceInfo = self.femaleTooOldAlertAdvanceTextField.text?.components(separatedBy: " ") else {
+                    print("Failed to split text")
+                    return
+                }
+                let theFemaleTooOldAlertAdvanceNumber = theFemaleTooOldAlertAdvanceInfo[0]
+                let theFemaleTooOldAlertAdvanceUnit = theFemaleTooOldAlertAdvanceInfo[1]
+                parameters["OldFemaleAlertAdvance"] = Double(theFemaleTooOldAlertAdvanceNumber)
+                parameters["OldFemaleAlertAdvanceUnit"] = Double(self.timeUnitStringToNumber(timeUnit: theFemaleTooOldAlertAdvanceUnit))
+            }
+            if(self.maleInCageAlertAdvanceTextField.text != nil && self.maleInCageAlertAdvanceTextField.text != "") {
+                guard let theMaleInCageAlertAdvanceInfo = self.maleInCageAlertAdvanceTextField.text?.components(separatedBy: " ") else {
+                    print("Failed to split text")
+                    return
+                }
+                let theMaleInCageAlertAdvanceNumber = theMaleInCageAlertAdvanceInfo[0]
+                let theMaleInCageAlertAdvanceUnit = theMaleInCageAlertAdvanceInfo[1]
+                parameters["BreedingAlertAdvance"] = Double(theMaleInCageAlertAdvanceNumber)
+                parameters["BreedingAlertAdvanceUnit"] = Double(self.timeUnitStringToNumber(timeUnit: theMaleInCageAlertAdvanceUnit))
+            }
+            
+            parameters["MaleInCageColor"] = Double(self.maleInCageAlertColor)
+            parameters["PupsInCageColor"] = Double(self.pupsInCageAlertColor)
+            parameters["PupsToWeanColor"] = Double(self.pupsToWeanAlertColor)
+            parameters["MaleTooOldColor"] = Double(self.maleTooOldAlertColor)
+            parameters["FemaleTooOldColor"] = Double(self.femaleTooOldAlertColor)
+            parameters["CageWithOrderColor"] = Double(self.cageWithOrderAlertColor)
+            
+            let updatingSettingsHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
+            updatingSettingsHUD.detailsLabel.text = "Updating settings..."
+            QueryServer.shared.updateSettings(parameters: parameters) { (error) in
+                
+                updatingSettingsHUD.detailsLabel.text = "Downloading settings..."
+                QueryServer.shared.getSettings {
+                    DispatchQueue.main.async {
+                        updatingSettingsHUD.hide(animated: true)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updatedSettings"), object: nil)
+                        self.dismiss(animated: true, completion: nil)
+                    }
                 }
             }
         }
+        doneButtonPressedAlert.addAction(continueWithoutSavingAction)
+        doneButtonPressedAlert.addAction(continueAndSaveAction)
+        doneButtonPressedAlert.addAction(cancelAction)
+        present(doneButtonPressedAlert, animated: true, completion: nil)
     }
     
     @IBAction func maleInCageColorSelectionButtonPressed(_ sender: UIButton) {
@@ -712,15 +696,4 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, ValidationD
         }
     }
     /***********************************************************************/
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

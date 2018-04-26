@@ -25,14 +25,13 @@ class ParentCage: NSObject {
         if let theCurrentCageId = parentInfo["CurrentCageId"] as? String {
             currentCageId = theCurrentCageId
         }
-        //Most likely will have to update the date once we have the new server hosted by MCC.
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "MM-dd-yyyy hh:mm:ss a"
-        if var dateString = parentInfo["DOB"] as? String {
+        if let dateString = parentInfo["DOB"] as? String {
             if let theDob = formatter.date(from: dateString) {
                 dob = theDob
             }
         }
     }
-    
 }
