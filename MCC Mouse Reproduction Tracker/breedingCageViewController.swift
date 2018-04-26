@@ -315,6 +315,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                             else {
                                 numericalStringCageIsActive = "0"
                             }
+                            
                             QueryServer.shared.updateBreedingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: numericalStringCageIsActive, weaned: nil, completion: { (response) in
                                 updateHUD.hide(animated: true)
                                 let updateAlert = UIAlertController(title: "Update Cage", message: "The cage information was successfully udpated!", preferredStyle: .alert)
