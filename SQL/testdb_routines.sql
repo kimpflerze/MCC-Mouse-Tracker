@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `testdb` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `testdb`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 52.224.216.91    Database: testdb
@@ -267,7 +265,7 @@ BEGIN
 	WHILE i <= cage_count DO
 		
         #Insert into the alerts table
-		INSERT INTO alerts VALUES (null, 3, (SELECT current_cage_id FROM IndexedCagesOldFemale WHERE i = row_number), (SELECT alert_date FROM IndexedCagesOldFemale WHERE i = row_number));
+		INSERT INTO alerts VALUES (null, 3, (SELECT current_cage_id FROM IndexedCagesOldFemale WHERE i = row_number), (SELECT alert_date FROM IndexedCagesOldFemale WHERE i = row_number), 0);
 		
         #Increment the index
         SET i = i + 1;
@@ -311,7 +309,7 @@ BEGIN
 	WHILE i <= cage_count DO
 		
         #Insert into the alerts table
-		INSERT INTO alerts VALUES (null, 2, (SELECT id FROM IndexedCagesOldMale WHERE i = row_number), (SELECT alert_date FROM IndexedCagesOldMale WHERE i = row_number));
+		INSERT INTO alerts VALUES (null, 2, (SELECT id FROM IndexedCagesOldMale WHERE i = row_number), (SELECT alert_date FROM IndexedCagesOldMale WHERE i = row_number), 0);
 		
         #Increment the index
         SET i = i + 1;
@@ -355,7 +353,7 @@ BEGIN
 	WHILE i <= cage_count DO
 		
         #Insert into the alerts table
-		INSERT INTO alerts VALUES (null, 1, (SELECT id FROM IndexedCagesToWean WHERE i = row_number), (SELECT alert_date FROM IndexedCagesToWean WHERE i = row_number));
+		INSERT INTO alerts VALUES (null, 1, (SELECT id FROM IndexedCagesToWean WHERE i = row_number), (SELECT alert_date FROM IndexedCagesToWean WHERE i = row_number), 0);
 		
         #Increment the index
         SET i = i + 1;
@@ -381,4 +379,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-24 13:04:38
+-- Dump completed on 2018-04-30 18:28:29

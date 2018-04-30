@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `testdb` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `testdb`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 52.224.216.91    Database: testdb
@@ -29,10 +27,11 @@ CREATE TABLE `alerts` (
   `alert_type` int(11) DEFAULT NULL,
   `subject_id` varchar(32) DEFAULT NULL,
   `alert_date` datetime DEFAULT NULL,
+  `resolved` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `alert_type` (`alert_type`),
   CONSTRAINT `alerts_ibfk_1` FOREIGN KEY (`alert_type`) REFERENCES `alert_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -44,4 +43,4 @@ CREATE TABLE `alerts` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-24 13:04:32
+-- Dump completed on 2018-04-30 18:28:24
