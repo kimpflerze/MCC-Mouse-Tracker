@@ -4,6 +4,7 @@ using MouseApi.Entities;
 using MouseApi.FilterProviders.Alert;
 using MouseApi.Patchers.Alert;
 using MouseApi.Validator.Alert;
+using System;
 
 namespace MouseApi.Service.Alert
 {
@@ -39,6 +40,12 @@ namespace MouseApi.Service.Alert
                 }
             }
             return entities;
+        }
+
+        public override AlertEntity Patch(string id, IEnumerable<KeyValuePair<string, string>> patchedProperties)
+        {
+            var oldEntity = Find(Int32.Parse(id));
+            return Update(_patcher.Patch(oldEntity, patchedProperties));
         }
     }
 }

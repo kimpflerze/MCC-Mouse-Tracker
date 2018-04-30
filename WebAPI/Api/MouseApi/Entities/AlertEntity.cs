@@ -19,6 +19,8 @@ namespace MouseApi.Entities
         public string SubjectId { get; set; }
         [Column("alert_date")]
         public DateTime AlertDate { get; set; }
+        [Column("resolved")]
+        public int Resolved { get; set; }
         [ForeignKey("AlertTypeId")]
         public virtual AlertTypeEntity AlertType { get; set; }
         [ForeignKey("SubjectId")]
