@@ -1,7 +1,7 @@
 # Data Needed in Tables
 
 The following data must be inserted into the Database for the application to function properly. 
-(NOTE: The settings values inserted are simply defaults that we used for testing, these values should be updated to fit the needs of the MCC)
+(NOTE: The settings values inserted are simply defaults that we used for testing. These values should be updated to fit the needs of the MCC)
 
 ```sql
 insert into settings values (1, 10, 6, 3, 30, 30, 30, 100, 100, 2.50, 2.50, 2.50, 30, 30, 30, 30, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6);
