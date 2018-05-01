@@ -200,6 +200,7 @@ class QueryServer: NSObject {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
+            debugPrint(response)
             if let result = response.value as? [[String : Any]] {
                 
                 var males = [BreedingMale]()
@@ -237,11 +238,16 @@ class QueryServer: NSObject {
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
             if let result = response.value as? [[String : Any]] {
-                var male: BreedingMale?
                 for item in result {
-                    male = BreedingMale(maleInfo: item)
+                    let theMale = BreedingMale(maleInfo: item)
+                    if theMale.active {
+                        completion(theMale, nil)
+                        break
+                    }
+                    else {
+                        completion(nil, response.error)
+                    }
                 }
-                completion(male, nil)
             }
             else {
                 completion(nil, response.error)
@@ -256,9 +262,6 @@ class QueryServer: NSObject {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
-            print("=====getAllLitterLogsResponse=====")
-            debugPrint(response)
-            print("==================================")
             if let result = response.value as? [[String : Any]] {
                 var litterLogs = [LitterLog]()
                 for item in result {
@@ -655,6 +658,7 @@ class QueryServer: NSObject {
         
         if let url = urlComponents?.url {
             Alamofire.request(url, method: .patch, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
+                debugPrint(response)
                 completion(response.error?.localizedDescription)
             })
         }
@@ -778,21 +782,26 @@ class QueryServer: NSObject {
         var queryItems = [URLQueryItem]()
         
         if let theIsActive = isActive {
-            queryItems.append(URLQueryItem(name: "Active", value: String(theIsActive)))
+            queryItems.append(URLQueryItem(name: "active", value: String(theIsActive)))
         }
         if let theCurrentCageId = currentCageId {
-            queryItems.append(URLQueryItem(name: "CurrentCageId", value: String(theCurrentCageId)))
+            queryItems.append(URLQueryItem(name: "currentCageId", value: String(theCurrentCageId)))
         }
         if let theDob = dob {
-            queryItems.append(URLQueryItem(name: "DOB", value: theDob))
+            queryItems.append(URLQueryItem(name: "dob", value: theDob))
         }
         
         urlComponents?.queryItems = queryItems
+        
+        /*
+         COULD THE URLQUERYITEMS BE THE ISSUE? WE SHOULD BE USING PARAMETERS FOR THE PATCH!!
+        */
         
         if let url = urlComponents?.url {
             Alamofire.request(url, method: .patch, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
                 debugPrint(response)
                 if response.response?.statusCode == 200 {
+                    debugPrint(response)
                     completion(nil)
                 }
                 else {
@@ -811,6 +820,18 @@ class QueryServer: NSObject {
         if let url = URL(string: updateSettingsURL) {
             let headers: HTTPHeaders = ["Content-Type":"application/json"]
             Alamofire.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (response) in
+                completion(response.error?.localizedDescription)
+            })
+        }
+    }
+    
+    func setAlertResolved(alert: Alert, completion: @escaping (_ error: String?) -> Void) {
+        var resolutionValue = "1"
+        if alert.resolved {
+            resolutionValue = "0"
+        }
+        if let url = URL(string: getAlertsURL+"/"+alert.id+"?resolved=\(resolutionValue)") {
+            Alamofire.request(url, method: .patch, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
                 completion(response.error?.localizedDescription)
             })
         }

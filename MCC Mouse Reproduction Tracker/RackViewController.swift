@@ -124,6 +124,16 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        /*
+        for cell in rackCollectionView.visibleCells {
+            if let theCell = cell as? RackViewCell {
+                if theCell.cage?.maleInCage == false {
+                    theCell.maleInCageAlertIcon.isHidden = true
+                }
+            }
+        }
+         */
+        
         self.rackCollectionView.reloadData()
     }
     
@@ -227,22 +237,35 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         if let alerts = cell.cage?.alerts {
             for alert in alerts {
-                switch alert.alertTypeID {
-                case "1":
+                if !alert.resolved {
+                    switch alert.alertTypeID {
+                    case "1":
+                        cell.pupsToWeanAlertIcon.isHidden = false
+                        cell.cage?.litterInCage = true
+                        break
+                    case "2":
+                        cell.maleTooOldAlertIcon.isHidden = false
+                        break
+                    case "3":
+                        cell.FemaleTooOldAlertIcon.isHidden = false
+                        break
+                    case "4":
+                        cell.cageWithOrderAlertIcon.isHidden = false
+                        break
+                    //Need Pups In Cage alert to appear as well!
+                    default:
+                        break
+                    }
+                }
+            }
+        }
+        
+        if cell.cage?.litterDOB != nil {
+            cell.pupsInCageAlertIcon.isHidden = false
+            //REMOVE THIS FOR LOOP & INTERIOR IF STATEMENT ONCE RESOLVED OPTION IS IMPLEMENTED
+            for alert in (cell.cage?.alerts)! {
+                if alert.alertTypeID == "1" {
                     cell.pupsToWeanAlertIcon.isHidden = false
-                    cell.cage?.litterInCage = true
-                    break
-                case "2":
-                    cell.maleTooOldAlertIcon.isHidden = false
-                    break
-                case "3":
-                    cell.FemaleTooOldAlertIcon.isHidden = false
-                    break
-                case "4":
-                    cell.cageWithOrderAlertIcon.isHidden = false
-                    break
-                default:
-                    break
                 }
             }
         }
@@ -254,7 +277,6 @@ class RackViewController: UIViewController, UICollectionViewDelegate, UICollecti
         else {
             cell.maleInCageAlertIcon.isHidden = true
         }
-        
         
         //Check to change opacity of cages when filtering
         if  (cell.cage?.shouldHighlightCage == false && shouldApplyFiltering == true) || cell.cage?.id == nil {

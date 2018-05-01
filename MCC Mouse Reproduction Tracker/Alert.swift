@@ -15,6 +15,7 @@ class Alert: NSObject {
     var alertTypeDescription = ""
     var subjectId = ""
     var alertDate: Date?
+    var resolved = false
     
     init(alertInfo: [String : Any]) {
         if let theId = alertInfo["AlertId"] as? String {
@@ -38,6 +39,10 @@ class Alert: NSObject {
             if let theFormattedDate = dateFormatter.date(from: theAlertDate) {
                 alertDate = theFormattedDate
             }
+        }
+        
+        if let theResolvedValue = alertInfo["Resolved"] as? Bool {
+            resolved = theResolvedValue
         }
     }
 }

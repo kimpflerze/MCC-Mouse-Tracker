@@ -231,6 +231,7 @@ class AddMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
                             }
                             else {
                                 numericalStringCageIsActive = "0"
+//                                breedingMaleCurrentCage.  // LEFT OFF HERE, NEED TO MAKE IT SO BREEDING CAGE DOESNT RECOGNIZE BREEDING MALE ANYMORE
                             }
                             
                             QueryServer.shared.updateBreedingMaleWith(id: self.breedingMale?.id, isActive: numericalStringCageIsActive, currentCageId: self.currentCageIDTextField.text, dob: self.maleDOBTextField.text, completion: { (response) in

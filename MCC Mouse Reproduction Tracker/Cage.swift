@@ -87,6 +87,9 @@ class Cage: NSObject {
         if let theNumMiceInCage = rackInfo["NumberOfMice"] as? Int {
             numMice = theNumMiceInCage
         }
+        if id == "BreedingCage1" {
+            print("This is me")
+        }
         
         if let litterDateString = rackInfo["LitterDOB"] as? String {
             if let theLitterDOB = formatter.date(from: litterDateString) {

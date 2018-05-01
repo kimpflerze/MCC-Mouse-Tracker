@@ -30,6 +30,7 @@ class RackUtility: NSObject {
                             DispatchQueue.main.async {
                                 
                                 QueryServer.shared.getAllActiveBreedingMales { (downloadedMales, error) in
+                                    
                                     if let theMales = downloadedMales {
                                         self.breedingMales = theMales
                                         self.breedingCages = self.breedingCages.map({ (cage) -> Cage in

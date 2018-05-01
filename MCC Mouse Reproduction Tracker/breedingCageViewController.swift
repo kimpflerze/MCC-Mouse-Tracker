@@ -28,6 +28,8 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     var newCageId: String?
     var didSelectScanParentInformationButton = false
     var originalCageActiveState: Bool?
+    var weanedValueForUpdating: String?
+    var addLitterButtonManipulated = false
     
     var delegate: DetailViewControllerDelegate?
     
@@ -91,15 +93,14 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         
         //Filling information that we have for this cage
         if let theCage = cage {
-            print("ViewDidLoad: Cage ID \(String(describing: self.cage?.id))   LitterInCage: \(String(describing: self.cage?.litterInCage))  NumLittersFromCage: \(String(describing: self.cage?.numLittersFromCage))  LitterDOB: \(String(describing: self.cage?.litterDOB))")
             rackNoTextField.text = String(theCage.rack)
             columnNoTextField.text = String(theCage.column)
             rowNoTextField.text = String(theCage.row)
             
             if(isNewCage == false) {
                 //Disable interaction with fields that are not updatable
-                parentDOBTextField.isUserInteractionEnabled = false
-                parentCageTextField.isUserInteractionEnabled = false
+//                parentDOBTextField.isUserInteractionEnabled = false
+//                parentCageTextField.isUserInteractionEnabled = false
                 scanParentInformationButton.isUserInteractionEnabled = false
                 QR_code_btn.isUserInteractionEnabled = false
                 
@@ -129,10 +130,13 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                     if(!parentCageList.contains(parentCage.parentCageId)) {
                         parentCageList.append(parentCage.parentCageId)
                         parentCageTableView.reloadData()
-                    }}}
+                    }
+                }
+            }
             else {
                 cageHasId.image = #imageLiteral(resourceName: "XIcon")
-            }}
+            }
+        }
         
         //Quick query to determine if male is in cage for purpose of add_male_btn title clarity!
         QueryServer.shared.getBreedingMaleBy(cageId: (cage?.id)!, completion: { (downloadedMale, error) in
@@ -147,13 +151,32 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         })
         
         // Check if there is a litter in the cage or not.
-        if (self.cage?.litterInCage)! {
-            // litter exists already; only option is to wean it
-            self.add_litter_btn.setTitle("Wean Litter", for: .normal)
-        }else {
+        if self.cage?.litterDOB == nil {
             // litter does not exist so we can add one.
             self.add_litter_btn.setTitle("Add Litter", for: .normal)
+//            weanedValueForUpdating = "0"
+        }else {
+            // litter exists already; only option is to wean it
+            self.add_litter_btn.setTitle("Wean Litter", for: .normal)
+//            weanedValueForUpdating = "1"
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        QueryServer.shared.getBreedingMaleBy(cageId: (cage?.id)!, completion: { (downloadedMale, error) in
+            DispatchQueue.main.async {
+                if let theMale = downloadedMale {
+                    if theMale.active == true {
+                        self.add_male_btn.titleLabel?.text = "ViewMale"
+                    }
+                    else {
+                        self.breedingMale = nil
+                        self.add_male_btn.titleLabel?.text = "Add Male"
+                        self.cage?.maleInCage = false
+                    }
+                }
+            }
+        })
     }
     
     @objc func donePicker() {
@@ -219,26 +242,18 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func pressedAddLitterButton(_ sender: UIButton) {
-        print("Beginning: Cage ID \(self.cage?.id)   LitterInCage: \(self.cage?.litterInCage)  NumLittersFromCage: \(self.cage?.numLittersFromCage)  LitterDOB: \(self.cage?.litterDOB)")
-        if (self.cage?.litterInCage)! == true {
+        if (sender.title(for: .normal) == "Add Litter") {
             // litter exists in cage so we must wean the litter
             print("Have a litter; must wean it.")
-            QueryServer.shared.updateBreedingCageWith(id: self.cage?.id, row: String(describing: self.cage?.row), column: String(describing: self.cage?.column), rack: String(describing: self.cage?.rack), isActive: nil, weaned: "1", completion: { (response) in
-                DispatchQueue.main.async {
-                    self.cage?.litterInCage = false
-                    self.add_litter_btn.titleLabel?.text = "Add Litter"
-                }
-            })
+            self.add_litter_btn.setTitle("Wean Litter", for: .normal)
+            weanedValueForUpdating = "0"
+            addLitterButtonManipulated = !addLitterButtonManipulated
         } else {
             // No litter exists in cage so we must add a litter
             print("No litter; must add one.")
-            QueryServer.shared.createLitterLogEntry(motherCageId: cage?.id, completion: { (response) in
-                DispatchQueue.main.async {
-                    print("Litter created:")
-                    self.cage?.litterInCage = true
-                    self.add_litter_btn.titleLabel?.text = "Wean Cage"
-                }
-            })
+            self.add_litter_btn.setTitle("Add Litter", for: .normal)
+            weanedValueForUpdating = "1"
+            addLitterButtonManipulated = !addLitterButtonManipulated
         }
     }
     
@@ -271,7 +286,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         guard let theCage = cage else {
             return false
         }
-        if originalCageActiveState != self.cage?.isActive || rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) {
+        if originalCageActiveState != self.cage?.isActive || rackNoTextField.text != String(theCage.rack) || columnNoTextField.text != String(theCage.column) || rowNoTextField.text != String(theCage.row) || addLitterButtonManipulated == true {
             return true
         }
         return hasTableViewChanged
@@ -316,14 +331,25 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                                 numericalStringCageIsActive = "0"
                             }
                             
-                            QueryServer.shared.updateBreedingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: numericalStringCageIsActive, weaned: nil, completion: { (response) in
+                            QueryServer.shared.updateBreedingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: numericalStringCageIsActive, weaned: self.weanedValueForUpdating, /*litterInCage: litterInCage,*/ completion: { (response) in
                                 updateHUD.hide(animated: true)
-                                let updateAlert = UIAlertController(title: "Update Cage", message: "The cage information was successfully udpated!", preferredStyle: .alert)
-                                let confirmAction = UIAlertAction(title: "Ok", style: .default, handler: { (response) in
-                                    self.delegate?.detailViewControllerDidSave(controller: self)
-                                })
-                                updateAlert.addAction(confirmAction)
-                                self.present(updateAlert, animated: true, completion: nil)
+                                
+                                
+                                if self.weanedValueForUpdating == "0" && self.cage?.litterDOB == nil {
+                                    QueryServer.shared.createLitterLogEntry(motherCageId: self.cage?.id, completion: { (response) in
+                                        DispatchQueue.main.async {
+                                            self.cage?.litterInCage = true
+                                            print("Litter created:")
+                                            self.displayUpdateConfirmedAlert()
+                                        }
+                                    })
+                                }
+                                else {
+                                    self.cage?.litterInCage = false
+                                    self.displayUpdateConfirmedAlert()
+                                }
+                                
+                                
                             })
                         })
                         let cancelUpdateAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -338,6 +364,15 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         doneButtonPressedAlert.addAction(continueAndSaveAction)
         doneButtonPressedAlert.addAction(cancelAction)
         present(doneButtonPressedAlert, animated: true, completion: nil)
+    }
+    
+    func displayUpdateConfirmedAlert() {
+        let updateAlert = UIAlertController(title: "Update Cage", message: "The cage information was successfully udpated!", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Ok", style: .default, handler: { (response) in
+            self.delegate?.detailViewControllerDidSave(controller: self)
+        })
+        updateAlert.addAction(confirmAction)
+        self.present(updateAlert, animated: true, completion: nil)
     }
   
     
@@ -503,13 +538,15 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         })
         
         //Make sure that this "Litter in Cage" Variable is being updated on each press of the add litter button!
+        /*
         if (self.cage?.litterInCage)! {
             // litter exists already; only option is to wean it
             self.add_litter_btn.setTitle("Wean Litter", for: .normal)
-        }else {
+        } else {
             // litter does not exist so we can add one.
             self.add_litter_btn.setTitle("Add Litter", for: .normal)
         }
+        */
     }
     
     

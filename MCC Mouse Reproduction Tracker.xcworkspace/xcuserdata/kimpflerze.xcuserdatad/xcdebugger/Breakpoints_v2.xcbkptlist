@@ -9,14 +9,110 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MCC Mouse Reproduction Tracker/QueryServer.swift"
-            timestampString = "546457682.011386"
+            filePath = "MCC Mouse Reproduction Tracker/breedingCageViewController.swift"
+            timestampString = "546885922.813078"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "781"
-            endingLineNumber = "781"
-            landmarkName = "updateBreedingMaleWith(id:isActive:currentCageId:dob:completion:)"
+            startingLineNumber = "337"
+            endingLineNumber = "337"
+            landmarkName = "pressedDoneButton(_:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MCC Mouse Reproduction Tracker/QueryServer.swift"
+            timestampString = "546885922.813166"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "660"
+            endingLineNumber = "660"
+            landmarkName = "updateBreedingCageWith(id:row:column:rack:isActive:weaned:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MCC_Mouse_Reproduction_Tracker.QueryServer.updateBreedingCageWith(id: Swift.Optional&lt;Swift.String&gt;, row: Swift.Optional&lt;Swift.String&gt;, column: Swift.Optional&lt;Swift.String&gt;, rack: Swift.Optional&lt;Swift.String&gt;, isActive: Swift.Optional&lt;Swift.String&gt;, weaned: Swift.Optional&lt;Swift.String&gt;, completion: (Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MCC Mouse Reproduction Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kimpflerze/Documents/XCode/MCC%20Mouse%20Reproduction%20Tracker/MCC%20Mouse%20Reproduction%20Tracker/QueryServer.swift"
+                  timestampString = "546831459.2003959"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "660"
+                  endingLineNumber = "660"
+                  offsetFromSymbolStart = "3222">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any&gt;) -&gt; () in MCC_Mouse_Reproduction_Tracker.QueryServer.updateBreedingCageWith(id: Swift.Optional&lt;Swift.String&gt;, row: Swift.Optional&lt;Swift.String&gt;, column: Swift.Optional&lt;Swift.String&gt;, rack: Swift.Optional&lt;Swift.String&gt;, isActive: Swift.Optional&lt;Swift.String&gt;, weaned: Swift.Optional&lt;Swift.String&gt;, completion: (Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "MCC Mouse Reproduction Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kimpflerze/Documents/XCode/MCC%20Mouse%20Reproduction%20Tracker/MCC%20Mouse%20Reproduction%20Tracker/QueryServer.swift"
+                  timestampString = "546831459.2030309"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "661"
+                  endingLineNumber = "661"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MCC Mouse Reproduction Tracker/breedingCageViewController.swift"
+            timestampString = "546885922.813226"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "334"
+            endingLineNumber = "334"
+            landmarkName = "pressedDoneButton(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__ObjC.UIAlertAction) -&gt; () in closure #2 (__ObjC.UIAlertAction) -&gt; () in MCC_Mouse_Reproduction_Tracker.breedingCageViewController.pressedDoneButton(__ObjC.UIButton) -&gt; ()"
+                  moduleName = "MCC Mouse Reproduction Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kimpflerze/Documents/XCode/MCC%20Mouse%20Reproduction%20Tracker/MCC%20Mouse%20Reproduction%20Tracker/breedingCageViewController.swift"
+                  timestampString = "546831459.210317"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "334"
+                  endingLineNumber = "334"
+                  offsetFromSymbolStart = "934">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.String&gt;) -&gt; () in closure #2 (__ObjC.UIAlertAction) -&gt; () in closure #2 (__ObjC.UIAlertAction) -&gt; () in MCC_Mouse_Reproduction_Tracker.breedingCageViewController.pressedDoneButton(__ObjC.UIButton) -&gt; ()"
+                  moduleName = "MCC Mouse Reproduction Tracker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kimpflerze/Documents/XCode/MCC%20Mouse%20Reproduction%20Tracker/MCC%20Mouse%20Reproduction%20Tracker/breedingCageViewController.swift"
+                  timestampString = "546831459.212971"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "335"
+                  endingLineNumber = "335"
+                  offsetFromSymbolStart = "54">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

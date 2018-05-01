@@ -85,7 +85,12 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let alert = self.alertArray[indexPath.row]
         if let date = alert.alertDate {
-            cell.textLabel?.text = "Alert: \(alert.alertTypeDescription);  Date: \(date.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))"
+            if alert.resolved {
+                cell.textLabel?.text = "Alert: \(alert.alertTypeDescription);  Date: \(date.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))     Resolved!"
+            }
+            else {
+                cell.textLabel?.text = "Alert: \(alert.alertTypeDescription);  Date: \(date.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))"
+            }
         }else{
             cell.textLabel?.text = "Alert: \(alert.alertTypeDescription);  Date: N/A"
         }
@@ -147,8 +152,28 @@ class AlertsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     /* Unable to remove alerts from the tableView due to way the alerts were implemented in the database schema*/
+    /*
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .none
+    }
+     */
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let cell = tableView.cellForRow(at: indexPath)
+        let alert = self.alertArray[indexPath.row]
+        let resolveAction = UITableViewRowAction(style: .normal, title: alert.resolved ? "Unresolve" : "Resolve") { (action, indexPath) in
+            QueryServer.shared.setAlertResolved(alert: alert, completion: { (error) in
+                if let theAlertDate = alert.alertDate {
+                    if alert.resolved {
+                        cell?.textLabel?.text = "Alert: \(alert.alertTypeDescription);  Date: \(theAlertDate.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))"
+                    }
+                    else {
+                        cell?.textLabel?.text = "Alert: \(alert.alertTypeDescription);  Date: \(theAlertDate.toString(withFormat: "MM-dd-yyyy hh:mm:ss a"))     Resolved!"
+                    }
+                }
+            })
+        }
+        return [resolveAction]
     }
    
     @IBAction func refreshButtonPressed(_ sender: UIButton) {

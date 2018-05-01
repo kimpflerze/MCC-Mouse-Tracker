@@ -33,7 +33,15 @@ class CageAlertsViewController: UIViewController , UITableViewDelegate, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCellStyle.default , reuseIdentifier: "cell")
-        cell.textLabel?.text = self.cageAlertArray[indexPath.row].alertTypeDescription
+        if self.cageAlertArray[indexPath.row].resolved {
+            print("Resolved")
+            cell.textLabel?.text = "\(self.cageAlertArray[indexPath.row].alertTypeDescription)  Resolved!"
+        }
+        else {
+            print("Unresolved")
+            cell.textLabel?.text = self.cageAlertArray[indexPath.row].alertTypeDescription
+        }
+            
         return cell
     }
     
