@@ -9,5 +9,6 @@ namespace MouseApi.ViewModels
         public AlertTypeEntity AlertType { get; set; }
         public string SubjectId { get; set; }
         public string AlertDate { get; set; }
+        public int Resolved { get; set; }
     }
 }

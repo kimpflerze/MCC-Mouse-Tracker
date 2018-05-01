@@ -8,7 +8,16 @@ namespace MouseApi.Patchers.Alert
     {
         public override AlertEntity Patch(AlertEntity oldEntity, IEnumerable<KeyValuePair<string, string>> patchedProperties)
         {
-            throw new NotImplementedException();
+            foreach (var property in patchedProperties)
+            {
+                switch (property.Key)
+                {
+                    case "resolved":
+                        oldEntity.Resolved = Int32.Parse(property.Value);
+                        break;
+                }
+            }
+            return oldEntity;
         }
     }
 }
