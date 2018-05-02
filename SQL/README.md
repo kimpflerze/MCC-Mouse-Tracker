@@ -1,9 +1,11 @@
+
 # Data Needed in Tables
 
 The following data must be inserted into the Database for the application to function properly. 
 (NOTE: The settings values inserted are simply defaults that we used for testing. These values should be updated to fit the needs of the MCC)
 
 ```sql
+insert into generic_cage values ('ORIGIN', '2000-1-1 12:00:00.000', 0, 0, 0, 0);
 insert into settings values (1, 10, 6, 3, 30, 30, 30, 100, 100, 2.50, 2.50, 2.50, 30, 30, 30, 30, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 6);
 insert into time_units values (1, 'Days');
 insert into time_units values (2, 'Weeks');
