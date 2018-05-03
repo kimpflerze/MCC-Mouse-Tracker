@@ -5,6 +5,7 @@ export interface IStatistics {
     SellingMice: number;
     Orders: number;
     Alerts: number;
+    StockMice: number;
     StockMales: number;
     StockFemales: number;
     NumberOfLitters: number;

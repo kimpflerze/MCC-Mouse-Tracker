@@ -14,7 +14,7 @@ export class OrderDetailsComponent implements OnInit {
   /**
    * The order represented by this instance of OrderDetailsComponent
    */
-  private order: IOrder;
+  public order: IOrder;
 
   /**
    * A MatDialog used for user confirmation
