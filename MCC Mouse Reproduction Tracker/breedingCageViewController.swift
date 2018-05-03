@@ -258,8 +258,9 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func pressedAddMaleButton(_ sender: UIButton) {
+        print("break here")
         if let addMaleVC = self.storyboard?.instantiateViewController(withIdentifier: "BreedingMale") as? AddMaleViewController {
-            
+            print("break here")
             QueryServer.shared.getBreedingMaleBy(cageId: (cage?.id)!, completion: { (downloadedMale, error) in
                 DispatchQueue.main.async {
                     if(downloadedMale == nil) {
@@ -307,6 +308,8 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                     //New cage, insert into database
                     let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
                     QueryServer.shared.createNewBreedingCage(id: self.newCageId, row: Int(self.rowNoTextField.text!), column: Int(self.columnNoTextField.text!), rack: Int(self.rackNoTextField.text!), isActive: 1, parentsCagesDOB: self.parentDOBList, parentCagesId: self.parentCageList, completion: { (error) in
+                        print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\n\n\n")
+                        debugPrint(error)
                         doneButtonHUD.hide(animated: true)
                         self.delegate?.detailViewControllerDidSave(controller: self)
                     })

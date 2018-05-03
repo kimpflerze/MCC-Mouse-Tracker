@@ -17,31 +17,31 @@ class QueryServer: NSObject {
     var lastActivityTimeStamp: Date?
     
     //URLs here so that they're all in one place and easier to change.
-    let getAllBreedingCagesURL = "https://mouseapi.azurewebsites.net/api/breedingcage"
-    let getAllActiveBreedingCagesURL = "https://mouseapi.azurewebsites.net/api/breedingcage?active=1"
-    let getBreedingCageByIDURL = "https://mouseapi.azurewebsites.net/api/breedingcage/"
-    let getAllSellingCagesURL = "https://mouseapi.azurewebsites.net/api/sellingcage"
-    let getAllActiveSellingCagesURL = "https://mouseapi.azurewebsites.net/api/sellingcage?active=1"
-    let getSellingCageByIDURL = "https://mouseapi.azurewebsites.net/api/sellingcage/"
-    let getAllBreedingMalesURL = "https://mouseapi.azurewebsites.net/api/breedingmale"
-    let getAllActiveBreedingMalesURL = "https://mouseapi.azurewebsites.net/api/breedingmale?active=1"
-    let getBreedingMaleByIDURL = "https://mouseapi.azurewebsites.net/api/breedingmale/"
-    let getBreedingMaleByCageIDURL = "https://mouseapi.azurewebsites.net/api/breedingmale?currentCageId="
-    let getAllLitterLogsURL = "https://mouseapi.azurewebsites.net/api/litterlog/"
-    let getLitterLogByIDURL = "https://mouseapi.azurewebsites.net/api/litterlog/"
-    let getAlertsURL = "https://mouseapi.azurewebsites.net/api/alert"
-    let getSettingsURL = "https://mouseapi.azurewebsites.net/api/settings/1"
-    let createNewBreedingCageURL = "https://mouseapi.azurewebsites.net/api/breedingcage"
-    let createNewSellingCageURL = "https://mouseapi.azurewebsites.net/api/sellingcage"
-    let createNewBreedingMaleURL = "https://mouseapi.azurewebsites.net/api/breedingmale"
-    let createLitterLogEntryURL = "https://mouseapi.azurewebsites.net/api/litterlog"
-    let updateBreedingCageWithIDURL = "https://mouseapi.azurewebsites.net/api/breedingcage/"
-    let updateSellingCageWithIDURL = "https://mouseapi.azurewebsites.net/api/sellingcage/"
-    let updateSellingCageDOBWithIDURL = "https://mouseapi.azurewebsites.net/api/breedingfemale"
-    let updateBreedingMaleWithIDURL = "https://mouseapi.azurewebsites.net/api/breedingmale/"
+    let getAllBreedingCagesURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/breedingcage"
+    let getAllActiveBreedingCagesURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/breedingcage?active=1"
+    let getBreedingCageByIDURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/breedingcage/"
+    let getAllSellingCagesURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/sellingcage"
+    let getAllActiveSellingCagesURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/sellingcage?active=1"
+    let getSellingCageByIDURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/sellingcage/"
+    let getAllBreedingMalesURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/breedingmale"
+    let getAllActiveBreedingMalesURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/breedingmale?active=1"
+    let getBreedingMaleByIDURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/breedingmale/"
+    let getBreedingMaleByCageIDURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/breedingmale?currentCageId="
+    let getAllLitterLogsURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/litterlog/"
+    let getLitterLogByIDURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/litterlog/"
+    let getAlertsURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/alert"
+    let getSettingsURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/settings/1"
+    let createNewBreedingCageURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/breedingcage"
+    let createNewSellingCageURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/sellingcage"
+    let createNewBreedingMaleURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/breedingmale"
+    let createLitterLogEntryURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/litterlog"
+    let updateBreedingCageWithIDURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/breedingcage/"
+    let updateSellingCageWithIDURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/sellingcage/"
+    let updateSellingCageDOBWithIDURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/breedingfemale"
+    let updateBreedingMaleWithIDURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/breedingmale/"
     //Reason for the "1" after settings is, the table within the database had to be specified, therefore the "1"
     //indicates the 1 and only entry into the settings table.
-    let updateSettingsURL = "https://mouseapi.azurewebsites.net/api/settings/1"
+    let updateSettingsURL = "https://wisp.massey.vcu.edu:44300/MouseCore/api/settings/1"
     
 //GET Queries
     //Breeding cages queries
@@ -71,6 +71,8 @@ class QueryServer: NSObject {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
+            print("=====Get all active breeding cages=====")
+            debugPrint(response)
             if let result = response.value as? [[String : Any]] {
                 var cages = [Cage]()
                 for item in result {
@@ -138,6 +140,8 @@ class QueryServer: NSObject {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
+            print("=====Get all active selling cages=====")
+            debugPrint(response)
             if let result = response.value as? [[String : Any]] {
                 
                 var cages = [Cage]()
@@ -200,6 +204,7 @@ class QueryServer: NSObject {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
+            print("=====Get all active breeding males=====")
             debugPrint(response)
             if let result = response.value as? [[String : Any]] {
                 
@@ -233,23 +238,40 @@ class QueryServer: NSObject {
     }
     
     func getBreedingMaleBy(cageId: String, completion: @escaping (_ cage: BreedingMale?, _ error: Error?) -> Void) {
+        print("break here")
         guard let url = URL(string: getBreedingMaleByCageIDURL+cageId) else {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
-            if let result = response.value as? [[String : Any]] {
-                for item in result {
-                    let theMale = BreedingMale(maleInfo: item)
-                    if theMale.active {
-                        completion(theMale, nil)
-                        break
-                    }
-                    else {
+            print("*************************************\n\n\n")
+            debugPrint(response)
+            print("****************************response.value.debugDescription\n\n")
+            debugPrint(response.value.debugDescription)
+            if response.value != nil {
+                if let result = response.value as? [[String : Any]] {
+                    if result.count == 0 {
                         completion(nil, response.error)
                     }
+                    else {
+                        print("break here")
+                        for item in result {
+                            let theMale = BreedingMale(maleInfo: item)
+                            if theMale.active {
+                                completion(theMale, nil)
+                                break
+                            }
+                            else {
+                                completion(nil, response.error)
+                            }
+                        }
+                    }
+                }
+                else {
+                    completion(nil, response.error)
                 }
             }
             else {
+                print("break here")
                 completion(nil, response.error)
             }
         })
@@ -319,6 +341,7 @@ class QueryServer: NSObject {
             return
         }
         Alamofire.request(url).responseJSON(completionHandler: { (response) in
+            debugPrint(response)
             if let downloadedSettings = response.value as? [String : Any] {
                 
                 //Mouse information
