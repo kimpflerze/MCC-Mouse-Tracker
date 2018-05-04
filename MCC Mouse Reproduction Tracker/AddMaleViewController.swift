@@ -79,6 +79,7 @@ class AddMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         //Assigning the toolbard created above to all of the textfields that use a pickerview.
         maleDOBTextField.inputAccessoryView = toolBar
+        parentCageIDTextField.inputAccessoryView = toolBar
         
         textfieldValidationRegistration()
         
@@ -133,6 +134,13 @@ class AddMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @objc func donePicker() {
+        if let newParentCageID = parentCageIDTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
+            if newParentCageID != "" {
+                parentCageIDTextField.text = ""
+                parentCageIDList.append(newParentCageID)
+                parentCageIDTableView.reloadData()
+            }
+        }
         self.view.endEditing(true)
     }
     
@@ -209,7 +217,7 @@ class AddMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
                     //New male, insert into database
                     let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
                     doneButtonHUD.detailsLabel.text = "Sending information..."
-                    QueryServer.shared.createNewBreedingMale(id: self.newMaleId, isActive: 1, motherCageId: self.parentCageIDList.first, DOB: self.maleDOBTextField.text, currentCageId: self.currentCageIDTextField.text, completion: { (error) in
+                    QueryServer.shared.createNewBreedingMale(id: self.newMaleId?.trimmingCharacters(in: .whitespacesAndNewlines), isActive: 1, motherCageId: self.parentCageIDList.first, DOB: self.maleDOBTextField.text, currentCageId: self.currentCageIDTextField.text, completion: { (error) in
                         doneButtonHUD.hide(animated: true)
                         self.delegate?.detailViewControllerDidSave(controller: self)
                     })

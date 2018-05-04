@@ -530,6 +530,7 @@ class QueryServer: NSObject {
         let parameters: Parameters = ["Id" : theId, "Row": theRow, "Column": theColumn, "Rack": theRack, "Active": theIsActive, "ParentCages": parents]
         let headers: HTTPHeaders = ["Content-Type":"application/json"]
         Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (response) in
+            debugPrint(response)
             completion(response.error?.localizedDescription)
         })
     }

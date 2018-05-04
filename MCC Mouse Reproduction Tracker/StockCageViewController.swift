@@ -231,7 +231,7 @@ class StockCageViewController: UIViewController,  UITableViewDelegate, UITableVi
                     let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
                     doneButtonHUD.detailsLabel.text = "Sending information..."
                     if self.stockCageDOBList.count > 0 {
-                        QueryServer.shared.createNewSellingCage(id: self.newCageId, row: Int(self.rowNoTextField.text!), column: Int(self.columnNoTextField.text!), rack: Int(self.rackNoTextField.text!), isActive: 1, parentsCagesDOB: self.stockCageDOBList, parentCagesId: self.stockCageIDList, gender: self.genderFlag, numberOfMice: Int(self.miceCountTextField.text!), completion: { (error) in
+                        QueryServer.shared.createNewSellingCage(id: self.newCageId?.trimmingCharacters(in: .whitespacesAndNewlines), row: Int(self.rowNoTextField.text!), column: Int(self.columnNoTextField.text!), rack: Int(self.rackNoTextField.text!), isActive: 1, parentsCagesDOB: self.stockCageDOBList, parentCagesId: self.stockCageIDList, gender: self.genderFlag, numberOfMice: Int(self.miceCountTextField.text!), completion: { (error) in
                             doneButtonHUD.hide(animated: true)
                             self.delegate?.detailViewControllerDidSave(controller: self)
                         })

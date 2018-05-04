@@ -649,7 +649,7 @@
                                                     <action selector="currentCageIDScanButtonPressed:" destination="c0G-rr-ea1" eventType="touchUpInside" id="4qG-5V-xR3"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cage is Active" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duO-UB-fwU">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Male is Active" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duO-UB-fwU">
                                                 <rect key="frame" x="50" y="160" width="180" height="31"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="31" id="4cB-7G-pKp"/>
@@ -2365,6 +2365,6 @@
         <image name="popover_close_button" width="980" height="980"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jG4-SM-mCr"/>
+        <segue reference="qEe-uT-TjV"/>
     </inferredMetricsTieBreakers>
 </document>

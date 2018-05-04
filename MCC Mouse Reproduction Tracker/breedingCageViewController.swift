@@ -191,7 +191,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
         
-        if let newParentCageID = parentCageTextField.text {
+        if let newParentCageID = parentCageTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
             if newParentCageID != "" {
                 parentCageTextField.text = ""
                 parentCageList.append(newParentCageID)
@@ -307,7 +307,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                 if(self.isNewCage) {
                     //New cage, insert into database
                     let doneButtonHUD = MBProgressHUD.showAdded(to: self.view, animated: true)
-                    QueryServer.shared.createNewBreedingCage(id: self.newCageId, row: Int(self.rowNoTextField.text!), column: Int(self.columnNoTextField.text!), rack: Int(self.rackNoTextField.text!), isActive: 1, parentsCagesDOB: self.parentDOBList, parentCagesId: self.parentCageList, completion: { (error) in
+                    QueryServer.shared.createNewBreedingCage(id: self.newCageId?.trimmingCharacters(in: .whitespacesAndNewlines), row: Int(self.rowNoTextField.text!), column: Int(self.columnNoTextField.text!), rack: Int(self.rackNoTextField.text!), isActive: 1, parentsCagesDOB: self.parentDOBList, parentCagesId: self.parentCageList, completion: { (error) in
                         print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\n\n\n")
                         debugPrint(error)
                         doneButtonHUD.hide(animated: true)
@@ -335,6 +335,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
                             }
                             
                             QueryServer.shared.updateBreedingCageWith(id: self.cage?.id, row: self.rowNoTextField.text, column: self.columnNoTextField.text, rack: self.rackNoTextField.text, isActive: numericalStringCageIsActive, weaned: self.weanedValueForUpdating, /*litterInCage: litterInCage,*/ completion: { (response) in
+                                debugPrint(response)
                                 updateHUD.hide(animated: true)
                                 
                                 
