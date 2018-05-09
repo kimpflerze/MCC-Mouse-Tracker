@@ -153,7 +153,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         // Check if there is a litter in the cage or not.
         if self.cage?.litterDOB == nil {
             // litter does not exist so we can add one.
-            self.add_litter_btn.setTitle("Add Litter", for: .normal)
+            self.add_litter_btn.setTitle("Mated", for: .normal)
 //            weanedValueForUpdating = "0"
         }else {
             // litter exists already; only option is to wean it
@@ -242,7 +242,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func pressedAddLitterButton(_ sender: UIButton) {
-        if (sender.title(for: .normal) == "Add Litter") {
+        if (sender.title(for: .normal) == "Mated") {
             // litter exists in cage so we must wean the litter
             print("Have a litter; must wean it.")
             self.add_litter_btn.setTitle("Wean Litter", for: .normal)
@@ -251,7 +251,7 @@ class breedingCageViewController: UIViewController, UITableViewDelegate, UITable
         } else {
             // No litter exists in cage so we must add a litter
             print("No litter; must add one.")
-            self.add_litter_btn.setTitle("Add Litter", for: .normal)
+            self.add_litter_btn.setTitle("Mated", for: .normal)
             weanedValueForUpdating = "1"
             addLitterButtonManipulated = !addLitterButtonManipulated
         }

@@ -645,6 +645,8 @@ class QueryServer: NSObject {
         let parameters: Parameters = ["MotherCageId": theMotherCageId]
         let headers: HTTPHeaders = ["Content-Type":"application/json"]
         Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers).responseJSON(completionHandler: { (response) in
+            print("\n\n\n**********************%%%%%%%%%%%%%%%%%%%%%%%%")
+            debugPrint(response)
             completion(response.error?.localizedDescription)
         })
     }
@@ -682,6 +684,7 @@ class QueryServer: NSObject {
         
         if let url = urlComponents?.url {
             Alamofire.request(url, method: .patch, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: { (response) in
+                print("\n\n\n^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
                 debugPrint(response)
                 completion(response.error?.localizedDescription)
             })

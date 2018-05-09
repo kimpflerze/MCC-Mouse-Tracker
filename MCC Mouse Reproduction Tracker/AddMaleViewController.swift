@@ -90,7 +90,7 @@ class AddMaleViewController: UIViewController, UITableViewDelegate, UITableViewD
             columnNoTextField.text = String(theCage.column)
             rowNoTextField.text = String(theCage.row)
             
-            maleInTheCage = theCage.maleInCage
+//            maleInTheCage = theCage.maleInCage
             
             if(isNewMale == false) {
                 //Disabling interaction with some textfields/buttons when working with an existing male
@@ -438,7 +438,6 @@ extension AddMaleViewController: QRScannerControllerDelegate {
                         self.maleDOBTextField.text = theLitterDOB.toString(withFormat: "MM-dd-yyyy hh:mm:ss a")
                     }
                 })
-                
             }
             else if (self.lastPressedScanButton == 1){
             //Attempt to update breeding male current cage information
@@ -446,7 +445,7 @@ extension AddMaleViewController: QRScannerControllerDelegate {
                 QueryServer.shared.getBreedingCageBy(id: value, completion: { (cage, error) in
                     if(cage != nil) {
                         //Attempt to move the male to new cage, if male in cage or one degree separation violated, fail to move male
-                        if self.maleInTheCage == true {
+                        if cage?.maleInCage == true {
                             let alert = UIAlertController(title: "Male Exists!", message: "This cage already contains a male!", preferredStyle: .alert)
                             let confirm = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
                             alert.addAction(confirm)
