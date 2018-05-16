@@ -45,7 +45,7 @@ namespace MouseApi.Controllers
 
             for(int i =0; i < QR_CODES_PER_PAGE; i++)
             {
-                var bitMap = _barcodeWriter.Write(Guid.NewGuid().ToString());
+                var bitMap = _barcodeWriter.Write(Guid.NewGuid().ToString("N"));
 
                 if (TryGetColorParam(Request, out _qrCodeColor))
                 {
